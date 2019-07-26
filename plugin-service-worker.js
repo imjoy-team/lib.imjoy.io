@@ -53,7 +53,7 @@ if (workbox) {
 
   const plugin_requirements = new Set();
   const matchCb = ({url, event}) => {
-    console.log('=========>', plugin_requirements)
+    console.log('=========>', url, plugin_requirements, plugin_requirements.has(url))
     return plugin_requirements.has(url);
   };
 

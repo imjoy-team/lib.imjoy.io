@@ -1,4 +1,4 @@
-importScripts("precache-manifest.169e22d08aefff8bdcf543fd648ad398.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+importScripts("precache-manifest.2c39e7c895b541603d35799a0ebc7452.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 /* eslint-disable */
 
@@ -50,9 +50,9 @@ if (workbox) {
         return request.url;
       });
       plugin_requirements = new Set(urls);
-      console.log('cached requirements:', plugin_requirements)
-    })
-  })
+      console.log("cached requirements:", plugin_requirements);
+    });
+  });
 
   self.addEventListener("message", event => {
     if (event.data.action == "skipWaiting") self.skipWaiting();
@@ -94,7 +94,7 @@ if (workbox) {
             return fetch(request)
               .then(function(response) {
                 plugin_requirements.add(event.data.url);
-                console.log("Caching requirement: " + event.data.url);
+                // console.log("Caching requirement: " + event.data.url);
                 return cache.put(event.data.url, response);
               })
               .then(function() {
@@ -130,3 +130,4 @@ if (workbox) {
 } else {
   console.log(`Workbox didn't load (plugin service worker)`);
 }
+

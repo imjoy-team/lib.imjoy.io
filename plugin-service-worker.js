@@ -47,7 +47,7 @@ if (workbox) {
     new workbox.strategies.NetworkFirst()
   );
 
-  workbox.routing.setDefaultHandler(new workbox.strategies.NetworkOnly());
+  workbox.routing.setDefaultHandler(new workbox.strategies.StaleWhileRevalidate());
 
   self.addEventListener("message", event => {
     if (event.data.action == "skipWaiting") self.skipWaiting();

@@ -18,7 +18,10 @@ if (workbox) {
   self.__precacheManifest = self.__precacheManifest || [];
 
   workbox.precaching.suppressWarnings();
-  workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+  workbox.precaching.precacheAndRoute(self.__precacheManifest, {
+    // Ignore all URL parameters.
+    ignoreURLParametersMatching: [/.*/]
+  });
 
   workbox.routing.registerRoute(
     new RegExp("/static/.*"),

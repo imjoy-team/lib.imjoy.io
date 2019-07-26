@@ -20,7 +20,8 @@ if (workbox) {
   workbox.precaching.suppressWarnings();
   workbox.precaching.precacheAndRoute(self.__precacheManifest, {
     // Ignore all URL parameters.
-    ignoreUrlParametersMatching: [/.*/]
+    ignoreUrlParametersMatching: [/.*/],
+    ignoreURLParametersMatching: [/.*/]
   });
 
   workbox.routing.registerRoute(

@@ -10,9 +10,9 @@ if (workbox) {
    * See https://goo.gl/S9QRab
    */
 
-  workbox.setConfig({
-    debug: true
-  });
+  // workbox.setConfig({
+  //   debug: true
+  // });
 
   workbox.core.setCacheNameDetails({ prefix: "lib.imjoy.io" });
   self.__precacheManifest = self.__precacheManifest || [];
@@ -47,7 +47,17 @@ if (workbox) {
     new workbox.strategies.NetworkFirst()
   );
 
-  workbox.routing.setDefaultHandler(new workbox.strategies.StaleWhileRevalidate());
+  const plugin_requirements = new Set();
+  const matchCb = ({url, event}) => {
+    return plugin_requirements.has(url);
+  };
+
+  workbox.routing.registerRoute(
+    matchCb,
+    new workbox.strategies.StaleWhileRevalidate()
+  );
+
+  workbox.routing.setDefaultHandler(new workbox.strategies.NetworkOnly());
 
   self.addEventListener("message", event => {
     if (event.data.action == "skipWaiting") self.skipWaiting();
@@ -88,6 +98,7 @@ if (workbox) {
             var request = new Request(event.data.url, { mode: "no-cors" });
             return fetch(request)
               .then(function(response) {
+                plugin_requirements.add(event.data.url)
                 return cache.put(event.data.url, response);
               })
               .then(function() {
@@ -98,6 +109,7 @@ if (workbox) {
 
           // This command removes a request/response pair from the cache (assuming it exists).
           case "delete":
+            plugin_requirements.delete(event.data.url)
             return cache.delete(event.data.url).then(function(success) {
               event.ports[0].postMessage({
                 error: success ? null : "Item was not found in the cache.",

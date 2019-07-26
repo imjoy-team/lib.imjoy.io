@@ -22,7 +22,7 @@ if (workbox) {
 
   workbox.routing.registerRoute(
     new RegExp("/static/.*"),
-    new workbox.strategies.NetworkFirst()
+    new workbox.strategies.StaleWhileRevalidate()
   );
 
   //communitations
@@ -33,7 +33,7 @@ if (workbox) {
 
   workbox.routing.registerRoute(
     new RegExp("https://static.imjoy.io/.*"),
-    new workbox.strategies.NetworkFirst()
+    new workbox.strategies.StaleWhileRevalidate()
   );
 
   // manifest.imjoy.json etc.
@@ -49,6 +49,7 @@ if (workbox) {
 
   const plugin_requirements = new Set();
   const matchCb = ({url, event}) => {
+    console.log('=========>', plugin_requirements)
     return plugin_requirements.has(url);
   };
 

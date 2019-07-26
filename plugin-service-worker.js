@@ -29,31 +29,13 @@ if (workbox) {
     new workbox.strategies.StaleWhileRevalidate()
   );
 
-  //communitations
-  workbox.routing.registerRoute(
-    new RegExp("(http|https)://.*/socket.io/.*"),
-    new workbox.strategies.NetworkOnly()
-  );
-
   workbox.routing.registerRoute(
     new RegExp("https://static.imjoy.io/.*"),
     new workbox.strategies.StaleWhileRevalidate()
   );
 
-  // manifest.imjoy.json etc.
-  workbox.routing.registerRoute(
-    new RegExp("https://raw.githubusercontent.com/.*"),
-    new workbox.strategies.NetworkFirst()
-  );
-
-  workbox.routing.registerRoute(
-    new RegExp("https://gist.githubusercontent.com/.*"),
-    new workbox.strategies.NetworkFirst()
-  );
-
   const plugin_requirements = new Set();
   const matchCb = ({url, event}) => {
-    console.log('=========>', url, plugin_requirements, plugin_requirements.has(url))
     return plugin_requirements.has(url.href);
   };
 

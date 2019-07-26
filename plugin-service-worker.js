@@ -10,9 +10,9 @@ if (workbox) {
    * See https://goo.gl/S9QRab
    */
 
-  // workbox.setConfig({
-  //   debug: true
-  // });
+  workbox.setConfig({
+    debug: true
+  });
 
   workbox.core.setCacheNameDetails({ prefix: "lib.imjoy.io" });
   self.__precacheManifest = self.__precacheManifest || [];

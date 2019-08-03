@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "15e709ea2958822211b0",
+    "revision": "e27bdd6f79c512a1e47f",
     "url": "/static/css/app.b5cabe29.css"
   },
   {
-    "revision": "15e709ea2958822211b0",
-    "url": "/static/js/app.e0840af0.js"
+    "revision": "e27bdd6f79c512a1e47f",
+    "url": "/static/js/app.1cd1abd9.js"
   },
   {
     "revision": "b8859e2632feade2aed6",
@@ -220,12 +220,16 @@ self.__precacheManifest = [
     "url": "/static/js/chunk-7532b3ea.a401d26a.js"
   },
   {
-    "revision": "3efe1d35b2b8908fcb12",
+    "revision": "eb0f9f6893605386598b",
     "url": "/static/css/chunk-vendors.a046bef8.css"
   },
   {
-    "revision": "3efe1d35b2b8908fcb12",
-    "url": "/static/js/chunk-vendors.1c97cfae.js"
+    "revision": "eb0f9f6893605386598b",
+    "url": "/static/js/chunk-vendors.858c7aff.js"
+  },
+  {
+    "revision": "2a3e222e6a41b32a7180e6afa3675990",
+    "url": "/static/vs/html.worker.js"
   },
   {
     "revision": "493ef474936217113b20a6573247288a",
@@ -236,11 +240,7 @@ self.__precacheManifest = [
     "url": "/static/vs/css.worker.js"
   },
   {
-    "revision": "2a3e222e6a41b32a7180e6afa3675990",
-    "url": "/static/vs/html.worker.js"
-  },
-  {
-    "revision": "f5a293bda5532b0977c301426c2a56cb",
+    "revision": "d26d0f68020e0c5f10a5913782a7cd4e",
     "url": "/index.html"
   },
   {
@@ -488,10 +488,6 @@ self.__precacheManifest = [
     "url": "/static/img/twitter.svg"
   },
   {
-    "revision": "774eded82b6697664906101c0f362f9e",
-    "url": "/static/vs/base/worker/workerMain.js"
-  },
-  {
     "revision": "f1db99b3f880c36fa487f96f37fcc7d2",
     "url": "/static/vs/basic-languages/apex/apex.js"
   },
@@ -630,6 +626,10 @@ self.__precacheManifest = [
   {
     "revision": "90afcd78e12772f3abac47ce83714ea4",
     "url": "/static/vs/basic-languages/redshift/redshift.js"
+  },
+  {
+    "revision": "774eded82b6697664906101c0f362f9e",
+    "url": "/static/vs/base/worker/workerMain.js"
   },
   {
     "revision": "524db18624629ebed6788b26cbf4820e",

@@ -1,11 +1,23 @@
 self.__precacheManifest = [
   {
-    "revision": "197893af9f4aabde867a",
+    "revision": "3f0fcc7f192b65c2a3e9",
     "url": "imjoy-core.min.js"
   },
   {
-    "revision": "822307b777cd48c053d172bf2504d4a8",
+    "revision": "211bafc86c3c85ec2d5f53e61ff62dc0",
+    "url": "CNAME"
+  },
+  {
+    "revision": "32f21f8d8b3b4958abc08b374b1cffda",
     "url": "static/jailed/jailed.js"
+  },
+  {
+    "revision": "e746a14e8509508a34373fd30bff1947",
+    "url": "plugin-service-worker.js"
+  },
+  {
+    "revision": "f9bf1db80923c73a2a8aac899bae0c16",
+    "url": "joy.css"
   },
   {
     "revision": "57b010e2ad23bba6a8b626b01a83bf4d",
@@ -38,9 +50,5 @@ self.__precacheManifest = [
   {
     "revision": "c55b8ba5d81a083118595089a07bc9d3",
     "url": "static/jailed/_pluginWebWorker.js"
-  },
-  {
-    "revision": "f9bf1db80923c73a2a8aac899bae0c16",
-    "url": "joy.css"
   }
 ];

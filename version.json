@@ -1,1 +1,1 @@
-{"name": "imjoy", "version": "0.10.27", "description": "ImJoy -- deep learning made easy."}
+{"name": "imjoy-core", "version": "0.11.4", "description": "The core library for ImJoy -- a sandboxed plugin framework for computational web applications."}

@@ -24,21 +24,7 @@ import { getBackendByType } from "../api.js";
 
 import DOMPurify from "dompurify";
 
-var JailedConfig = {};
-
-// web
-if (
-  location.hostname === "localhost" ||
-  location.hostname === "127.0.0.1" ||
-  location.hostname.startsWith("deploy-preview-")
-) {
-  JailedConfig.asset_url = `${location.protocol}//${location.hostname}${
-    location.port ? ":" + location.port : ""
-  }/static/jailed/`;
-} else {
-  JailedConfig.asset_url = "https://lib.imjoy.io/static/jailed/";
-}
-
+var JailedConfig = { asset_url: "https://lib.imjoy.io/static/jailed/" };
 /**
  * Initializes the library site for web environment (loads
  * _JailedSite.js)
@@ -1002,4 +988,4 @@ DynamicPlugin.prototype.progress = function(p) {
   else this._progress = p;
 };
 
-export { initializeJailed, DynamicPlugin, Plugin };
+export { initializeJailed, DynamicPlugin };

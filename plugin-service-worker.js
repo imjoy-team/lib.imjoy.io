@@ -1,3 +1,5 @@
+importScripts("precache-manifest.75f0cd40fbce794005e96a5c76c1e0f9.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+
 /* eslint-disable */
 
 if (typeof workbox !== "undefined") {
@@ -146,3 +148,4 @@ if (typeof workbox !== "undefined") {
 } else {
   console.log(`Workbox didn't load (plugin service worker)`);
 }
+

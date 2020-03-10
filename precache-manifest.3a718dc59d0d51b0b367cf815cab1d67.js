@@ -8,6 +8,14 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "imjoy-core.min.js"
   },
   {
+    "revision": "1eb4e1d724ac50a06aae06f043a5d30d",
+    "url": "package-lock.json"
+  },
+  {
+    "revision": "d5f0c553ce833d0c36b0652745b67303",
+    "url": "package.json"
+  },
+  {
     "revision": "3861bba59c0ffe132414e978800112a8",
     "url": "static/jailed/_JailedSite.js"
   },

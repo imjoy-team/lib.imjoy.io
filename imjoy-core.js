@@ -53555,7 +53555,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, private, description, author, license, repository, keywords, bugs, homepage, scripts, dependencies, devDependencies, eslintConfig, prettier, postcss, browserslist, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.11.9\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development --filename imjoy-core.js && webpack --config webpack.library.js --mode production --filename imjoy-core.min.js --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --filename imjoy-core.module.js\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":6,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/*.js\":\"eslint --cache --fix\",\"{src,tests}/**/**}\":\"prettier --write\"}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.11.10\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development --filename imjoy-core.js && webpack --config webpack.library.js --mode production --filename imjoy-core.min.js --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --filename imjoy-core.module.js\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":6,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\",\"{src,tests}/**/*.js\":\"eslint --cache --fix\"}}");
 
 /***/ }),
 
@@ -59617,18 +59617,32 @@ class PluginManager {
       config.asset_url = this.jailed_asset_url;
     }
 
-    for (let pn in this.internal_plugins) {
-      this.normalizePluginUrl(this.internal_plugins[pn].uri).then(obj => {
-        if (obj.uri) {
-          Object(_utils_js__WEBPACK_IMPORTED_MODULE_5__["cacheUrlInServiceWorker"])(obj.uri)
-            .then(() => {
-              console.log("cached internal plugin ", obj.uri);
-            })
-            .catch(e => {
-              console.error(e);
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then(() => {
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          console.log(
+            "Service worker is active and the controller is available, caching internal plugins..."
+          );
+          for (let pn in this.internal_plugins) {
+            this.normalizePluginUrl(this.internal_plugins[pn].uri).then(obj => {
+              if (obj.uri) {
+                Object(_utils_js__WEBPACK_IMPORTED_MODULE_5__["cacheUrlInServiceWorker"])(obj.uri)
+                  .then(() => {
+                    console.log(
+                      "Internal plugin cached in the service worker",
+                      obj.uri
+                    );
+                  })
+                  .catch(e => {
+                    console.error(e);
+                  });
+              }
             });
-        }
+          }
+        });
       });
+    } else {
+      console.log("Service workers are not supported.");
     }
 
     await Object(_jailed_jailed_js__WEBPACK_IMPORTED_MODULE_7__["initializeJailed"])(config);

@@ -126,12 +126,13 @@ if (typeof workbox !== "undefined") {
             return fetch(request)
               .then(function(response) {
                 plugin_requirements.add(event.data.url);
-                // console.log("Caching requirement: " + event.data.url);
+                console.log("Caching requirement: " + event.data.url);
                 return cache.put(event.data.url, response);
               })
-              .then(function() {
+              .catch(function(e) {
+                console.log("Failed to cache requirement: " + event.data.url);
                 event.ports[0].postMessage({
-                  error: null,
+                  error: e,
                 });
               });
 

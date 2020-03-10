@@ -1,4 +1,4 @@
-importScripts("precache-manifest.3a718dc59d0d51b0b367cf815cab1d67.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.868e12da79687054ce845b6fa41a787d.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable */
 if (typeof workbox !== "undefined") {
@@ -10,7 +10,7 @@ if (typeof workbox !== "undefined") {
    */
 
   workbox.setConfig({
-    debug: true,
+    debug: false,
   });
 
   workbox.core.setCacheNameDetails({ prefix: "lib.imjoy.io" });

@@ -53546,7 +53546,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, private, description, author, license, repository, keywords, bugs, homepage, scripts, dependencies, devDependencies, eslintConfig, prettier, postcss, browserslist, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.11.7\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development --filename imjoy-core.js && webpack --config webpack.library.js --mode production --filename imjoy-core.min.js --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --filename imjoy-core.module.js\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"check\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"node\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\"}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/*.js\":\"eslint --cache --fix\",\"{src,tests}/**/**}\":\"prettier --write\"}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.11.7-alpha4\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development --filename imjoy-core.js && webpack --config webpack.library.js --mode production --filename imjoy-core.min.js --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --filename imjoy-core.module.js\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"check\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"node\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\"}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/*.js\":\"eslint --cache --fix\",\"{src,tests}/**/**}\":\"prettier --write\"}}");
 
 /***/ }),
 
@@ -54110,34 +54110,6 @@ function promisify_functions(obj) {
   }
 }
 
-function _sendToServiceWorker(message) {
-  return new Promise(function(resolve, reject) {
-    if (!navigator.serviceWorker || !navigator.serviceWorker.register) {
-      reject("Service worker is not supported.");
-      return;
-    }
-    var messageChannel = new MessageChannel();
-    messageChannel.port1.onmessage = function(event) {
-      if (event.data && event.data.error) {
-        reject(event.data.error);
-      } else {
-        resolve(event.data && event.data.result);
-      }
-    };
-
-    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage(message, [
-        messageChannel.port2,
-      ]);
-    } else {
-      console.warn(
-        "service worker controller is not available, message:",
-        message
-      );
-    }
-  });
-}
-
 async function cacheRequirements(requirements) {
   if (requirements && requirements.length > 0) {
     for (let req of requirements) {
@@ -54147,14 +54119,10 @@ async function cacheRequirements(requirements) {
       if (req.startsWith("cache:")) req = req.slice(6);
       if (!req.startsWith("http")) continue;
 
-      try{
-        await _sendToServiceWorker({
-          command: "add",
-          url: req,
-        });
-      }
-      catch(e){
-        console.error(e)
+      try {
+        await Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__["cacheUrlInServiceWorker"])(req);
+      } catch (e) {
+        console.error(e);
       }
     }
   }
@@ -54212,7 +54180,6 @@ const evil_engine = {
           },
           api_interface
         );
-        await cacheRequirements(config.requirements);
         for (let i = 0; i < config.scripts.length; i++) {
           await execute(
             {
@@ -54225,6 +54192,8 @@ const evil_engine = {
             api_interface
           );
         }
+        debugger;
+        await cacheRequirements(config.requirements);
       } catch (e) {
         reject(e);
       }
@@ -59639,6 +59608,21 @@ class PluginManager {
     if (this.jailed_asset_url) {
       config.asset_url = this.jailed_asset_url;
     }
+
+    for (let pn in this.internal_plugins) {
+      this.normalizePluginUrl(this.internal_plugins[pn].uri).then(obj => {
+        if (obj.uri) {
+          Object(_utils_js__WEBPACK_IMPORTED_MODULE_5__["cacheUrlInServiceWorker"])(obj.uri)
+            .then(() => {
+              console.log("cached internal plugin ", obj.uri);
+            })
+            .catch(e => {
+              console.error(e);
+            });
+        }
+      });
+    }
+
     await Object(_jailed_jailed_js__WEBPACK_IMPORTED_MODULE_7__["initializeJailed"])(config);
 
     this.plugins = {};
@@ -60172,9 +60156,9 @@ class PluginManager {
     }
   }
 
-  async getPluginFromUrl(uri, scoped_plugins) {
-    scoped_plugins = scoped_plugins || this.available_plugins;
+  async normalizePluginUrl(uri, scoped_plugins) {
     let selected_tag;
+    scoped_plugins = scoped_plugins || this.available_plugins;
     if (
       (uri.includes("github.com") && uri.includes("/blob/")) ||
       uri.includes("gist.github.com")
@@ -60227,6 +60211,16 @@ class PluginManager {
     if (!uri.split("?")[0].endsWith(".imjoy.html")) {
       throw 'Plugin url must be ends with ".imjoy.html"';
     }
+    debugger;
+    return { uri, scoped_plugins, selected_tag };
+  }
+
+  async getPluginFromUrl(uri, scoped_plugins) {
+    const obj = await this.normalizePluginUrl(uri, scoped_plugins);
+    uri = obj.uri;
+    scoped_plugins = obj.scoped_plugins;
+    const selected_tag = obj.selected_tag;
+
     // If the url has no query parameter, then add random query string to avoid browser caching
     if (uri.indexOf("?") === -1) {
       uri = uri + "?" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_5__["randId"])();
@@ -62585,11 +62579,12 @@ function parseComponent(content, options) {
 /*!**********************!*\
   !*** ./src/utils.js ***!
   \**********************/
-/*! exports provided: parseComponent, Whenable, assert, isTouchDevice, compareVersions, pathJoin, dirName, url_regex, debounce, animalGenerator, colourGenerator, randId, _clone, Filters, isUrl, githubUrlToObject, githubUrlRaw, githubImJoyManifest, githubRepo, hot_lut */
+/*! exports provided: parseComponent, cacheUrlInServiceWorker, Whenable, assert, isTouchDevice, compareVersions, pathJoin, dirName, url_regex, debounce, animalGenerator, colourGenerator, randId, _clone, Filters, isUrl, githubUrlToObject, githubUrlRaw, githubImJoyManifest, githubRepo, hot_lut */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cacheUrlInServiceWorker", function() { return cacheUrlInServiceWorker; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Whenable", function() { return Whenable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "assert", function() { return assert; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTouchDevice", function() { return isTouchDevice; });
@@ -62618,6 +62613,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+function cacheUrlInServiceWorker(url) {
+  return new Promise(function(resolve, reject) {
+    const message = {
+      command: "add",
+      url: url,
+    };
+    if (!navigator.serviceWorker || !navigator.serviceWorker.register) {
+      reject("Service worker is not supported.");
+      return;
+    }
+    const messageChannel = new MessageChannel();
+    messageChannel.port1.onmessage = function(event) {
+      if (event.data && event.data.error) {
+        reject(event.data.error);
+      } else {
+        resolve(event.data && event.data.result);
+      }
+    };
+
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage(message, [
+        messageChannel.port2,
+      ]);
+    } else {
+      reject("Service worker controller is not available");
+    }
+  });
+}
 
 /**
  * A special kind of event:

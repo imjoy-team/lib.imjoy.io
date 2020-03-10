@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "CNAME"
   },
   {
-    "revision": "bbec3c51f55b2caa4e1a",
+    "revision": "9d7e7d0686fce4307797",
     "url": "imjoy-core.min.js"
   },
   {
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/jailed/_frame.html"
   },
   {
-    "revision": "128e71b7f126be8bc72b94e64c55988c",
+    "revision": "ffeda7b5f9d4b56b28ca51137a2bca6f",
     "url": "static/jailed/_frame.js"
   },
   {

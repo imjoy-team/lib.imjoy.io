@@ -1,4 +1,4 @@
-importScripts("precache-manifest.32d1b56fa9a1607ac63b87606b01a953.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.fc783a8cfca15a585639c12b43a9dc38.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable */
 if (typeof workbox !== "undefined") {
@@ -75,31 +75,28 @@ if (typeof workbox !== "undefined") {
     if (event.data && event.data.command) {
       // Use the Cache Storage API directly,
       // and add to the default runtime cache:
+      var resolve = function(result){
+        event.ports[0].postMessage(result);
+      }
+      var reject = function(error){
+        event.ports[0].postMessage({error: error});
+      }
+
       caches.open(workbox.core.cacheNames.runtime).then(function(cache) {
         switch (event.data.command) {
           // This command returns a list of the URLs corresponding to the Request objects
           // that serve as keys for the current cache.
           case "keys":
-            return cache
+            cache
               .keys()
               .then(function(requests) {
                 var urls = requests.map(function(request) {
                   return request.url;
                 });
 
-                return urls.sort();
+                resolve(urls.sort());
               })
-              .then(function(urls) {
-                // event.ports[0] corresponds to the MessagePort that was transferred as part of the controlled page's
-                // call to controller.postMessage(). Therefore, event.ports[0].postMessage() will trigger the onmessage
-                // handler from the controlled page.
-                // It's up to you how to structure the messages that you send back; this is just one example.
-                event.ports[0].postMessage({
-                  error: null,
-                  urls: urls,
-                });
-              });
-
+            break;
           // This command adds a new request/response pair to the cache.
           case "add":
             // If event.data.url isn't a valid URL, new Request() will throw a TypeError which will be handled
@@ -113,35 +110,37 @@ if (typeof workbox !== "undefined") {
               hostname === "127.0.0.1"
             ) {
               console.log("Skip caching local file " + event.data.url);
+              resolve();
               return;
             }
 
             var request = new Request(event.data.url);
-            return fetch(request)
+            fetch(request)
               .then(function(response) {
                 plugin_requirements.add(event.data.url);
                 console.log("Caching requirement: " + event.data.url);
-                return cache.put(event.data.url, response);
+                cache.put(event.data.url, response).then(resolve).catch(reject);
               })
               .catch(function(e) {
                 console.error('Failed to cache requirement: ' + event.data.url)
-                event.ports[0].postMessage({
-                  error: e,
-                });
+                reject(e)
               });
-
+            break;
           // This command removes a request/response pair from the cache (assuming it exists).
           case "delete":
             plugin_requirements.delete(event.data.url);
-            return cache.delete(event.data.url).then(function(success) {
-              event.ports[0].postMessage({
-                error: success ? null : "Item was not found in the cache.",
-              });
+            cache.delete(event.data.url).then(function(success) {
+              if(success){
+                resolve()
+              }
+              else{
+                reject("Item was not found in the cache.")
+              }
             });
-
+            break;
           default:
             // This will be handled by the outer .catch().
-            throw Error("Unknown command: " + event.data.command);
+            reject(new Error("Unknown command: " + event.data.command));
         }
       });
     }

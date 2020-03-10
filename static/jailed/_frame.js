@@ -71,10 +71,16 @@ async function cacheRequirements(requirements) {
       if (req.startsWith("css:")) req = req.slice(4);
       if (req.startsWith("cache:")) req = req.slice(6);
       if (!req.startsWith("http")) continue;
-      await _sendToServiceWorker({
-        command: "add",
-        url: req,
-      });
+      try{
+        await _sendToServiceWorker({
+          command: "add",
+          url: req,
+        });
+      }
+      catch(e){
+        console.error(e)
+      }
+      
     }
   }
 }

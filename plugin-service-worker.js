@@ -108,13 +108,19 @@ if (typeof workbox !== "undefined") {
             // by the outer .catch().
 
             // do not cache localhost requests
+            
             const hostname = parseURL(event.data.url).hostname;
             if (
               !hostname ||
               hostname === "localhost" ||
               hostname === "127.0.0.1"
-            )
+            ){
+              console.log('skip adding file to cache', event.data.url)
               return;
+            }
+            else{
+              console.log('adding file to cache', event.data.url)
+            }
 
             var request = new Request(event.data.url);
             return fetch(request)

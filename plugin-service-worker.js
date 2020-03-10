@@ -1,4 +1,4 @@
-importScripts("precache-manifest.a83a26f6792fd42dbc8c91c8199380e1.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.ce6a759d13d7dc44819c64eb0d651c02.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable */
 if (typeof workbox !== "undefined") {
@@ -54,24 +54,6 @@ if (typeof workbox !== "undefined") {
     });
   });
 
-  var reg_match_url = /^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/;
-  function parseURL(href) {
-    var match = href.match(reg_match_url);
-    return (
-      (match && {
-        href: href,
-        protocol: match[1],
-        host: match[2],
-        hostname: match[3],
-        port: match[4],
-        pathname: match[5],
-        search: match[6],
-        hash: match[7],
-      }) ||
-      {}
-    );
-  }
-
   self.addEventListener("message", function(event) {
     if (event.data.action == "skipWaiting") self.skipWaiting();
     if (event.data && event.data.command) {
@@ -105,7 +87,7 @@ if (typeof workbox !== "undefined") {
             // by the outer .catch().
 
             // do not cache localhost requests
-            var hostname = parseURL(event.data.url).hostname;
+            var hostname = new URL(event.data.url).hostname;
             if (
               !hostname ||
               hostname === "localhost" ||

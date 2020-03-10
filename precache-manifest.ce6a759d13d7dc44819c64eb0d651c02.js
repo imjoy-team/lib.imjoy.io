@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "CNAME"
   },
   {
-    "revision": "5518fe61de5d2c32164c",
+    "revision": "bbec3c51f55b2caa4e1a",
     "url": "imjoy-core.min.js"
   },
   {

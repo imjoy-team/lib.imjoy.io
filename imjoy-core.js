@@ -54015,7 +54015,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function _importScript(url, scope) {
-  const response = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url + "?" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__["randId"])());
+  const response = await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url);
   if (response && response.status == 200 && response.data) {
     const code = response.data;
     evalInScope(code, scope);
@@ -54119,6 +54119,56 @@ function promisify_functions(obj) {
   }
 }
 
+function _sendToServiceWorker(message) {
+  return new Promise(function(resolve, reject) {
+    if (!navigator.serviceWorker || !navigator.serviceWorker.register) {
+      reject("Service worker is not supported.");
+      return;
+    }
+    var messageChannel = new MessageChannel();
+    messageChannel.port1.onmessage = function(event) {
+      if (event.data && event.data.error) {
+        reject(event.data.error);
+      } else {
+        resolve(event.data && event.data.result);
+      }
+    };
+
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage(message, [
+        messageChannel.port2,
+      ]);
+    } else {
+      console.warn(
+        "service worker controller is not available, message:",
+        message
+      );
+    }
+  });
+}
+
+async function cacheRequirements(requirements) {
+  if (requirements && requirements.length > 0) {
+    for (let req of requirements) {
+      //remove prefix
+      if (req.startsWith("js:")) req = req.slice(3);
+      if (req.startsWith("css:")) req = req.slice(4);
+      if (req.startsWith("cache:")) req = req.slice(6);
+      if (!req.startsWith("http")) continue;
+
+      try{
+        await _sendToServiceWorker({
+          command: "add",
+          url: req,
+        });
+      }
+      catch(e){
+        console.error(e)
+      }
+    }
+  }
+}
+
 const evil_engine = {
   type: "engine",
   pluginType: "evil",
@@ -54171,6 +54221,7 @@ const evil_engine = {
           },
           api_interface
         );
+        await cacheRequirements(config.requirements);
         for (let i = 0; i < config.scripts.length; i++) {
           await execute(
             {

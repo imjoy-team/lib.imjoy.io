@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/jailed/_frame.html"
   },
   {
-    "revision": "1e5c277379a3e606db611f865df9c270",
+    "revision": "128e71b7f126be8bc72b94e64c55988c",
     "url": "static/jailed/_frame.js"
   },
   {

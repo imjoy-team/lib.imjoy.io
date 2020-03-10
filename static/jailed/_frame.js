@@ -43,10 +43,10 @@ function _sendToServiceWorker(message) {
     }
     var messageChannel = new MessageChannel();
     messageChannel.port1.onmessage = function(event) {
-      if (event.data.error) {
+      if (event.data && event.data.error) {
         reject(event.data.error);
       } else {
-        resolve(event.data);
+        resolve(event.data && event.data.result);
       }
     };
 
@@ -71,6 +71,7 @@ async function cacheRequirements(requirements) {
       if (req.startsWith("css:")) req = req.slice(4);
       if (req.startsWith("cache:")) req = req.slice(6);
       if (!req.startsWith("http")) continue;
+
       try{
         await _sendToServiceWorker({
           command: "add",
@@ -80,7 +81,6 @@ async function cacheRequirements(requirements) {
       catch(e){
         console.error(e)
       }
-      
     }
   }
 }

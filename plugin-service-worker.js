@@ -1,4 +1,4 @@
-importScripts("precache-manifest.fc783a8cfca15a585639c12b43a9dc38.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.a83a26f6792fd42dbc8c91c8199380e1.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable */
 if (typeof workbox !== "undefined") {
@@ -76,7 +76,7 @@ if (typeof workbox !== "undefined") {
       // Use the Cache Storage API directly,
       // and add to the default runtime cache:
       var resolve = function(result){
-        event.ports[0].postMessage(result);
+        event.ports[0].postMessage({result: result});
       }
       var reject = function(error){
         event.ports[0].postMessage({error: error});

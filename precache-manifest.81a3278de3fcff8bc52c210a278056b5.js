@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "CNAME"
   },
   {
-    "revision": "4bb32543b59448139da7",
+    "revision": "5eeaf695b2a67ed649bb",
     "url": "imjoy-core.min.js"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "package-lock.json"
   },
   {
-    "revision": "23f2d2c8f32d73502fd9c6a46d930ca2",
+    "revision": "6323f69b370e92e405dcfac360dbb5f6",
     "url": "package.json"
   },
   {

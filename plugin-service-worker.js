@@ -1,4 +1,4 @@
-importScripts("precache-manifest.fcc34d28f42a391c7cfe470e2150a2a2.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.2d8a67fbd5c62ee6f9c793f0c011b6f4.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable */
 if (typeof workbox !== "undefined") {
@@ -10,7 +10,7 @@ if (typeof workbox !== "undefined") {
    */
 
   workbox.setConfig({
-    debug: false,
+    debug: true,
   });
 
   workbox.core.setCacheNameDetails({ prefix: "lib.imjoy.io" });
@@ -41,8 +41,6 @@ if (typeof workbox !== "undefined") {
     matchCb,
     new workbox.strategies.StaleWhileRevalidate()
   );
-
-  workbox.routing.setDefaultHandler(new workbox.strategies.NetworkOnly());
 
   caches.open(workbox.core.cacheNames.runtime).then(function(cache) {
     cache.keys().then(function(requests) {

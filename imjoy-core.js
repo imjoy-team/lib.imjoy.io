@@ -53767,6 +53767,7 @@ const FILE_MANAGER_SCHEMA = ajv.compile({
     name: { type: "string" },
     type: { enum: ["file-manager"] },
     url: { type: "string" },
+    shwoFileDialog: { instanceof: Function },
     listFiles: { instanceof: Function },
     getFile: { instanceof: Function },
     putFile: { instanceof: Function },

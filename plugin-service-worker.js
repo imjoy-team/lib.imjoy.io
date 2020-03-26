@@ -1,4 +1,4 @@
-importScripts("precache-manifest.d0d36df506e3ac7b21d70ea7e613cc99.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.0ee57454b15987ec5d8622d48d70a06c.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable */
 if (typeof workbox !== "undefined") {
@@ -29,6 +29,11 @@ if (typeof workbox !== "undefined") {
 
   workbox.routing.registerRoute(
     new RegExp("https://static.imjoy.io/.*"),
+    new workbox.strategies.StaleWhileRevalidate()
+  );
+
+  workbox.routing.registerRoute(
+    new RegExp("(http|https)://lib.imjoy.io/.*"),
     new workbox.strategies.StaleWhileRevalidate()
   );
 

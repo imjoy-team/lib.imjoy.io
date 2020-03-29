@@ -4,15 +4,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "CNAME"
   },
   {
-    "revision": "3309073f23f552166d24",
+    "revision": "3a0a456aa96180ecdaf6",
     "url": "imjoy-core.min.js"
   },
   {
-    "revision": "1e4ee4187dc5c2670617f6365f4a3747",
+    "revision": "6e347751ebda74194951570d770493fe",
     "url": "package-lock.json"
   },
   {
-    "revision": "59c6b33d554d6e662729bb2b676ea237",
+    "revision": "1a0e6addfb1fd0ecc693015120bfca63",
     "url": "package.json"
   },
   {
@@ -24,16 +24,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/jailed/_frame.html"
   },
   {
-    "revision": "ffeda7b5f9d4b56b28ca51137a2bca6f",
+    "revision": "487ae3903a60e003cebb9349fec2bf7c",
     "url": "static/jailed/_frame.js"
   },
   {
     "revision": "3c947349d7fe3b84b65a0501ec4958f3",
     "url": "static/jailed/_pluginCore.js"
-  },
-  {
-    "revision": "97170c9eb452d98e6489cdda29d414d9",
-    "url": "static/jailed/_pluginNode.js"
   },
   {
     "revision": "ee12fb6f6f0d1c97f3e3c47b472b871d",
@@ -48,7 +44,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/jailed/_pluginWebWorker.js"
   },
   {
-    "revision": "32f21f8d8b3b4958abc08b374b1cffda",
+    "revision": "d7ae0506f8c89cbe45aa7355338a2f39",
     "url": "static/jailed/jailed.js"
   },
   {

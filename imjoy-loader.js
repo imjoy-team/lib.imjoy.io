@@ -1,4 +1,6 @@
 (function() {
+  var _parts = document.currentScript.src.split("/");
+  var scriptBaseUrl = _parts.slice(0, _parts.length - 1).join("/") + "/";
   function _inIframe() {
     try {
       return window.self !== window.top;
@@ -34,8 +36,7 @@
         config.version
       }/dist/`;
     } else {
-      var _parts = document.currentScript.src.split("/");
-      baseUrl = _parts.slice(0, _parts.length - 1).join("/") + "/";
+      baseUrl = scriptBaseUrl;
     }
     if (config.debug) {
       await _injectScript(baseUrl + "imjoy-core.js");
@@ -59,8 +60,7 @@
             config.version
           }/dist/`;
         } else {
-          var _parts = document.currentScript.src.split("/");
-          baseUrl = _parts.slice(0, _parts.length - 1).join("/") + "/";
+          baseUrl = scriptBaseUrl;
         }
         _injectScript(baseUrl + "static/jailed/_frame.js")
           .then(() => {
@@ -75,7 +75,6 @@
           new Error("The plugins script can only be used inside an iframe.")
         );
       }
-      return window.api;
     });
   };
 })();

@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "core-example.html"
   },
   {
-    "revision": "8b5195b032e41b025aae",
+    "revision": "2b7035cdad5633be5018",
     "url": "imjoy-core.min.js"
   },
   {
@@ -56,7 +56,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/jailed/_pluginWebWorker.js"
   },
   {
-    "revision": "d7ae0506f8c89cbe45aa7355338a2f39",
+    "revision": "2de6fde4820c20a0875805df32a57224",
     "url": "static/jailed/jailed.js"
   },
   {

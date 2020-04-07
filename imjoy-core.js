@@ -55207,56 +55207,62 @@ DynamicPlugin.prototype._sendInterface = function() {
  */
 DynamicPlugin.prototype._loadPlugin = async function() {
   try {
-    if (this.config.requirements) {
-      await this._connection.execute({
-        type: "requirements",
-        lang: this.config.lang,
-        requirements: this.config.requirements,
-        env: this.config.env,
-      });
-    }
-    if (
-      this.config.type === "iframe" ||
-      this.config.type === "window" ||
-      this.config.type === "web-python-window"
-    ) {
-      for (let i = 0; i < this.config.styles.length; i++) {
+    if (this.config.window_type !== "external") {
+      if (this.config.requirements) {
         await this._connection.execute({
-          type: "style",
-          content: this.config.styles[i].content,
-          attrs: this.config.styles[i].attrs,
-          src: this.config.styles[i].attrs.src,
+          type: "requirements",
+          lang: this.config.lang,
+          requirements: this.config.requirements,
+          env: this.config.env,
         });
       }
-      for (let i = 0; i < this.config.links.length; i++) {
-        await this._connection.execute({
-          type: "link",
-          rel: this.config.links[i].attrs.rel,
-          type_: this.config.links[i].attrs.type,
-          attrs: this.config.links[i].attrs,
-          href: this.config.links[i].attrs.href,
-        });
+      if (
+        this.config.type === "iframe" ||
+        this.config.type === "window" ||
+        this.config.type === "web-python-window"
+      ) {
+        for (let i = 0; i < this.config.styles.length; i++) {
+          await this._connection.execute({
+            type: "style",
+            content: this.config.styles[i].content,
+            attrs: this.config.styles[i].attrs,
+            src: this.config.styles[i].attrs.src,
+          });
+        }
+        for (let i = 0; i < this.config.links.length; i++) {
+          await this._connection.execute({
+            type: "link",
+            rel: this.config.links[i].attrs.rel,
+            type_: this.config.links[i].attrs.type,
+            attrs: this.config.links[i].attrs,
+            href: this.config.links[i].attrs.href,
+          });
+        }
+        for (let i = 0; i < this.config.windows.length; i++) {
+          await this._connection.execute({
+            type: "html",
+            content: this.config.windows[i].content,
+            attrs: this.config.windows[i].attrs,
+          });
+        }
       }
-      for (let i = 0; i < this.config.windows.length; i++) {
+      for (let i = 0; i < this.config.scripts.length; i++) {
         await this._connection.execute({
-          type: "html",
-          content: this.config.windows[i].content,
-          attrs: this.config.windows[i].attrs,
+          type: "script",
+          content: this.config.scripts[i].content,
+          lang: this.config.scripts[i].attrs.lang,
+          attrs: this.config.scripts[i].attrs,
+          src: this.config.scripts[i].attrs.src,
         });
       }
     }
-    for (let i = 0; i < this.config.scripts.length; i++) {
-      await this._connection.execute({
-        type: "script",
-        content: this.config.scripts[i].content,
-        lang: this.config.scripts[i].attrs.lang,
-        attrs: this.config.scripts[i].attrs,
-        src: this.config.scripts[i].attrs.src,
-      });
-    }
+
     this._requestRemote();
   } catch (e) {
-    this._fCb((e && e.toString()) || "Error");
+    this._fCb(
+      ( true && e.toString()) ||
+        "Error in loading plugin"
+    );
   }
 };
 

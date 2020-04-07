@@ -66,7 +66,7 @@
           .then(() => {
             window.addEventListener("imjoy_api_ready", e => {
               // imjoy plugin api
-              resolve(e.details);
+              resolve(e.detail);
             });
           })
           .catch(reject);

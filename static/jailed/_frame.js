@@ -7,7 +7,7 @@
  * this happens, the plugin initialized right inside the frame (in the
  * same thread)
  */
-(function(){
+(function() {
   function inIframe() {
     try {
       return window.self !== window.top;
@@ -16,8 +16,8 @@
     }
   }
 
-  var _parts = document.currentScript.src.split('/');
-  var asset_url = _parts.slice(0, _parts.length -1 ).join('/') + '/';
+  var _parts = document.currentScript.src.split("/");
+  var asset_url = _parts.slice(0, _parts.length - 1).join("/") + "/";
 
   var getParamValue = function(paramName) {
     var url = window.location.search.substring(1); //get rid of "?" in querystring
@@ -97,7 +97,9 @@
 
     var blobUrl = window.URL.createObjectURL(new Blob([blobCode]));
 
-    var worker = new Worker(blobUrl, { name: plugin_name || "plugin_webworker" });
+    var worker = new Worker(blobUrl, {
+      name: plugin_name || "plugin_webworker",
+    });
 
     // telling worker to load _pluginWebWorker.js (see blob code above)
     worker.postMessage({
@@ -181,7 +183,7 @@
         }
       };
 
-      parentNode.appendChild(script);
+      document.head.appendChild(script);
     };
 
     // handles script loading error
@@ -236,7 +238,7 @@
         }
       };
 
-      parentNode.appendChild(script);
+      document.head.appendChild(script);
     };
 
     // handles script loading error
@@ -307,8 +309,7 @@
         }
       }
     });
-  }
-  else{
-    console.warn('_frame.js should only run inside an iframe.')
+  } else {
+    console.warn("_frame.js should only run inside an iframe.");
   }
 })();

@@ -35,8 +35,8 @@
         config.version
       }/dist/`;
     } else {
-      var _parts = document.currentScript.src.split('/');
-      baseUrl = _parts.slice(0, _parts.length -1 ).join('/') + '/';
+      var _parts = document.currentScript.src.split("/");
+      baseUrl = _parts.slice(0, _parts.length - 1).join("/") + "/";
     }
     if (config.debug) {
       await _injectScript(baseUrl + "imjoy-core.js");
@@ -59,8 +59,8 @@
           config.version
         }/dist/`;
       } else {
-        var _parts = document.currentScript.src.split('/');
-        baseUrl = _parts.slice(0, _parts.length -1 ).join('/') + '/';
+        var _parts = document.currentScript.src.split("/");
+        baseUrl = _parts.slice(0, _parts.length - 1).join("/") + "/";
       }
       await _injectScript(baseUrl + "static/jailed/_frame.js");
     } else {

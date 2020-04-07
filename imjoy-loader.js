@@ -21,19 +21,6 @@
     });
   }
 
-  function _getScriptUrl() {
-    var scripts = document.getElementsByTagName("script");
-    var thisScript = scripts[scripts.length - 1];
-    var parentNode = thisScript.parentNode;
-    var asset_url =
-      thisScript.src
-        .split("?")[0]
-        .split("/")
-        .slice(0, -1)
-        .join("/") + "/";
-    return asset_url;
-  }
-
   // Load the imjoy core script
   // it support the following options:
   // 1) version, you can specify a specific version of the core,
@@ -48,7 +35,8 @@
         config.version
       }/dist/`;
     } else {
-      baseUrl = _getScriptUrl();
+      var _parts = document.currentScript.src.split('/');
+      baseUrl = _parts.slice(0, _parts.length -1 ).join('/') + '/';
     }
     if (config.debug) {
       await _injectScript(baseUrl + "imjoy-core.js");
@@ -71,7 +59,8 @@
           config.version
         }/dist/`;
       } else {
-        baseUrl = _getScriptUrl();
+        var _parts = document.currentScript.src.split('/');
+        baseUrl = _parts.slice(0, _parts.length -1 ).join('/') + '/';
       }
       await _injectScript(baseUrl + "static/jailed/_frame.js");
     } else {

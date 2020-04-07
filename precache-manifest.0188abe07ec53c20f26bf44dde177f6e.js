@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "imjoy-core.min.js"
   },
   {
-    "revision": "dbcb317ee41dfab4104be43349755b71",
+    "revision": "7d23cbbbff200feab7e7cebb2b1bfe2c",
     "url": "imjoy-loader.js"
   },
   {
@@ -40,7 +40,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/jailed/_frame.js"
   },
   {
-    "revision": "3c947349d7fe3b84b65a0501ec4958f3",
+    "revision": "baa329bde983cc516a3e72af8a769691",
     "url": "static/jailed/_pluginCore.js"
   },
   {

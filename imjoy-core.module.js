@@ -61624,7 +61624,7 @@ class PluginManager {
             wconfig
           );
           window_config.type = "window";
-          window_config.id = Object(_utils_js__WEBPACK_IMPORTED_MODULE_5__["randId"])();
+          window_config.id = "external_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_5__["randId"])();
           delete window_config.data;
           delete window_config.config;
         } else {

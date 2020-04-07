@@ -53546,7 +53546,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, private, description, author, license, repository, keywords, bugs, homepage, scripts, dependencies, devDependencies, eslintConfig, prettier, postcss, browserslist, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.11.13\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development --filename imjoy-core.js && webpack --config webpack.library.js --mode production --filename imjoy-core.min.js --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --filename imjoy-core.module.js\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":6,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.11.14\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development --filename imjoy-core.js && webpack --config webpack.library.js --mode production --filename imjoy-core.min.js --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --filename imjoy-core.module.js\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":6,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
 
 /***/ }),
 
@@ -54290,13 +54290,14 @@ class FileManager {
 /*!**************************!*\
   !*** ./src/imjoyCore.js ***!
   \**************************/
-/*! exports provided: Joy, utils, version, ImJoy */
+/*! exports provided: Joy, utils, version, ImJoy, loadImJoyPluginAPI */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "utils", function() { return utils; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImJoy", function() { return ImJoy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadImJoyPluginAPI", function() { return loadImJoyPluginAPI; });
 /* harmony import */ var _pluginManager_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pluginManager.js */ "./src/pluginManager.js");
 /* harmony import */ var _windowManager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./windowManager.js */ "./src/windowManager.js");
 /* harmony import */ var _engineManager_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./engineManager.js */ "./src/engineManager.js");
@@ -54411,6 +54412,7 @@ class ImJoy {
   }
 
   async start(config) {
+    config = config || {};
     await this.init();
     if (config.workspace) {
       await this.pm.loadWorkspace(config.workspace);
@@ -54422,6 +54424,23 @@ class ImJoy {
     this.pm.destroy();
     this.em.destroy();
   }
+}
+
+async function loadImJoyPluginAPI(config) {
+  if (_inIframe()) {
+    var baseUrl;
+    if (config && config.version) {
+      baseUrl = `https://cdn.jsdelivr.net/npm/imjoy-core@${
+        config.version
+      }/dist/`;
+    } else {
+      baseUrl = _getScriptUrl();
+    }
+    await _injectScript(baseUrl + "static/jailed/_frame.js");
+  } else {
+    throw new Error("The plugins script can only be used inside an iframe.");
+  }
+  return window.api;
 }
 
 
@@ -61539,7 +61558,6 @@ class PluginManager {
       this.unregisterOp(plugin, config);
     }
   }
-
   createWindow(_plugin, wconfig) {
     return new Promise((resolve, reject) => {
       wconfig.data = wconfig.data || null;
@@ -61577,7 +61595,24 @@ class PluginManager {
           })
           .catch(reject);
       } else {
-        const window_config = this.registered.windows[wconfig.type];
+        let window_config;
+        if (wconfig.type === "external") {
+          if (!wconfig.src) {
+            reject("You must specify the `src` for the external window.");
+            return;
+          }
+          window_config = Object.assign(
+            {
+              base_frame: wconfig.src,
+            },
+            wconfig
+          );
+          window_config.type = "window";
+          delete window_config.data;
+          delete window_config.config;
+        } else {
+          window_config = this.registered.windows[wconfig.type];
+        }
         if (!window_config) {
           console.error(
             "No plugin registered for window type: " + wconfig.type,
@@ -61615,22 +61650,27 @@ class PluginManager {
         if (pconfig.window_container) {
           this.wm.setupCallbacks(pconfig);
           setTimeout(() => {
-            this.renderWindow(pconfig)
-              .then(wplugin => {
-                if (pconfig.$el) {
-                  wplugin.api.emit(
-                    "window_size_changed",
-                    pconfig.$el.getBoundingClientRect()
-                  );
-                }
-                wplugin.api.refresh();
-                wplugin.api.on("close", async () => {
-                  this.event_bus.emit("closing_window_plugin", wplugin);
-                  await wplugin.terminate();
-                });
-                resolve(wplugin.api);
-              })
-              .catch(reject);
+            const p = this.renderWindow(pconfig);
+            if (pconfig.passive) {
+              clearTimeout(loadingTimer);
+              pconfig.loading = false;
+              resolve({ setup: () => {}, on: () => {} });
+              return;
+            }
+            p.then(wplugin => {
+              if (pconfig.$el) {
+                wplugin.api.emit(
+                  "window_size_changed",
+                  pconfig.$el.getBoundingClientRect()
+                );
+              }
+              wplugin.api.refresh();
+              wplugin.api.on("close", async () => {
+                this.event_bus.emit("closing_window_plugin", wplugin);
+                await wplugin.terminate();
+              });
+              resolve(wplugin.api);
+            }).catch(reject);
           }, 0);
         } else {
           this.wm.addWindow(pconfig).then(() => {
@@ -61641,23 +61681,28 @@ class PluginManager {
             }, 10000);
             setTimeout(() => {
               pconfig.refresh();
-              this.renderWindow(pconfig)
-                .then(wplugin => {
-                  pconfig.api.on("close", async () => {
-                    this.event_bus.emit("closing_window_plugin", wplugin);
-                    await wplugin.terminate();
-                  });
-                  clearTimeout(loadingTimer);
-                  pconfig.loading = false;
-                  pconfig.refresh();
-                  resolve(wplugin.api);
-                })
-                .catch(e => {
-                  clearTimeout(loadingTimer);
-                  pconfig.loading = false;
-                  pconfig.refresh();
-                  reject(e);
+              const p = this.renderWindow(pconfig);
+              if (pconfig.passive) {
+                clearTimeout(loadingTimer);
+                pconfig.loading = false;
+                resolve({ setup: () => {}, on: () => {} });
+                return;
+              }
+              p.then(wplugin => {
+                pconfig.api.on("close", async () => {
+                  this.event_bus.emit("closing_window_plugin", wplugin);
+                  await wplugin.terminate();
                 });
+                clearTimeout(loadingTimer);
+                pconfig.loading = false;
+                pconfig.refresh();
+                resolve(wplugin.api);
+              }).catch(e => {
+                clearTimeout(loadingTimer);
+                pconfig.loading = false;
+                pconfig.refresh();
+                reject(e);
+              });
             }, 0);
           });
         }

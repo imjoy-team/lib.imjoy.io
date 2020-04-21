@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "core-example.html"
   },
   {
-    "revision": "a3822d316bc9ebd98838",
+    "revision": "d47a723dbf7f1dee03ee",
     "url": "imjoy-core.min.js"
   },
   {
@@ -16,11 +16,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "imjoy-loader.js"
   },
   {
-    "revision": "bf9c5e2551474a56cf3865d280737fc4",
+    "revision": "66f3e2f6a60ca7ec4487b1020156de69",
     "url": "package-lock.json"
   },
   {
-    "revision": "052f3b8526090f0b2bbdf4b40113c9d6",
+    "revision": "7cb430164766ad5453795b5d5e82fd9b",
     "url": "package.json"
   },
   {
@@ -36,7 +36,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "static/jailed/_frame.html"
   },
   {
-    "revision": "c86c9800f0486ae6ca67038b79392951",
+    "revision": "44df1d008b45083caa9afd0a986f7125",
     "url": "static/jailed/_frame.js"
   },
   {

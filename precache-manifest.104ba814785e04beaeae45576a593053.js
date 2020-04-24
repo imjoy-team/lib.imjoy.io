@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "core-example.html"
   },
   {
-    "revision": "d47a723dbf7f1dee03ee",
+    "revision": "9305284bb7a0789a30e8",
     "url": "imjoy-core.min.js"
   },
   {
@@ -16,11 +16,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "imjoy-loader.js"
   },
   {
-    "revision": "66f3e2f6a60ca7ec4487b1020156de69",
+    "revision": "83387fdd0e3093a19ece145779c8a695",
     "url": "package-lock.json"
   },
   {
-    "revision": "7cb430164766ad5453795b5d5e82fd9b",
+    "revision": "fbbeff8af5fe63602c16b312b4c4244a",
     "url": "package.json"
   },
   {

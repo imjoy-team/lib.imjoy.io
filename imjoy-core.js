@@ -53555,7 +53555,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, private, description, author, license, repository, keywords, bugs, homepage, scripts, dependencies, devDependencies, eslintConfig, prettier, postcss, browserslist, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.11.17\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development --filename imjoy-core.js && webpack --config webpack.library.js --mode production --filename imjoy-core.min.js --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --filename imjoy-core.module.js\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":6,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.11.18\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development --filename imjoy-core.js && webpack --config webpack.library.js --mode production --filename imjoy-core.min.js --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --filename imjoy-core.module.js\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":6,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
 
 /***/ }),
 
@@ -53563,11 +53563,12 @@ module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.11.17\",\"
 /*!********************!*\
   !*** ./src/api.js ***!
   \********************/
-/*! exports provided: CONFIGURABLE_FIELDS, getBackends, getBackendByType, upgradePluginAPI, PLUGIN_SCHEMA, BACKEND_SCHEMA, JOY_SCHEMA, WINDOW_SCHEMA, OP_SCHEMA, ENGINE_FACTORY_SCHEMA, ENGINE_SCHEMA, FILE_MANAGER_SCHEMA */
+/*! exports provided: ajv, CONFIGURABLE_FIELDS, getBackends, getBackendByType, upgradePluginAPI, PLUGIN_SCHEMA, BACKEND_SCHEMA, JOY_SCHEMA, WINDOW_SCHEMA, OP_SCHEMA, ENGINE_FACTORY_SCHEMA, ENGINE_SCHEMA, FILE_MANAGER_SCHEMA */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ajv", function() { return ajv; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONFIGURABLE_FIELDS", function() { return CONFIGURABLE_FIELDS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBackends", function() { return getBackends; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBackendByType", function() { return getBackendByType; });
@@ -53587,6 +53588,175 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const ajv = new ajv__WEBPACK_IMPORTED_MODULE_1___default.a();
+
+ajv.addKeyword("file", {
+  compile: function(config) {
+    if (config && !config.mime && !config.ext && !(typeof config === "string"))
+      throw new Error("Invalid config for keyword: file");
+    if (config && config.maxSize) {
+      if (typeof config.maxSize !== "number")
+        throw new Error("maxSize must be a number");
+    }
+    if (config && config.minSize) {
+      if (typeof config.minSize !== "number")
+        throw new Error("minSize must be a number");
+    }
+    if (config && config.size) {
+      if (typeof config.size !== "number" && !Array.isArray(config.size))
+        throw new Error("size must be a number");
+    }
+    return function(data) {
+      if (!(data instanceof File)) return false;
+      if (!config) return true;
+      for (let k in config) {
+        if (k === "mime") {
+          const mime = config[k];
+          let _ok = false;
+          if (typeof mime === "string") {
+            _ok = data.type.match(mime);
+          } else if (Array.isArray(mime)) {
+            for (let m of mime) {
+              if (data.type.match(m)) {
+                _ok = true;
+              }
+            }
+          }
+          if (!_ok) return false;
+        }
+        if (k === "ext") {
+          const ext = config[k];
+          let _ok = false;
+          if (typeof ext === "string") {
+            _ok = data.name.endsWith(ext);
+          } else if (Array.isArray(ext)) {
+            for (let e of ext) {
+              if (data.name.endsWith(e)) {
+                _ok = true;
+              }
+            }
+          }
+          if (!_ok) return false;
+        }
+        if (k === "maxSize") {
+          if (data.size > config[k]) return false;
+        }
+        if (k === "minSize") {
+          if (data.size < config[k]) return false;
+        }
+        if (k === "size") {
+          if (Array.isArray(config[k]) && !config[k].includes(data.size))
+            return false;
+          if (data.size !== config[k]) return false;
+        }
+      }
+      return true;
+    };
+  },
+});
+
+const ArrayBufferView = Object.getPrototypeOf(
+  Object.getPrototypeOf(new Uint8Array())
+).constructor;
+
+const _typedarray2dtype = {
+  Int8Array: "int8",
+  Int16Array: "int16",
+  Int32Array: "int32",
+  Uint8Array: "uint8",
+  Uint16Array: "uint16",
+  Uint32Array: "uint32",
+  Float32Array: "float32",
+  Float64Array: "float64",
+  Array: "array",
+};
+
+const _dtypes = Object.values(_typedarray2dtype);
+
+ajv.addKeyword("ndarray", {
+  compile: function(config) {
+    if (config && config.ndim) {
+      if (typeof config.ndim !== "number" && !Array.isArray(config.ndim)) {
+        throw new Error("ndim must be a number");
+      }
+    }
+    if (config && config.shape) {
+      if (!Array.isArray(config.shape)) {
+        throw new Error("shape must be an array");
+      }
+      if (config.ndim) {
+        if (
+          typeof config.ndim !== "number" ||
+          config.shape.length !== config.ndim
+        )
+          throw new Error("mismatch between shape and ndim");
+      }
+    }
+
+    if (config && config.dtype) {
+      if (typeof config.dtype !== "string" && !Array.isArray(config.dtype))
+        throw new Error("Invalid dtype format");
+      let dtypes;
+      if (typeof config.dtype === "string") dtypes = [config.dtype];
+      else dtypes = config.dtype;
+      for (let dt of dtypes) {
+        if (typeof dt !== "string" || !_dtypes.includes(dt)) {
+          throw new Error(
+            "Invalid dtype: " + dt + ", valid types: " + _dtypes.join(",")
+          );
+        }
+      }
+    }
+    return function(data) {
+      const isndarray =
+        data.__jailed_type__ === "ndarray" &&
+        data.__value__ &&
+        data.__value__ instanceof ArrayBufferView &&
+        data.__shape__ &&
+        Array.isArray(data.__shape__) &&
+        data.__dtype__ &&
+        _dtypes.includes(data.__dtype__);
+      if (!isndarray) return false;
+      if (!config) return true;
+      for (let k in config) {
+        if (k === "shape") {
+          const shape = config[k];
+          if (data.__shape__.length !== shape.length) return false;
+          for (let i = 0; i < data.__shape__.length; i++) {
+            if (
+              typeof shape[i] === "number" &&
+              data.__shape__[i] !== shape[i]
+            ) {
+              return false;
+            }
+          }
+        }
+
+        if (k === "dtype") {
+          const dtype = config[k];
+          let _ok = false;
+          if (typeof dtype === "string") {
+            _ok = data.__dtype__ === config[k];
+          } else if (Array.isArray(dtype)) {
+            _ok = dtype.includes(data.__dtype__);
+          }
+          if (!_ok) return false;
+        }
+
+        if (k === "ndim") {
+          const ndim = config[k];
+          let _ok = false;
+          if (typeof ndim === "number") {
+            _ok = data.__shape__.length === ndim;
+          } else if (Array.isArray(ndim)) {
+            _ok = ndim.includes(data.__shape__.length);
+          }
+          if (!_ok) return false;
+        }
+      }
+      return true;
+    };
+  },
+});
 
 ajv.addKeyword("instanceof", {
   compile: function(Class) {
@@ -54299,7 +54469,7 @@ class FileManager {
 /*!**************************!*\
   !*** ./src/imjoyCore.js ***!
   \**************************/
-/*! exports provided: Joy, utils, version, ImJoy, loadImJoyPluginAPI */
+/*! exports provided: Joy, ajv, utils, version, ImJoy, loadImJoyPluginAPI */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54318,9 +54488,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _joy__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./joy */ "./src/joy.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Joy", function() { return _joy__WEBPACK_IMPORTED_MODULE_7__["Joy"]; });
 
-/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../package.json */ "./package.json");
-var _package_json__WEBPACK_IMPORTED_MODULE_8___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../package.json */ "./package.json", 1);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "version", function() { return _package_json__WEBPACK_IMPORTED_MODULE_8__["version"]; });
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./api */ "./src/api.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ajv", function() { return _api__WEBPACK_IMPORTED_MODULE_8__["ajv"]; });
+
+/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../package.json */ "./package.json");
+var _package_json__WEBPACK_IMPORTED_MODULE_9___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../package.json */ "./package.json", 1);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "version", function() { return _package_json__WEBPACK_IMPORTED_MODULE_9__["version"]; });
+
 
 
 
@@ -59363,8 +59537,6 @@ var _internalPlugins_json__WEBPACK_IMPORTED_MODULE_9___namespace = /*#__PURE__*/
 /* harmony import */ var _joy__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./joy */ "./src/joy.js");
 /* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! file-saver */ "./node_modules/file-saver/FileSaver.js");
 /* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(file_saver__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
-/* harmony import */ var ajv__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(ajv__WEBPACK_IMPORTED_MODULE_12__);
 /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_plugin$" }]*/
 
 
@@ -59384,9 +59556,6 @@ var _internalPlugins_json__WEBPACK_IMPORTED_MODULE_9___namespace = /*#__PURE__*/
 
 
 
-
-
-const ajv = new ajv__WEBPACK_IMPORTED_MODULE_12___default.a();
 
 class PluginManager {
   constructor({
@@ -61400,7 +61569,7 @@ class PluginManager {
           ) {
             config.inputs.required = Object.keys(config.inputs.properties);
           }
-          const sch = ajv.compile(config.inputs);
+          const sch = _api_js__WEBPACK_IMPORTED_MODULE_8__["ajv"].compile(config.inputs);
           op_config.inputs_schema = sch;
           this.registered.inputs[op_key] = {
             loader_key: op_key,
@@ -61467,7 +61636,7 @@ class PluginManager {
           ) {
             config.outputs.required = Object.keys(config.outputs.properties);
           }
-          const sch = ajv.compile(config.outputs);
+          const sch = _api_js__WEBPACK_IMPORTED_MODULE_8__["ajv"].compile(config.outputs);
           op_config.outputs_schema = sch;
           this.registered.outputs[op_key] = {
             op_name: config.name,
@@ -64151,7 +64320,7 @@ class WindowManager {
           try {
             const loader_key = this.registered_inputs[k].loader_key;
             if (this.registered_loaders[loader_key]) {
-              loaders[loader_key] = loader_key;
+              loaders[loader_key] = this.registered_loaders[loader_key];
             }
           } catch (e) {
             console.error("Failed to get loaders.", e);
@@ -64275,7 +64444,6 @@ class WindowManager {
     return new Promise((resolve, reject) => {
       try {
         w.id = w.id || w.name + Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__["randId"])();
-        w.loaders = this.getDataLoaders(w.data);
         if (!w.dialog) this.generateGridPosition(w);
         if (w.standalone) {
           w.h = 0;

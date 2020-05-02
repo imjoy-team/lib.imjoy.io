@@ -149,13 +149,8 @@ function loadImJoyCore(config) {
     try {
       var baseUrl = config.base_url;
       if (!baseUrl) {
-        if (config.version) {
-          baseUrl = `https://cdn.jsdelivr.net/npm/imjoy-core@${
-            config.version
-          }/dist/`;
-        } else {
-          baseUrl = "https://lib.imjoy.io/";
-        }
+        const version = config.version || "latest";
+        baseUrl = `https://cdn.jsdelivr.net/npm/imjoy-core@${version}/dist/`;
       }
       if (config.debug) {
         await _injectScript(baseUrl + "imjoy-core.js");
@@ -236,8 +231,8 @@ function loadImJoyRPC(config) {
             return;
           }
         } else {
-          baseUrl = "https://lib.imjoy.io/";
-          version = null;
+          baseUrl = `https://cdn.jsdelivr.net/npm/imjoy-rpc@latest/dist/`;
+          version = "latest";
           console.info(`Using imjoy-rpc library from ${baseUrl}.`);
         }
       }

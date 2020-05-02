@@ -4,31 +4,31 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "CNAME"
   },
   {
-    "revision": "c79f3bbf123ec370b52c23d0dfffa5fd",
+    "revision": "af6b4cc1fc4fb89b0bcc36a06ba7edc6",
     "url": "base_frame.html"
   },
   {
-    "revision": "ba2537af29231fd805b155a46fa2b56a",
+    "revision": "87b866f4c39209b4349756a3a65945ce",
     "url": "core-example.html"
   },
   {
-    "revision": "8d8b9356da1661d2ca21",
+    "revision": "ee72bbf6ed99b19dad89",
     "url": "imjoy-core.min.js"
   },
   {
-    "revision": "7de62b59862d8b8fd89f",
+    "revision": "e7a3b3e96e0566f70289",
     "url": "imjoy-loader.min.js"
   },
   {
-    "revision": "3534bf51d4d61150e297737e463eaaa9",
+    "revision": "ef1a31561c4955f957d58cd56b07caba",
     "url": "package-lock.json"
   },
   {
-    "revision": "59bf527d7939da4150bd01cf97b2943f",
+    "revision": "573449dcfa00146cb0aa62b344a72f4b",
     "url": "package.json"
   },
   {
-    "revision": "0da83299dea4fadd5049a4080d9e435e",
+    "revision": "27a451964782279ff75ef8b8b305808f",
     "url": "plugin-example.html"
   },
   {

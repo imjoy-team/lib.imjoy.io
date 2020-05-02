@@ -1,14 +1,5 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define("imjoyLoader", [], factory);
-	else if(typeof exports === 'object')
-		exports["imjoyLoader"] = factory();
-	else
-		root["imjoyLoader"] = factory();
-})(window, function() {
-return /******/ (function(modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -302,5 +293,4 @@ function loadImJoyRPC(config) {
 /***/ })
 
 /******/ });
-});
-//# sourceMappingURL=imjoy-loader.js.map
+//# sourceMappingURL=imjoy-loader.module.js.map

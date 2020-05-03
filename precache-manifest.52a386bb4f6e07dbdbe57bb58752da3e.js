@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "base_frame.html"
   },
   {
-    "revision": "ba2537af29231fd805b155a46fa2b56a",
+    "revision": "26a53779e72e8af09bc3ce25d54aca67",
     "url": "core-example.html"
   },
   {
@@ -28,7 +28,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "package.json"
   },
   {
-    "revision": "0da83299dea4fadd5049a4080d9e435e",
+    "revision": "6233bc68bfb1fd0290d0f8319b22cd87",
     "url": "plugin-example.html"
   },
   {

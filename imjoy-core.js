@@ -55712,16 +55712,17 @@ class DynamicPlugin {
     }
     this.initializing = true;
     this._updateUI();
+    const me = this;
     const engine_utils = {
       __as_interface__: true,
       __id__: this.config.id + "_utils",
       terminatePlugin() {
-        this.terminate();
+        me.terminate();
       },
       setPluginStatus(status) {
-        if (!this._disconnected) {
-          this.running = status.running;
-          this._updateUI();
+        if (!me._disconnected) {
+          me.running = status.running;
+          me._updateUI();
         }
       },
     };
@@ -56019,53 +56020,41 @@ class DynamicPlugin {
     this.engine = null;
     this._updateUI();
   }
-
+  _forceDisconnect() {
+    if (this.engine && this.engine.killPlugin)
+      this.engine.killPlugin({ id: this.config.id, name: this.config.name });
+    this._set_disconnected();
+    if (this._rpc) {
+      this._rpc.disconnect();
+      this._rpc = null;
+    }
+    if (this._connection) {
+      this._connection.disconnect();
+      this._connection = null;
+    }
+  }
   async terminate(force) {
     if (this._disconnected) {
       this._set_disconnected();
       return;
     }
-    const disconnectAll = () => {
-      if (this.engine && this.engine.killPlugin)
-        this.engine.killPlugin({ id: this.config.id, name: this.config.name });
-      this._set_disconnected();
-      if (this._rpc) {
-        this._rpc.disconnect();
-        this._rpc = null;
-      }
-      if (this._connection) {
-        this._connection.disconnect();
-        this._connection = null;
-      }
-    };
-    //prevent call loop
+    // prevent call loop
     if (this.terminating) {
       return;
-    } else {
-      this.terminating = true;
-      setTimeout(() => {
-        console.warn(
-          `Plugin termination takes more than 5s, force quiting ${this.id}!`
-        );
-        if (this.terminating) disconnectAll();
-      }, 5000);
-    }
-    try {
-      await this.emit("close");
-    } catch (e) {
-      console.error(e);
     }
     if (force) {
-      disconnectAll();
+      this._forceDisconnect();
     }
     try {
       if (this.api && this.api.exit && typeof this.api.exit == "function") {
-        await this.api.exit();
+        this.api.exit();
       }
     } catch (e) {
       console.error("error occured when terminating the plugin", e);
     } finally {
-      disconnectAll();
+      setTimeout(() => {
+        this._forceDisconnect();
+      }, 1000);
     }
   }
 
@@ -62027,13 +62016,14 @@ class PluginManager {
           this.wm.setupCallbacks(pconfig);
           setTimeout(() => {
             const p = this.renderWindow(pconfig);
-            if (pconfig.passive) {
+            if (pconfig.window_type === "external") {
               clearTimeout(loadingTimer);
               pconfig.loading = false;
+            }
+            if (pconfig.passive || window_config.passive) {
               resolve({
                 __as_interface__: true,
                 setup: () => {},
-                on: () => {},
               });
               return;
             }
@@ -62062,9 +62052,11 @@ class PluginManager {
             setTimeout(() => {
               pconfig.refresh();
               const p = this.renderWindow(pconfig);
-              if (pconfig.passive || window_config.passive) {
+              if (pconfig.window_type === "external") {
                 clearTimeout(loadingTimer);
                 pconfig.loading = false;
+              }
+              if (pconfig.passive || window_config.passive) {
                 resolve({
                   __as_interface__: true,
                   setup: () => {},
@@ -64619,20 +64611,12 @@ class WindowManager {
     };
 
     w.api.close = w.close = async () => {
-      // TODO: handle close gracefully
-      let close_timer = setTimeout(() => {
-        console.warn("Force quitting the window due to timeout.");
-        this.closeWindow(w);
-      }, 2000);
-
       try {
-        //TODO: figure out why it's not closing if we await the emit function
         w.api.emit("close");
       } catch (es) {
         console.error(es);
       } finally {
         this.closeWindow(w);
-        clearTimeout(close_timer);
       }
     };
   }

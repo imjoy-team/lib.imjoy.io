@@ -54031,7 +54031,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, private, description, author, license, repository, keywords, bugs, homepage, module, scripts, dependencies, devDependencies, eslintConfig, prettier, postcss, browserslist, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.12.3\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"module\":\"index.js\",\"scripts\":{\"serve\":\"webpack-dev-server --config webpack.library.js\",\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development && webpack --config webpack.library.js --mode production --fileid min  --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --fileid module\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"lz-string\":\"^1.4.4\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"rename-output-webpack-plugin\":\"^1.0.1\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"webpack-dev-server\":\"^3.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"browser\":true,\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2017,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.12.4\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"module\":\"index.js\",\"scripts\":{\"serve\":\"webpack-dev-server --config webpack.library.js\",\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development && webpack --config webpack.library.js --mode production --fileid min  --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --fileid module\",\"watch\":\"webpack --watch --progress --config  webpack.library.js --mode development --libraryTarget commonjs2 --fileid module \",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"lz-string\":\"^1.4.4\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"rename-output-webpack-plugin\":\"^1.0.1\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"webpack-dev-server\":\"^3.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"browser\":true,\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2017,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
 
 /***/ }),
 
@@ -55318,15 +55318,23 @@ function loadImJoyCore(config) {
         const version = config.version || "latest";
         baseUrl = `https://cdn.jsdelivr.net/npm/imjoy-core@${version}/dist/`;
       }
+      delete window.imjoyRPC;
       if (config.debug) {
         await _injectScript(baseUrl + "imjoy-core.js");
       } else {
         await _injectScript(baseUrl + "imjoy-core.min.js");
       }
-      // eslint-disable-next-line no-undef
-      if (typeof define === "function" && __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js"))
+      if (window["imjoyCore"]) {
+        const imjoyRPC = window.imjoyRPC;
+        delete window.imjoyRPC;
+        resolve(imjoyRPC);
+      } else if (
+        typeof define === "function" &&
+        // eslint-disable-next-line no-undef
+        __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") &&
+        "function" === "function"
+      )
         eval("require")(["imjoyCore"], resolve);
-      else if (window["imjoyCore"]) resolve(window["imjoyCore"]);
       else reject("Failed to import imjoy-core.");
     } catch (e) {
       reject(e);
@@ -55429,19 +55437,10 @@ function loadImJoyRPC(config) {
       }
       _rpc_registry[imjoyRPC.VERSION] = imjoyRPC;
     }
+    delete window.imjoyRPC;
     _injectScript(rpc_url)
       .then(() => {
-        // eslint-disable-next-line no-undef
-        if (typeof define === "function" && __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js"))
-          eval("require")(["imjoyRPC"], imjoyRPC => {
-            try {
-              checkAndCacheLib(imjoyRPC);
-              resolve(imjoyRPC);
-            } catch (e) {
-              reject(e);
-            }
-          });
-        else if (window["imjoyRPC"]) {
+        if (window.imjoyRPC) {
           const imjoyRPC = window.imjoyRPC;
           delete window.imjoyRPC;
           try {
@@ -55450,7 +55449,21 @@ function loadImJoyRPC(config) {
           } catch (e) {
             reject(e);
           }
-        } else {
+        } else if (
+          typeof define === "function" &&
+          // eslint-disable-next-line no-undef
+          __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") &&
+          "function" === "function"
+        )
+          eval("require")(["imjoyRPC"], imjoyRPC => {
+            try {
+              checkAndCacheLib(imjoyRPC);
+              resolve(imjoyRPC);
+            } catch (e) {
+              reject(e);
+            }
+          });
+        else {
           reject("Failed to import imjoy-rpc.");
           return;
         }
@@ -55815,11 +55828,6 @@ class DynamicPlugin {
         }
       }
       this._set_disconnected();
-      // this.terminate()
-      if (this.config.type === "window" && this.config.iframe_container) {
-        const container = document.getElementById(this.config.iframe_container);
-        container.parentNode.removeChild(container);
-      }
     });
   }
   /**
@@ -64492,23 +64500,38 @@ class WindowManager {
     const loaders = {};
     // find all the plugins registered for this type
     for (let k in this.registered_inputs) {
-      if (this.registered_inputs.hasOwnProperty(k)) {
-        if (
-          this.registered_inputs[k].loader_key &&
-          this.registered_inputs[k].schema(data)
-        ) {
-          try {
-            const loader_key = this.registered_inputs[k].loader_key;
-            if (this.registered_loaders[loader_key]) {
-              loaders[loader_key] = this.registered_loaders[loader_key];
-            }
-          } catch (e) {
-            console.error("Failed to get loaders.", e);
+      if (
+        this.registered_inputs[k].loader_key &&
+        this.registered_inputs[k].schema(data)
+      ) {
+        try {
+          const loader_key = this.registered_inputs[k].loader_key;
+          if (this.registered_loaders[loader_key]) {
+            loaders[loader_key] = this.registered_loaders[loader_key];
           }
+        } catch (e) {
+          console.error("Failed to get loaders.", e);
         }
       }
     }
     return loaders;
+  }
+
+  closeWindow(w) {
+    const index = this.windows.indexOf(w);
+    if (index > -1) {
+      this.windows.splice(index, 1);
+      delete this.window_ids[w.id];
+    }
+    if (w.selected || this.selected_window === w) {
+      w.selected = false;
+      if (this.window_mode === "single") {
+        this.selected_window = this.windows[0];
+      } else {
+        this.selected_window = null;
+      }
+    }
+    this.event_bus.emit("close_window", w);
   }
 
   setupCallbacks(w) {
@@ -64542,6 +64565,7 @@ class WindowManager {
       }
     };
     w.api.emit = (name, data) => {
+      // eslint-disable-next-line no-async-promise-executor
       return new Promise(async (resolve, reject) => {
         const errors = [];
         try {
@@ -64585,36 +64609,29 @@ class WindowManager {
       w.api.emit("focus");
     };
 
+    w.api.show = w.show = () => {
+      this.selectWindow(w);
+      w.api.emit("focus");
+    };
+
+    w.api.hide = w.hide = () => {
+      w.api.emit("hide");
+    };
+
     w.api.close = w.close = async () => {
       // TODO: handle close gracefully
       let close_timer = setTimeout(() => {
         console.warn("Force quitting the window due to timeout.");
-        forceClose();
+        this.closeWindow(w);
       }, 2000);
 
-      const forceClose = () => {
-        const index = this.windows.indexOf(w);
-        if (index > -1) {
-          this.windows.splice(index, 1);
-          delete this.window_ids[w.id];
-        }
-        if (w.selected || this.selected_window === w) {
-          w.selected = false;
-          if (this.window_mode === "single") {
-            this.selected_window = this.windows[0];
-          } else {
-            this.selected_window = null;
-          }
-        }
-        this.event_bus.emit("close_window", w);
-      };
       try {
         //TODO: figure out why it's not closing if we await the emit function
         w.api.emit("close");
       } catch (es) {
         console.error(es);
       } finally {
-        forceClose();
+        this.closeWindow(w);
         clearTimeout(close_timer);
       }
     };
@@ -64635,7 +64652,7 @@ class WindowManager {
         this.windows.push(w);
         this.window_ids[w.id] = w;
         this.setupCallbacks(w);
-        this.selectWindow(w, w.dialog);
+        this.selectWindow(w);
         if (this.add_window_callback) {
           Promise.resolve(this.add_window_callback(w)).then(() => {
             this.event_bus.emit("add_window", w);
@@ -64655,9 +64672,12 @@ class WindowManager {
     });
   }
 
-  selectWindow(w, is_dialog) {
+  selectWindow(w) {
     if (!w) return;
-    if (!is_dialog) {
+    if (w.dialog) {
+      w.selected = true;
+      this.active_windows = [w];
+    } else {
       for (let i = 0; i < this.active_windows.length; i++) {
         if (this.active_windows[i]) {
           this.active_windows[i].selected = false;
@@ -64672,6 +64692,7 @@ class WindowManager {
       this.active_windows = [w];
       if (!w.standalone && w.focus) w.focus();
     }
+
     w.selected = true;
     if (w.refresh) {
       w.refresh();

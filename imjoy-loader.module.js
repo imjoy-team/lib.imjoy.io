@@ -143,15 +143,23 @@ function loadImJoyCore(config) {
         const version = config.version || "latest";
         baseUrl = `https://cdn.jsdelivr.net/npm/imjoy-core@${version}/dist/`;
       }
+      delete window.imjoyRPC;
       if (config.debug) {
         await _injectScript(baseUrl + "imjoy-core.js");
       } else {
         await _injectScript(baseUrl + "imjoy-core.min.js");
       }
-      // eslint-disable-next-line no-undef
-      if (typeof define === "function" && __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js"))
+      if (window["imjoyCore"]) {
+        const imjoyRPC = window.imjoyRPC;
+        delete window.imjoyRPC;
+        resolve(imjoyRPC);
+      } else if (
+        typeof define === "function" &&
+        // eslint-disable-next-line no-undef
+        __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") &&
+        "function" === "function"
+      )
         eval("require")(["imjoyCore"], resolve);
-      else if (window["imjoyCore"]) resolve(window["imjoyCore"]);
       else reject("Failed to import imjoy-core.");
     } catch (e) {
       reject(e);
@@ -254,19 +262,10 @@ function loadImJoyRPC(config) {
       }
       _rpc_registry[imjoyRPC.VERSION] = imjoyRPC;
     }
+    delete window.imjoyRPC;
     _injectScript(rpc_url)
       .then(() => {
-        // eslint-disable-next-line no-undef
-        if (typeof define === "function" && __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js"))
-          eval("require")(["imjoyRPC"], imjoyRPC => {
-            try {
-              checkAndCacheLib(imjoyRPC);
-              resolve(imjoyRPC);
-            } catch (e) {
-              reject(e);
-            }
-          });
-        else if (window["imjoyRPC"]) {
+        if (window.imjoyRPC) {
           const imjoyRPC = window.imjoyRPC;
           delete window.imjoyRPC;
           try {
@@ -275,7 +274,21 @@ function loadImJoyRPC(config) {
           } catch (e) {
             reject(e);
           }
-        } else {
+        } else if (
+          typeof define === "function" &&
+          // eslint-disable-next-line no-undef
+          __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") &&
+          "function" === "function"
+        )
+          eval("require")(["imjoyRPC"], imjoyRPC => {
+            try {
+              checkAndCacheLib(imjoyRPC);
+              resolve(imjoyRPC);
+            } catch (e) {
+              reject(e);
+            }
+          });
+        else {
           reject("Failed to import imjoy-rpc.");
           return;
         }

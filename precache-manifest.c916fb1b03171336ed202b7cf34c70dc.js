@@ -8,27 +8,27 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "base_frame.html"
   },
   {
-    "revision": "87b866f4c39209b4349756a3a65945ce",
+    "revision": "ba2537af29231fd805b155a46fa2b56a",
     "url": "core-example.html"
   },
   {
-    "revision": "ee72bbf6ed99b19dad89",
+    "revision": "270a6f52e13185724eb9",
     "url": "imjoy-core.min.js"
   },
   {
-    "revision": "e7a3b3e96e0566f70289",
+    "revision": "d85779ade1244bbb0be8",
     "url": "imjoy-loader.min.js"
   },
   {
-    "revision": "ef1a31561c4955f957d58cd56b07caba",
+    "revision": "ea60c1e062fafbfffba4c1bf337881dd",
     "url": "package-lock.json"
   },
   {
-    "revision": "573449dcfa00146cb0aa62b344a72f4b",
+    "revision": "4ff4e7e784756150ab96468d323af7c9",
     "url": "package.json"
   },
   {
-    "revision": "27a451964782279ff75ef8b8b305808f",
+    "revision": "0da83299dea4fadd5049a4080d9e435e",
     "url": "plugin-example.html"
   },
   {

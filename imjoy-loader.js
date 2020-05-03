@@ -293,6 +293,9 @@ function loadImJoyRPC(config) {
   });
 }
 
+window.loadImJoyRPC = loadImJoyRPC;
+window.loadImJoyCore = loadImJoyCore;
+
 
 /***/ })
 

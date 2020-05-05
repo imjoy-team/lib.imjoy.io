@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "CNAME"
   },
   {
-    "revision": "af6b4cc1fc4fb89b0bcc36a06ba7edc6",
+    "revision": "797c8281336e7c2c879f613864e872a1",
     "url": "base_frame.html"
   },
   {
@@ -12,19 +12,35 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "core-example.html"
   },
   {
-    "revision": "0f312041349a845b9845",
+    "revision": "1f26879332d20b79a4d5",
     "url": "imjoy-core.min.js"
   },
   {
-    "revision": "62e79ea2496b5d995d22",
+    "revision": "7eec3671e0298b4c243e",
     "url": "imjoy-loader.min.js"
   },
   {
-    "revision": "ced323affe148dffee5d26c2fa256a3a",
+    "revision": "679f4e7f881650cd63b690a5b7ed6e69",
+    "url": "imjoy-rpc.js"
+  },
+  {
+    "revision": "87c90cfb2f9d8a2c7a740a1b363abf4a",
+    "url": "imjoy-rpc.min.js"
+  },
+  {
+    "revision": "541f2c4ddaf3a6999890db24848fcf31",
+    "url": "imjoy-rpc.module.js"
+  },
+  {
+    "revision": "526fba59ff8479c9d43cdb68ac9c68d3",
+    "url": "jupyter-connection.js"
+  },
+  {
+    "revision": "b3bb786f5b8137d1e6016e65e4f914f4",
     "url": "package-lock.json"
   },
   {
-    "revision": "a4d117ef90aea94ea3fe252b63150cad",
+    "revision": "fa6bd4c314e7927f2a9ae3a61fca5f38",
     "url": "package.json"
   },
   {

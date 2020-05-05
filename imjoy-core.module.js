@@ -54022,7 +54022,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, private, description, author, license, repository, keywords, bugs, homepage, module, scripts, dependencies, devDependencies, eslintConfig, prettier, postcss, browserslist, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.12.6\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"module\":\"index.js\",\"scripts\":{\"serve\":\"webpack-dev-server --config webpack.library.js\",\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development && webpack --config webpack.library.js --mode production --fileid min  --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --fileid module\",\"watch\":\"webpack --watch --progress --config  webpack.library.js --mode development --libraryTarget commonjs2 --fileid module \",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"lz-string\":\"^1.4.4\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"rename-output-webpack-plugin\":\"^1.0.1\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"webpack-dev-server\":\"^3.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"browser\":true,\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2017,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.12.7\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"module\":\"index.js\",\"scripts\":{\"serve\":\"webpack-dev-server --config webpack.library.js\",\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development && webpack --config webpack.library.js --mode production --fileid min  --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --fileid module\",\"watch\":\"webpack --watch --progress --config  webpack.library.js --mode development --libraryTarget commonjs2 --fileid module \",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"imjoy-rpc\":\"^0.1.17\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"lz-string\":\"^1.4.4\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"rename-output-webpack-plugin\":\"^1.0.1\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"webpack-dev-server\":\"^3.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"browser\":true,\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2017,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
 
 /***/ }),
 
@@ -54281,6 +54281,7 @@ const _backends = {
     type: "internal",
     name: "IFrame",
     lang: "javascript",
+    icon: "⚙️",
   },
   window: {
     type: "internal",
@@ -54299,10 +54300,22 @@ const _backends = {
     lang: "web-python",
     icon: "🐍",
   },
+  "rpc-window": {
+    type: "external",
+    name: "RPC Window",
+    lang: "*",
+    icon: "🌟",
+  },
+  "rpc-worker": {
+    type: "external",
+    name: "RPC Worker",
+    lang: "*",
+    icon: "⚙️",
+  },
   collection: {
     type: "-",
     name: "Collection",
-    lang: "",
+    lang: "*",
     icon: "",
   },
 };
@@ -54434,24 +54447,33 @@ const FILE_MANAGER_SCHEMA = ajv.compile({
 const CONFIG_SCHEMA = ajv.compile({
   properties: {
     allow_execution: { type: "boolean" },
-    api_version: { type: "string" },
-    cover: { type: ["string", "array"] },
+    api_version: { type: "string", maxLength: 32 },
+    cover: { type: ["string", "array"], maxLength: 1024 },
     dedicated_thread: { type: "boolean" },
     description: { type: "string", maxLength: 256 },
-    flags: { type: "array" },
+    flags: { type: "array", maxLength: 32 },
     icon: { type: "string" },
-    id: { type: "string" },
+    id: { type: "string", maxLength: 128 },
     inputs: { type: ["object", "array"] },
-    labels: { type: "array" },
-    lang: { type: "string" },
-    name: { type: "string" },
+    labels: { type: "array", maxLength: 32 },
+    lang: { type: "string", maxLength: 32 },
+    name: { type: "string", maxLength: 32 },
     outputs: { type: ["object", "array"] },
-    tags: { type: "array" },
-    token: { type: "string" },
-    ui: { type: "string" },
-    version: { type: "string" },
+    tags: { type: "array", maxLength: 32 },
+    token: { type: "string", maxLength: 1024 },
+    type: { type: "string", enum: Object.keys(_backends) },
+    ui: { type: "string", maxLength: 2048 },
+    version: { type: "string", maxLength: 32 },
   },
-  required: ["api_version", "allow_execution", "token", "id"],
+  required: [
+    "name",
+    "version",
+    "description",
+    "api_version",
+    "id",
+    "allow_execution",
+    "token",
+  ],
 });
 
 
@@ -54980,11 +55002,12 @@ const evil_engine = {
   },
   async startPlugin(config, api_interface) {
     if (this._disconnected) throw "engine is disconnected.";
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       const export_api = remote_api => {
         console.log(
           `plugin ${config.name} (id=${config.id}) initialized.`,
-          remote_api
+          Object.keys(remote_api)
         );
         promisify_functions(remote_api);
         resolve(remote_api);
@@ -55201,7 +55224,7 @@ class ImJoy {
     this.add_window_callback =
       add_window_callback ||
       async function(w) {
-        console.log("add window: ", w);
+        console.log("add window: ", w.name);
       };
 
     this.em = new _engineManager_js__WEBPACK_IMPORTED_MODULE_2__["EngineManager"]({
@@ -55285,7 +55308,7 @@ function _injectScript(src) {
     script.addEventListener("load", resolve);
     script.addEventListener("error", () => {
       document.head.removeChild(script);
-      reject("Error loading script.");
+      reject("Error loading script: " + src);
     });
     script.addEventListener("abort", () => reject("Script loading aborted."));
     document.head.appendChild(script);
@@ -55322,8 +55345,7 @@ function loadImJoyCore(config) {
       } else if (
         typeof define === "function" &&
         // eslint-disable-next-line no-undef
-        __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") &&
-        "function" === "function"
+        __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js")
       )
         eval("require")(["imjoyCore"], resolve);
       else reject("Failed to import imjoy-core.");
@@ -55443,8 +55465,7 @@ function loadImJoyRPC(config) {
         } else if (
           typeof define === "function" &&
           // eslint-disable-next-line no-undef
-          __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") &&
-          "function" === "function"
+          __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js")
         )
           eval("require")(["imjoyRPC"], imjoyRPC => {
             try {
@@ -55484,11 +55505,12 @@ module.exports = JSON.parse("{\"BrowserFS\":{\"uri\":\"https://imjoy-team.github
 /*!*****************************!*\
   !*** ./src/jailedPlugin.js ***!
   \*****************************/
-/*! exports provided: initializeJailed, DynamicPlugin */
+/*! exports provided: createIframe, initializeJailed, DynamicPlugin */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createIframe", function() { return createIframe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeJailed", function() { return initializeJailed; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DynamicPlugin", function() { return DynamicPlugin; });
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./src/utils.js");
@@ -55538,9 +55560,8 @@ const initializeJailed = config => {
   _initialized = true;
 };
 
-function createIframe(id, type, config) {
+function createIframe(config) {
   var sample = document.createElement("iframe");
-
   sample.src = config.base_frame;
   sample.sandbox = "";
   sample.frameBorder = "0";
@@ -55597,15 +55618,15 @@ function createIframe(id, type, config) {
   frame.sandbox = perm.join(" ");
   frame.allow = allows;
 
-  if (type !== "window") {
+  if (!["rpc-window", "rpc-worker", "iframe", "window"].includes(config.type)) {
     frame.src =
       frame.src +
       (frame.src.includes("?") ? "&" : "?") +
       "_plugin_type=" +
-      type;
+      config.type;
   }
 
-  frame.id = "iframe_" + id;
+  frame.id = "iframe_" + config.id;
   return frame;
 }
 
@@ -55624,10 +55645,9 @@ class DynamicPlugin {
     this.id = config.id || Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__["randId"])();
     this._id = config._id;
     this.name = config.name;
-    this.type = config.type;
     this.tag = config.tag;
     this.tags = config.tags;
-    this.type = config.type || "web-worker";
+    this.type = config.type;
     this.initializing = false;
     this.running = false;
     this._log_history = [];
@@ -55636,6 +55656,11 @@ class DynamicPlugin {
     this.backend = Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getBackendByType"])(this.type);
     this.engine = engine;
     this.allow_evil = allow_evil;
+    this._hasVisibleWindow = [
+      "window",
+      "web-python-window",
+      "rpc-window",
+    ].includes(this.type);
 
     this._updateUI =
       (_interface && _interface.utils && _interface.utils.$forceUpdate) ||
@@ -55746,6 +55771,7 @@ class DynamicPlugin {
         this._set_disconnected();
       });
   }
+
   _setupViaIframe() {
     if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getBackendByType"])(this.type)) {
       throw `Unsupported backend type (${this.type})`;
@@ -55753,18 +55779,15 @@ class DynamicPlugin {
     if (!this.config.base_frame) {
       this.config.base_frame = JailedConfig.asset_url + "base_frame.html";
     }
-    const _frame = createIframe(this.id, this.type, this.config);
-    if (
-      this.type === "iframe" ||
-      this.type === "window" ||
-      this.type === "web-python-window"
-    ) {
+    const _frame = createIframe(this.config);
+    if (this._hasVisibleWindow) {
       let iframe_container = this.config.iframe_container;
       if (typeof iframe_container === "string") {
         iframe_container = document.getElementById(iframe_container);
       }
       if (iframe_container) {
         _frame.style.display = "block";
+        iframe_container.innerHTML = "";
         iframe_container.appendChild(_frame);
         this.iframe_container = iframe_container;
       } else {
@@ -55783,7 +55806,8 @@ class DynamicPlugin {
         if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["CONFIG_SCHEMA"])(pluginConfig)) {
           const error = _api_js__WEBPACK_IMPORTED_MODULE_1__["CONFIG_SCHEMA"].errors;
           console.error(
-            "Invalid config: " + pluginConfig.name || false,
+            "Invalid config " + pluginConfig.name || false,
+            pluginConfig,
             error
           );
           throw error;
@@ -55795,7 +55819,9 @@ class DynamicPlugin {
         this._registerSiteEvents(this._rpc);
         this._rpc.setInterface(this._initialInterface);
         await this._rpc.sendInterface();
-        await this._executePlugin();
+        if (pluginConfig.allow_execution) {
+          await this._executePlugin();
+        }
         this.api = await this._requestRemote();
         this.api.__as_interface__ = true;
         this.api.__id__ = this.id;
@@ -55838,7 +55864,7 @@ class DynamicPlugin {
       this.disconnect();
       this.initializing = false;
       if (error) this.error(error.toString());
-      if (this.config.type === "window" && this.config.iframe_container) {
+      if (this._hasVisibleWindow && this.config.iframe_container) {
         const container = document.getElementById(this.config.iframe_container);
         container.innerHTML = `<h5>Oops! failed to load the window.</h5><code>Details: ${dompurify__WEBPACK_IMPORTED_MODULE_3___default.a.sanitize(
           String(error)
@@ -55896,9 +55922,7 @@ class DynamicPlugin {
           env: this.config.env,
         });
       }
-      if (
-        ["iframe", "window", "web-python-window"].includes(this.config.type)
-      ) {
+      if (this._hasVisibleWindow) {
         if (this.config.styles) {
           for (let i = 0; i < this.config.styles.length; i++) {
             await this._connection.execute({
@@ -59696,13 +59720,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _joy_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./joy.js */ "./src/joy.js");
 /* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! file-saver */ "./node_modules/file-saver/FileSaver.js");
 /* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(file_saver__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils.js */ "./src/utils.js");
-/* harmony import */ var _internalPlugins_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./internalPlugins.json */ "./src/internalPlugins.json");
-var _internalPlugins_json__WEBPACK_IMPORTED_MODULE_8___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./internalPlugins.json */ "./src/internalPlugins.json", 1);
-/* harmony import */ var _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./jailedPlugin.js */ "./src/jailedPlugin.js");
-/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./api.js */ "./src/api.js");
-/* harmony import */ var _pluginParser_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pluginParser.js */ "./src/pluginParser.js");
+/* harmony import */ var _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./jailedPlugin.js */ "./src/jailedPlugin.js");
+/* harmony import */ var _connection_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./connection.js */ "./src/connection.js");
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./api.js */ "./src/api.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./utils.js */ "./src/utils.js");
+/* harmony import */ var _internalPlugins_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./internalPlugins.json */ "./src/internalPlugins.json");
+var _internalPlugins_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./internalPlugins.json */ "./src/internalPlugins.json", 1);
+/* harmony import */ var _pluginParser_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pluginParser.js */ "./src/pluginParser.js");
 /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_plugin$" }]*/
+
+
 
 
 
@@ -59738,17 +59765,17 @@ class PluginManager {
     this.fm = file_manager;
     this.config_db = config_db;
 
-    Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["assert"])(this.event_bus, "event bus is not available");
-    Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["assert"])(this.em, "engine manager is not available");
-    Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["assert"])(this.wm, "window manager is not available");
-    Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["assert"])(this.config_db, "config database is not available");
+    Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["assert"])(this.event_bus, "event bus is not available");
+    Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["assert"])(this.em, "engine manager is not available");
+    Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["assert"])(this.wm, "window manager is not available");
+    Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["assert"])(this.config_db, "config database is not available");
 
     this.jailed_asset_url = jailed_asset_url;
 
     this.show_message_callback = show_message_callback;
     this.update_ui_callback = update_ui_callback || function() {};
     this._allowed_evil_plugin = {};
-    this.internal_plugins = _internalPlugins_json__WEBPACK_IMPORTED_MODULE_8__;
+    this.internal_plugins = _internalPlugins_json__WEBPACK_IMPORTED_MODULE_11__;
 
     this.default_repository_list = [
       {
@@ -59992,7 +60019,7 @@ class PluginManager {
           for (let pn in this.internal_plugins) {
             this.normalizePluginUrl(this.internal_plugins[pn].uri).then(obj => {
               if (obj.uri) {
-                Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["cacheUrlInServiceWorker"])(obj.uri)
+                Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["cacheUrlInServiceWorker"])(obj.uri)
                   .then(() => {
                     console.log(
                       "Internal plugin cached in the service worker",
@@ -60011,7 +60038,7 @@ class PluginManager {
       console.log("Service workers are not supported.");
     }
 
-    Object(_jailedPlugin_js__WEBPACK_IMPORTED_MODULE_9__["initializeJailed"])(config);
+    Object(_jailedPlugin_js__WEBPACK_IMPORTED_MODULE_7__["initializeJailed"])(config);
 
     this.plugins = {};
     this.plugin_names = {};
@@ -60546,13 +60573,14 @@ class PluginManager {
   }
 
   async normalizePluginUrl(uri, scoped_plugins) {
+    let external = false;
     let selected_tag;
     scoped_plugins = scoped_plugins || this.available_plugins;
     if (
       (uri.includes("github.com") && uri.includes("/blob/")) ||
       uri.includes("gist.github.com")
     ) {
-      uri = await Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["githubUrlRaw"])(uri);
+      uri = await Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["githubUrlRaw"])(uri);
     }
     // if the uri format is REPO_NAME:PLUGIN_NAME
     if (!uri.startsWith("http") && uri.includes("/") && uri.includes(":")) {
@@ -60560,10 +60588,11 @@ class PluginManager {
       selected_tag = plugin_name.split("@")[1];
       plugin_name = plugin_name.split("@")[0];
       plugin_name = plugin_name.trim();
+
       const repo_hashtag = repo_name.split("@")[1];
       repo_name = repo_name.split("@")[0];
       repo_name = repo_name.trim();
-      Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["assert"])(
+      Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["assert"])(
         repo_name && plugin_name,
         'Wrong URI format, it must be "REPO_NAME:PLUGIN_NAME"'
       );
@@ -60580,7 +60609,7 @@ class PluginManager {
       }
       uri = found.uri;
       scoped_plugins = manifest.plugins;
-    } else if (!uri.match(_utils_js__WEBPACK_IMPORTED_MODULE_7__["url_regex"])) {
+    } else if (!uri.match(_utils_js__WEBPACK_IMPORTED_MODULE_10__["url_regex"])) {
       let dep = uri.split("@");
       selected_tag = dep[1];
       const ps = scoped_plugins.filter(p => {
@@ -60592,26 +60621,66 @@ class PluginManager {
         uri = ps[0].uri;
       }
     } else {
+      if (!uri.split("?")[0].endsWith(".imjoy.html")) {
+        external = true;
+      }
       selected_tag = uri.split(".imjoy.html@")[1];
       if (selected_tag) {
         uri = uri.split("@" + selected_tag)[0];
       }
     }
-    if (!uri.split("?")[0].endsWith(".imjoy.html")) {
-      throw 'Plugin url must be ends with ".imjoy.html"';
-    }
-    return { uri, scoped_plugins, selected_tag };
-  }
 
+    return { uri, scoped_plugins, selected_tag, external };
+  }
+  getExternalPluginConfig(url) {
+    return new Promise((resolve, reject) => {
+      const _frame = Object(_jailedPlugin_js__WEBPACK_IMPORTED_MODULE_7__["createIframe"])({
+        id: "external_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])(),
+        type: "window",
+        base_frame: url,
+        permissions: [],
+      });
+      _frame.style.display = "none";
+      document.body.appendChild(_frame);
+      this._connection = new _connection_js__WEBPACK_IMPORTED_MODULE_8__["BasicConnection"](_frame);
+      this._connection.onInit(async pluginConfig => {
+        if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["CONFIG_SCHEMA"])(pluginConfig)) {
+          const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["CONFIG_SCHEMA"].errors;
+          console.error(
+            "Invalid config " + pluginConfig.name || false,
+            pluginConfig,
+            error
+          );
+          throw error;
+        }
+        pluginConfig.base_frame = url;
+        pluginConfig.code = `<config lang="json">\n${JSON.stringify(
+          pluginConfig,
+          null,
+          "  "
+        )}\n</config>`;
+        pluginConfig.badges = this.getBadges(pluginConfig);
+        pluginConfig.uri = url;
+        pluginConfig.origin = url;
+        resolve(pluginConfig);
+      });
+      this._connection.onFailed(e => {
+        reject(e);
+      });
+    });
+  }
   async getPluginFromUrl(uri, scoped_plugins) {
     const obj = await this.normalizePluginUrl(uri, scoped_plugins);
+    if (obj.external) {
+      return await this.getExternalPluginConfig(uri);
+    }
     uri = obj.uri;
     scoped_plugins = obj.scoped_plugins;
     const selected_tag = obj.selected_tag;
 
     // If the url has no query parameter, then add random query string to avoid browser caching
     if (uri.indexOf("?") === -1) {
-      uri = uri + "?" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+      uri = uri + "?" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
     }
     const response = await axios__WEBPACK_IMPORTED_MODULE_3___default.a.get(uri);
     if (!response || !response.data || response.data === "") {
@@ -60658,7 +60727,7 @@ class PluginManager {
             reject(`Failed to fetch the plugin from "${uri}".`);
             return;
           }
-          if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["getBackendByType"])(config.type)) {
+          if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["getBackendByType"])(config.type)) {
             console.warn(
               `Installed plugin ${config.name} with unsupported plugin type: ${
                 config.type
@@ -60681,7 +60750,7 @@ class PluginManager {
             // config.origin = config.origin + "@" + config.tag;
           }
           config._id =
-            (config.name && config.name.replace(/ /g, "_")) || Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+            (config.name && config.name.replace(/ /g, "_")) || Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
           config.dependencies = config.dependencies || [];
           try {
             for (let i = 0; i < config.dependencies.length; i++) {
@@ -60745,7 +60814,7 @@ class PluginManager {
             reject(`Failed to fetch the plugin from "${uri}".`);
             return;
           }
-          if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["getBackendByType"])(config.type)) {
+          if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["getBackendByType"])(config.type)) {
             console.warn(
               `Installed plugin ${config.name} with unsupported plugin type: ${
                 config.type
@@ -60768,7 +60837,7 @@ class PluginManager {
             // config.origin = config.origin + "@" + config.tag;
           }
           config._id =
-            (config.name && config.name.replace(/ /g, "_")) || Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+            (config.name && config.name.replace(/ /g, "_")) || Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
           config.dependencies = config.dependencies || [];
           try {
             for (let i = 0; i < config.dependencies.length; i++) {
@@ -60859,7 +60928,7 @@ class PluginManager {
       this.db
         .get(plugin_id)
         .then(doc => {
-          const pluginComp = Object(_pluginParser_js__WEBPACK_IMPORTED_MODULE_11__["parseComponent"])(doc.code);
+          const pluginComp = Object(_pluginParser_js__WEBPACK_IMPORTED_MODULE_12__["parseComponent"])(doc.code);
           const docs =
             pluginComp.docs && pluginComp.docs[0] && pluginComp.docs[0].content;
           resolve(docs);
@@ -60918,7 +60987,7 @@ class PluginManager {
   reloadPlugin(pconfig, allow_evil) {
     return new Promise((resolve, reject) => {
       try {
-        if (pconfig instanceof _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_9__["DynamicPlugin"]) {
+        if (pconfig instanceof _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_7__["DynamicPlugin"]) {
           pconfig = pconfig.config;
         }
         this.unloadPlugin(pconfig, true);
@@ -60937,6 +61006,7 @@ class PluginManager {
         let p;
 
         if (
+          template.type === "rpc-window" ||
           template.type === "window" ||
           template.type === "web-python-window"
         ) {
@@ -61018,7 +61088,7 @@ class PluginManager {
     });
   }
   getBadges(p) {
-    const backend = Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["getBackendByType"])(p.type);
+    const backend = Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["getBackendByType"])(p.type);
     if (backend) {
       return backend.icon || "";
     } else {
@@ -61028,7 +61098,7 @@ class PluginManager {
   parsePluginCode(code, overwrite_config) {
     overwrite_config = overwrite_config || {};
     try {
-      const pluginComp = Object(_pluginParser_js__WEBPACK_IMPORTED_MODULE_11__["parseComponent"])(code);
+      const pluginComp = Object(_pluginParser_js__WEBPACK_IMPORTED_MODULE_12__["parseComponent"])(code);
       let config;
       if (pluginComp.config[0].attrs.lang === "yaml") {
         config = js_yaml__WEBPACK_IMPORTED_MODULE_4___default.a.load(pluginComp.config[0].content);
@@ -61036,7 +61106,7 @@ class PluginManager {
         config = JSON.parse(pluginComp.config[0].content);
       } else {
         config = JSON.parse(pluginComp.config[0].content);
-        if (Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["compareVersions"])(config.api_version, ">", "0.1.5")) {
+        if (Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["compareVersions"])(config.api_version, ">", "0.1.5")) {
           throw `Unsupported config language ${
             pluginComp.config[0].attrs.lang
           }, please set lang="json" or lang="yaml"`;
@@ -61074,19 +61144,19 @@ class PluginManager {
       config.uri = overwrite_config.uri;
       config.origin = overwrite_config.origin;
       config.code = code;
-      config.id = config.name.trim().replace(/ /g, "_") + "_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+      config.id = config.name.trim().replace(/ /g, "_") + "_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
       config.runnable = config.runnable === false ? false : true;
       config.requirements = config.requirements || [];
 
-      for (let i = 0; i < _api_js__WEBPACK_IMPORTED_MODULE_10__["CONFIGURABLE_FIELDS"].length; i++) {
-        const obj = config[_api_js__WEBPACK_IMPORTED_MODULE_10__["CONFIGURABLE_FIELDS"][i]];
+      for (let i = 0; i < _api_js__WEBPACK_IMPORTED_MODULE_9__["CONFIGURABLE_FIELDS"].length; i++) {
+        const obj = config[_api_js__WEBPACK_IMPORTED_MODULE_9__["CONFIGURABLE_FIELDS"][i]];
         if (obj && typeof obj === "object" && !(obj instanceof Array)) {
           if (config.tag) {
-            config[_api_js__WEBPACK_IMPORTED_MODULE_10__["CONFIGURABLE_FIELDS"][i]] = obj[config.tag];
+            config[_api_js__WEBPACK_IMPORTED_MODULE_9__["CONFIGURABLE_FIELDS"][i]] = obj[config.tag];
             if (!Object.prototype.hasOwnProperty.call(obj, config.tag)) {
               console.log(
                 "WARNING: " +
-                  _api_js__WEBPACK_IMPORTED_MODULE_10__["CONFIGURABLE_FIELDS"][i] +
+                  _api_js__WEBPACK_IMPORTED_MODULE_9__["CONFIGURABLE_FIELDS"][i] +
                   " do not contain a tag named: " +
                   config.tag
               );
@@ -61097,13 +61167,13 @@ class PluginManager {
         }
       }
       config.lang = config.lang || "javascript";
-      config = Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["upgradePluginAPI"])(config);
-      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["PLUGIN_SCHEMA"])(config)) {
-        const error = _api_js__WEBPACK_IMPORTED_MODULE_10__["PLUGIN_SCHEMA"].errors;
+      config = Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["upgradePluginAPI"])(config);
+      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["PLUGIN_SCHEMA"])(config)) {
+        const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["PLUGIN_SCHEMA"].errors;
         console.error("Invalid plugin config: " + config.name, error);
         throw error;
       }
-      const backend = Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["getBackendByType"])(config.type);
+      const backend = Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["getBackendByType"])(config.type);
       config.badges = this.getBadges(config);
       if (backend) {
         config.engine_mode = null;
@@ -61151,7 +61221,7 @@ class PluginManager {
     //generate a random id for the plugin
     return new Promise((resolve, reject) => {
       if (!rplugin) {
-        config.id = template.name.trim().replace(/ /g, "_") + "_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+        config.id = template.name.trim().replace(/ /g, "_") + "_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
         config.initialized = false;
       } else {
         config.id = rplugin.id;
@@ -61164,13 +61234,13 @@ class PluginManager {
       );
       try {
         // create a proxy plugin
-        const plugin = new _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_9__["DynamicPlugin"](tconfig, _interface, null, true);
+        const plugin = new _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_7__["DynamicPlugin"](tconfig, _interface, null, true);
         plugin.api = {
           __as_interface__: true,
           __id__: plugin.id,
           setup: async () => {},
           run: async my => {
-            const c = Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["_clone"])(template.defaults) || {};
+            const c = Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["_clone"])(template.defaults) || {};
             c.type = template.name;
             c.name = template.name;
             c.tag = template.tag;
@@ -61204,13 +61274,13 @@ class PluginManager {
   }
 
   loadPlugin(template, rplugin, allow_evil) {
-    template = Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["_clone"])(template);
+    template = Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["_clone"])(template);
     this.validatePluginConfig(template);
     //generate a random id for the plugin
     return new Promise((resolve, reject) => {
       const config = {};
       if (!rplugin) {
-        config.id = template.name.trim().replace(/ /g, "_") + "_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+        config.id = template.name.trim().replace(/ /g, "_") + "_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
         config.initialized = false;
       } else {
         config.id = rplugin.id;
@@ -61219,7 +61289,7 @@ class PluginManager {
       config._id = template._id;
 
       let engine = null;
-      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["getBackendByType"])(template.type)) {
+      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["getBackendByType"])(template.type)) {
         engine = this.em.findEngine(template);
         if (!engine || !engine.connected) {
           console.error("Please connect to the Plugin Engine 🚀");
@@ -61240,7 +61310,7 @@ class PluginManager {
         this.imjoy_api
       );
       try {
-        const plugin = new _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_9__["DynamicPlugin"](
+        const plugin = new _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_7__["DynamicPlugin"](
           tconfig,
           _interface,
           engine,
@@ -61378,7 +61448,7 @@ class PluginManager {
         imjoy_api
       );
       try {
-        const plugin = new _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_9__["DynamicPlugin"](tconfig, _interface);
+        const plugin = new _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_7__["DynamicPlugin"](tconfig, _interface);
 
         plugin.onConnected(() => {
           if (!pconfig.standalone && pconfig.focus) pconfig.focus();
@@ -61542,10 +61612,10 @@ class PluginManager {
           url = url + "/tree/" + hashtag;
           repo_origin = repo_origin + "@" + hashtag;
         }
-        repository_url = Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["githubImJoyManifest"])("https://github.com/" + url);
+        repository_url = Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["githubImJoyManifest"])("https://github.com/" + url);
       } else if (url.includes("github.com")) {
-        repository_url = Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["githubImJoyManifest"])(url);
-        repo_origin = Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["githubRepo"])(url);
+        repository_url = Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["githubImJoyManifest"])(url);
+        repo_origin = Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["githubRepo"])(url);
       } else {
         repository_url = url;
         repo_origin = repository_url;
@@ -61598,7 +61668,7 @@ class PluginManager {
   registerOp(plugin, config) {
     try {
       if (!plugin) throw "Plugin not found.";
-      config = Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["_clone"])(config);
+      config = Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["_clone"])(config);
       config.name = config.name || plugin.name;
       config.show_panel = config.show_panel || false;
       if (plugin.name === config.name) {
@@ -61608,8 +61678,8 @@ class PluginManager {
       config.outputs = config.outputs || null;
       config.run = config.run || null;
       config.run = config.run || (plugin && plugin.api && plugin.api.run);
-      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["OP_SCHEMA"])(config)) {
-        const error = _api_js__WEBPACK_IMPORTED_MODULE_10__["OP_SCHEMA"].errors;
+      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["OP_SCHEMA"])(config)) {
+        const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["OP_SCHEMA"].errors;
         console.error("Error occured during registering " + config.name, error);
         throw error;
       }
@@ -61627,6 +61697,10 @@ class PluginManager {
       // save type to tags
       if (config.type === "window") {
         joy_template.tags.push("window");
+      } else if (config.type === "rpc-window") {
+        joy_template.tags.push("rpc-window");
+      } else if (config.type === "rpc-worker") {
+        joy_template.tags.push("rpc-worker");
       } else if (config.type === "native-python") {
         joy_template.tags.push("python");
       } else if (config.type === "web-worker") {
@@ -61664,18 +61738,18 @@ class PluginManager {
           const result = await config.update(this.joy2plugin(my));
           return this.plugin2joy(result);
         };
-        joy_template.onupdate = Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["debounce"])(onupdate, 300);
+        joy_template.onupdate = Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["debounce"])(onupdate, 300);
       } else if (plugin && plugin.api && plugin.api.update) {
         const onupdate = async my => {
           // my.target._workflow_id = null;
           const result = await plugin.api.update(this.joy2plugin(my));
           return this.plugin2joy(result);
         };
-        joy_template.onupdate = Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["debounce"])(onupdate, 300);
+        joy_template.onupdate = Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["debounce"])(onupdate, 300);
       }
 
-      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["JOY_SCHEMA"])(joy_template)) {
-        const error = _api_js__WEBPACK_IMPORTED_MODULE_10__["JOY_SCHEMA"].errors;
+      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["JOY_SCHEMA"])(joy_template)) {
+        const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["JOY_SCHEMA"].errors;
         console.error(
           "Error occured during registering op to joy " + joy_template.name,
           error
@@ -61713,7 +61787,7 @@ class PluginManager {
           ) {
             config.inputs.required = Object.keys(config.inputs.properties);
           }
-          const sch = _api_js__WEBPACK_IMPORTED_MODULE_10__["ajv"].compile(config.inputs);
+          const sch = _api_js__WEBPACK_IMPORTED_MODULE_9__["ajv"].compile(config.inputs);
           op_config.inputs_schema = sch;
           this.registered.inputs[op_key] = {
             loader_key: op_key,
@@ -61735,7 +61809,7 @@ class PluginManager {
             target._op = op_name;
             target._workflow_id =
               target._workflow_id ||
-              "data_loader_" + op_name.trim().replace(/ /g, "_") + Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+              "data_loader_" + op_name.trim().replace(/ /g, "_") + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
             const my = { op: { name: op_name }, target: target, data: config };
             const result = await plugin.api.run(this.joy2plugin(my));
             if (result) {
@@ -61780,7 +61854,7 @@ class PluginManager {
           ) {
             config.outputs.required = Object.keys(config.outputs.properties);
           }
-          const sch = _api_js__WEBPACK_IMPORTED_MODULE_10__["ajv"].compile(config.outputs);
+          const sch = _api_js__WEBPACK_IMPORTED_MODULE_9__["ajv"].compile(config.outputs);
           op_config.outputs_schema = sch;
           this.registered.outputs[op_key] = {
             op_name: config.name,
@@ -61836,12 +61910,12 @@ class PluginManager {
   //#################ImJoy API functions##################
   async register(plugin, config) {
     if (config.type === "engine") {
-      Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["assert"])(
+      Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["assert"])(
         plugin.config.flags && plugin.config.flags.indexOf("engine") >= 0,
         "Please add `engine` to `config.flags` before registering an engine."
       );
-      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["ENGINE_SCHEMA"])(config)) {
-        const error = _api_js__WEBPACK_IMPORTED_MODULE_10__["ENGINE_SCHEMA"].errors;
+      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["ENGINE_SCHEMA"])(config)) {
+        const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["ENGINE_SCHEMA"].errors;
         console.error("Error occured registering engine ", config, error);
         throw error;
       }
@@ -61851,13 +61925,13 @@ class PluginManager {
         this.em.unregister(config);
       });
     } else if (config.type === "engine-factory") {
-      Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["assert"])(
+      Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["assert"])(
         plugin.config.flags &&
           plugin.config.flags.indexOf("engine-factory") >= 0,
         "Please add `engine-factory` to `config.flags` before registering an engine factory."
       );
-      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["ENGINE_FACTORY_SCHEMA"])(config)) {
-        const error = _api_js__WEBPACK_IMPORTED_MODULE_10__["ENGINE_FACTORY_SCHEMA"].errors;
+      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["ENGINE_FACTORY_SCHEMA"])(config)) {
+        const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["ENGINE_FACTORY_SCHEMA"].errors;
         console.error(
           "Error occured registering engine factory",
           config,
@@ -61871,12 +61945,12 @@ class PluginManager {
         this.em.unregisterFactory(config);
       });
     } else if (config.type === "file-manager") {
-      Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["assert"])(
+      Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["assert"])(
         plugin.config.flags && plugin.config.flags.indexOf("file-manager") >= 0,
         "Please add `file-manager` to `config.flags` before registering a file manager."
       );
-      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["FILE_MANAGER_SCHEMA"])(config)) {
-        const error = _api_js__WEBPACK_IMPORTED_MODULE_10__["FILE_MANAGER_SCHEMA"].errors;
+      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["FILE_MANAGER_SCHEMA"])(config)) {
+        const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["FILE_MANAGER_SCHEMA"].errors;
         console.error("Error occured registering file manager", config, error);
         throw error;
       }
@@ -61900,17 +61974,21 @@ class PluginManager {
   }
   createWindow(_plugin, wconfig) {
     return new Promise((resolve, reject) => {
+      if (!wconfig.type) {
+        if (wconfig.ui) {
+          wconfig.type = "imjoy/joy";
+        }
+      }
       wconfig.data = wconfig.data || null;
       wconfig.panel = wconfig.panel || null;
-      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["WINDOW_SCHEMA"])(wconfig)) {
-        const error = _api_js__WEBPACK_IMPORTED_MODULE_10__["WINDOW_SCHEMA"].errors;
+      if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["WINDOW_SCHEMA"])(wconfig)) {
+        const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["WINDOW_SCHEMA"].errors;
         console.error("Error occured during creating window ", wconfig, error);
         throw error;
       }
       wconfig.name = wconfig.name || wconfig.type;
       if (wconfig.type && wconfig.type.startsWith("imjoy/")) {
-        wconfig.id = "imjoy_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
-        wconfig.window_type = wconfig.type;
+        wconfig.id = "imjoy_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
         this.wm
           .addWindow(wconfig)
           .then(wid => {
@@ -61936,31 +62014,24 @@ class PluginManager {
           .catch(reject);
       } else {
         let window_config;
-        // set type to external if src is present
-        if (wconfig.src && !wconfig.type) {
-          wconfig.type = "external";
-        }
-        if (wconfig.type === "external") {
-          if (wconfig.name === wconfig.type)
-            wconfig.name = wconfig.src.split("?")[0];
-          if (!wconfig.src) {
-            reject("You must specify the `src` for the external window.");
-            return;
-          }
+        // load rpc-window if src presents
+        if (wconfig.src) {
+          wconfig.type = wconfig.type || wconfig.src.split("?")[0];
+          wconfig.name = wconfig.name || wconfig.type;
           window_config = Object.assign({}, wconfig);
           delete window_config.data;
           delete window_config.config;
           // copy valid config options as external window plugin <config> block
           if (typeof wconfig.config === "object") {
-            for (let k of _api_js__WEBPACK_IMPORTED_MODULE_10__["PLUGIN_CONFIG_FIELDS"]) {
+            for (let k of _api_js__WEBPACK_IMPORTED_MODULE_9__["PLUGIN_CONFIG_FIELDS"]) {
               if (wconfig.config[k]) {
                 window_config[k] = wconfig.config[k];
               }
             }
           }
+          window_config.type = "rpc-window";
           window_config.base_frame = wconfig.src;
-          window_config.type = "window";
-          window_config.id = "external_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+          window_config.id = "rpc_window_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
         } else {
           window_config = this.registered.windows[wconfig.type];
         }
@@ -61974,23 +62045,26 @@ class PluginManager {
         }
         const pconfig = wconfig;
         //generate a new window id
-        pconfig.id = pconfig.id || window_config.id + "_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+        pconfig.id = pconfig.id || window_config.id + "_" + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
 
-        pconfig.window_type = pconfig.type;
         //assign plugin type ('window')
         pconfig.type = window_config.type;
-        if (pconfig.type !== "window" && pconfig.type !== "web-python-window") {
+        if (
+          pconfig.type !== "rpc-window" &&
+          pconfig.type !== "window" &&
+          pconfig.type !== "web-python-window"
+        ) {
           throw 'Window plugin must be with type "window"';
         }
 
         // this is a unique id for the iframe to attach
         pconfig.iframe_container =
-          pconfig.window_container || "plugin_window_" + pconfig.id + Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["randId"])();
+          pconfig.window_container || "plugin_window_" + pconfig.id + Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["randId"])();
         pconfig.iframe_window = null;
         pconfig.plugin = window_config;
 
-        if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_10__["WINDOW_SCHEMA"])(pconfig)) {
-          const error = _api_js__WEBPACK_IMPORTED_MODULE_10__["WINDOW_SCHEMA"].errors;
+        if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["WINDOW_SCHEMA"])(pconfig)) {
+          const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["WINDOW_SCHEMA"].errors;
           console.error(
             "Error occured during creating window ",
             pconfig,
@@ -62007,7 +62081,7 @@ class PluginManager {
           this.wm.setupCallbacks(pconfig);
           setTimeout(() => {
             const p = this.renderWindow(pconfig);
-            if (pconfig.window_type === "external") {
+            if (pconfig.type === "rpc-window") {
               clearTimeout(loadingTimer);
               pconfig.loading = false;
             }
@@ -62043,7 +62117,7 @@ class PluginManager {
             setTimeout(() => {
               pconfig.refresh();
               const p = this.renderWindow(pconfig);
-              if (pconfig.window_type === "external") {
+              if (pconfig.type === "rpc-window") {
                 clearTimeout(loadingTimer);
                 pconfig.loading = false;
               }
@@ -62209,7 +62283,7 @@ class PluginManager {
     );
     if (pconfig.hash) {
       if (pconfig.hash !== spark_md5__WEBPACK_IMPORTED_MODULE_1___default.a.hash(config.code)) {
-        if (Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["compareVersions"])(pconfig.version, "<=", config.version)) {
+        if (Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["compareVersions"])(pconfig.version, "<=", config.version)) {
           plugin.update_available = true;
         } else {
           plugin.update_available = false;
@@ -62218,7 +62292,7 @@ class PluginManager {
         plugin.update_available = false;
       }
     } else {
-      if (Object(_utils_js__WEBPACK_IMPORTED_MODULE_7__["compareVersions"])(pconfig.version, "<", config.version)) {
+      if (Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["compareVersions"])(pconfig.version, "<", config.version)) {
         plugin.update_available = true;
       } else {
         plugin.update_available = false;
@@ -63793,7 +63867,7 @@ const arrColours = [
 ];
 // const arrCharacters =  ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '@', '#', '$', '%', '^', '&', '*'];
 
-const expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+const expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
 const url_regex = new RegExp(expression);
 
 function debounce(func, wait, immediate) {

@@ -128,7 +128,7 @@ function _injectScript(src) {
     script.addEventListener("load", resolve);
     script.addEventListener("error", () => {
       document.head.removeChild(script);
-      reject("Error loading script.");
+      reject("Error loading script: " + src);
     });
     script.addEventListener("abort", () => reject("Script loading aborted."));
     document.head.appendChild(script);
@@ -165,8 +165,7 @@ function loadImJoyCore(config) {
       } else if (
         typeof define === "function" &&
         // eslint-disable-next-line no-undef
-        __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") &&
-        "function" === "function"
+        __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js")
       )
         eval("require")(["imjoyCore"], resolve);
       else reject("Failed to import imjoy-core.");
@@ -286,8 +285,7 @@ function loadImJoyRPC(config) {
         } else if (
           typeof define === "function" &&
           // eslint-disable-next-line no-undef
-          __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js") &&
-          "function" === "function"
+          __webpack_require__(/*! !webpack amd options */ "./node_modules/webpack/buildin/amd-options.js")
         )
           eval("require")(["imjoyRPC"], imjoyRPC => {
             try {

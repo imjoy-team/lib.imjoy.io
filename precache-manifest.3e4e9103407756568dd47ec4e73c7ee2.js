@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "core-example.html"
   },
   {
-    "revision": "1f26879332d20b79a4d5",
+    "revision": "149b5a8ca0aa83b021eb",
     "url": "imjoy-core.min.js"
   },
   {

@@ -54031,7 +54031,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, private, description, author, license, repository, keywords, bugs, homepage, module, scripts, dependencies, devDependencies, eslintConfig, prettier, postcss, browserslist, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.12.7\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"module\":\"index.js\",\"scripts\":{\"serve\":\"webpack-dev-server --config webpack.library.js\",\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development && webpack --config webpack.library.js --mode production --fileid min  --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --fileid module\",\"watch\":\"webpack --watch --progress --config  webpack.library.js --mode development --libraryTarget commonjs2 --fileid module \",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"imjoy-rpc\":\"^0.1.17\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"lz-string\":\"^1.4.4\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"rename-output-webpack-plugin\":\"^1.0.1\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"webpack-dev-server\":\"^3.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"browser\":true,\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2017,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-core\",\"version\":\"0.13.0\",\"private\":false,\"description\":\"The core library for ImJoy -- a sandboxed plugin framework for computational web applications.\",\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-core.git\"},\"keywords\":[\"ImJoy\",\"PWA\",\"Deep Learning\"],\"bugs\":{\"url\":\"https://github.com/imjoy-team/ImJoy/issues\"},\"homepage\":\"https://imjoy.io\",\"module\":\"index.js\",\"scripts\":{\"serve\":\"webpack-dev-server --config webpack.library.js\",\"build\":\"rm -rf dist && npm run build-umd && npm run build-module\",\"build-umd\":\"webpack --config webpack.library.js --mode development && webpack --config webpack.library.js --mode production --fileid min  --generate_service_worker\",\"build-module\":\"webpack --config webpack.library.js --mode development --libraryTarget commonjs2 --fileid module\",\"watch\":\"webpack --watch --progress --config  webpack.library.js --mode development --libraryTarget commonjs2 --fileid module \",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"lint\":\"eslint \\\"{src,tests}/**/**\\\"\",\"check\":\"eslint \\\"{src,tests}/**/**\\\" && prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"test-watch\":\"karma start --auto-watch --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"deploy\":\"npm run build && node deploy-site.js\"},\"dependencies\":{\"ajv\":\"^6.9.1\",\"axios\":\"^0.18.1\",\"dompurify\":\"^2.0.8\",\"file-saver\":\"^1.3.3\",\"imjoy-rpc\":\"^0.2.0\",\"js-yaml\":\"^3.13.1\",\"lodash\":\"^4.17.15\",\"lz-string\":\"^1.4.4\",\"minibus\":\"^3.1.0\",\"pouchdb-browser\":\"^7.0.0\",\"spark-md5\":\"^3.0.0\"},\"devDependencies\":{\"chai\":\"^4.1.2\",\"cname-webpack-plugin\":\"^1.0.3\",\"copy-webpack-plugin\":\"^5.1.1\",\"create-file-webpack\":\"^1.0.2\",\"cross-env\":\"^5.0.1\",\"cross-spawn\":\"^5.0.1\",\"css-loader\":\"^2.1.1\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"gh-pages\":\"^2.0.1\",\"husky\":\"^4.2.3\",\"karma\":\"^4.1.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-spec-reporter\":\"0.0.32\",\"karma-webpack\":\"^4.0.2\",\"lint-staged\":\"^10.0.8\",\"mocha\":\"^7.1.0\",\"postcss-import\":\"^11.0.0\",\"postcss-loader\":\"^2.0.8\",\"postcss-url\":\"^7.2.1\",\"prettier\":\"1.17.0\",\"raw-loader\":\"^1.0.0\",\"rename-output-webpack-plugin\":\"^1.0.1\",\"uglify-es\":\"github:mishoo/UglifyJS2#harmony\",\"uglify-js\":\"^2.8.29\",\"url-loader\":\"^1.1.2\",\"webpack\":\"^4.42.0\",\"webpack-cli\":\"^3.3.6\",\"webpack-dev-server\":\"^3.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\"},\"eslintConfig\":{\"root\":true,\"env\":{\"browser\":true,\"node\":true,\"es6\":true},\"extends\":[\"eslint:recommended\"],\"rules\":{\"no-console\":\"off\",\"no-empty\":[\"error\",{\"allowEmptyCatch\":true}]},\"parserOptions\":{\"parser\":\"babel-eslint\",\"ecmaVersion\":2017,\"sourceType\":\"module\",\"ecmaFeatures\":{\"modules\":true}}},\"prettier\":{\"trailingComma\":\"es5\"},\"postcss\":{\"plugins\":{\"autoprefixer\":{}}},\"browserslist\":[\"> 1%\",\"last 2 versions\",\"not ie <= 8\"],\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,tests}/**/**}\":\"prettier --write\"}}");
 
 /***/ }),
 
@@ -54186,24 +54186,21 @@ ajv.addKeyword("ndarray", {
     }
     return function(data) {
       const isndarray =
-        data.__jailed_type__ === "ndarray" &&
-        data.__value__ &&
-        data.__value__ instanceof ArrayBufferView &&
-        data.__shape__ &&
-        Array.isArray(data.__shape__) &&
-        data.__dtype__ &&
-        _dtypes.includes(data.__dtype__);
+        data._rtype === "ndarray" &&
+        data._rvalue &&
+        data._rvalue instanceof ArrayBufferView &&
+        data._rshape &&
+        Array.isArray(data._rshape) &&
+        data._rdtype &&
+        _dtypes.includes(data._rdtype);
       if (!isndarray) return false;
       if (!config) return true;
       for (let k in config) {
         if (k === "shape") {
           const shape = config[k];
-          if (data.__shape__.length !== shape.length) return false;
-          for (let i = 0; i < data.__shape__.length; i++) {
-            if (
-              typeof shape[i] === "number" &&
-              data.__shape__[i] !== shape[i]
-            ) {
+          if (data._rshape.length !== shape.length) return false;
+          for (let i = 0; i < data._rshape.length; i++) {
+            if (typeof shape[i] === "number" && data._rshape[i] !== shape[i]) {
               return false;
             }
           }
@@ -54213,9 +54210,9 @@ ajv.addKeyword("ndarray", {
           const dtype = config[k];
           let _ok = false;
           if (typeof dtype === "string") {
-            _ok = data.__dtype__ === config[k];
+            _ok = data._rdtype === config[k];
           } else if (Array.isArray(dtype)) {
-            _ok = dtype.includes(data.__dtype__);
+            _ok = dtype.includes(data._rdtype);
           }
           if (!_ok) return false;
         }
@@ -54224,9 +54221,9 @@ ajv.addKeyword("ndarray", {
           const ndim = config[k];
           let _ok = false;
           if (typeof ndim === "number") {
-            _ok = data.__shape__.length === ndim;
+            _ok = data._rshape.length === ndim;
           } else if (Array.isArray(ndim)) {
-            _ok = ndim.includes(data.__shape__.length);
+            _ok = ndim.includes(data._rshape.length);
           }
           if (!_ok) return false;
         }
@@ -54456,6 +54453,7 @@ const FILE_MANAGER_SCHEMA = ajv.compile({
 const CONFIG_SCHEMA = ajv.compile({
   properties: {
     allow_execution: { type: "boolean" },
+    credential_required: { type: ["object", "null"] },
     api_version: { type: "string", maxLength: 32 },
     cover: { type: ["string", "array"], maxLength: 1024 },
     dedicated_thread: { type: "boolean" },
@@ -54469,7 +54467,6 @@ const CONFIG_SCHEMA = ajv.compile({
     name: { type: "string", maxLength: 32 },
     outputs: { type: ["object", "array"] },
     tags: { type: "array", maxLength: 32 },
-    token: { type: "string", maxLength: 1024 },
     type: { type: "string", enum: Object.keys(_backends) },
     ui: { type: "string", maxLength: 2048 },
     version: { type: "string", maxLength: 32 },
@@ -54481,7 +54478,6 @@ const CONFIG_SCHEMA = ajv.compile({
     "api_version",
     "id",
     "allow_execution",
-    "token",
   ],
 });
 
@@ -54501,61 +54497,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./src/utils.js");
 
 
-class BasicConnection {
+class BasicConnection extends _utils_js__WEBPACK_IMPORTED_MODULE_0__["EventManager"] {
   constructor(sourceIframe) {
-    this._init = new _utils_js__WEBPACK_IMPORTED_MODULE_0__["Whenable"](true);
-    this._fail = new _utils_js__WEBPACK_IMPORTED_MODULE_0__["Whenable"](true);
+    super();
+    this._event_handlers = {};
     this._disconnected = false;
     this.pluginConfig = {};
-    this._getConfigSCb = function() {};
-    this._executeSCb = function() {};
-    this._executeFCb = function() {};
-    this._messageHandler = function() {};
     this._frame = sourceIframe;
-
-    // TODO: remove listener when disconnected
-    window.addEventListener("message", e => {
-      if (this._frame.contentWindow && e.source === this._frame.contentWindow) {
-        const m = e.data;
-        switch (m && m.type) {
-          case "config":
-            this.pluginConfig = m.config;
-            this._getConfigSCb(m.config);
-            break;
-          case "initialized":
-            this.pluginConfig = m.config;
-            this._init.emit(this.pluginConfig);
-            break;
-          case "executeSuccess":
-            this._executeSCb();
-            break;
-          case "executeFailure":
-            this._executeFCb(m.error);
-            break;
-          default:
-            this._messageHandler(m);
-        }
+    this.on("initialized", data => {
+      this.pluginConfig = data.config;
+      if (this.pluginConfig.origin) {
+        console.warn(
+          `RPC connect to ${this.pluginConfig.name} will limited to origin: ${
+            this.pluginConfig.origin
+          }`
+        );
       }
     });
   }
-
-  getConfig() {
-    return new Promise((resolve, reject) => {
-      this._getConfigSCb = resolve;
-      try {
-        this.send({ type: "getConfig" });
-      } catch (e) {
-        reject(e);
+  connect() {
+    // TODO: remove listener when disconnected
+    window.addEventListener("message", e => {
+      if (this._frame.contentWindow && e.source === this._frame.contentWindow) {
+        this._fire(e.data.type, e.data);
       }
     });
+    this._fire("connected");
   }
 
   execute(code) {
     return new Promise((resolve, reject) => {
-      this._executeSCb = resolve;
-      this._executeFCb = reject;
+      this.once("executed", result => {
+        if (result.error) {
+          reject(result.error);
+        } else {
+          resolve();
+        }
+      });
       if (this.pluginConfig.allow_execution) {
-        this.send({ type: "execute", code: code });
+        this.emit({ type: "execute", code: code });
       } else {
         reject("Connection does not allow execution");
       }
@@ -54563,74 +54543,34 @@ class BasicConnection {
   }
 
   /**
-   * Sets-up the handler to be called upon the BasicConnection
-   * initialization is completed.
-   *
-   * For the web-browser environment, the handler is issued when
-   * the plugin worker successfully imported and executed the
-   * _pluginWebWorker.js or _pluginWebIframe.js, and replied to
-   * the application site with the initImprotSuccess message.
-   *
-   * @param {Function} handler to be called upon connection init
-   */
-  onInit(handler) {
-    this._init.whenEmitted(handler);
-  }
-
-  /**
-   * Sets-up the handler to be called upon the BasicConnection
-   * failed.
-   *
-   * For the web-browser environment, the handler is issued when
-   * the plugin worker successfully imported and executed the
-   * _pluginWebWorker.js or _pluginWebIframe.js, and replied to
-   * the application site with the initImprotSuccess message.
-   *
-   * @param {Function} handler to be called upon connection init
-   */
-  onFailed(handler) {
-    this._fail.whenEmitted(handler);
-  }
-
-  /**
    * Sends a message to the plugin site
    *
    * @param {Object} data to send
    */
-  send(data, transferables) {
+  emit(data) {
+    let transferables = undefined;
+    if (data.__transferables__) {
+      transferables = data.__transferables__;
+      delete data.__transferables__;
+    }
     this._frame.contentWindow &&
-      this._frame.contentWindow.postMessage(data, "*", transferables);
-  }
-
-  /**
-   * Adds a handler for a message received from the plugin site
-   *
-   * @param {Function} handler to call upon a message
-   */
-  onMessage(handler) {
-    this._messageHandler = handler;
-  }
-
-  /**
-   * Adds a handler for the event of plugin disconnection
-   * (not used in case of Worker)
-   *
-   * @param {Function} handler to call upon a disconnect
-   */
-  onDisconnect(handler) {
-    this._disconnectHandler = handler;
+      this._frame.contentWindow.postMessage(
+        data,
+        this.pluginConfig.origin || "*",
+        transferables
+      );
   }
 
   /**
    * Disconnects the plugin (= kills the frame)
    */
-  disconnect() {
+  disconnect(details) {
     if (!this._disconnected) {
       this._disconnected = true;
       if (typeof this._frame !== "undefined") {
         this._frame.parentNode.removeChild(this._frame);
       } // otherwise farme is not yet created
-      if (this._disconnectHandler) this._disconnectHandler();
+      this._fire("disconnected", details);
     }
   }
 }
@@ -54937,7 +54877,7 @@ var execute = async function(code, api_interface) {
         throw `Failed to import required scripts ${code.requirements}: ${e}`;
       }
     }
-  } else if (code.type == "script") {
+  } else if (code.type === "script") {
     if (code.src) {
       var script_node = document.createElement("script");
       script_node.setAttribute("type", code.attrs.type);
@@ -55365,7 +55305,8 @@ function loadImJoyCore(config) {
 }
 const _rpc_registry = {};
 const _rpc_api_versions = {
-  "0.2.0": { from: "0.1.10", to: "latest", skips: [] },
+  "0.2.0": { from: "0.1.10", to: "0.1.17", skips: [] },
+  "0.2.1": { from: "0.1.18", to: "0.2.0", skips: [] },
 };
 
 // specify an api version and this function will return the actual imjoy-rpc version
@@ -55528,6 +55469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dompurify */ "./node_modules/dompurify/dist/purify.js");
 /* harmony import */ var dompurify__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(dompurify__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _imjoyLoader_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./imjoyLoader.js */ "./src/imjoyLoader.js");
+/* harmony import */ var _imjoyCore_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./imjoyCore.js */ "./src/imjoyCore.js");
 /**
  * @fileoverview Jailed - safe yet flexible sandbox
  *
@@ -55550,7 +55492,7 @@ const JailedConfig = {};
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
   JailedConfig.asset_url = "/";
 } else {
-  JailedConfig.asset_url = "https://lib.imjoy.io/";
+  JailedConfig.asset_url = `https://cdn.jsdelivr.net/npm/imjoy-core@${_imjoyCore_js__WEBPACK_IMPORTED_MODULE_5__["VERSION"]}/dist/`;
 }
 /**
  * Initializes the library site for web environment
@@ -55694,7 +55636,7 @@ class DynamicPlugin {
    */
   _bindInterface(_interface) {
     _interface = _interface || {};
-    this._initialInterface = { __as_interface__: true };
+    this._initialInterface = { _rintf: true };
     // bind this plugin to api functions
     for (var k in _interface) {
       if (Object.prototype.hasOwnProperty.call(_interface, k)) {
@@ -55739,8 +55681,8 @@ class DynamicPlugin {
     this._updateUI();
     const me = this;
     const engine_utils = {
-      __as_interface__: true,
-      __id__: this.config.id + "_utils",
+      _rintf: true,
+      _rid: this.config.id + "_utils",
       terminatePlugin() {
         me.terminate();
       },
@@ -55767,8 +55709,8 @@ class DynamicPlugin {
           return;
         }
         this.api = remote;
-        this.api.__as_interface__ = true;
-        this.api.__id__ = this.id;
+        this.api._rintf = true;
+        this.api._rid = this.id;
         this._disconnected = false;
         this.initializing = false;
         this._updateUI();
@@ -55809,9 +55751,13 @@ class DynamicPlugin {
     this._connection = new _connection_js__WEBPACK_IMPORTED_MODULE_2__["BasicConnection"](_frame);
     this.initializing = true;
     this._updateUI();
-    this._connection.onInit(async pluginConfig => {
+    this._connection.on("initialized", async data => {
+      if (data.error) {
+        console.error("Plugin failed to initialize", data.error);
+        throw new Error(data.error);
+      }
       try {
-        pluginConfig = pluginConfig || {};
+        const pluginConfig = data.config || {};
         if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["CONFIG_SCHEMA"])(pluginConfig)) {
           const error = _api_js__WEBPACK_IMPORTED_MODULE_1__["CONFIG_SCHEMA"].errors;
           console.error(
@@ -55821,41 +55767,75 @@ class DynamicPlugin {
           );
           throw error;
         }
+
         const imjoyRPC = await Object(_imjoyLoader_js__WEBPACK_IMPORTED_MODULE_4__["loadImJoyRPC"])({
           api_version: pluginConfig.api_version,
         });
-        this._rpc = new imjoyRPC.RPC(this._connection);
-        this._registerSiteEvents(this._rpc);
+        console.log(
+          `loaded imjoy-rpc v${imjoyRPC.VERSION} for ${pluginConfig.name}`
+        );
+        this._rpc = new imjoyRPC.RPC(this._connection, { name: "imjoy-core" });
+        this._registerRPCEvents(this._rpc);
+        if (pluginConfig.credential_required) {
+          let credential;
+          if (this.config.credential_handler) {
+            credential = await this.config.credential_handler(
+              pluginConfig.credential_required
+            );
+          } else {
+            credential = {};
+            for (let k in pluginConfig.credential_required) {
+              credential[k] = await this._initialInterface.prompt(k);
+            }
+          }
+          await this._rpc.authenticate(credential);
+        }
         this._rpc.setInterface(this._initialInterface);
-        await this._rpc.sendInterface();
+        await this._sendInterface();
         if (pluginConfig.allow_execution) {
           await this._executePlugin();
         }
         this.api = await this._requestRemote();
-        this.api.__as_interface__ = true;
-        this.api.__id__ = this.id;
+        this.api._rintf = true;
+        this.api._rid = this.id;
         this._disconnected = false;
         this.initializing = false;
         this._updateUI();
         this._connected.emit();
-      } catch (e) {
-        this._fail.emit(e);
+      } catch (error) {
+        this._fail.emit(error);
+        this.disconnect();
+        this.initializing = false;
+        if (error) this.error(error.toString());
+        if (this._hasVisibleWindow && this.config.iframe_container) {
+          const container = document.getElementById(
+            this.config.iframe_container
+          );
+          container.innerHTML = `<h5>Oops! failed to load the window.</h5><code>Details: ${dompurify__WEBPACK_IMPORTED_MODULE_3___default.a.sanitize(
+            String(error)
+          )}</code>`;
+        }
+        this._updateUI();
       }
     });
-    this._connection.onFailed(e => {
+
+    // TODO: check when this will fire
+    this._connection.on("failed", e => {
       this._fail.emit(e);
     });
 
-    this._connection.onDisconnect(details => {
+    this._connection.on("disconnected", details => {
       if (details) {
-        if (details.success) {
-          this.log(details.message);
-        } else {
-          this.error(details.message);
+        if (details.error) {
+          this.error(details.error);
+        } else if (details.info) {
+          this.log(details.info);
         }
       }
       this._set_disconnected();
     });
+
+    this._connection.connect();
   }
   /**
    * Creates the connection to the plugin site
@@ -55867,21 +55847,6 @@ class DynamicPlugin {
     this._fail = new _utils_js__WEBPACK_IMPORTED_MODULE_0__["Whenable"](true);
     this._disconnect = new _utils_js__WEBPACK_IMPORTED_MODULE_0__["Whenable"](true);
 
-    // binded failure callback
-    this._fCb = error => {
-      this._fail.emit(error);
-      this.disconnect();
-      this.initializing = false;
-      if (error) this.error(error.toString());
-      if (this._hasVisibleWindow && this.config.iframe_container) {
-        const container = document.getElementById(this.config.iframe_container);
-        container.innerHTML = `<h5>Oops! failed to load the window.</h5><code>Details: ${dompurify__WEBPACK_IMPORTED_MODULE_3___default.a.sanitize(
-          String(error)
-        )}</code>`;
-      }
-      this._updateUI();
-    };
-
     if (!this.backend) {
       this._setupViaEngine();
     } else {
@@ -55889,27 +55854,27 @@ class DynamicPlugin {
     }
   }
 
-  _registerSiteEvents(_rpc) {
-    _rpc.onDisconnect(details => {
+  _registerRPCEvents(_rpc) {
+    _rpc.on("disconnected", details => {
       this._disconnect.emit();
       if (details) {
-        if (details.success) {
-          this.log(details.message);
-        } else {
+        if (details.error) {
           this.error(details.message);
+        } else if (details.info) {
+          this.log(details.info);
         }
       }
       this._set_disconnected();
     });
 
-    _rpc.onRemoteReady(() => {
+    _rpc.on("remoteIdle", () => {
       if (this.running) {
         this.running = false;
         this._updateUI();
       }
     });
 
-    _rpc.onRemoteBusy(() => {
+    _rpc.on("remoteBusy", () => {
       if (!this._disconnected && !this.running) {
         this.running = true;
         this._updateUI();
@@ -55922,63 +55887,56 @@ class DynamicPlugin {
    * DynamicPlugin)
    */
   async _executePlugin() {
-    try {
-      if (this.config.requirements) {
-        await this._connection.execute({
-          type: "requirements",
-          lang: this.config.lang,
-          requirements: this.config.requirements,
-          env: this.config.env,
-        });
-      }
-      if (this._hasVisibleWindow) {
-        if (this.config.styles) {
-          for (let i = 0; i < this.config.styles.length; i++) {
-            await this._connection.execute({
-              type: "style",
-              content: this.config.styles[i].content,
-              attrs: this.config.styles[i].attrs,
-              src: this.config.styles[i].attrs.src,
-            });
-          }
-        }
-        if (this.config.links) {
-          for (let i = 0; i < this.config.links.length; i++) {
-            await this._connection.execute({
-              type: "link",
-              rel: this.config.links[i].attrs.rel,
-              type_: this.config.links[i].attrs.type,
-              attrs: this.config.links[i].attrs,
-              href: this.config.links[i].attrs.href,
-            });
-          }
-        }
-        if (this.config.windows) {
-          for (let i = 0; i < this.config.windows.length; i++) {
-            await this._connection.execute({
-              type: "html",
-              content: this.config.windows[i].content,
-              attrs: this.config.windows[i].attrs,
-            });
-          }
-        }
-      }
-      if (this.config.scripts) {
-        for (let i = 0; i < this.config.scripts.length; i++) {
+    if (this.config.requirements) {
+      await this._connection.execute({
+        type: "requirements",
+        lang: this.config.lang,
+        requirements: this.config.requirements,
+        env: this.config.env,
+      });
+    }
+    if (this._hasVisibleWindow) {
+      if (this.config.styles) {
+        for (let i = 0; i < this.config.styles.length; i++) {
           await this._connection.execute({
-            type: "script",
-            content: this.config.scripts[i].content,
-            lang: this.config.scripts[i].attrs.lang,
-            attrs: this.config.scripts[i].attrs,
-            src: this.config.scripts[i].attrs.src,
+            type: "style",
+            content: this.config.styles[i].content,
+            attrs: this.config.styles[i].attrs,
+            src: this.config.styles[i].attrs.src,
           });
         }
       }
-    } catch (e) {
-      this._fCb(
-        ( true && e.toString()) ||
-          "Error in loading plugin"
-      );
+      if (this.config.links) {
+        for (let i = 0; i < this.config.links.length; i++) {
+          await this._connection.execute({
+            type: "link",
+            rel: this.config.links[i].attrs.rel,
+            type_: this.config.links[i].attrs.type,
+            attrs: this.config.links[i].attrs,
+            href: this.config.links[i].attrs.href,
+          });
+        }
+      }
+      if (this.config.windows) {
+        for (let i = 0; i < this.config.windows.length; i++) {
+          await this._connection.execute({
+            type: "html",
+            content: this.config.windows[i].content,
+            attrs: this.config.windows[i].attrs,
+          });
+        }
+      }
+    }
+    if (this.config.scripts) {
+      for (let i = 0; i < this.config.scripts.length; i++) {
+        await this._connection.execute({
+          type: "script",
+          content: this.config.scripts[i].content,
+          lang: this.config.scripts[i].attrs.lang,
+          attrs: this.config.scripts[i].attrs,
+          src: this.config.scripts[i].attrs.src,
+        });
+      }
     }
   }
 
@@ -55991,10 +55949,17 @@ class DynamicPlugin {
    */
   _requestRemote() {
     return new Promise(resolve => {
-      this._rpc.onRemoteUpdate(() => {
+      this._rpc.once("remoteReady", () => {
         resolve(this._rpc.getRemote());
       });
       this._rpc.requestRemote();
+    });
+  }
+
+  _sendInterface() {
+    return new Promise(resolve => {
+      this._rpc.once("interfaceSetAsRemote", resolve);
+      this._rpc.sendInterface();
     });
   }
 
@@ -56076,9 +56041,12 @@ class DynamicPlugin {
     } catch (e) {
       console.error("error occured when terminating the plugin", e);
     } finally {
-      setTimeout(() => {
-        this._forceDisconnect();
-      }, 1000);
+      setTimeout(
+        (() => {
+          this._forceDisconnect();
+        }).bind(this),
+        1000
+      );
     }
   }
 
@@ -60652,7 +60620,12 @@ class PluginManager {
       _frame.style.display = "none";
       document.body.appendChild(_frame);
       this._connection = new _connection_js__WEBPACK_IMPORTED_MODULE_8__["BasicConnection"](_frame);
-      this._connection.onInit(async pluginConfig => {
+      this._connection.on("initialized", async data => {
+        const pluginConfig = data.config;
+        if (data.error) {
+          console.error("Plugin failed to initialize", data.error);
+          throw new Error(data.error);
+        }
         if (!Object(_api_js__WEBPACK_IMPORTED_MODULE_9__["CONFIG_SCHEMA"])(pluginConfig)) {
           const error = _api_js__WEBPACK_IMPORTED_MODULE_9__["CONFIG_SCHEMA"].errors;
           console.error(
@@ -61245,8 +61218,8 @@ class PluginManager {
         // create a proxy plugin
         const plugin = new _jailedPlugin_js__WEBPACK_IMPORTED_MODULE_7__["DynamicPlugin"](tconfig, _interface, null, true);
         plugin.api = {
-          __as_interface__: true,
-          __id__: plugin.id,
+          _rintf: true,
+          _rid: plugin.id,
           setup: async () => {},
           run: async my => {
             const c = Object(_utils_js__WEBPACK_IMPORTED_MODULE_10__["_clone"])(template.defaults) || {};
@@ -61536,8 +61509,8 @@ class PluginManager {
     if (!my) return null;
     //conver config--> data  data-->target
     const res = {};
-    res.__as_interface__ = my.__as_interface__;
-    res.__id__ = my.__id__;
+    res._rintf = my._rintf;
+    res._rid = my._rid;
     if (my.type && my.data) {
       res.data = my.config;
       res.target = my.data;
@@ -61589,8 +61562,8 @@ class PluginManager {
     if (!my) return null;
     my.target = my.target || {};
     const ret = {
-      __as_interface__: my.__as_interface__,
-      __id__: my.__id__,
+      _rintf: my._rintf,
+      _rid: my._rid,
       _variables: my.target._variables || null,
       _op: my.target._op,
       _source_op: my.target._source_op,
@@ -61824,7 +61797,7 @@ class PluginManager {
             if (result) {
               const res = this.plugin2joy(result);
               // if it's not a window
-              if (res && !res.__as_interface__) {
+              if (res && !res._rintf) {
                 const w = {};
                 w.name = res.name || "result";
                 w.type = res.type || "imjoy/generic";
@@ -62007,8 +61980,8 @@ class PluginManager {
                 wconfig.refresh();
                 wconfig.api = wconfig.api || {};
                 wconfig.api = Object.assign(wconfig.api, {
-                  __as_interface__: true,
-                  __id__: wid,
+                  _rintf: true,
+                  _rid: wid,
                   run: new_config => {
                     for (let k in new_config) {
                       wconfig[k] = new_config[k];
@@ -62096,7 +62069,7 @@ class PluginManager {
             }
             if (pconfig.passive || window_config.passive) {
               resolve({
-                __as_interface__: true,
+                _rintf: true,
                 setup: () => {},
               });
               return;
@@ -62132,7 +62105,7 @@ class PluginManager {
               }
               if (pconfig.passive || window_config.passive) {
                 resolve({
-                  __as_interface__: true,
+                  _rintf: true,
                   setup: () => {},
                   on: () => {},
                 });
@@ -63089,7 +63062,7 @@ function parseComponent(content, options) {
 /*!**********************!*\
   !*** ./src/utils.js ***!
   \**********************/
-/*! exports provided: parseComponent, cacheUrlInServiceWorker, assert, isTouchDevice, Whenable, compareVersions, pathJoin, dirName, url_regex, debounce, animalGenerator, colourGenerator, randId, _clone, Filters, isUrl, githubUrlToObject, githubUrlRaw, githubImJoyManifest, githubRepo, hot_lut */
+/*! exports provided: parseComponent, cacheUrlInServiceWorker, assert, isTouchDevice, Whenable, compareVersions, pathJoin, dirName, url_regex, debounce, animalGenerator, colourGenerator, randId, _clone, EventManager, Filters, isUrl, githubUrlToObject, githubUrlRaw, githubImJoyManifest, githubRepo, hot_lut */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63107,6 +63080,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "colourGenerator", function() { return colourGenerator; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "randId", function() { return randId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_clone", function() { return _clone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventManager", function() { return EventManager; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Filters", function() { return Filters; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isUrl", function() { return isUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "githubUrlToObject", function() { return githubUrlToObject; });
@@ -63927,6 +63901,62 @@ function _clone(aObject) {
     bObject[k] = typeof v === "object" ? _clone(v) : v;
   }
   return bObject;
+}
+
+class EventManager {
+  constructor(debug) {
+    this._event_handlers = {};
+    this._once_handlers = {};
+    this._debug = debug;
+  }
+  on(event, handler) {
+    if (!this._event_handlers[event]) {
+      this._event_handlers[event] = [];
+    }
+    this._event_handlers[event].push(handler);
+  }
+  once(event, handler) {
+    handler.___event_run_once = true;
+    this.on(event, handler);
+  }
+  off(event, handler) {
+    if (!event && !handler) {
+      // remove all events handlers
+      this._event_handlers = {};
+    } else if (event && !handler) {
+      // remove all hanlders for the event
+      if (this._event_handlers[event]) this._event_handlers[event] = [];
+    } else {
+      // remove a specific handler
+      if (this._event_handlers[event]) {
+        const idx = this._event_handlers[event].indexOf(handler);
+        if (idx >= 0) {
+          this._event_handlers[event].splice(idx, 1);
+        }
+      }
+    }
+  }
+  _fire(event, data) {
+    if (this._event_handlers[event]) {
+      var i = this._event_handlers[event].length;
+      while (i--) {
+        const handler = this._event_handlers[event][i];
+        try {
+          handler(data);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          if (handler.___event_run_once) {
+            this._event_handlers[event].splice(i, 1);
+          }
+        }
+      }
+    } else {
+      if (this._debug) {
+        console.warn("unhandled event", event, data);
+      }
+    }
+  }
 }
 
 const Filters = {};

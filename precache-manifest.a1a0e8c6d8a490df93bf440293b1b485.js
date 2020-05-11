@@ -12,35 +12,31 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "core-example.html"
   },
   {
-    "revision": "149b5a8ca0aa83b021eb",
+    "revision": "97966f28a638f866df76",
     "url": "imjoy-core.min.js"
   },
   {
-    "revision": "7eec3671e0298b4c243e",
+    "revision": "8b9210e35f5ae83b52bc",
     "url": "imjoy-loader.min.js"
   },
   {
-    "revision": "679f4e7f881650cd63b690a5b7ed6e69",
+    "revision": "9341767b06a9119a515cbb2baae7d8c0",
     "url": "imjoy-rpc.js"
   },
   {
-    "revision": "87c90cfb2f9d8a2c7a740a1b363abf4a",
+    "revision": "15a8e0e2ea1330374a5fcd94bae081b5",
     "url": "imjoy-rpc.min.js"
   },
   {
-    "revision": "541f2c4ddaf3a6999890db24848fcf31",
+    "revision": "ab09554a4b3d49097f3fad8ddf21d6d9",
     "url": "imjoy-rpc.module.js"
   },
   {
-    "revision": "526fba59ff8479c9d43cdb68ac9c68d3",
-    "url": "jupyter-connection.js"
-  },
-  {
-    "revision": "b3bb786f5b8137d1e6016e65e4f914f4",
+    "revision": "df5fa6698f42894e4171c46cffa4b12e",
     "url": "package-lock.json"
   },
   {
-    "revision": "fa6bd4c314e7927f2a9ae3a61fca5f38",
+    "revision": "c3c79c8805881e3fdb43920b77a29045",
     "url": "package.json"
   },
   {

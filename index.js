@@ -1,1 +1,1 @@
-module.exports = require('./imjoy-core.module.js');
+module.exports = require('./imjoy-core.min.js');

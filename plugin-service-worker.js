@@ -1,4 +1,4 @@
-importScripts("precache-manifest.a305f05bb534c4753b21dc3ec3110e81.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.53c0a1030daf7a73231465ad85f8d2a0.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable */
 if (typeof workbox !== "undefined") {
@@ -10,7 +10,7 @@ if (typeof workbox !== "undefined") {
    */
 
   workbox.setConfig({
-    debug: false,
+    debug: false
   });
 
   workbox.core.setCacheNameDetails({ prefix: "lib.imjoy.io" });
@@ -19,7 +19,7 @@ if (typeof workbox !== "undefined") {
   workbox.precaching.precacheAndRoute(self.__precacheManifest, {
     // Ignore all URL parameters.
     ignoreUrlParametersMatching: [/.*/],
-    ignoreURLParametersMatching: [/.*/],
+    ignoreURLParametersMatching: [/.*/]
   });
 
   workbox.routing.registerRoute(

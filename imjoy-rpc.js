@@ -151,7 +151,7 @@ module.exports = function (content, url) {
 /*! exports provided: name, version, description, module, scripts, repository, keywords, author, license, bugs, homepage, dependencies, devDependencies, eslintConfig, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-rpc\",\"version\":\"0.2.24\",\"description\":\"Remote procedure calls for ImJoy.\",\"module\":\"index.js\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd\",\"build-umd\":\"webpack --config webpack.config.js --mode development && NODE_ENV=production webpack --config webpack.config.js --mode production --devtool source-map \",\"watch\":\"NODE_ENV=production webpack --watch --progress --config webpack.config.js --mode production --devtool source-map\",\"publish-npm\":\"npm install && npm run build && npm publish\",\"serve\":\"webpack-dev-server\",\"stats\":\"webpack --profile --json > stats.json\",\"stats-prod\":\"webpack --profile --json --mode production > stats-prod.json\",\"analyze\":\"webpack-bundle-analyzer -p 9999 stats.json\",\"analyze-prod\":\"webpack-bundle-analyzer -p 9999 stats-prod.json\",\"clean\":\"rimraf dist/*\",\"deploy\":\"npm run build && node deploy-site.js\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"test-watch\":\"karma start --auto-watch --browsers Chrome,FirefoxHeadless karma.conf.js --debug\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-rpc.git\"},\"keywords\":[\"imjoy\",\"rpc\"],\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/imjoy-team/imjoy-rpc/issues\"},\"homepage\":\"https://github.com/imjoy-team/imjoy-rpc\",\"dependencies\":{},\"devDependencies\":{\"@babel/core\":\"^7.0.0-beta.39\",\"@babel/plugin-syntax-dynamic-import\":\"^7.0.0-beta.39\",\"@babel/polyfill\":\"^7.0.0-beta.39\",\"@babel/preset-env\":\"^7.0.0-beta.39\",\"@types/requirejs\":\"^2.1.28\",\"babel-core\":\"^6.26.0\",\"babel-eslint\":\"^10.1.0\",\"babel-loader\":\"^8.1.0\",\"babel-runtime\":\"^6.26.0\",\"chai\":\"^4.2.0\",\"clean-webpack-plugin\":\"^0.1.19\",\"copy-webpack-plugin\":\"^5.0.5\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"eslint-loader\":\"^4.0.2\",\"file-loader\":\"^0.11.2\",\"fs-extra\":\"^0.30.0\",\"gh-pages\":\"^2.0.1\",\"html-loader\":\"^0.5.5\",\"html-webpack-plugin\":\"^3.2.0\",\"json-loader\":\"^0.5.4\",\"karma\":\"^4.4.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-spec-reporter\":\"0.0.32\",\"karma-webpack\":\"^4.0.2\",\"lerna\":\"^3.8.0\",\"lodash.debounce\":\"^4.0.8\",\"mocha\":\"^7.1.2\",\"postcss\":\"^6.0.2\",\"prettier\":\"^1.6.1\",\"rimraf\":\"^2.6.2\",\"schema-utils\":\"^0.4.3\",\"socket.io-client\":\"^2.3.0\",\"style-loader\":\"^0.18.1\",\"url-loader\":\"^0.5.9\",\"webpack\":\"^4.0.0\",\"webpack-bundle-analyzer\":\"^3.3.2\",\"webpack-cli\":\"^3.1.2\",\"webpack-dev-server\":\"^3.1.1\",\"webpack-merge\":\"^4.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\",\"worker-loader\":\"^2.0.0\",\"write-file-webpack-plugin\":\"^4.5.1\"},\"eslintConfig\":{\"globals\":{\"document\":true,\"window\":true}}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-rpc\",\"version\":\"0.2.25\",\"description\":\"Remote procedure calls for ImJoy.\",\"module\":\"index.js\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd\",\"build-umd\":\"webpack --config webpack.config.js --mode development && NODE_ENV=production webpack --config webpack.config.js --mode production --devtool source-map \",\"watch\":\"NODE_ENV=production webpack --watch --progress --config webpack.config.js --mode production --devtool source-map\",\"publish-npm\":\"npm install && npm run build && npm publish\",\"serve\":\"webpack-dev-server\",\"stats\":\"webpack --profile --json > stats.json\",\"stats-prod\":\"webpack --profile --json --mode production > stats-prod.json\",\"analyze\":\"webpack-bundle-analyzer -p 9999 stats.json\",\"analyze-prod\":\"webpack-bundle-analyzer -p 9999 stats-prod.json\",\"clean\":\"rimraf dist/*\",\"deploy\":\"npm run build && node deploy-site.js\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"test-watch\":\"karma start --auto-watch --browsers Chrome,FirefoxHeadless karma.conf.js --debug\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-rpc.git\"},\"keywords\":[\"imjoy\",\"rpc\"],\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/imjoy-team/imjoy-rpc/issues\"},\"homepage\":\"https://github.com/imjoy-team/imjoy-rpc\",\"dependencies\":{},\"devDependencies\":{\"@babel/core\":\"^7.0.0-beta.39\",\"@babel/plugin-syntax-dynamic-import\":\"^7.0.0-beta.39\",\"@babel/polyfill\":\"^7.0.0-beta.39\",\"@babel/preset-env\":\"^7.0.0-beta.39\",\"@types/requirejs\":\"^2.1.28\",\"babel-core\":\"^6.26.0\",\"babel-eslint\":\"^10.1.0\",\"babel-loader\":\"^8.1.0\",\"babel-runtime\":\"^6.26.0\",\"chai\":\"^4.2.0\",\"clean-webpack-plugin\":\"^0.1.19\",\"copy-webpack-plugin\":\"^5.0.5\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"eslint-loader\":\"^4.0.2\",\"file-loader\":\"^0.11.2\",\"fs-extra\":\"^0.30.0\",\"gh-pages\":\"^2.0.1\",\"html-loader\":\"^0.5.5\",\"html-webpack-plugin\":\"^3.2.0\",\"json-loader\":\"^0.5.4\",\"karma\":\"^4.4.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-spec-reporter\":\"0.0.32\",\"karma-webpack\":\"^4.0.2\",\"lerna\":\"^3.8.0\",\"lodash.debounce\":\"^4.0.8\",\"mocha\":\"^7.1.2\",\"postcss\":\"^6.0.2\",\"prettier\":\"^1.6.1\",\"rimraf\":\"^2.6.2\",\"schema-utils\":\"^0.4.3\",\"socket.io-client\":\"^2.3.0\",\"style-loader\":\"^0.18.1\",\"url-loader\":\"^0.5.9\",\"webpack\":\"^4.0.0\",\"webpack-bundle-analyzer\":\"^3.3.2\",\"webpack-cli\":\"^3.1.2\",\"webpack-dev-server\":\"^3.1.1\",\"webpack-merge\":\"^4.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\",\"worker-loader\":\"^2.0.0\",\"write-file-webpack-plugin\":\"^4.5.1\"},\"eslintConfig\":{\"globals\":{\"document\":true,\"window\":true}}}");
 
 /***/ }),
 
@@ -858,8 +858,10 @@ class PromiseException(RuntimeError):
 class WebLoop:
     def __init__(self):
         self.coros = []
+
     def call_soon(self, coro, resolve=None, reject=None):
         self.step(coro, resolve, reject)
+
     def step(self, coro, resolve, reject, arg=None):
         try:
             x = coro.send(arg) 
@@ -872,8 +874,11 @@ class WebLoop:
             if callable(reject):
                 reject(e)
 
-    def fail(self, coro,arg=None):
+    def fail(self, coro, resolve, reject, arg=None):
         try:
+            if callable(reject):
+                reject(PromiseException(arg))
+                return
             coro.throw(PromiseException(arg))
         except StopIteration:
             pass
@@ -901,6 +906,255 @@ import sys
 from functools import partial 
 from types import ModuleType
 import copy
+
+try:
+    import numpy as np
+    NUMPY = np
+except:
+    NUMPY = False
+import io
+from collections import OrderedDict
+
+_codecs = {}
+_object_store = {}
+def _encode(a_object, as_interface=False, object_id=None):
+    """Encode object."""
+    if isinstance(a_object, (int, float, bool, str, bytes)) or a_object is None:
+        return a_object
+
+    if callable(a_object):
+        return a_object
+
+    if isinstance(a_object, tuple):
+        a_object = list(a_object)
+
+    if isinstance(a_object, dotdict):
+        a_object = dict(a_object)
+
+    # skip if already encoded
+    if isinstance(a_object, dict) and "_rtype" in a_object:
+        # make sure the interface functions are encoded
+        if "_rintf" in a_object:
+            temp = a_object["_rtype"]
+            del a_object["_rtype"]
+            b_object = _encode(a_object, as_interface, object_id)
+            b_object._rtype = temp
+        else:
+            b_object = a_object
+        return b_object
+
+    isarray = isinstance(a_object, list)
+    b_object = None
+
+    encoded_obj = None
+    for tp in _codecs:
+        codec = _codecs[tp]
+        if codec.encoder and isinstance(a_object, codec.type):
+            # TODO: what if multiple encoders found
+            encoded_obj = codec.encoder(a_object)
+            if isinstance(encoded_obj, dict) and "_rtype" not in encoded_obj:
+                encoded_obj["_rtype"] = codec.name
+            # encode the functions in the interface object
+            if isinstance(encoded_obj, dict) and "_rintf" in encoded_obj:
+                temp = encoded_obj["_rtype"]
+                del encoded_obj["_rtype"]
+                encoded_obj = _encode(encoded_obj, True)
+                encoded_obj["_rtype"] = temp
+            b_object = encoded_obj
+            return b_object
+
+    if NUMPY and isinstance(a_object, (NUMPY.ndarray, NUMPY.generic)):
+        v_bytes = a_object.tobytes()
+        b_object = {
+            "_rtype": "ndarray",
+            "_rvalue": v_bytes,
+            "_rshape": a_object.shape,
+            "_rdtype": str(a_object.dtype),
+        }
+
+    elif isinstance(a_object, Exception):
+        b_object = {"_rtype": "error", "_rvalue": str(a_object)}
+    elif isinstance(a_object, memoryview):
+        b_object = {"_rtype": "memoryview", "_rvalue": a_object.tobytes()}
+    elif isinstance(
+        a_object, (io.IOBase, io.TextIOBase, io.BufferedIOBase, io.RawIOBase)
+    ):
+        b_object = {
+            "_rtype": "blob",
+            "_rvalue": a_object.read(),
+            "_rmime": "application/octet-stream",
+        }
+    # NOTE: "typedarray" is not used
+    elif isinstance(a_object, OrderedDict):
+        b_object = {
+            "_rtype": "orderedmap",
+            "_rvalue": _encode(list(a_object), as_interface),
+        }
+    elif isinstance(a_object, set):
+        b_object = {
+            "_rtype": "set",
+            "_rvalue": _encode(list(a_object), as_interface),
+        }
+    elif hasattr(a_object, "_rintf") and a_object._rintf == True:
+        b_object = _encode(a_object, True)
+    elif isinstance(a_object, (list, dict)) or inspect.isclass(type(a_object)):
+        b_object = [] if isarray else {}
+        if not isinstance(a_object, (list, dict)) and inspect.isclass(
+            type(a_object)
+        ):
+            a_object_norm = {
+                a: getattr(a_object, a)
+                for a in dir(a_object)
+                if not a.startswith("_")
+            }
+            # always encode class instance as interface
+            as_interface = True
+        else:
+            a_object_norm = a_object
+
+        keys = range(len(a_object_norm)) if isarray else a_object_norm.keys()
+        # encode interfaces
+        if (not isarray and a_object_norm.get("_rintf")) or as_interface:
+            if object_id is None:
+                object_id = str(uuid.uuid4())
+                _object_store[object_id] = a_object
+
+            has_function = False
+            for key in keys:
+                if isinstance(key, str) and key.startswith("_"):
+                    continue
+                encoded = _encode(
+                    a_object_norm[key],
+                    as_interface + "." + str(key)
+                    if isinstance(as_interface, str)
+                    else key,
+                    object_id,
+                )
+                if callable(a_object_norm[key]):
+                    has_function = True
+                if isarray:
+                    b_object.append(encoded)
+                else:
+                    b_object[key] = encoded
+            # TODO: how to despose list object? create a wrapper for list?
+            if not isarray and has_function:
+                b_object["_rintf"] = object_id
+            # remove interface when closed
+            if "on" in a_object_norm and callable(a_object_norm["on"]):
+
+                def remove_interface():
+                    del _object_store[object_id]
+
+                a_object_norm["on"]("close", remove_interface)
+        else:
+            for key in keys:
+                if isarray:
+                    b_object.append(_encode(a_object_norm[key]))
+                else:
+                    b_object[key] = _encode(a_object_norm[key])
+    else:
+        raise Exception("imjoy-rpc: Unsupported data type:" + str(aObject))
+    return b_object
+
+def _decode(a_object, with_promise=False):
+    """Decode object."""
+    if a_object is None:
+        return a_object
+    if isinstance(a_object, dict) and "_rtype" in a_object:
+        b_object = None
+        if (
+            _codecs.get(a_object["_rtype"])
+            and _codecs[a_object["_rtype"]].decoder
+        ):
+            if "_rintf" in a_object:
+                temp = a_object["_rtype"]
+                del a_object["_rtype"]
+                a_object = _decode(a_object, with_promise)
+                a_object["_rtype"] = temp
+            b_object = _codecs[a_object["_rtype"]].decoder(a_object)
+        elif a_object["_rtype"] == "callback":
+            raise Exception("Unsupported object decoding: callback")
+        elif a_object["_rtype"] == "interface":
+            raise Exception("Unsupported object decoding: interface")
+        elif a_object["_rtype"] == "ndarray":
+            # create build array/tensor if used in the plugin
+            try:
+                if isinstance(a_object["_rvalue"], (list, tuple)):
+                    a_object["_rvalue"] = reduce(
+                        (lambda x, y: x + y), a_object["_rvalue"]
+                    )
+                elif not isinstance(a_object["_rvalue"], bytes):
+                    raise Exception(
+                        "Unsupported data type: " + str(type(a_object["_rvalue"]))
+                    )
+                if NUMPY:
+                    b_object = NUMPY.frombuffer(
+                        a_object["_rvalue"], dtype=a_object["_rdtype"]
+                    ).reshape(tuple(a_object["_rshape"]))
+
+                else:
+                    b_object = a_object
+                    logger.warn("numpy is not available, failed to decode ndarray")
+
+            except Exception as exc:
+                logger.debug("Error in converting: %s", exc)
+                b_object = a_object
+                raise exc
+        elif a_object["_rtype"] == "memoryview":
+            b_object = memoryview(a_object["_rvalue"])
+        elif a_object["_rtype"] == "blob":
+            if isinstance(a_object["_rvalue"], str):
+                b_object = io.StringIO(a_object["_rvalue"])
+            elif isinstance(a_object["_rvalue"], bytes):
+                b_object = io.BytesIO(a_object["_rvalue"])
+            else:
+                raise Exception(
+                    "Unsupported blob value type: " + str(type(a_object["_rvalue"]))
+                )
+        elif a_object["_rtype"] == "typedarray":
+            if NUMPY:
+                b_object = NUMPY.frombuffer(
+                    a_object["_rvalue"], dtype=a_object["_rdtype"]
+                )
+            else:
+                b_object = a_object["_rvalue"]
+        elif a_object["_rtype"] == "orderedmap":
+            b_object = OrderedDict(_decode(a_object["_rvalue"], with_promise))
+        elif a_object["_rtype"] == "set":
+            b_object = set(_decode(a_object["_rvalue"], with_promise))
+        elif a_object["_rtype"] == "error":
+            b_object = Exception(a_object["_rvalue"])
+        else:
+            # make sure all the interface functions are decoded
+            if "_rintf" in a_object:
+                temp = a_object["_rtype"]
+                del a_object["_rtype"]
+                a_object = _decode(a_object, with_promise)
+                a_object["_rtype"] = temp
+            b_object = a_object
+    elif isinstance(a_object, (dict, list, tuple)):
+        if isinstance(a_object, tuple):
+            a_object = list(a_object)
+        isarray = isinstance(a_object, list)
+        b_object = [] if isarray else dotdict()
+        keys = range(len(a_object)) if isarray else a_object.keys()
+        for key in keys:
+            val = a_object[key]
+            if isarray:
+                b_object.append(_decode(val, with_promise))
+            else:
+                b_object[key] = _decode(val, with_promise)
+    else:
+        b_object = a_object
+
+    # object id, used for dispose the object
+    if isinstance(a_object, dict) and a_object.get("_rintf"):
+        # make the dict hashable
+        if isinstance(b_object, dict) and not isinstance(b_object, dotdict):
+            b_object = dotdict(b_object)
+        # _object_weakmap[b_object] = a_object.get("_rintf")
+    return b_object
+
 
 class dotdict(dict):  # pylint: disable=invalid-name
     """Access dictionary attributes with dot.notation."""
@@ -936,18 +1190,25 @@ class WrappedPromise:
 
 wrapped_api = dotdict()
 for k in Object.keys(api):
-    if callable(api[k]) and k not in ['export', 'registerCodec']:
-        def remote_method(func, *arguments, **kwargs):
-            arguments = list(arguments)
+    func = getattr(api, k)
+    if callable(func) and k not in ['export', 'registerCodec']:
+        def remote_method(func, *args, **kwargs):
+            args = list(args)
             # wrap keywords to a dictionary and pass to the last argument
             if kwargs:
-                arguments = arguments + [kwargs]
-            return WrappedPromise(func(*arguments))
+                args = args + [kwargs]
+            args = _encode(args)
+            return WrappedPromise(func(*args))
         # this has to be partial, otherwise it crashes
-        wrapped_api[k] = partial(remote_method, api[k])
+        wrapped_api[k] = partial(remote_method, func)
     else:
-        wrapped_api[k] = api[k]
+        wrapped_api[k] = func
 
+def unwrap_func_args(func):
+    def wrapped_function(*args):
+        return func(*_decode(args))
+    return wrapped_function
+    
 m = ModuleType("imjoy")
 sys.modules[m.__name__] = m
 m.__file__ = m.__name__ + ".py"
@@ -964,14 +1225,16 @@ const execute_python_code = function (code) {
         window.pyodide.runPython(startup_script);
         const WebLoop = window.pyodide.pyimport("WebLoop");
         const isawaitable = window.pyodide.pyimport("isawaitable");
+        const unwrap_func_args = window.pyodide.pyimport("unwrap_func_args");
+        const callable = window.pyodide.pyimport("callable");
         const loop = WebLoop();
 
         if (typeof p === "object") {
           const _api = {};
 
           for (let k in p) {
-            if (!k.startsWith("_")) {
-              const func = p[k];
+            if (!k.startsWith("_") && callable(p[k])) {
+              const func = unwrap_func_args(p[k]);
 
               _api[k] = function () {
                 return new Promise((resolve, reject) => {
@@ -998,8 +1261,8 @@ const execute_python_code = function (code) {
           const hasattr = window.pyodide.pyimport("hasattr");
 
           for (let k of Object.getOwnPropertyNames(p)) {
-            if (!k.startsWith("_") && hasattr(p, k)) {
-              const func = getattr(p, k);
+            if (!k.startsWith("_") && hasattr(p, k) && callable(getattr(p, k))) {
+              const func = unwrap_func_args(getattr(p, k));
 
               _api[k] = function () {
                 return new Promise((resolve, reject) => {

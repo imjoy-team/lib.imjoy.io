@@ -151,7 +151,7 @@ module.exports = function (content, url) {
 /*! exports provided: name, version, description, module, scripts, repository, keywords, author, license, bugs, homepage, dependencies, devDependencies, eslintConfig, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-rpc\",\"version\":\"0.2.29\",\"description\":\"Remote procedure calls for ImJoy.\",\"module\":\"index.js\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd\",\"build-umd\":\"webpack --config webpack.config.js --mode development && NODE_ENV=production webpack --config webpack.config.js --mode production --devtool source-map \",\"watch\":\"NODE_ENV=production webpack --watch --progress --config webpack.config.js --mode production --devtool source-map\",\"publish-npm\":\"npm install && npm run build && npm publish\",\"serve\":\"webpack-dev-server\",\"stats\":\"webpack --profile --json > stats.json\",\"stats-prod\":\"webpack --profile --json --mode production > stats-prod.json\",\"analyze\":\"webpack-bundle-analyzer -p 9999 stats.json\",\"analyze-prod\":\"webpack-bundle-analyzer -p 9999 stats-prod.json\",\"clean\":\"rimraf dist/*\",\"deploy\":\"npm run build && node deploy-site.js\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"test-watch\":\"karma start --auto-watch --browsers Chrome,FirefoxHeadless karma.conf.js --debug\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-rpc.git\"},\"keywords\":[\"imjoy\",\"rpc\"],\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/imjoy-team/imjoy-rpc/issues\"},\"homepage\":\"https://github.com/imjoy-team/imjoy-rpc\",\"dependencies\":{},\"devDependencies\":{\"@babel/core\":\"^7.0.0-beta.39\",\"@babel/plugin-syntax-dynamic-import\":\"^7.0.0-beta.39\",\"@babel/polyfill\":\"^7.0.0-beta.39\",\"@babel/preset-env\":\"^7.0.0-beta.39\",\"@types/requirejs\":\"^2.1.28\",\"babel-core\":\"^6.26.0\",\"babel-eslint\":\"^10.1.0\",\"babel-loader\":\"^8.1.0\",\"babel-runtime\":\"^6.26.0\",\"chai\":\"^4.2.0\",\"clean-webpack-plugin\":\"^0.1.19\",\"copy-webpack-plugin\":\"^5.0.5\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"eslint-loader\":\"^4.0.2\",\"file-loader\":\"^0.11.2\",\"fs-extra\":\"^0.30.0\",\"gh-pages\":\"^2.0.1\",\"html-loader\":\"^0.5.5\",\"html-webpack-plugin\":\"^3.2.0\",\"json-loader\":\"^0.5.4\",\"karma\":\"^4.4.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-spec-reporter\":\"0.0.32\",\"karma-webpack\":\"^4.0.2\",\"lerna\":\"^3.8.0\",\"lodash.debounce\":\"^4.0.8\",\"mocha\":\"^7.1.2\",\"postcss\":\"^6.0.2\",\"prettier\":\"^1.6.1\",\"rimraf\":\"^2.6.2\",\"schema-utils\":\"^0.4.3\",\"socket.io-client\":\"^2.3.0\",\"style-loader\":\"^0.18.1\",\"url-loader\":\"^0.5.9\",\"webpack\":\"^4.0.0\",\"webpack-bundle-analyzer\":\"^3.3.2\",\"webpack-cli\":\"^3.1.2\",\"webpack-dev-server\":\"^3.1.1\",\"webpack-merge\":\"^4.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\",\"worker-loader\":\"^2.0.0\",\"write-file-webpack-plugin\":\"^4.5.1\"},\"eslintConfig\":{\"globals\":{\"document\":true,\"window\":true}}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-rpc\",\"version\":\"0.2.30\",\"description\":\"Remote procedure calls for ImJoy.\",\"module\":\"index.js\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd\",\"build-umd\":\"webpack --config webpack.config.js --mode development && NODE_ENV=production webpack --config webpack.config.js --mode production --devtool source-map \",\"watch\":\"NODE_ENV=production webpack --watch --progress --config webpack.config.js --mode production --devtool source-map\",\"publish-npm\":\"npm install && npm run build && npm publish\",\"serve\":\"webpack-dev-server\",\"stats\":\"webpack --profile --json > stats.json\",\"stats-prod\":\"webpack --profile --json --mode production > stats-prod.json\",\"analyze\":\"webpack-bundle-analyzer -p 9999 stats.json\",\"analyze-prod\":\"webpack-bundle-analyzer -p 9999 stats-prod.json\",\"clean\":\"rimraf dist/*\",\"deploy\":\"npm run build && node deploy-site.js\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"test-watch\":\"karma start --auto-watch --browsers Chrome,FirefoxHeadless karma.conf.js --debug\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-rpc.git\"},\"keywords\":[\"imjoy\",\"rpc\"],\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/imjoy-team/imjoy-rpc/issues\"},\"homepage\":\"https://github.com/imjoy-team/imjoy-rpc\",\"dependencies\":{},\"devDependencies\":{\"@babel/core\":\"^7.0.0-beta.39\",\"@babel/plugin-syntax-dynamic-import\":\"^7.0.0-beta.39\",\"@babel/polyfill\":\"^7.0.0-beta.39\",\"@babel/preset-env\":\"^7.0.0-beta.39\",\"@types/requirejs\":\"^2.1.28\",\"babel-core\":\"^6.26.0\",\"babel-eslint\":\"^10.1.0\",\"babel-loader\":\"^8.1.0\",\"babel-runtime\":\"^6.26.0\",\"chai\":\"^4.2.0\",\"clean-webpack-plugin\":\"^0.1.19\",\"copy-webpack-plugin\":\"^5.0.5\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"eslint-loader\":\"^4.0.2\",\"file-loader\":\"^0.11.2\",\"fs-extra\":\"^0.30.0\",\"gh-pages\":\"^2.0.1\",\"html-loader\":\"^0.5.5\",\"html-webpack-plugin\":\"^3.2.0\",\"json-loader\":\"^0.5.4\",\"karma\":\"^4.4.1\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-spec-reporter\":\"0.0.32\",\"karma-webpack\":\"^4.0.2\",\"lerna\":\"^3.8.0\",\"lodash.debounce\":\"^4.0.8\",\"mocha\":\"^7.1.2\",\"postcss\":\"^6.0.2\",\"prettier\":\"^1.6.1\",\"rimraf\":\"^2.6.2\",\"schema-utils\":\"^0.4.3\",\"socket.io-client\":\"^2.3.0\",\"style-loader\":\"^0.18.1\",\"url-loader\":\"^0.5.9\",\"webpack\":\"^4.0.0\",\"webpack-bundle-analyzer\":\"^3.3.2\",\"webpack-cli\":\"^3.1.2\",\"webpack-dev-server\":\"^3.1.1\",\"webpack-merge\":\"^4.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\",\"worker-loader\":\"^2.0.0\",\"write-file-webpack-plugin\":\"^4.5.1\"},\"eslintConfig\":{\"globals\":{\"document\":true,\"window\":true}}}");
 
 /***/ }),
 
@@ -169,16 +169,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugin_webworker_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./plugin.webworker.js */ "./src/plugin.webworker.js");
 /* harmony import */ var _plugin_webworker_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_plugin_webworker_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _pluginIframe_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pluginIframe.js */ "./src/pluginIframe.js");
-/* harmony import */ var _pluginWebPython_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pluginWebPython.js */ "./src/pluginWebPython.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./src/utils.js");
-/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./rpc.js */ "./src/rpc.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RPC", function() { return _rpc_js__WEBPACK_IMPORTED_MODULE_4__["RPC"]; });
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./src/utils.js");
+/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rpc.js */ "./src/rpc.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RPC", function() { return _rpc_js__WEBPACK_IMPORTED_MODULE_3__["RPC"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "API_VERSION", function() { return _rpc_js__WEBPACK_IMPORTED_MODULE_4__["API_VERSION"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "API_VERSION", function() { return _rpc_js__WEBPACK_IMPORTED_MODULE_3__["API_VERSION"]; });
 
-/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../package.json */ "./package.json");
-var _package_json__WEBPACK_IMPORTED_MODULE_5___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../package.json */ "./package.json", 1);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VERSION", function() { return _package_json__WEBPACK_IMPORTED_MODULE_5__["version"]; });
+/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../package.json */ "./package.json");
+var _package_json__WEBPACK_IMPORTED_MODULE_4___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../package.json */ "./package.json", 1);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VERSION", function() { return _package_json__WEBPACK_IMPORTED_MODULE_4__["version"]; });
 
 /**
  * Contains the code executed in the sandboxed frame under web-browser
@@ -189,7 +188,6 @@ var _package_json__WEBPACK_IMPORTED_MODULE_5___namespace = /*#__PURE__*/__webpac
  * this happens, the plugin initialized right inside the frame (in the
  * same thread)
  */
-
 
 
 
@@ -219,7 +217,7 @@ function setupWebWorker(config) {
     console.warn(`Plugin failed to start as a web-worker, running in an iframe instead.`);
     Object(_pluginIframe_js__WEBPACK_IMPORTED_MODULE_1__["default"])(config);
   }, 2000);
-  const peer_id = Object(_utils_js__WEBPACK_IMPORTED_MODULE_3__["randId"])(); // forwarding messages between the worker and parent window
+  const peer_id = Object(_utils_js__WEBPACK_IMPORTED_MODULE_2__["randId"])(); // forwarding messages between the worker and parent window
 
   worker.addEventListener("message", function (e) {
     let transferables = undefined;
@@ -293,7 +291,7 @@ function waitForInitialization(config) {
     window.removeEventListener("message", handleEvent);
   };
 
-  const peer_id = Object(_utils_js__WEBPACK_IMPORTED_MODULE_3__["randId"])();
+  const peer_id = Object(_utils_js__WEBPACK_IMPORTED_MODULE_2__["randId"])();
 
   const handleEvent = e => {
     if (e.type === "message" && (targetOrigin === "*" || e.origin === targetOrigin)) {
@@ -348,11 +346,11 @@ function setupRPC(config) {
   config.version = config.version || "0.1.0";
   config.description = config.description || `[TODO: add description for ${config.name} ]`;
   config.type = config.type || "rpc-window";
-  config.id = config.id || Object(_utils_js__WEBPACK_IMPORTED_MODULE_3__["randId"])();
+  config.id = config.id || Object(_utils_js__WEBPACK_IMPORTED_MODULE_2__["randId"])();
   config.allow_execution = config.allow_execution || false;
 
   if (config.enable_service_worker) {
-    Object(_utils_js__WEBPACK_IMPORTED_MODULE_3__["setupServiceWorker"])(config.base_url, config.target_origin, config.cache_requirements);
+    Object(_utils_js__WEBPACK_IMPORTED_MODULE_2__["setupServiceWorker"])(config.base_url, config.target_origin, config.cache_requirements);
   }
 
   if (config.cache_requirements) {
@@ -373,8 +371,6 @@ function setupRPC(config) {
           // fallback to iframe
           Object(_pluginIframe_js__WEBPACK_IMPORTED_MODULE_1__["default"])(config);
         }
-      } else if (config.type === "web-python" || config.type === "web-python-window") {
-        Object(_pluginWebPython_js__WEBPACK_IMPORTED_MODULE_2__["default"])(config);
       } else if (["rpc-window", "rpc-worker", "iframe", "window"].includes(config.type)) {
         Object(_pluginIframe_js__WEBPACK_IMPORTED_MODULE_1__["default"])(config);
       } else {
@@ -415,7 +411,7 @@ function setupRPC(config) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function() {
-  return __webpack_require__(/*! !./node_modules/worker-loader/dist/workers/InlineWorker.js */ "./node_modules/worker-loader/dist/workers/InlineWorker.js")("/******/ (function(modules) { // webpackBootstrap\n/******/ \t// The module cache\n/******/ \tvar installedModules = {};\n/******/\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/\n/******/ \t\t// Check if module is in cache\n/******/ \t\tif(installedModules[moduleId]) {\n/******/ \t\t\treturn installedModules[moduleId].exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = installedModules[moduleId] = {\n/******/ \t\t\ti: moduleId,\n/******/ \t\t\tl: false,\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/\n/******/ \t\t// Execute the module function\n/******/ \t\tmodules[moduleId].call(module.exports, module, module.exports, __webpack_require__);\n/******/\n/******/ \t\t// Flag the module as loaded\n/******/ \t\tmodule.l = true;\n/******/\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/\n/******/\n/******/ \t// expose the modules object (__webpack_modules__)\n/******/ \t__webpack_require__.m = modules;\n/******/\n/******/ \t// expose the module cache\n/******/ \t__webpack_require__.c = installedModules;\n/******/\n/******/ \t// define getter function for harmony exports\n/******/ \t__webpack_require__.d = function(exports, name, getter) {\n/******/ \t\tif(!__webpack_require__.o(exports, name)) {\n/******/ \t\t\tObject.defineProperty(exports, name, { enumerable: true, get: getter });\n/******/ \t\t}\n/******/ \t};\n/******/\n/******/ \t// define __esModule on exports\n/******/ \t__webpack_require__.r = function(exports) {\n/******/ \t\tif(typeof Symbol !== 'undefined' && Symbol.toStringTag) {\n/******/ \t\t\tObject.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });\n/******/ \t\t}\n/******/ \t\tObject.defineProperty(exports, '__esModule', { value: true });\n/******/ \t};\n/******/\n/******/ \t// create a fake namespace object\n/******/ \t// mode & 1: value is a module id, require it\n/******/ \t// mode & 2: merge all properties of value into the ns\n/******/ \t// mode & 4: return value when already ns object\n/******/ \t// mode & 8|1: behave like require\n/******/ \t__webpack_require__.t = function(value, mode) {\n/******/ \t\tif(mode & 1) value = __webpack_require__(value);\n/******/ \t\tif(mode & 8) return value;\n/******/ \t\tif((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;\n/******/ \t\tvar ns = Object.create(null);\n/******/ \t\t__webpack_require__.r(ns);\n/******/ \t\tObject.defineProperty(ns, 'default', { enumerable: true, value: value });\n/******/ \t\tif(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));\n/******/ \t\treturn ns;\n/******/ \t};\n/******/\n/******/ \t// getDefaultExport function for compatibility with non-harmony modules\n/******/ \t__webpack_require__.n = function(module) {\n/******/ \t\tvar getter = module && module.__esModule ?\n/******/ \t\t\tfunction getDefault() { return module['default']; } :\n/******/ \t\t\tfunction getModuleExports() { return module; };\n/******/ \t\t__webpack_require__.d(getter, 'a', getter);\n/******/ \t\treturn getter;\n/******/ \t};\n/******/\n/******/ \t// Object.prototype.hasOwnProperty.call\n/******/ \t__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n/******/\n/******/ \t// __webpack_public_path__\n/******/ \t__webpack_require__.p = \"\";\n/******/\n/******/\n/******/ \t// Load entry module and return exports\n/******/ \treturn __webpack_require__(__webpack_require__.s = \"./src/plugin.webworker.js\");\n/******/ })\n/************************************************************************/\n/******/ ({\n\n/***/ \"./src/plugin.webworker.js\":\n/*!*********************************!*\\\n  !*** ./src/plugin.webworker.js ***!\n  \\*********************************/\n/*! no exports provided */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pluginCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pluginCore.js */ \"./src/pluginCore.js\");\n/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rpc.js */ \"./src/rpc.js\");\n/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ \"./src/utils.js\");\n/**\n * Contains the routines loaded by the plugin Worker under web-browser.\n *\n * Initializes the web environment version of the platform-dependent\n * connection object for the plugin site\n */\n\n\n\n\n(function() {\n  // make sure this runs inside a webworker\n  if (\n    typeof WorkerGlobalScope === \"undefined\" ||\n    !self ||\n    !(self instanceof WorkerGlobalScope)\n  ) {\n    throw new Error(\"This script can only loaded in a webworker\");\n  }\n  /**\n   * Connection object provided to the RPC constructor,\n   * plugin site implementation for the web-based environment.\n   * Global will be then cleared to prevent exposure into the\n   * Worker, so we put this local connection object into a closure\n   */\n  class Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__[\"MessageEmitter\"] {\n    constructor(config) {\n      super(config && config.debug);\n      this.config = config || {};\n    }\n    connect() {\n      self.addEventListener(\"message\", e => {\n        this._fire(e.data.type, e.data);\n      });\n      this.emit({\n        type: \"initialized\",\n        config: this.config\n      });\n    }\n    disconnect() {\n      this._fire(\"beforeDisconnect\");\n      self.close();\n      this._fire(\"disconnected\");\n    }\n    emit(data) {\n      let transferables = undefined;\n      if (data.__transferables__) {\n        transferables = data.__transferables__;\n        delete data.__transferables__;\n      }\n      self.postMessage(data, transferables);\n    }\n    async execute(code) {\n      if (code.type === \"requirements\") {\n        try {\n          if (\n            code.requirements &&\n            (Array.isArray(code.requirements) ||\n              typeof code.requirements === \"string\")\n          ) {\n            try {\n              if (!Array.isArray(code.requirements)) {\n                code.requirements = [code.requirements];\n              }\n              for (var i = 0; i < code.requirements.length; i++) {\n                if (\n                  code.requirements[i].toLowerCase().endsWith(\".css\") ||\n                  code.requirements[i].startsWith(\"css:\")\n                ) {\n                  throw \"unable to import css in a webworker\";\n                } else if (\n                  code.requirements[i].toLowerCase().endsWith(\".js\") ||\n                  code.requirements[i].startsWith(\"js:\")\n                ) {\n                  if (code.requirements[i].startsWith(\"js:\")) {\n                    code.requirements[i] = code.requirements[i].slice(3);\n                  }\n                  importScripts(code.requirements[i]);\n                } else if (code.requirements[i].startsWith(\"http\")) {\n                  importScripts(code.requirements[i]);\n                } else if (code.requirements[i].startsWith(\"cache:\")) {\n                  //ignore cache\n                } else {\n                  console.log(\n                    \"Unprocessed requirements url: \" + code.requirements[i]\n                  );\n                }\n              }\n            } catch (e) {\n              throw \"failed to import required scripts: \" +\n                code.requirements.toString();\n            }\n          }\n        } catch (e) {\n          throw e;\n        }\n      } else if (code.type === \"script\") {\n        try {\n          if (\n            code.requirements &&\n            (Array.isArray(code.requirements) ||\n              typeof code.requirements === \"string\")\n          ) {\n            try {\n              if (Array.isArray(code.requirements)) {\n                for (let i = 0; i < code.requirements.length; i++) {\n                  importScripts(code.requirements[i]);\n                }\n              } else {\n                importScripts(code.requirements);\n              }\n            } catch (e) {\n              throw \"failed to import required scripts: \" +\n                code.requirements.toString();\n            }\n          }\n          eval(code.content);\n        } catch (e) {\n          console.error(e.message, e.stack);\n          throw e;\n        }\n      } else {\n        throw \"unsupported code type.\";\n      }\n      if (code.type === \"requirements\") {\n        self.postMessage({\n          type: \"cacheRequirements\",\n          requirements: code.requirements\n        });\n      }\n    }\n  }\n  const config = {\n    type: \"web-worker\",\n    dedicated_thread: true,\n    allow_execution: true,\n    lang: \"javascript\",\n    api_version: _rpc_js__WEBPACK_IMPORTED_MODULE_1__[\"API_VERSION\"]\n  };\n  const conn = new Connection(config);\n  conn.on(\"connectRPC\", data => {\n    Object(_pluginCore_js__WEBPACK_IMPORTED_MODULE_0__[\"connectRPC\"])(conn, Object.assign(data.config, config));\n  });\n  conn.connect();\n  self.postMessage({\n    type: \"worker-ready\"\n  });\n})();\n\n\n/***/ }),\n\n/***/ \"./src/pluginCore.js\":\n/*!***************************!*\\\n  !*** ./src/pluginCore.js ***!\n  \\***************************/\n/*! exports provided: connectRPC */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"connectRPC\", function() { return connectRPC; });\n/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rpc.js */ \"./src/rpc.js\");\n/**\n * Core plugin script loaded into the plugin process/thread.\n *\n * Initializes the plugin-site API global methods.\n */\n\nfunction connectRPC(connection, config) {\n  config = config || {};\n  const codecs = {};\n  const rpc = new _rpc_js__WEBPACK_IMPORTED_MODULE_0__[\"RPC\"](connection, config, codecs);\n  rpc.on(\"getInterface\", function () {\n    launchConnected();\n  });\n  rpc.on(\"remoteReady\", function () {\n    const api = rpc.getRemote() || {};\n\n    if (api.export) {\n      throw new Error(\"`export` is a reserved function name\");\n    }\n\n    if (api.onload) {\n      throw new Error(\"`onload` is a reserved function name\");\n    }\n\n    if (api.dispose) {\n      throw new Error(\"`dispose` is a reserved function name\");\n    }\n\n    api.registerCodec = function (config) {\n      if (!config[\"name\"] || !config[\"encoder\"] && !config[\"decoder\"]) {\n        throw new Error(\"Invalid codec format, please make sure you provide a name, type, encoder and decoder.\");\n      } else {\n        if (config.type) {\n          for (let k of Object.keys(codecs)) {\n            if (codecs[k].type === config.type || k === config.name) {\n              delete codecs[k];\n              console.warn(\"Remove duplicated codec: \" + k);\n            }\n          }\n        }\n\n        codecs[config[\"name\"]] = config;\n      }\n    };\n\n    api.init = function (config) {\n      // register a minimal plugin api\n      rpc.setInterface({\n        setup() {}\n\n      }, config);\n    };\n\n    api.disposeObject = function (obj) {\n      rpc.disposeObject(obj);\n    };\n\n    api.export = function (_interface, config) {\n      rpc.setInterface(_interface, config);\n    };\n\n    api.onLoad = function (handler) {\n      handler = checkHandler(handler);\n\n      if (connected) {\n        handler();\n      } else {\n        connectedHandlers.push(handler);\n      }\n    };\n\n    api.dispose = function (_interface) {\n      rpc.disconnect();\n    };\n\n    if (typeof WorkerGlobalScope !== \"undefined\" && self instanceof WorkerGlobalScope) {\n      self.api = api;\n      self.postMessage({\n        type: \"imjoy_remote_api_ready\"\n      });\n    } else if (typeof window) {\n      window.dispatchEvent(new CustomEvent(\"imjoy_remote_api_ready\", {\n        detail: api\n      }));\n    }\n  });\n  let connected = false;\n  const connectedHandlers = [];\n\n  const launchConnected = function () {\n    if (!connected) {\n      connected = true;\n      let handler;\n\n      while (handler = connectedHandlers.pop()) {\n        handler();\n      }\n    }\n  };\n\n  const checkHandler = function (handler) {\n    const type = typeof handler;\n\n    if (type !== \"function\") {\n      const msg = \"A function may only be subsribed to the event, \" + type + \" was provided instead\";\n      throw new Error(msg);\n    }\n\n    return handler;\n  };\n\n  return rpc;\n}\n\n/***/ }),\n\n/***/ \"./src/rpc.js\":\n/*!********************!*\\\n  !*** ./src/rpc.js ***!\n  \\********************/\n/*! exports provided: API_VERSION, RPC */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"API_VERSION\", function() { return API_VERSION; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"RPC\", function() { return RPC; });\n/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ \"./src/utils.js\");\n/**\n * Contains the RPC object used both by the application\n * site, and by each plugin\n */\n\nconst API_VERSION = \"0.2.3\";\nconst ArrayBufferView = Object.getPrototypeOf(Object.getPrototypeOf(new Uint8Array())).constructor;\n\nfunction _appendBuffer(buffer1, buffer2) {\n  const tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);\n  tmp.set(new Uint8Array(buffer1), 0);\n  tmp.set(new Uint8Array(buffer2), buffer1.byteLength);\n  return tmp.buffer;\n}\n\nfunction indexObject(obj, is) {\n  if (!is) throw new Error(\"undefined index\");\n  if (typeof is === \"string\") return indexObject(obj, is.split(\".\"));else if (is.length === 0) return obj;else return indexObject(obj[is[0]], is.slice(1));\n}\n/**\n * RPC object represents a single site in the\n * communication protocol between the application and the plugin\n *\n * @param {Object} connection a special object allowing to send\n * and receive messages from the opposite site (basically it\n * should only provide send() and onMessage() methods)\n */\n\n\nclass RPC extends _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"MessageEmitter\"] {\n  constructor(connection, config, codecs) {\n    super(config && config.debug);\n    this._connection = connection;\n    this.config = config || {};\n    this._codecs = codecs || {};\n    this._object_store = {};\n    this._method_weakmap = new WeakMap();\n    this._object_weakmap = new WeakMap();\n    this._local_api = null; // make sure there is an execute function\n\n    const name = this.config.name;\n\n    this._connection.execute = this._connection.execute || function () {\n      throw new Error(`connection.execute not implemented (in \"${name}\")`);\n    };\n\n    this._store = new ReferenceStore();\n    this._method_refs = new ReferenceStore();\n\n    this._method_refs.onReady(() => {\n      this._fire(\"remoteIdle\");\n    });\n\n    this._method_refs.onBusy(() => {\n      this._fire(\"remoteBusy\");\n    });\n\n    this._setupMessageHanlders();\n  }\n\n  init() {\n    this._connection.emit({\n      type: \"initialized\",\n      config: this.config,\n      peer_id: this._connection.peer_id\n    });\n  }\n\n  setConfig(config) {\n    if (config) for (const k of Object.keys(config)) {\n      this.config[k] = config[k];\n    }\n  }\n  /**\n   * Set a handler to be called when received a responce from the\n   * remote site reporting that the previously provided interface\n   * has been successfully set as remote for that site\n   *\n   * @param {Function} handler\n   */\n\n\n  getRemoteCallStack() {\n    return this._method_refs.getStack();\n  }\n  /**\n   * @returns {Object} set of remote interface methods\n   */\n\n\n  getRemote() {\n    return this._remote_interface;\n  }\n  /**\n   * Sets the interface of this site making it available to the\n   * remote site by sending a message with a set of methods names\n   *\n   * @param {Object} _interface to set\n   */\n\n\n  setInterface(_interface, config) {\n    config = config || {};\n    this.config.name = config.name || this.config.name;\n    this.config.description = config.description || this.config.description;\n\n    if (this.config.forwarding_functions) {\n      for (let func_name of this.config.forwarding_functions) {\n        const _remote = this._remote_interface;\n\n        if (_remote[func_name]) {\n          if (_interface.constructor === Object) {\n            if (!_interface[func_name]) {\n              _interface[func_name] = (...args) => {\n                _remote[func_name](...args);\n              };\n            }\n          } else if (_interface.constructor.constructor === Function) {\n            if (!_interface.constructor.prototype[func_name]) {\n              _interface.constructor.prototype[func_name] = (...args) => {\n                _remote[func_name](...args);\n              };\n            }\n          }\n        }\n      }\n    }\n\n    this._local_api = _interface;\n\n    this._fire(\"interfaceAvailable\");\n  }\n  /**\n   * Sends the actual interface to the remote site upon it was\n   * updated or by a special request of the remote site\n   */\n\n\n  sendInterface() {\n    if (!this._local_api) {\n      throw new Error(\"interface is not set.\");\n    }\n\n    this._encode(this._local_api, true).then(api => {\n      this._connection.emit({\n        type: \"setInterface\",\n        api: api\n      });\n    });\n  }\n\n  _disposeObject(objectId) {\n    if (this._object_store[objectId]) {\n      delete this._object_store[objectId];\n    } else {\n      throw new Error(`Object (id=${objectId}) not found.`);\n    }\n  }\n\n  disposeObject(obj) {\n    return new Promise((resolve, reject) => {\n      if (this._object_weakmap.has(obj)) {\n        const objectId = this._object_weakmap.get(obj);\n\n        this._connection.once(\"disposed\", data => {\n          if (data.error) reject(new Error(data.error));else resolve();\n        });\n\n        this._connection.emit({\n          type: \"disposeObject\",\n          object_id: objectId\n        });\n      } else {\n        throw new Error(\"Invalid object\");\n      }\n    });\n  }\n  /**\n   * Handles a message from the remote site\n   */\n\n\n  _setupMessageHanlders() {\n    this._connection.on(\"init\", this.init);\n\n    this._connection.on(\"execute\", data => {\n      Promise.resolve(this._connection.execute(data.code)).then(() => {\n        this._connection.emit({\n          type: \"executed\"\n        });\n      }).catch(e => {\n        console.error(e);\n\n        this._connection.emit({\n          type: \"executed\",\n          error: String(e)\n        });\n      });\n    });\n\n    this._connection.on(\"method\", async data => {\n      let resolve, reject, method, method_this, args, result;\n\n      try {\n        if (data.promise) {\n          [resolve, reject] = await this._unwrap(data.promise, false);\n        }\n\n        const _interface = this._object_store[data.object_id];\n        method = indexObject(_interface, data.name);\n\n        if (data.name.includes(\".\")) {\n          const tmp = data.name.split(\".\");\n          const intf_index = tmp.slice(0, tmp.length - 1).join(\".\");\n          method_this = indexObject(_interface, intf_index);\n        } else {\n          method_this = _interface;\n        }\n\n        args = await this._unwrap(data.args, true);\n\n        if (data.promise) {\n          result = method.apply(method_this, args);\n\n          if (result instanceof Promise || method.constructor && method.constructor.name === \"AsyncFunction\") {\n            result.then(resolve).catch(reject);\n          } else {\n            resolve(result);\n          }\n        } else {\n          method.apply(method_this, args);\n        }\n      } catch (err) {\n        console.error(this.config.name, err);\n\n        if (reject) {\n          reject(err);\n        }\n      }\n    });\n\n    this._connection.on(\"callback\", async data => {\n      let resolve, reject, method, args, result;\n\n      try {\n        if (data.promise) {\n          [resolve, reject] = await this._unwrap(data.promise, false);\n        }\n\n        if (data.promise) {\n          method = this._store.fetch(data.id);\n          args = await this._unwrap(data.args, true);\n\n          if (!method) {\n            throw new Error(\"Callback function can only called once, if you want to call a function for multiple times, please make it as a plugin api function. See https://imjoy.io/docs for more details.\");\n          }\n\n          result = method.apply(null, args);\n\n          if (result instanceof Promise || method.constructor && method.constructor.name === \"AsyncFunction\") {\n            result.then(resolve).catch(reject);\n          } else {\n            resolve(result);\n          }\n        } else {\n          method = this._store.fetch(data.id);\n          args = await this._unwrap(data.args, true);\n\n          if (!method) {\n            throw new Error(\"Please notice that callback function can only called once, if you want to call a function for multiple times, please make it as a plugin api function. See https://imjoy.io/docs for more details.\");\n          }\n\n          method.apply(null, args);\n        }\n      } catch (err) {\n        console.error(this.config.name, err);\n\n        if (reject) {\n          reject(err);\n        }\n      }\n    });\n\n    this._connection.on(\"disposeObject\", data => {\n      try {\n        this._disposeObject(data.object_id);\n\n        this._connection.emit({\n          type: \"disposed\"\n        });\n      } catch (e) {\n        console.error(e);\n\n        this._connection.emit({\n          type: \"disposed\",\n          error: String(e)\n        });\n      }\n    });\n\n    this._connection.on(\"setInterface\", data => {\n      this._setRemoteInterface(data.api);\n    });\n\n    this._connection.on(\"getInterface\", () => {\n      this._fire(\"getInterface\");\n\n      if (this._local_api) {\n        this.sendInterface();\n      } else {\n        this.once(\"interfaceAvailable\", () => {\n          this.sendInterface();\n        });\n      }\n    });\n\n    this._connection.on(\"interfaceSetAsRemote\", () => {\n      this._fire(\"interfaceSetAsRemote\");\n    });\n\n    this._connection.on(\"disconnect\", () => {\n      this._fire(\"beforeDisconnect\");\n\n      this._connection.disconnect();\n\n      this._fire(\"disconnected\");\n    });\n  }\n  /**\n   * Sends a requests to the remote site asking it to provide its\n   * current interface\n   */\n\n\n  requestRemote() {\n    this._connection.emit({\n      type: \"getInterface\"\n    });\n  }\n\n  _ndarray(typedArray, shape, dtype) {\n    const _dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(typedArray);\n\n    if (dtype && dtype !== _dtype) {\n      throw \"dtype doesn't match the type of the array: \" + _dtype + \" != \" + dtype;\n    }\n\n    shape = shape || [typedArray.length];\n    return {\n      _rtype: \"ndarray\",\n      _rvalue: typedArray.buffer,\n      _rshape: shape,\n      _rdtype: _dtype\n    };\n  }\n  /**\n   * Sets the new remote interface provided by the other site\n   *\n   * @param {Array} names list of function names\n   */\n\n\n  _setRemoteInterface(api) {\n    this._decode(api).then(intf => {\n      this._remote_interface = intf;\n\n      this._fire(\"remoteReady\");\n\n      this._reportRemoteSet();\n    });\n  }\n  /**\n   * Generates the wrapped function corresponding to a single remote\n   * method. When the generated function is called, it will send the\n   * corresponding message to the remote site asking it to execute\n   * the particular method of its interface\n   *\n   * @param {String} name of the remote method\n   *\n   * @returns {Function} wrapped remote method\n   */\n\n\n  _genRemoteMethod(targetId, name, objectId) {\n    const me = this;\n\n    const remoteMethod = function () {\n      return new Promise(async (resolve, reject) => {\n        let id = null;\n\n        try {\n          id = me._method_refs.put(objectId ? objectId + \"/\" + name : name);\n\n          const wrapped_resolve = function () {\n            if (id !== null) me._method_refs.fetch(id);\n            return resolve.apply(this, arguments);\n          };\n\n          const wrapped_reject = function () {\n            if (id !== null) me._method_refs.fetch(id);\n            return reject.apply(this, arguments);\n          };\n\n          const encodedPromise = await me._wrap([wrapped_resolve, wrapped_reject]); // store the key id for removing them from the reference store together\n\n          wrapped_resolve.__promise_pair = encodedPromise[1]._rvalue;\n          wrapped_reject.__promise_pair = encodedPromise[0]._rvalue;\n          let args = Array.prototype.slice.call(arguments);\n\n          if (name === \"register\" || name === \"export\" || name === \"on\") {\n            args = await me._wrap(args, true);\n          } else {\n            args = await me._wrap(args);\n          }\n\n          const transferables = args.__transferables__;\n          if (transferables) delete args.__transferables__;\n\n          me._connection.emit({\n            type: \"method\",\n            target_id: targetId,\n            name: name,\n            object_id: objectId,\n            args: args,\n            promise: encodedPromise\n          }, transferables);\n        } catch (e) {\n          if (id) me._method_refs.fetch(id);\n          reject(`Failed to exectue remote method (interface: ${objectId || me.id}, method: ${name}), error: ${e}`);\n        }\n      });\n    };\n\n    remoteMethod.__remote_method = true;\n    return remoteMethod;\n  }\n  /**\n   * Sends a responce reporting that interface just provided by the\n   * remote site was successfully set by this site as remote\n   */\n\n\n  _reportRemoteSet() {\n    this._connection.emit({\n      type: \"interfaceSetAsRemote\"\n    });\n  }\n  /**\n   * Prepares the provided set of remote method arguments for\n   * sending to the remote site, replaces all the callbacks with\n   * identifiers\n   *\n   * @param {Array} args to wrap\n   *\n   * @returns {Array} wrapped arguments\n   */\n\n\n  async _encode(aObject, asInterface, objectId) {\n    const aType = typeof aObject;\n\n    if (aType === \"number\" || aType === \"string\" || aType === \"boolean\" || aObject === null || aObject === undefined || aObject instanceof ArrayBuffer) {\n      return aObject;\n    }\n\n    let bObject;\n\n    if (typeof aObject === \"function\") {\n      if (asInterface) {\n        if (!objectId) throw new Error(\"objectId is not specified.\");\n        bObject = {\n          _rtype: \"interface\",\n          _rtarget_id: this._connection.peer_id,\n          _rintf: objectId,\n          _rvalue: asInterface\n        };\n\n        this._method_weakmap.set(aObject, bObject);\n      } else if (this._method_weakmap.has(aObject)) {\n        bObject = this._method_weakmap.get(aObject);\n      } else {\n        const cid = this._store.put(aObject);\n\n        bObject = {\n          _rtype: \"callback\",\n          _rtarget_id: this._connection.peer_id,\n          _rname: aObject.constructor && aObject.constructor.name || cid,\n          _rvalue: cid\n        };\n      }\n\n      return bObject;\n    } // skip if already encoded\n\n\n    if (aObject.constructor instanceof Object && aObject._rtype) {\n      // make sure the interface functions are encoded\n      if (aObject._rintf) {\n        const temp = aObject._rtype;\n        delete aObject._rtype;\n        bObject = await this._encode(aObject, asInterface, objectId);\n        bObject._rtype = temp;\n      } else {\n        bObject = aObject;\n      }\n\n      return bObject;\n    }\n\n    const transferables = [];\n    const _transfer = aObject._transfer;\n    const isarray = Array.isArray(aObject);\n\n    for (let tp of Object.keys(this._codecs)) {\n      const codec = this._codecs[tp];\n\n      if (codec.encoder && aObject instanceof codec.type) {\n        // TODO: what if multiple encoders found\n        let encodedObj = await Promise.resolve(codec.encoder(aObject));\n        if (encodedObj && !encodedObj._rtype) encodedObj._rtype = codec.name; // encode the functions in the interface object\n\n        if (encodedObj && encodedObj._rintf) {\n          const temp = encodedObj._rtype;\n          delete encodedObj._rtype;\n          encodedObj = await this._encode(encodedObj, asInterface, objectId);\n          encodedObj._rtype = temp;\n        }\n\n        bObject = encodedObj;\n        return bObject;\n      }\n    }\n\n    if (\n    /*global tf*/\n    typeof tf !== \"undefined\" && tf.Tensor && aObject instanceof tf.Tensor) {\n      const v_buffer = aObject.dataSync();\n\n      if (aObject._transfer || _transfer) {\n        transferables.push(v_buffer.buffer);\n        delete aObject._transfer;\n      }\n\n      bObject = {\n        _rtype: \"ndarray\",\n        _rvalue: v_buffer.buffer,\n        _rshape: aObject.shape,\n        _rdtype: aObject.dtype\n      };\n    } else if (\n    /*global nj*/\n    typeof nj !== \"undefined\" && nj.NdArray && aObject instanceof nj.NdArray) {\n      const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(aObject.selection.data);\n\n      if (aObject._transfer || _transfer) {\n        transferables.push(aObject.selection.data.buffer);\n        delete aObject._transfer;\n      }\n\n      bObject = {\n        _rtype: \"ndarray\",\n        _rvalue: aObject.selection.data.buffer,\n        _rshape: aObject.shape,\n        _rdtype: dtype\n      };\n    } else if (aObject instanceof Error) {\n      console.error(aObject);\n      bObject = {\n        _rtype: \"error\",\n        _rvalue: aObject.toString()\n      };\n    } else if (typeof File !== \"undefined\" && aObject instanceof File) {\n      bObject = {\n        _rtype: \"file\",\n        _rvalue: aObject,\n        _rpath: aObject._path || aObject.webkitRelativePath\n      };\n    } // send objects supported by structure clone algorithm\n    // https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm\n    else if (aObject !== Object(aObject) || aObject instanceof Boolean || aObject instanceof String || aObject instanceof Date || aObject instanceof RegExp || aObject instanceof ImageData || typeof FileList !== \"undefined\" && aObject instanceof FileList) {\n        bObject = aObject; // TODO: avoid object such as DynamicPlugin instance.\n      } else if (typeof File !== \"undefined\" && aObject instanceof File) {\n        bObject = {\n          _rtype: \"file\",\n          _rname: aObject.name,\n          _rmime: aObject.type,\n          _rvalue: aObject,\n          _rpath: aObject._path || aObject.webkitRelativePath\n        };\n      } else if (aObject instanceof Blob) {\n        bObject = {\n          _rtype: \"blob\",\n          _rvalue: aObject\n        };\n      } else if (aObject instanceof ArrayBufferView) {\n        if (aObject._transfer || _transfer) {\n          transferables.push(aObject.buffer);\n          delete aObject._transfer;\n        }\n\n        const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(aObject);\n        bObject = {\n          _rtype: \"typedarray\",\n          _rvalue: aObject.buffer,\n          _rdtype: dtype\n        };\n      } else if (aObject instanceof DataView) {\n        if (aObject._transfer || _transfer) {\n          transferables.push(aObject.buffer);\n          delete aObject._transfer;\n        }\n\n        bObject = {\n          _rtype: \"memoryview\",\n          _rvalue: aObject.buffer\n        };\n      } else if (aObject instanceof Set) {\n        bObject = {\n          _rtype: \"set\",\n          _rvalue: await this._encode(Array.from(aObject), asInterface)\n        };\n      } else if (aObject instanceof Map) {\n        bObject = {\n          _rtype: \"orderedmap\",\n          _rvalue: await this._encode(Array.from(aObject), asInterface)\n        };\n      } else if (aObject.constructor instanceof Object || Array.isArray(aObject)) {\n        bObject = isarray ? [] : {};\n        let keys; // an object/array\n\n        if (aObject.constructor === Object || Array.isArray(aObject)) {\n          keys = Object.keys(aObject);\n        } // a class\n        else if (aObject.constructor === Function) {\n            throw new Error(\"Please instantiate the class before exportting it.\");\n          } // instance of a class\n          else if (aObject.constructor.constructor === Function) {\n              keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject)); // TODO: use a proxy object to represent the actual object\n              // always encode class instance as interface\n\n              asInterface = true;\n            } else {\n              throw Error(\"Unsupported interface type\");\n            }\n\n        let hasFunction = false; // encode interfaces\n\n        if (aObject._rintf || asInterface) {\n          if (!objectId) {\n            objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"randId\"])();\n            this._object_store[objectId] = aObject;\n          }\n\n          for (let k of keys) {\n            if (k === \"constructor\") continue;\n\n            if (k.startsWith(\"_\")) {\n              continue;\n            }\n\n            bObject[k] = await this._encode(aObject[k], typeof asInterface === \"string\" ? asInterface + \".\" + k : k, objectId);\n\n            if (typeof aObject[k] === \"function\") {\n              hasFunction = true;\n            }\n          } // object id for dispose the object remotely\n\n\n          if (hasFunction) bObject._rintf = objectId; // remove interface when closed\n\n          if (aObject.on && typeof aObject.on === \"function\") {\n            aObject.on(\"close\", () => {\n              delete this._object_store[objectId];\n            });\n          }\n        } else {\n          for (let k of keys) {\n            if ([\"hasOwnProperty\", \"constructor\"].includes(k)) continue;\n            bObject[k] = await this._encode(aObject[k]);\n          }\n        } // for example, browserFS object\n\n      } else if (typeof aObject === \"object\") {\n        const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject));\n        const objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"randId\"])();\n\n        for (let k of keys) {\n          if ([\"hasOwnProperty\", \"constructor\"].includes(k)) continue; // encode as interface\n\n          bObject[k] = await this._encode(aObject[k], k, bObject);\n        } // object id, used for dispose the object\n\n\n        bObject._rintf = objectId;\n      } else {\n        throw \"imjoy-rpc: Unsupported data type:\" + aObject;\n      }\n\n    if (transferables.length > 0) {\n      bObject.__transferables__ = transferables;\n    }\n\n    if (!bObject) {\n      throw new Error(\"Failed to encode object\");\n    }\n\n    return bObject;\n  }\n\n  async _decode(aObject, withPromise) {\n    if (!aObject) {\n      return aObject;\n    }\n\n    let bObject;\n\n    if (aObject[\"_rtype\"]) {\n      if (this._codecs[aObject._rtype] && this._codecs[aObject._rtype].decoder) {\n        if (aObject._rintf) {\n          const temp = aObject._rtype;\n          delete aObject._rtype;\n          aObject = await this._decode(aObject, withPromise);\n          aObject._rtype = temp;\n        }\n\n        bObject = await Promise.resolve(this._codecs[aObject._rtype].decoder(aObject));\n      } else if (aObject._rtype === \"callback\") {\n        bObject = this._genRemoteCallback(aObject._rtarget_id, aObject._rvalue, withPromise);\n      } else if (aObject._rtype === \"interface\") {\n        bObject = this._genRemoteMethod(aObject._rtarget_id, aObject._rvalue, aObject._rintf);\n      } else if (aObject._rtype === \"ndarray\") {\n        /*global nj tf*/\n        //create build array/tensor if used in the plugin\n        if (typeof nj !== \"undefined\" && nj.array) {\n          if (Array.isArray(aObject._rvalue)) {\n            aObject._rvalue = aObject._rvalue.reduce(_appendBuffer);\n          }\n\n          bObject = nj.array(new Uint8(aObject._rvalue), aObject._rdtype).reshape(aObject._rshape);\n        } else if (typeof tf !== \"undefined\" && tf.Tensor) {\n          if (Array.isArray(aObject._rvalue)) {\n            aObject._rvalue = aObject._rvalue.reduce(_appendBuffer);\n          }\n\n          const arraytype = _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"dtypeToTypedArray\"][aObject._rdtype];\n          bObject = tf.tensor(new arraytype(aObject._rvalue), aObject._rshape, aObject._rdtype);\n        } else {\n          //keep it as regular if transfered to the main app\n          bObject = aObject;\n        }\n      } else if (aObject._rtype === \"error\") {\n        bObject = new Error(aObject._rvalue);\n      } else if (aObject._rtype === \"file\") {\n        if (aObject._rvalue instanceof File) {\n          bObject = aObject._rvalue; //patch _path\n\n          bObject._path = aObject._rpath;\n        } else {\n          bObject = new File([aObject._rvalue], aObject._rname, {\n            type: aObject._rmime\n          });\n          bObject._path = aObject._rpath;\n        }\n      } else if (aObject._rtype === \"typedarray\") {\n        const arraytype = _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"dtypeToTypedArray\"][aObject._rdtype];\n        if (!arraytype) throw new Error(\"unsupported dtype: \" + aObject._rdtype);\n        bObject = new arraytype(aObject._rvalue);\n      } else if (aObject._rtype === \"memoryview\") {\n        bObject = new DataView(aObject._rvalue);\n      } else if (aObject._rtype === \"blob\") {\n        if (aObject._rvalue instanceof Blob) {\n          bObject = aObject._rvalue;\n        } else {\n          bObject = new Blob([aObject._rvalue], {\n            type: aObject._rmime\n          });\n        }\n      } else if (aObject._rtype === \"orderedmap\") {\n        bObject = new Map((await this._decode(aObject._rvalue, withPromise)));\n      } else if (aObject._rtype === \"set\") {\n        bObject = new Set((await this._decode(aObject._rvalue, withPromise)));\n      } else {\n        // make sure all the interface functions are decoded\n        if (aObject._rintf) {\n          const temp = aObject._rtype;\n          delete aObject._rtype;\n          bObject = await this._decode(aObject, withPromise);\n          bObject._rtype = temp;\n        } else bObject = aObject;\n      }\n    } else if (aObject.constructor === Object || Array.isArray(aObject)) {\n      const isarray = Array.isArray(aObject);\n      bObject = isarray ? [] : {};\n\n      for (let k of Object.keys(aObject)) {\n        if (isarray || aObject.hasOwnProperty(k)) {\n          const v = aObject[k];\n          bObject[k] = await this._decode(v, withPromise);\n        }\n      }\n    } else {\n      bObject = aObject;\n    }\n\n    if (bObject === undefined) {\n      throw new Error(\"Failed to decode object\");\n    } // store the object id for dispose\n\n\n    if (aObject._rintf) {\n      this._object_weakmap.set(bObject, aObject._rintf);\n    }\n\n    return bObject;\n  }\n\n  async _wrap(args, asInterface) {\n    return await this._encode(args, asInterface);\n  }\n  /**\n   * Unwraps the set of arguments delivered from the remote site,\n   * replaces all callback identifiers with a function which will\n   * initiate sending that callback identifier back to other site\n   *\n   * @param {Object} args to unwrap\n   *\n   * @param {Boolean} withPromise is true means this the callback should contain a promise\n   *\n   * @returns {Array} unwrapped args\n   */\n\n\n  async _unwrap(args, withPromise) {\n    return await this._decode(args, withPromise);\n  }\n  /**\n   * Generates the wrapped function corresponding to a single remote\n   * callback. When the generated function is called, it will send\n   * the corresponding message to the remote site asking it to\n   * execute the particular callback previously saved during a call\n   * by the remote site a method from the interface of this site\n   *\n   * @param {Number} id of the remote callback to execute\n   * @param {Number} argNum argument index of the callback\n   * @param {Boolean} withPromise is true means this the callback should contain a promise\n   *\n   * @returns {Function} wrapped remote callback\n   */\n\n\n  _genRemoteCallback(targetId, cid, withPromise) {\n    const me = this;\n    let remoteCallback;\n\n    if (withPromise) {\n      remoteCallback = function () {\n        return new Promise(async (resolve, reject) => {\n          const args = await me._wrap(Array.prototype.slice.call(arguments));\n          const transferables = args.__transferables__;\n          if (transferables) delete args.__transferables__;\n          const encodedPromise = await me._wrap([resolve, reject]); // store the key id for removing them from the reference store together\n\n          resolve.__promise_pair = encodedPromise[1]._rvalue;\n          reject.__promise_pair = encodedPromise[0]._rvalue;\n\n          try {\n            me._connection.emit({\n              type: \"callback\",\n              target_id: targetId,\n              id: cid,\n              args: args,\n              promise: encodedPromise\n            }, transferables);\n          } catch (e) {\n            reject(`Failed to exectue remote callback ( id: ${cid}).`);\n          }\n        });\n      };\n\n      return remoteCallback;\n    } else {\n      remoteCallback = async function () {\n        const args = await me._wrap(Array.prototype.slice.call(arguments));\n        const transferables = args.__transferables__;\n        if (transferables) delete args.__transferables__;\n        return me._connection.emit({\n          type: \"callback\",\n          target_id: targetId,\n          id: cid,\n          args: args\n        }, transferables);\n      };\n\n      return remoteCallback;\n    }\n  }\n  /**\n   * Sends the notification message and breaks the connection\n   */\n\n\n  disconnect() {\n    this._connection.emit({\n      type: \"disconnect\"\n    });\n\n    setTimeout(() => {\n      this._connection.disconnect();\n    }, 2000);\n  }\n\n}\n/**\n * ReferenceStore is a special object which stores other objects\n * and provides the references (number) instead. This reference\n * may then be sent over a json-based communication channel (IPC\n * to another Node.js process or a message to the Worker). Other\n * site may then provide the reference in the responce message\n * implying the given object should be activated.\n *\n * Primary usage for the ReferenceStore is a storage for the\n * callbacks, which therefore makes it possible to initiate a\n * callback execution by the opposite site (which normally cannot\n * directly execute functions over the communication channel).\n *\n * Each stored object can only be fetched once and is not\n * available for the second time. Each stored object must be\n * fetched, since otherwise it will remain stored forever and\n * consume memory.\n *\n * Stored object indeces are simply the numbers, which are however\n * released along with the objects, and are later reused again (in\n * order to postpone the overflow, which should not likely happen,\n * but anyway).\n */\n\nclass ReferenceStore {\n  constructor() {\n    this._store = {}; // stored object\n\n    this._indices = [0]; // smallest available indices\n\n    this._readyHandler = function () {};\n\n    this._busyHandler = function () {};\n\n    this._readyHandler();\n  }\n  /**\n   * call handler when the store is empty\n   *\n   * @param {FUNCTION} id of a handler\n   */\n\n\n  onReady(readyHandler) {\n    this._readyHandler = readyHandler || function () {};\n  }\n  /**\n   * call handler when the store is not empty\n   *\n   * @param {FUNCTION} id of a handler\n   */\n\n\n  onBusy(busyHandler) {\n    this._busyHandler = busyHandler || function () {};\n  }\n  /**\n   * get the length of the store\n   *\n   */\n\n\n  getStack() {\n    return Object.keys(this._store).length;\n  }\n  /**\n   * @function _genId() generates the new reference id\n   *\n   * @returns {Number} smallest available id and reserves it\n   */\n\n\n  _genId() {\n    let id;\n\n    if (this._indices.length === 1) {\n      id = this._indices[0]++;\n    } else {\n      id = this._indices.shift();\n    }\n\n    return id;\n  }\n  /**\n   * Releases the given reference id so that it will be available by\n   * another object stored\n   *\n   * @param {Number} id to release\n   */\n\n\n  _releaseId(id) {\n    for (let i = 0; i < this._indices.length; i++) {\n      if (id < this._indices[i]) {\n        this._indices.splice(i, 0, id);\n\n        break;\n      }\n    } // cleaning-up the sequence tail\n\n\n    for (let i = this._indices.length - 1; i >= 0; i--) {\n      if (this._indices[i] - 1 === this._indices[i - 1]) {\n        this._indices.pop();\n      } else {\n        break;\n      }\n    }\n  }\n  /**\n   * Stores the given object and returns the refernce id instead\n   *\n   * @param {Object} obj to store\n   *\n   * @returns {Number} reference id of the stored object\n   */\n\n\n  put(obj) {\n    if (this._busyHandler && Object.keys(this._store).length === 0) {\n      this._busyHandler();\n    }\n\n    const id = this._genId();\n\n    this._store[id] = obj;\n    return id;\n  }\n  /**\n   * Retrieves previously stored object and releases its reference\n   *\n   * @param {Number} id of an object to retrieve\n   */\n\n\n  fetch(id) {\n    const obj = this._store[id];\n\n    if (obj && !obj.__remote_method) {\n      delete this._store[id];\n\n      this._releaseId(id);\n\n      if (this._readyHandler && Object.keys(this._store).length === 0) {\n        this._readyHandler();\n      }\n    }\n\n    if (obj && obj.__promise_pair) {\n      this.fetch(obj.__promise_pair);\n    }\n\n    return obj;\n  }\n\n}\n\n/***/ }),\n\n/***/ \"./src/utils.js\":\n/*!**********************!*\\\n  !*** ./src/utils.js ***!\n  \\**********************/\n/*! exports provided: randId, dtypeToTypedArray, typedArrayToDtypeMapping, typedArrayToDtype, cacheRequirements, setupServiceWorker, urlJoin, MessageEmitter */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"randId\", function() { return randId; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"dtypeToTypedArray\", function() { return dtypeToTypedArray; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"typedArrayToDtypeMapping\", function() { return typedArrayToDtypeMapping; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"typedArrayToDtype\", function() { return typedArrayToDtype; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cacheRequirements\", function() { return cacheRequirements; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"setupServiceWorker\", function() { return setupServiceWorker; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"urlJoin\", function() { return urlJoin; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MessageEmitter\", function() { return MessageEmitter; });\nfunction randId() {\n  return Math.random().toString(36).substr(2, 10) + new Date().getTime();\n}\nconst dtypeToTypedArray = {\n  int8: Int8Array,\n  int16: Int16Array,\n  int32: Int32Array,\n  uint8: Uint8Array,\n  uint16: Uint16Array,\n  uint32: Uint32Array,\n  float32: Float32Array,\n  float64: Float64Array,\n  array: Array\n};\nconst typedArrayToDtypeMapping = {\n  Int8Array: \"int8\",\n  Int16Array: \"int16\",\n  Int32Array: \"int32\",\n  Uint8Array: \"uint8\",\n  Uint16Array: \"uint16\",\n  Uint32Array: \"uint32\",\n  Float32Array: \"float32\",\n  Float64Array: \"float64\",\n  Array: \"array\"\n};\nconst typedArrayToDtypeKeys = [];\n\nfor (const arrType of Object.keys(typedArrayToDtypeMapping)) {\n  typedArrayToDtypeKeys.push(eval(arrType));\n}\n\nfunction typedArrayToDtype(obj) {\n  let dtype = typedArrayToDtypeMapping[obj.constructor.name];\n\n  if (!dtype) {\n    const pt = Object.getPrototypeOf(obj);\n\n    for (const arrType of typedArrayToDtypeKeys) {\n      if (pt instanceof arrType) {\n        dtype = typedArrayToDtypeMapping[arrType.name];\n        break;\n      }\n    }\n  }\n\n  return dtype;\n}\n\nfunction cacheUrlInServiceWorker(url) {\n  return new Promise(function (resolve, reject) {\n    const message = {\n      command: \"add\",\n      url: url\n    };\n\n    if (!navigator.serviceWorker || !navigator.serviceWorker.register) {\n      reject(\"Service worker is not supported.\");\n      return;\n    }\n\n    const messageChannel = new MessageChannel();\n\n    messageChannel.port1.onmessage = function (event) {\n      if (event.data && event.data.error) {\n        reject(event.data.error);\n      } else {\n        resolve(event.data && event.data.result);\n      }\n    };\n\n    if (navigator.serviceWorker && navigator.serviceWorker.controller) {\n      navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);\n    } else {\n      reject(\"Service worker controller is not available\");\n    }\n  });\n}\n\nasync function cacheRequirements(requirements) {\n  if (!Array.isArray(requirements)) {\n    requirementsm.code.requirements = [requirements];\n  }\n\n  if (requirements && requirements.length > 0) {\n    for (let req of requirements) {\n      //remove prefix\n      if (req.startsWith(\"js:\")) req = req.slice(3);\n      if (req.startsWith(\"css:\")) req = req.slice(4);\n      if (req.startsWith(\"cache:\")) req = req.slice(6);\n      if (!req.startsWith(\"http\")) continue;\n      await cacheUrlInServiceWorker(req).catch(e => {\n        console.error(e);\n      });\n    }\n  }\n}\nfunction setupServiceWorker(baseUrl, targetOrigin, cacheCallback) {\n  // register service worker for offline access\n  if (\"serviceWorker\" in navigator) {\n    baseUrl = baseUrl || \"/\";\n    navigator.serviceWorker.register(baseUrl + \"plugin-service-worker.js\").then(function (registration) {\n      // Registration was successful\n      console.log(\"ServiceWorker registration successful with scope: \", registration.scope);\n    }, function (err) {\n      // registration failed :(\n      console.log(\"ServiceWorker registration failed: \", err);\n    });\n    targetOrigin = targetOrigin || \"*\";\n    cacheCallback = cacheCallback || cacheRequirements;\n\n    if (cacheCallback && typeof cacheCallback !== \"function\") {\n      throw new Error(\"config.cache_requirements must be a function\");\n    }\n\n    window.addEventListener(\"message\", function (e) {\n      if (targetOrigin === \"*\" || e.origin === targetOrigin) {\n        const m = e.data;\n\n        if (m.type === \"cacheRequirements\") {\n          cacheCallback(m.requirements);\n        }\n      }\n    });\n  }\n} //#Source https://bit.ly/2neWfJ2\n\nfunction urlJoin(...args) {\n  return args.join(\"/\").replace(/[\\/]+/g, \"/\").replace(/^(.+):\\//, \"$1://\").replace(/^file:/, \"file:/\").replace(/\\/(\\?|&|#[^!])/g, \"$1\").replace(/\\?/g, \"&\").replace(\"&\", \"?\");\n}\nclass MessageEmitter {\n  constructor(debug) {\n    this._event_handlers = {};\n    this._once_handlers = {};\n    this._debug = debug;\n  }\n\n  emit() {\n    throw new Error(\"emit is not implemented\");\n  }\n\n  on(event, handler) {\n    if (!this._event_handlers[event]) {\n      this._event_handlers[event] = [];\n    }\n\n    this._event_handlers[event].push(handler);\n  }\n\n  once(event, handler) {\n    handler.___event_run_once = true;\n    this.on(event, handler);\n  }\n\n  off(event, handler) {\n    if (!event && !handler) {\n      // remove all events handlers\n      this._event_handlers = {};\n    } else if (event && !handler) {\n      // remove all hanlders for the event\n      if (this._event_handlers[event]) this._event_handlers[event] = [];\n    } else {\n      // remove a specific handler\n      if (this._event_handlers[event]) {\n        const idx = this._event_handlers[event].indexOf(handler);\n\n        if (idx >= 0) {\n          this._event_handlers[event].splice(idx, 1);\n        }\n      }\n    }\n  }\n\n  _fire(event, data) {\n    if (this._event_handlers[event]) {\n      var i = this._event_handlers[event].length;\n\n      while (i--) {\n        const handler = this._event_handlers[event][i];\n\n        try {\n          handler(data);\n        } catch (e) {\n          console.error(e);\n        } finally {\n          if (handler.___event_run_once) {\n            this._event_handlers[event].splice(i, 1);\n          }\n        }\n      }\n    } else {\n      if (this._debug) {\n        console.warn(\"unhandled event\", event, data);\n      }\n    }\n  }\n\n}\n\n/***/ })\n\n/******/ });\n//# sourceMappingURL=plugin.webworker.js.map", null);
+  return __webpack_require__(/*! !./node_modules/worker-loader/dist/workers/InlineWorker.js */ "./node_modules/worker-loader/dist/workers/InlineWorker.js")("/******/ (function(modules) { // webpackBootstrap\n/******/ \t// The module cache\n/******/ \tvar installedModules = {};\n/******/\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/\n/******/ \t\t// Check if module is in cache\n/******/ \t\tif(installedModules[moduleId]) {\n/******/ \t\t\treturn installedModules[moduleId].exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = installedModules[moduleId] = {\n/******/ \t\t\ti: moduleId,\n/******/ \t\t\tl: false,\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/\n/******/ \t\t// Execute the module function\n/******/ \t\tmodules[moduleId].call(module.exports, module, module.exports, __webpack_require__);\n/******/\n/******/ \t\t// Flag the module as loaded\n/******/ \t\tmodule.l = true;\n/******/\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/\n/******/\n/******/ \t// expose the modules object (__webpack_modules__)\n/******/ \t__webpack_require__.m = modules;\n/******/\n/******/ \t// expose the module cache\n/******/ \t__webpack_require__.c = installedModules;\n/******/\n/******/ \t// define getter function for harmony exports\n/******/ \t__webpack_require__.d = function(exports, name, getter) {\n/******/ \t\tif(!__webpack_require__.o(exports, name)) {\n/******/ \t\t\tObject.defineProperty(exports, name, { enumerable: true, get: getter });\n/******/ \t\t}\n/******/ \t};\n/******/\n/******/ \t// define __esModule on exports\n/******/ \t__webpack_require__.r = function(exports) {\n/******/ \t\tif(typeof Symbol !== 'undefined' && Symbol.toStringTag) {\n/******/ \t\t\tObject.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });\n/******/ \t\t}\n/******/ \t\tObject.defineProperty(exports, '__esModule', { value: true });\n/******/ \t};\n/******/\n/******/ \t// create a fake namespace object\n/******/ \t// mode & 1: value is a module id, require it\n/******/ \t// mode & 2: merge all properties of value into the ns\n/******/ \t// mode & 4: return value when already ns object\n/******/ \t// mode & 8|1: behave like require\n/******/ \t__webpack_require__.t = function(value, mode) {\n/******/ \t\tif(mode & 1) value = __webpack_require__(value);\n/******/ \t\tif(mode & 8) return value;\n/******/ \t\tif((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;\n/******/ \t\tvar ns = Object.create(null);\n/******/ \t\t__webpack_require__.r(ns);\n/******/ \t\tObject.defineProperty(ns, 'default', { enumerable: true, value: value });\n/******/ \t\tif(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));\n/******/ \t\treturn ns;\n/******/ \t};\n/******/\n/******/ \t// getDefaultExport function for compatibility with non-harmony modules\n/******/ \t__webpack_require__.n = function(module) {\n/******/ \t\tvar getter = module && module.__esModule ?\n/******/ \t\t\tfunction getDefault() { return module['default']; } :\n/******/ \t\t\tfunction getModuleExports() { return module; };\n/******/ \t\t__webpack_require__.d(getter, 'a', getter);\n/******/ \t\treturn getter;\n/******/ \t};\n/******/\n/******/ \t// Object.prototype.hasOwnProperty.call\n/******/ \t__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n/******/\n/******/ \t// __webpack_public_path__\n/******/ \t__webpack_require__.p = \"\";\n/******/\n/******/\n/******/ \t// Load entry module and return exports\n/******/ \treturn __webpack_require__(__webpack_require__.s = \"./src/plugin.webworker.js\");\n/******/ })\n/************************************************************************/\n/******/ ({\n\n/***/ \"./src/plugin.webworker.js\":\n/*!*********************************!*\\\n  !*** ./src/plugin.webworker.js ***!\n  \\*********************************/\n/*! no exports provided */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pluginCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pluginCore.js */ \"./src/pluginCore.js\");\n/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rpc.js */ \"./src/rpc.js\");\n/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ \"./src/utils.js\");\n/**\n * Contains the routines loaded by the plugin Worker under web-browser.\n *\n * Initializes the web environment version of the platform-dependent\n * connection object for the plugin site\n */\n\n\n\n\n(function() {\n  // make sure this runs inside a webworker\n  if (\n    typeof WorkerGlobalScope === \"undefined\" ||\n    !self ||\n    !(self instanceof WorkerGlobalScope)\n  ) {\n    throw new Error(\"This script can only loaded in a webworker\");\n  }\n  /**\n   * Connection object provided to the RPC constructor,\n   * plugin site implementation for the web-based environment.\n   * Global will be then cleared to prevent exposure into the\n   * Worker, so we put this local connection object into a closure\n   */\n  class Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__[\"MessageEmitter\"] {\n    constructor(config) {\n      super(config && config.debug);\n      this.config = config || {};\n    }\n    connect() {\n      self.addEventListener(\"message\", e => {\n        this._fire(e.data.type, e.data);\n      });\n      this.emit({\n        type: \"initialized\",\n        config: this.config\n      });\n    }\n    disconnect() {\n      this._fire(\"beforeDisconnect\");\n      self.close();\n      this._fire(\"disconnected\");\n    }\n    emit(data) {\n      let transferables = undefined;\n      if (data.__transferables__) {\n        transferables = data.__transferables__;\n        delete data.__transferables__;\n      }\n      self.postMessage(data, transferables);\n    }\n    async execute(code) {\n      if (code.type === \"requirements\") {\n        try {\n          if (\n            code.requirements &&\n            (Array.isArray(code.requirements) ||\n              typeof code.requirements === \"string\")\n          ) {\n            try {\n              if (!Array.isArray(code.requirements)) {\n                code.requirements = [code.requirements];\n              }\n              for (var i = 0; i < code.requirements.length; i++) {\n                if (\n                  code.requirements[i].toLowerCase().endsWith(\".css\") ||\n                  code.requirements[i].startsWith(\"css:\")\n                ) {\n                  throw \"unable to import css in a webworker\";\n                } else if (\n                  code.requirements[i].toLowerCase().endsWith(\".js\") ||\n                  code.requirements[i].startsWith(\"js:\")\n                ) {\n                  if (code.requirements[i].startsWith(\"js:\")) {\n                    code.requirements[i] = code.requirements[i].slice(3);\n                  }\n                  importScripts(code.requirements[i]);\n                } else if (code.requirements[i].startsWith(\"http\")) {\n                  importScripts(code.requirements[i]);\n                } else if (code.requirements[i].startsWith(\"cache:\")) {\n                  //ignore cache\n                } else {\n                  console.log(\n                    \"Unprocessed requirements url: \" + code.requirements[i]\n                  );\n                }\n              }\n            } catch (e) {\n              throw \"failed to import required scripts: \" +\n                code.requirements.toString();\n            }\n          }\n        } catch (e) {\n          throw e;\n        }\n      } else if (code.type === \"script\") {\n        try {\n          if (\n            code.requirements &&\n            (Array.isArray(code.requirements) ||\n              typeof code.requirements === \"string\")\n          ) {\n            try {\n              if (Array.isArray(code.requirements)) {\n                for (let i = 0; i < code.requirements.length; i++) {\n                  importScripts(code.requirements[i]);\n                }\n              } else {\n                importScripts(code.requirements);\n              }\n            } catch (e) {\n              throw \"failed to import required scripts: \" +\n                code.requirements.toString();\n            }\n          }\n          eval(code.content);\n        } catch (e) {\n          console.error(e.message, e.stack);\n          throw e;\n        }\n      } else {\n        throw \"unsupported code type.\";\n      }\n      if (code.type === \"requirements\") {\n        self.postMessage({\n          type: \"cacheRequirements\",\n          requirements: code.requirements\n        });\n      }\n    }\n  }\n  const config = {\n    type: \"web-worker\",\n    dedicated_thread: true,\n    allow_execution: true,\n    lang: \"javascript\",\n    api_version: _rpc_js__WEBPACK_IMPORTED_MODULE_1__[\"API_VERSION\"]\n  };\n  const conn = new Connection(config);\n  conn.on(\"connectRPC\", data => {\n    Object(_pluginCore_js__WEBPACK_IMPORTED_MODULE_0__[\"connectRPC\"])(conn, Object.assign(data.config, config));\n  });\n  conn.connect();\n  self.postMessage({\n    type: \"worker-ready\"\n  });\n})();\n\n\n/***/ }),\n\n/***/ \"./src/pluginCore.js\":\n/*!***************************!*\\\n  !*** ./src/pluginCore.js ***!\n  \\***************************/\n/*! exports provided: connectRPC */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"connectRPC\", function() { return connectRPC; });\n/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rpc.js */ \"./src/rpc.js\");\n/**\n * Core plugin script loaded into the plugin process/thread.\n *\n * Initializes the plugin-site API global methods.\n */\n\nfunction connectRPC(connection, config) {\n  config = config || {};\n  const codecs = {};\n  const rpc = new _rpc_js__WEBPACK_IMPORTED_MODULE_0__[\"RPC\"](connection, config, codecs);\n  rpc.on(\"getInterface\", function () {\n    launchConnected();\n  });\n  rpc.on(\"remoteReady\", function () {\n    const api = rpc.getRemote() || {};\n\n    if (api.export) {\n      throw new Error(\"`export` is a reserved function name\");\n    }\n\n    if (api.onload) {\n      throw new Error(\"`onload` is a reserved function name\");\n    }\n\n    if (api.dispose) {\n      throw new Error(\"`dispose` is a reserved function name\");\n    }\n\n    api.registerCodec = function (config) {\n      if (!config[\"name\"] || !config[\"encoder\"] && !config[\"decoder\"]) {\n        throw new Error(\"Invalid codec format, please make sure you provide a name, type, encoder and decoder.\");\n      } else {\n        if (config.type) {\n          for (let k of Object.keys(codecs)) {\n            if (codecs[k].type === config.type || k === config.name) {\n              delete codecs[k];\n              console.warn(\"Remove duplicated codec: \" + k);\n            }\n          }\n        }\n\n        codecs[config[\"name\"]] = config;\n      }\n    };\n\n    api.init = function (config) {\n      // register a minimal plugin api\n      rpc.setInterface({\n        setup() {}\n\n      }, config);\n    };\n\n    api.disposeObject = function (obj) {\n      rpc.disposeObject(obj);\n    };\n\n    api.export = function (_interface, config) {\n      rpc.setInterface(_interface, config);\n    };\n\n    api.onLoad = function (handler) {\n      handler = checkHandler(handler);\n\n      if (connected) {\n        handler();\n      } else {\n        connectedHandlers.push(handler);\n      }\n    };\n\n    api.dispose = function (_interface) {\n      rpc.disconnect();\n    };\n\n    if (typeof WorkerGlobalScope !== \"undefined\" && self instanceof WorkerGlobalScope) {\n      self.api = api;\n      self.postMessage({\n        type: \"imjoy_remote_api_ready\"\n      });\n    } else if (typeof window) {\n      window.dispatchEvent(new CustomEvent(\"imjoy_remote_api_ready\", {\n        detail: api\n      }));\n    }\n  });\n  let connected = false;\n  const connectedHandlers = [];\n\n  const launchConnected = function () {\n    if (!connected) {\n      connected = true;\n      let handler;\n\n      while (handler = connectedHandlers.pop()) {\n        handler();\n      }\n    }\n  };\n\n  const checkHandler = function (handler) {\n    const type = typeof handler;\n\n    if (type !== \"function\") {\n      const msg = \"A function may only be subsribed to the event, \" + type + \" was provided instead\";\n      throw new Error(msg);\n    }\n\n    return handler;\n  };\n\n  return rpc;\n}\n\n/***/ }),\n\n/***/ \"./src/rpc.js\":\n/*!********************!*\\\n  !*** ./src/rpc.js ***!\n  \\********************/\n/*! exports provided: API_VERSION, RPC */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"API_VERSION\", function() { return API_VERSION; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"RPC\", function() { return RPC; });\n/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ \"./src/utils.js\");\n/**\n * Contains the RPC object used both by the application\n * site, and by each plugin\n */\n\nconst API_VERSION = \"0.2.3\";\nconst ArrayBufferView = Object.getPrototypeOf(Object.getPrototypeOf(new Uint8Array())).constructor;\n\nfunction _appendBuffer(buffer1, buffer2) {\n  const tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);\n  tmp.set(new Uint8Array(buffer1), 0);\n  tmp.set(new Uint8Array(buffer2), buffer1.byteLength);\n  return tmp.buffer;\n}\n\nfunction indexObject(obj, is) {\n  if (!is) throw new Error(\"undefined index\");\n  if (typeof is === \"string\") return indexObject(obj, is.split(\".\"));else if (is.length === 0) return obj;else return indexObject(obj[is[0]], is.slice(1));\n}\n/**\n * RPC object represents a single site in the\n * communication protocol between the application and the plugin\n *\n * @param {Object} connection a special object allowing to send\n * and receive messages from the opposite site (basically it\n * should only provide send() and onMessage() methods)\n */\n\n\nclass RPC extends _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"MessageEmitter\"] {\n  constructor(connection, config, codecs) {\n    super(config && config.debug);\n    this._connection = connection;\n    this.config = config || {};\n    this._codecs = codecs || {};\n    this._object_store = {};\n    this._method_weakmap = new WeakMap();\n    this._object_weakmap = new WeakMap();\n    this._local_api = null; // make sure there is an execute function\n\n    const name = this.config.name;\n\n    this._connection.execute = this._connection.execute || function () {\n      throw new Error(`connection.execute not implemented (in \"${name}\")`);\n    };\n\n    this._store = new ReferenceStore();\n    this._method_refs = new ReferenceStore();\n\n    this._method_refs.onReady(() => {\n      this._fire(\"remoteIdle\");\n    });\n\n    this._method_refs.onBusy(() => {\n      this._fire(\"remoteBusy\");\n    });\n\n    this._setupMessageHanlders();\n  }\n\n  init() {\n    this._connection.emit({\n      type: \"initialized\",\n      config: this.config,\n      peer_id: this._connection.peer_id\n    });\n  }\n\n  setConfig(config) {\n    if (config) for (const k of Object.keys(config)) {\n      this.config[k] = config[k];\n    }\n  }\n  /**\n   * Set a handler to be called when received a responce from the\n   * remote site reporting that the previously provided interface\n   * has been successfully set as remote for that site\n   *\n   * @param {Function} handler\n   */\n\n\n  getRemoteCallStack() {\n    return this._method_refs.getStack();\n  }\n  /**\n   * @returns {Object} set of remote interface methods\n   */\n\n\n  getRemote() {\n    return this._remote_interface;\n  }\n  /**\n   * Sets the interface of this site making it available to the\n   * remote site by sending a message with a set of methods names\n   *\n   * @param {Object} _interface to set\n   */\n\n\n  setInterface(_interface, config) {\n    config = config || {};\n    this.config.name = config.name || this.config.name;\n    this.config.description = config.description || this.config.description;\n\n    if (this.config.forwarding_functions) {\n      for (let func_name of this.config.forwarding_functions) {\n        const _remote = this._remote_interface;\n\n        if (_remote[func_name]) {\n          if (_interface.constructor === Object) {\n            if (!_interface[func_name]) {\n              _interface[func_name] = (...args) => {\n                _remote[func_name](...args);\n              };\n            }\n          } else if (_interface.constructor.constructor === Function) {\n            if (!_interface.constructor.prototype[func_name]) {\n              _interface.constructor.prototype[func_name] = (...args) => {\n                _remote[func_name](...args);\n              };\n            }\n          }\n        }\n      }\n    }\n\n    this._local_api = _interface;\n\n    this._fire(\"interfaceAvailable\");\n  }\n  /**\n   * Sends the actual interface to the remote site upon it was\n   * updated or by a special request of the remote site\n   */\n\n\n  sendInterface() {\n    if (!this._local_api) {\n      throw new Error(\"interface is not set.\");\n    }\n\n    this._encode(this._local_api, true).then(api => {\n      this._connection.emit({\n        type: \"setInterface\",\n        api: api\n      });\n    });\n  }\n\n  _disposeObject(objectId) {\n    if (this._object_store[objectId]) {\n      delete this._object_store[objectId];\n    } else {\n      throw new Error(`Object (id=${objectId}) not found.`);\n    }\n  }\n\n  disposeObject(obj) {\n    return new Promise((resolve, reject) => {\n      if (this._object_weakmap.has(obj)) {\n        const objectId = this._object_weakmap.get(obj);\n\n        this._connection.once(\"disposed\", data => {\n          if (data.error) reject(new Error(data.error));else resolve();\n        });\n\n        this._connection.emit({\n          type: \"disposeObject\",\n          object_id: objectId\n        });\n      } else {\n        throw new Error(\"Invalid object\");\n      }\n    });\n  }\n  /**\n   * Handles a message from the remote site\n   */\n\n\n  _setupMessageHanlders() {\n    this._connection.on(\"init\", this.init);\n\n    this._connection.on(\"execute\", data => {\n      Promise.resolve(this._connection.execute(data.code)).then(() => {\n        this._connection.emit({\n          type: \"executed\"\n        });\n      }).catch(e => {\n        console.error(e);\n\n        this._connection.emit({\n          type: \"executed\",\n          error: String(e)\n        });\n      });\n    });\n\n    this._connection.on(\"method\", async data => {\n      let resolve, reject, method, method_this, args, result;\n\n      try {\n        if (data.promise) {\n          [resolve, reject] = await this._unwrap(data.promise, false);\n        }\n\n        const _interface = this._object_store[data.object_id];\n        method = indexObject(_interface, data.name);\n\n        if (data.name.includes(\".\")) {\n          const tmp = data.name.split(\".\");\n          const intf_index = tmp.slice(0, tmp.length - 1).join(\".\");\n          method_this = indexObject(_interface, intf_index);\n        } else {\n          method_this = _interface;\n        }\n\n        args = await this._unwrap(data.args, true);\n\n        if (data.promise) {\n          result = method.apply(method_this, args);\n\n          if (result instanceof Promise || method.constructor && method.constructor.name === \"AsyncFunction\") {\n            result.then(resolve).catch(reject);\n          } else {\n            resolve(result);\n          }\n        } else {\n          method.apply(method_this, args);\n        }\n      } catch (err) {\n        console.error(this.config.name, err);\n\n        if (reject) {\n          reject(err);\n        }\n      }\n    });\n\n    this._connection.on(\"callback\", async data => {\n      let resolve, reject, method, args, result;\n\n      try {\n        if (data.promise) {\n          [resolve, reject] = await this._unwrap(data.promise, false);\n        }\n\n        if (data.promise) {\n          method = this._store.fetch(data.id);\n          args = await this._unwrap(data.args, true);\n\n          if (!method) {\n            throw new Error(\"Callback function can only called once, if you want to call a function for multiple times, please make it as a plugin api function. See https://imjoy.io/docs for more details.\");\n          }\n\n          result = method.apply(null, args);\n\n          if (result instanceof Promise || method.constructor && method.constructor.name === \"AsyncFunction\") {\n            result.then(resolve).catch(reject);\n          } else {\n            resolve(result);\n          }\n        } else {\n          method = this._store.fetch(data.id);\n          args = await this._unwrap(data.args, true);\n\n          if (!method) {\n            throw new Error(\"Please notice that callback function can only called once, if you want to call a function for multiple times, please make it as a plugin api function. See https://imjoy.io/docs for more details.\");\n          }\n\n          method.apply(null, args);\n        }\n      } catch (err) {\n        console.error(this.config.name, err);\n\n        if (reject) {\n          reject(err);\n        }\n      }\n    });\n\n    this._connection.on(\"disposeObject\", data => {\n      try {\n        this._disposeObject(data.object_id);\n\n        this._connection.emit({\n          type: \"disposed\"\n        });\n      } catch (e) {\n        console.error(e);\n\n        this._connection.emit({\n          type: \"disposed\",\n          error: String(e)\n        });\n      }\n    });\n\n    this._connection.on(\"setInterface\", data => {\n      this._setRemoteInterface(data.api);\n    });\n\n    this._connection.on(\"getInterface\", () => {\n      this._fire(\"getInterface\");\n\n      if (this._local_api) {\n        this.sendInterface();\n      } else {\n        this.once(\"interfaceAvailable\", () => {\n          this.sendInterface();\n        });\n      }\n    });\n\n    this._connection.on(\"interfaceSetAsRemote\", () => {\n      this._fire(\"interfaceSetAsRemote\");\n    });\n\n    this._connection.on(\"disconnect\", () => {\n      this._fire(\"beforeDisconnect\");\n\n      this._connection.disconnect();\n\n      this._fire(\"disconnected\");\n    });\n  }\n  /**\n   * Sends a requests to the remote site asking it to provide its\n   * current interface\n   */\n\n\n  requestRemote() {\n    this._connection.emit({\n      type: \"getInterface\"\n    });\n  }\n\n  _ndarray(typedArray, shape, dtype) {\n    const _dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(typedArray);\n\n    if (dtype && dtype !== _dtype) {\n      throw \"dtype doesn't match the type of the array: \" + _dtype + \" != \" + dtype;\n    }\n\n    shape = shape || [typedArray.length];\n    return {\n      _rtype: \"ndarray\",\n      _rvalue: typedArray.buffer,\n      _rshape: shape,\n      _rdtype: _dtype\n    };\n  }\n  /**\n   * Sets the new remote interface provided by the other site\n   *\n   * @param {Array} names list of function names\n   */\n\n\n  _setRemoteInterface(api) {\n    this._decode(api).then(intf => {\n      this._remote_interface = intf;\n\n      this._fire(\"remoteReady\");\n\n      this._reportRemoteSet();\n    });\n  }\n  /**\n   * Generates the wrapped function corresponding to a single remote\n   * method. When the generated function is called, it will send the\n   * corresponding message to the remote site asking it to execute\n   * the particular method of its interface\n   *\n   * @param {String} name of the remote method\n   *\n   * @returns {Function} wrapped remote method\n   */\n\n\n  _genRemoteMethod(targetId, name, objectId) {\n    const me = this;\n\n    const remoteMethod = function () {\n      return new Promise(async (resolve, reject) => {\n        let id = null;\n\n        try {\n          id = me._method_refs.put(objectId ? objectId + \"/\" + name : name);\n\n          const wrapped_resolve = function () {\n            if (id !== null) me._method_refs.fetch(id);\n            return resolve.apply(this, arguments);\n          };\n\n          const wrapped_reject = function () {\n            if (id !== null) me._method_refs.fetch(id);\n            return reject.apply(this, arguments);\n          };\n\n          const encodedPromise = await me._wrap([wrapped_resolve, wrapped_reject]); // store the key id for removing them from the reference store together\n\n          wrapped_resolve.__promise_pair = encodedPromise[1]._rvalue;\n          wrapped_reject.__promise_pair = encodedPromise[0]._rvalue;\n          let args = Array.prototype.slice.call(arguments);\n\n          if (name === \"register\" || name === \"registerService\" || name === \"export\" || name === \"on\") {\n            args = await me._wrap(args, true);\n          } else {\n            args = await me._wrap(args);\n          }\n\n          const transferables = args.__transferables__;\n          if (transferables) delete args.__transferables__;\n\n          me._connection.emit({\n            type: \"method\",\n            target_id: targetId,\n            name: name,\n            object_id: objectId,\n            args: args,\n            promise: encodedPromise\n          }, transferables);\n        } catch (e) {\n          if (id) me._method_refs.fetch(id);\n          reject(`Failed to exectue remote method (interface: ${objectId || me.id}, method: ${name}), error: ${e}`);\n        }\n      });\n    };\n\n    remoteMethod.__remote_method = true;\n    return remoteMethod;\n  }\n  /**\n   * Sends a responce reporting that interface just provided by the\n   * remote site was successfully set by this site as remote\n   */\n\n\n  _reportRemoteSet() {\n    this._connection.emit({\n      type: \"interfaceSetAsRemote\"\n    });\n  }\n  /**\n   * Prepares the provided set of remote method arguments for\n   * sending to the remote site, replaces all the callbacks with\n   * identifiers\n   *\n   * @param {Array} args to wrap\n   *\n   * @returns {Array} wrapped arguments\n   */\n\n\n  async _encode(aObject, asInterface, objectId) {\n    const aType = typeof aObject;\n\n    if (aType === \"number\" || aType === \"string\" || aType === \"boolean\" || aObject === null || aObject === undefined || aObject instanceof ArrayBuffer) {\n      return aObject;\n    }\n\n    let bObject;\n\n    if (typeof aObject === \"function\") {\n      if (asInterface) {\n        if (!objectId) throw new Error(\"objectId is not specified.\");\n        bObject = {\n          _rtype: \"interface\",\n          _rtarget_id: this._connection.peer_id,\n          _rintf: objectId,\n          _rvalue: asInterface\n        };\n\n        this._method_weakmap.set(aObject, bObject);\n      } else if (this._method_weakmap.has(aObject)) {\n        bObject = this._method_weakmap.get(aObject);\n      } else {\n        const cid = this._store.put(aObject);\n\n        bObject = {\n          _rtype: \"callback\",\n          _rtarget_id: this._connection.peer_id,\n          _rname: aObject.constructor && aObject.constructor.name || cid,\n          _rvalue: cid\n        };\n      }\n\n      return bObject;\n    } // skip if already encoded\n\n\n    if (aObject.constructor instanceof Object && aObject._rtype) {\n      // make sure the interface functions are encoded\n      if (aObject._rintf) {\n        const temp = aObject._rtype;\n        delete aObject._rtype;\n        bObject = await this._encode(aObject, asInterface, objectId);\n        bObject._rtype = temp;\n      } else {\n        bObject = aObject;\n      }\n\n      return bObject;\n    }\n\n    const transferables = [];\n    const _transfer = aObject._transfer;\n    const isarray = Array.isArray(aObject);\n\n    for (let tp of Object.keys(this._codecs)) {\n      const codec = this._codecs[tp];\n\n      if (codec.encoder && aObject instanceof codec.type) {\n        // TODO: what if multiple encoders found\n        let encodedObj = await Promise.resolve(codec.encoder(aObject));\n        if (encodedObj && !encodedObj._rtype) encodedObj._rtype = codec.name; // encode the functions in the interface object\n\n        if (encodedObj && encodedObj._rintf) {\n          const temp = encodedObj._rtype;\n          delete encodedObj._rtype;\n          encodedObj = await this._encode(encodedObj, asInterface, objectId);\n          encodedObj._rtype = temp;\n        }\n\n        bObject = encodedObj;\n        return bObject;\n      }\n    }\n\n    if (\n    /*global tf*/\n    typeof tf !== \"undefined\" && tf.Tensor && aObject instanceof tf.Tensor) {\n      const v_buffer = aObject.dataSync();\n\n      if (aObject._transfer || _transfer) {\n        transferables.push(v_buffer.buffer);\n        delete aObject._transfer;\n      }\n\n      bObject = {\n        _rtype: \"ndarray\",\n        _rvalue: v_buffer.buffer,\n        _rshape: aObject.shape,\n        _rdtype: aObject.dtype\n      };\n    } else if (\n    /*global nj*/\n    typeof nj !== \"undefined\" && nj.NdArray && aObject instanceof nj.NdArray) {\n      const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(aObject.selection.data);\n\n      if (aObject._transfer || _transfer) {\n        transferables.push(aObject.selection.data.buffer);\n        delete aObject._transfer;\n      }\n\n      bObject = {\n        _rtype: \"ndarray\",\n        _rvalue: aObject.selection.data.buffer,\n        _rshape: aObject.shape,\n        _rdtype: dtype\n      };\n    } else if (aObject instanceof Error) {\n      console.error(aObject);\n      bObject = {\n        _rtype: \"error\",\n        _rvalue: aObject.toString()\n      };\n    } else if (typeof File !== \"undefined\" && aObject instanceof File) {\n      bObject = {\n        _rtype: \"file\",\n        _rvalue: aObject,\n        _rpath: aObject._path || aObject.webkitRelativePath\n      };\n    } // send objects supported by structure clone algorithm\n    // https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm\n    else if (aObject !== Object(aObject) || aObject instanceof Boolean || aObject instanceof String || aObject instanceof Date || aObject instanceof RegExp || aObject instanceof ImageData || typeof FileList !== \"undefined\" && aObject instanceof FileList) {\n        bObject = aObject; // TODO: avoid object such as DynamicPlugin instance.\n      } else if (typeof File !== \"undefined\" && aObject instanceof File) {\n        bObject = {\n          _rtype: \"file\",\n          _rname: aObject.name,\n          _rmime: aObject.type,\n          _rvalue: aObject,\n          _rpath: aObject._path || aObject.webkitRelativePath\n        };\n      } else if (aObject instanceof Blob) {\n        bObject = {\n          _rtype: \"blob\",\n          _rvalue: aObject\n        };\n      } else if (aObject instanceof ArrayBufferView) {\n        if (aObject._transfer || _transfer) {\n          transferables.push(aObject.buffer);\n          delete aObject._transfer;\n        }\n\n        const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(aObject);\n        bObject = {\n          _rtype: \"typedarray\",\n          _rvalue: aObject.buffer,\n          _rdtype: dtype\n        };\n      } else if (aObject instanceof DataView) {\n        if (aObject._transfer || _transfer) {\n          transferables.push(aObject.buffer);\n          delete aObject._transfer;\n        }\n\n        bObject = {\n          _rtype: \"memoryview\",\n          _rvalue: aObject.buffer\n        };\n      } else if (aObject instanceof Set) {\n        bObject = {\n          _rtype: \"set\",\n          _rvalue: await this._encode(Array.from(aObject), asInterface)\n        };\n      } else if (aObject instanceof Map) {\n        bObject = {\n          _rtype: \"orderedmap\",\n          _rvalue: await this._encode(Array.from(aObject), asInterface)\n        };\n      } else if (aObject.constructor instanceof Object || Array.isArray(aObject)) {\n        bObject = isarray ? [] : {};\n        let keys; // an object/array\n\n        if (aObject.constructor === Object || Array.isArray(aObject)) {\n          keys = Object.keys(aObject);\n        } // a class\n        else if (aObject.constructor === Function) {\n            throw new Error(\"Please instantiate the class before exportting it.\");\n          } // instance of a class\n          else if (aObject.constructor.constructor === Function) {\n              keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject)); // TODO: use a proxy object to represent the actual object\n              // always encode class instance as interface\n\n              asInterface = true;\n            } else {\n              throw Error(\"Unsupported interface type\");\n            }\n\n        let hasFunction = false; // encode interfaces\n\n        if (aObject._rintf || asInterface) {\n          if (!objectId) {\n            objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"randId\"])();\n            this._object_store[objectId] = aObject;\n          }\n\n          for (let k of keys) {\n            if (k === \"constructor\") continue;\n\n            if (k.startsWith(\"_\")) {\n              continue;\n            }\n\n            bObject[k] = await this._encode(aObject[k], typeof asInterface === \"string\" ? asInterface + \".\" + k : k, objectId);\n\n            if (typeof aObject[k] === \"function\") {\n              hasFunction = true;\n            }\n          } // object id for dispose the object remotely\n\n\n          if (hasFunction) bObject._rintf = objectId; // remove interface when closed\n\n          if (aObject.on && typeof aObject.on === \"function\") {\n            aObject.on(\"close\", () => {\n              delete this._object_store[objectId];\n            });\n          }\n        } else {\n          for (let k of keys) {\n            if ([\"hasOwnProperty\", \"constructor\"].includes(k)) continue;\n            bObject[k] = await this._encode(aObject[k]);\n          }\n        } // for example, browserFS object\n\n      } else if (typeof aObject === \"object\") {\n        const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject));\n        const objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"randId\"])();\n\n        for (let k of keys) {\n          if ([\"hasOwnProperty\", \"constructor\"].includes(k)) continue; // encode as interface\n\n          bObject[k] = await this._encode(aObject[k], k, bObject);\n        } // object id, used for dispose the object\n\n\n        bObject._rintf = objectId;\n      } else {\n        throw \"imjoy-rpc: Unsupported data type:\" + aObject;\n      }\n\n    if (transferables.length > 0) {\n      bObject.__transferables__ = transferables;\n    }\n\n    if (!bObject) {\n      throw new Error(\"Failed to encode object\");\n    }\n\n    return bObject;\n  }\n\n  async _decode(aObject, withPromise) {\n    if (!aObject) {\n      return aObject;\n    }\n\n    let bObject;\n\n    if (aObject[\"_rtype\"]) {\n      if (this._codecs[aObject._rtype] && this._codecs[aObject._rtype].decoder) {\n        if (aObject._rintf) {\n          const temp = aObject._rtype;\n          delete aObject._rtype;\n          aObject = await this._decode(aObject, withPromise);\n          aObject._rtype = temp;\n        }\n\n        bObject = await Promise.resolve(this._codecs[aObject._rtype].decoder(aObject));\n      } else if (aObject._rtype === \"callback\") {\n        bObject = this._genRemoteCallback(aObject._rtarget_id, aObject._rvalue, withPromise);\n      } else if (aObject._rtype === \"interface\") {\n        bObject = this._genRemoteMethod(aObject._rtarget_id, aObject._rvalue, aObject._rintf);\n      } else if (aObject._rtype === \"ndarray\") {\n        /*global nj tf*/\n        //create build array/tensor if used in the plugin\n        if (typeof nj !== \"undefined\" && nj.array) {\n          if (Array.isArray(aObject._rvalue)) {\n            aObject._rvalue = aObject._rvalue.reduce(_appendBuffer);\n          }\n\n          bObject = nj.array(new Uint8(aObject._rvalue), aObject._rdtype).reshape(aObject._rshape);\n        } else if (typeof tf !== \"undefined\" && tf.Tensor) {\n          if (Array.isArray(aObject._rvalue)) {\n            aObject._rvalue = aObject._rvalue.reduce(_appendBuffer);\n          }\n\n          const arraytype = _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"dtypeToTypedArray\"][aObject._rdtype];\n          bObject = tf.tensor(new arraytype(aObject._rvalue), aObject._rshape, aObject._rdtype);\n        } else {\n          //keep it as regular if transfered to the main app\n          bObject = aObject;\n        }\n      } else if (aObject._rtype === \"error\") {\n        bObject = new Error(aObject._rvalue);\n      } else if (aObject._rtype === \"file\") {\n        if (aObject._rvalue instanceof File) {\n          bObject = aObject._rvalue; //patch _path\n\n          bObject._path = aObject._rpath;\n        } else {\n          bObject = new File([aObject._rvalue], aObject._rname, {\n            type: aObject._rmime\n          });\n          bObject._path = aObject._rpath;\n        }\n      } else if (aObject._rtype === \"typedarray\") {\n        const arraytype = _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"dtypeToTypedArray\"][aObject._rdtype];\n        if (!arraytype) throw new Error(\"unsupported dtype: \" + aObject._rdtype);\n        bObject = new arraytype(aObject._rvalue);\n      } else if (aObject._rtype === \"memoryview\") {\n        bObject = new DataView(aObject._rvalue);\n      } else if (aObject._rtype === \"blob\") {\n        if (aObject._rvalue instanceof Blob) {\n          bObject = aObject._rvalue;\n        } else {\n          bObject = new Blob([aObject._rvalue], {\n            type: aObject._rmime\n          });\n        }\n      } else if (aObject._rtype === \"orderedmap\") {\n        bObject = new Map((await this._decode(aObject._rvalue, withPromise)));\n      } else if (aObject._rtype === \"set\") {\n        bObject = new Set((await this._decode(aObject._rvalue, withPromise)));\n      } else {\n        // make sure all the interface functions are decoded\n        if (aObject._rintf) {\n          const temp = aObject._rtype;\n          delete aObject._rtype;\n          bObject = await this._decode(aObject, withPromise);\n          bObject._rtype = temp;\n        } else bObject = aObject;\n      }\n    } else if (aObject.constructor === Object || Array.isArray(aObject)) {\n      const isarray = Array.isArray(aObject);\n      bObject = isarray ? [] : {};\n\n      for (let k of Object.keys(aObject)) {\n        if (isarray || aObject.hasOwnProperty(k)) {\n          const v = aObject[k];\n          bObject[k] = await this._decode(v, withPromise);\n        }\n      }\n    } else {\n      bObject = aObject;\n    }\n\n    if (bObject === undefined) {\n      throw new Error(\"Failed to decode object\");\n    } // store the object id for dispose\n\n\n    if (aObject._rintf) {\n      this._object_weakmap.set(bObject, aObject._rintf);\n    }\n\n    return bObject;\n  }\n\n  async _wrap(args, asInterface) {\n    return await this._encode(args, asInterface);\n  }\n  /**\n   * Unwraps the set of arguments delivered from the remote site,\n   * replaces all callback identifiers with a function which will\n   * initiate sending that callback identifier back to other site\n   *\n   * @param {Object} args to unwrap\n   *\n   * @param {Boolean} withPromise is true means this the callback should contain a promise\n   *\n   * @returns {Array} unwrapped args\n   */\n\n\n  async _unwrap(args, withPromise) {\n    return await this._decode(args, withPromise);\n  }\n  /**\n   * Generates the wrapped function corresponding to a single remote\n   * callback. When the generated function is called, it will send\n   * the corresponding message to the remote site asking it to\n   * execute the particular callback previously saved during a call\n   * by the remote site a method from the interface of this site\n   *\n   * @param {Number} id of the remote callback to execute\n   * @param {Number} argNum argument index of the callback\n   * @param {Boolean} withPromise is true means this the callback should contain a promise\n   *\n   * @returns {Function} wrapped remote callback\n   */\n\n\n  _genRemoteCallback(targetId, cid, withPromise) {\n    const me = this;\n    let remoteCallback;\n\n    if (withPromise) {\n      remoteCallback = function () {\n        return new Promise(async (resolve, reject) => {\n          const args = await me._wrap(Array.prototype.slice.call(arguments));\n          const transferables = args.__transferables__;\n          if (transferables) delete args.__transferables__;\n          const encodedPromise = await me._wrap([resolve, reject]); // store the key id for removing them from the reference store together\n\n          resolve.__promise_pair = encodedPromise[1]._rvalue;\n          reject.__promise_pair = encodedPromise[0]._rvalue;\n\n          try {\n            me._connection.emit({\n              type: \"callback\",\n              target_id: targetId,\n              id: cid,\n              args: args,\n              promise: encodedPromise\n            }, transferables);\n          } catch (e) {\n            reject(`Failed to exectue remote callback ( id: ${cid}).`);\n          }\n        });\n      };\n\n      return remoteCallback;\n    } else {\n      remoteCallback = async function () {\n        const args = await me._wrap(Array.prototype.slice.call(arguments));\n        const transferables = args.__transferables__;\n        if (transferables) delete args.__transferables__;\n        return me._connection.emit({\n          type: \"callback\",\n          target_id: targetId,\n          id: cid,\n          args: args\n        }, transferables);\n      };\n\n      return remoteCallback;\n    }\n  }\n  /**\n   * Sends the notification message and breaks the connection\n   */\n\n\n  disconnect() {\n    this._connection.emit({\n      type: \"disconnect\"\n    });\n\n    setTimeout(() => {\n      this._connection.disconnect();\n    }, 2000);\n  }\n\n}\n/**\n * ReferenceStore is a special object which stores other objects\n * and provides the references (number) instead. This reference\n * may then be sent over a json-based communication channel (IPC\n * to another Node.js process or a message to the Worker). Other\n * site may then provide the reference in the responce message\n * implying the given object should be activated.\n *\n * Primary usage for the ReferenceStore is a storage for the\n * callbacks, which therefore makes it possible to initiate a\n * callback execution by the opposite site (which normally cannot\n * directly execute functions over the communication channel).\n *\n * Each stored object can only be fetched once and is not\n * available for the second time. Each stored object must be\n * fetched, since otherwise it will remain stored forever and\n * consume memory.\n *\n * Stored object indeces are simply the numbers, which are however\n * released along with the objects, and are later reused again (in\n * order to postpone the overflow, which should not likely happen,\n * but anyway).\n */\n\nclass ReferenceStore {\n  constructor() {\n    this._store = {}; // stored object\n\n    this._indices = [0]; // smallest available indices\n\n    this._readyHandler = function () {};\n\n    this._busyHandler = function () {};\n\n    this._readyHandler();\n  }\n  /**\n   * call handler when the store is empty\n   *\n   * @param {FUNCTION} id of a handler\n   */\n\n\n  onReady(readyHandler) {\n    this._readyHandler = readyHandler || function () {};\n  }\n  /**\n   * call handler when the store is not empty\n   *\n   * @param {FUNCTION} id of a handler\n   */\n\n\n  onBusy(busyHandler) {\n    this._busyHandler = busyHandler || function () {};\n  }\n  /**\n   * get the length of the store\n   *\n   */\n\n\n  getStack() {\n    return Object.keys(this._store).length;\n  }\n  /**\n   * @function _genId() generates the new reference id\n   *\n   * @returns {Number} smallest available id and reserves it\n   */\n\n\n  _genId() {\n    let id;\n\n    if (this._indices.length === 1) {\n      id = this._indices[0]++;\n    } else {\n      id = this._indices.shift();\n    }\n\n    return id;\n  }\n  /**\n   * Releases the given reference id so that it will be available by\n   * another object stored\n   *\n   * @param {Number} id to release\n   */\n\n\n  _releaseId(id) {\n    for (let i = 0; i < this._indices.length; i++) {\n      if (id < this._indices[i]) {\n        this._indices.splice(i, 0, id);\n\n        break;\n      }\n    } // cleaning-up the sequence tail\n\n\n    for (let i = this._indices.length - 1; i >= 0; i--) {\n      if (this._indices[i] - 1 === this._indices[i - 1]) {\n        this._indices.pop();\n      } else {\n        break;\n      }\n    }\n  }\n  /**\n   * Stores the given object and returns the refernce id instead\n   *\n   * @param {Object} obj to store\n   *\n   * @returns {Number} reference id of the stored object\n   */\n\n\n  put(obj) {\n    if (this._busyHandler && Object.keys(this._store).length === 0) {\n      this._busyHandler();\n    }\n\n    const id = this._genId();\n\n    this._store[id] = obj;\n    return id;\n  }\n  /**\n   * Retrieves previously stored object and releases its reference\n   *\n   * @param {Number} id of an object to retrieve\n   */\n\n\n  fetch(id) {\n    const obj = this._store[id];\n\n    if (obj && !obj.__remote_method) {\n      delete this._store[id];\n\n      this._releaseId(id);\n\n      if (this._readyHandler && Object.keys(this._store).length === 0) {\n        this._readyHandler();\n      }\n    }\n\n    if (obj && obj.__promise_pair) {\n      this.fetch(obj.__promise_pair);\n    }\n\n    return obj;\n  }\n\n}\n\n/***/ }),\n\n/***/ \"./src/utils.js\":\n/*!**********************!*\\\n  !*** ./src/utils.js ***!\n  \\**********************/\n/*! exports provided: randId, dtypeToTypedArray, typedArrayToDtypeMapping, typedArrayToDtype, cacheRequirements, setupServiceWorker, urlJoin, MessageEmitter */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"randId\", function() { return randId; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"dtypeToTypedArray\", function() { return dtypeToTypedArray; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"typedArrayToDtypeMapping\", function() { return typedArrayToDtypeMapping; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"typedArrayToDtype\", function() { return typedArrayToDtype; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cacheRequirements\", function() { return cacheRequirements; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"setupServiceWorker\", function() { return setupServiceWorker; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"urlJoin\", function() { return urlJoin; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MessageEmitter\", function() { return MessageEmitter; });\nfunction randId() {\n  return Math.random().toString(36).substr(2, 10) + new Date().getTime();\n}\nconst dtypeToTypedArray = {\n  int8: Int8Array,\n  int16: Int16Array,\n  int32: Int32Array,\n  uint8: Uint8Array,\n  uint16: Uint16Array,\n  uint32: Uint32Array,\n  float32: Float32Array,\n  float64: Float64Array,\n  array: Array\n};\nconst typedArrayToDtypeMapping = {\n  Int8Array: \"int8\",\n  Int16Array: \"int16\",\n  Int32Array: \"int32\",\n  Uint8Array: \"uint8\",\n  Uint16Array: \"uint16\",\n  Uint32Array: \"uint32\",\n  Float32Array: \"float32\",\n  Float64Array: \"float64\",\n  Array: \"array\"\n};\nconst typedArrayToDtypeKeys = [];\n\nfor (const arrType of Object.keys(typedArrayToDtypeMapping)) {\n  typedArrayToDtypeKeys.push(eval(arrType));\n}\n\nfunction typedArrayToDtype(obj) {\n  let dtype = typedArrayToDtypeMapping[obj.constructor.name];\n\n  if (!dtype) {\n    const pt = Object.getPrototypeOf(obj);\n\n    for (const arrType of typedArrayToDtypeKeys) {\n      if (pt instanceof arrType) {\n        dtype = typedArrayToDtypeMapping[arrType.name];\n        break;\n      }\n    }\n  }\n\n  return dtype;\n}\n\nfunction cacheUrlInServiceWorker(url) {\n  return new Promise(function (resolve, reject) {\n    const message = {\n      command: \"add\",\n      url: url\n    };\n\n    if (!navigator.serviceWorker || !navigator.serviceWorker.register) {\n      reject(\"Service worker is not supported.\");\n      return;\n    }\n\n    const messageChannel = new MessageChannel();\n\n    messageChannel.port1.onmessage = function (event) {\n      if (event.data && event.data.error) {\n        reject(event.data.error);\n      } else {\n        resolve(event.data && event.data.result);\n      }\n    };\n\n    if (navigator.serviceWorker && navigator.serviceWorker.controller) {\n      navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);\n    } else {\n      reject(\"Service worker controller is not available\");\n    }\n  });\n}\n\nasync function cacheRequirements(requirements) {\n  if (!Array.isArray(requirements)) {\n    requirementsm.code.requirements = [requirements];\n  }\n\n  if (requirements && requirements.length > 0) {\n    for (let req of requirements) {\n      //remove prefix\n      if (req.startsWith(\"js:\")) req = req.slice(3);\n      if (req.startsWith(\"css:\")) req = req.slice(4);\n      if (req.startsWith(\"cache:\")) req = req.slice(6);\n      if (!req.startsWith(\"http\")) continue;\n      await cacheUrlInServiceWorker(req).catch(e => {\n        console.error(e);\n      });\n    }\n  }\n}\nfunction setupServiceWorker(baseUrl, targetOrigin, cacheCallback) {\n  // register service worker for offline access\n  if (\"serviceWorker\" in navigator) {\n    baseUrl = baseUrl || \"/\";\n    navigator.serviceWorker.register(baseUrl + \"plugin-service-worker.js\").then(function (registration) {\n      // Registration was successful\n      console.log(\"ServiceWorker registration successful with scope: \", registration.scope);\n    }, function (err) {\n      // registration failed :(\n      console.log(\"ServiceWorker registration failed: \", err);\n    });\n    targetOrigin = targetOrigin || \"*\";\n    cacheCallback = cacheCallback || cacheRequirements;\n\n    if (cacheCallback && typeof cacheCallback !== \"function\") {\n      throw new Error(\"config.cache_requirements must be a function\");\n    }\n\n    window.addEventListener(\"message\", function (e) {\n      if (targetOrigin === \"*\" || e.origin === targetOrigin) {\n        const m = e.data;\n\n        if (m.type === \"cacheRequirements\") {\n          cacheCallback(m.requirements);\n        }\n      }\n    });\n  }\n} //#Source https://bit.ly/2neWfJ2\n\nfunction urlJoin(...args) {\n  return args.join(\"/\").replace(/[\\/]+/g, \"/\").replace(/^(.+):\\//, \"$1://\").replace(/^file:/, \"file:/\").replace(/\\/(\\?|&|#[^!])/g, \"$1\").replace(/\\?/g, \"&\").replace(\"&\", \"?\");\n}\nclass MessageEmitter {\n  constructor(debug) {\n    this._event_handlers = {};\n    this._once_handlers = {};\n    this._debug = debug;\n  }\n\n  emit() {\n    throw new Error(\"emit is not implemented\");\n  }\n\n  on(event, handler) {\n    if (!this._event_handlers[event]) {\n      this._event_handlers[event] = [];\n    }\n\n    this._event_handlers[event].push(handler);\n  }\n\n  once(event, handler) {\n    handler.___event_run_once = true;\n    this.on(event, handler);\n  }\n\n  off(event, handler) {\n    if (!event && !handler) {\n      // remove all events handlers\n      this._event_handlers = {};\n    } else if (event && !handler) {\n      // remove all hanlders for the event\n      if (this._event_handlers[event]) this._event_handlers[event] = [];\n    } else {\n      // remove a specific handler\n      if (this._event_handlers[event]) {\n        const idx = this._event_handlers[event].indexOf(handler);\n\n        if (idx >= 0) {\n          this._event_handlers[event].splice(idx, 1);\n        }\n      }\n    }\n  }\n\n  _fire(event, data) {\n    if (this._event_handlers[event]) {\n      var i = this._event_handlers[event].length;\n\n      while (i--) {\n        const handler = this._event_handlers[event][i];\n\n        try {\n          handler(data);\n        } catch (e) {\n          console.error(e);\n        } finally {\n          if (handler.___event_run_once) {\n            this._event_handlers[event].splice(i, 1);\n          }\n        }\n      }\n    } else {\n      if (this._debug) {\n        console.warn(\"unhandled event\", event, data);\n      }\n    }\n  }\n\n}\n\n/***/ })\n\n/******/ });\n//# sourceMappingURL=plugin.webworker.js.map", null);
 };
 
 /***/ }),
@@ -770,682 +766,6 @@ function setupIframe(config) {
   const conn = new Connection(config);
   Object(_pluginCore_js__WEBPACK_IMPORTED_MODULE_0__["connectRPC"])(conn, config);
   conn.connect();
-}
-
-/***/ }),
-
-/***/ "./src/pluginWebPython.js":
-/*!********************************!*\
-  !*** ./src/pluginWebPython.js ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return setupWebPython; });
-/* harmony import */ var _pluginCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pluginCore.js */ "./src/pluginCore.js");
-/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rpc.js */ "./src/rpc.js");
-/* harmony import */ var _pluginIframe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pluginIframe */ "./src/pluginIframe.js");
-/**
- * Contains the routines loaded by the plugin iframe under web-browser
- * in case when worker failed to initialize
- *
- * Initializes the web environment version of the platform-dependent
- * connection object for the plugin site
- */
-
-
- // Create a new, plain <span> element
-
-function _htmlToElement(html) {
-  var template = document.createElement("template");
-  html = html.trim(); // Never return a text node of whitespace as the result
-
-  template.innerHTML = html;
-  return template.content.firstChild;
-}
-
-const _importScript = function (url) {
-  //url is URL of external file, implementationCode is the code
-  //to be called from the file, location is the location to
-  //insert the <script> element
-  return new Promise((resolve, reject) => {
-    var scriptTag = document.createElement("script");
-    scriptTag.src = url;
-    scriptTag.onload = resolve;
-
-    scriptTag.onreadystatechange = function () {
-      if (this.readyState === "loaded" || this.readyState === "complete") {
-        resolve();
-      }
-    };
-
-    scriptTag.onerror = reject;
-    document.head.appendChild(scriptTag);
-  });
-}; // support importScripts outside web worker
-
-
-async function importScripts() {
-  var args = Array.prototype.slice.call(arguments),
-      len = args.length,
-      i = 0;
-
-  for (; i < len; i++) {
-    await _importScript(args[i]);
-  }
-}
-
-window.TimeoutPromise = function (time) {
-  var promise = new Promise(function (resolve, reject) {
-    window.setTimeout(function () {
-      resolve(time);
-    }, time);
-  });
-  return promise;
-};
-
-window.RequestAnimationFramePromise = function () {
-  var promise = new Promise(function (resolve, reject) {
-    window.requestAnimationFrame(function (timestamp) {
-      resolve(timestamp);
-    });
-  });
-  return promise;
-};
-
-const startup_script = `
-from js import RequestAnimationFramePromise
-from functools import partial 
-from inspect import isawaitable
-
-class PromiseException(RuntimeError):
-    pass
-
-class WebLoop:
-    def __init__(self):
-        self.coros = []
-
-    def call_soon(self, coro, resolve=None, reject=None):
-        self.step(coro, resolve, reject)
-
-    def step(self, coro, resolve, reject, arg=None):
-        try:
-            x = coro.send(arg) 
-            x = x.then(partial(self.step, coro, resolve, reject))
-            x.catch(partial(self.fail,coro, resolve, reject))
-        except StopIteration as result:
-            if callable(resolve):
-                resolve(result.value)
-        except Exception as e:
-            if callable(reject):
-                reject(e)
-
-    def fail(self, coro, resolve, reject, arg=None):
-        try:
-            if callable(reject):
-                reject(PromiseException(arg))
-                return
-            coro.throw(PromiseException(arg))
-        except StopIteration:
-            pass
-    
-    def request_animation_frame(self):
-        if not hasattr(self, "raf_event"):
-            self.raf_event = RAFEvent()
-        return self.raf_event
-
-
-class RAFEvent:
-    def __init__(self):
-        self.awaiters = []
-        self.promise = None
-    def __await__(self):
-        if self.promise is None:
-            self.promise = RequestAnimationFramePromise()
-        x = yield self.promise
-        self.promise = None
-        return x
-`;
-const init_imjoy_script = `
-from js import api, Object
-import sys
-from functools import partial 
-from types import ModuleType
-import copy
-
-try:
-    import numpy as np
-    NUMPY = np
-except:
-    NUMPY = False
-import io
-from collections import OrderedDict
-
-_codecs = {}
-_object_store = {}
-def _encode(a_object, as_interface=False, object_id=None):
-    """Encode object."""
-    if isinstance(a_object, (int, float, bool, str, bytes)) or a_object is None:
-        return a_object
-
-    if callable(a_object):
-        return a_object
-
-    if isinstance(a_object, tuple):
-        a_object = list(a_object)
-
-    if isinstance(a_object, dotdict):
-        a_object = dict(a_object)
-
-    # skip if already encoded
-    if isinstance(a_object, dict) and "_rtype" in a_object:
-        # make sure the interface functions are encoded
-        if "_rintf" in a_object:
-            temp = a_object["_rtype"]
-            del a_object["_rtype"]
-            b_object = _encode(a_object, as_interface, object_id)
-            b_object._rtype = temp
-        else:
-            b_object = a_object
-        return b_object
-
-    isarray = isinstance(a_object, list)
-    b_object = None
-
-    encoded_obj = None
-    for tp in _codecs:
-        codec = _codecs[tp]
-        if codec.encoder and isinstance(a_object, codec.type):
-            # TODO: what if multiple encoders found
-            encoded_obj = codec.encoder(a_object)
-            if isinstance(encoded_obj, dict) and "_rtype" not in encoded_obj:
-                encoded_obj["_rtype"] = codec.name
-            # encode the functions in the interface object
-            if isinstance(encoded_obj, dict) and "_rintf" in encoded_obj:
-                temp = encoded_obj["_rtype"]
-                del encoded_obj["_rtype"]
-                encoded_obj = _encode(encoded_obj, True)
-                encoded_obj["_rtype"] = temp
-            b_object = encoded_obj
-            return b_object
-
-    if NUMPY and isinstance(a_object, (NUMPY.ndarray, NUMPY.generic)):
-        v_bytes = a_object.tobytes()
-        b_object = {
-            "_rtype": "ndarray",
-            "_rvalue": v_bytes,
-            "_rshape": a_object.shape,
-            "_rdtype": str(a_object.dtype),
-        }
-
-    elif isinstance(a_object, Exception):
-        b_object = {"_rtype": "error", "_rvalue": str(a_object)}
-    elif isinstance(a_object, memoryview):
-        b_object = {"_rtype": "memoryview", "_rvalue": a_object.tobytes()}
-    elif isinstance(
-        a_object, (io.IOBase, io.TextIOBase, io.BufferedIOBase, io.RawIOBase)
-    ):
-        b_object = {
-            "_rtype": "blob",
-            "_rvalue": a_object.read(),
-            "_rmime": "application/octet-stream",
-        }
-    # NOTE: "typedarray" is not used
-    elif isinstance(a_object, OrderedDict):
-        b_object = {
-            "_rtype": "orderedmap",
-            "_rvalue": _encode(list(a_object), as_interface),
-        }
-    elif isinstance(a_object, set):
-        b_object = {
-            "_rtype": "set",
-            "_rvalue": _encode(list(a_object), as_interface),
-        }
-    elif hasattr(a_object, "_rintf") and a_object._rintf == True:
-        b_object = _encode(a_object, True)
-    elif isinstance(a_object, (list, dict)) or inspect.isclass(type(a_object)):
-        b_object = [] if isarray else {}
-        if not isinstance(a_object, (list, dict)) and inspect.isclass(
-            type(a_object)
-        ):
-            a_object_norm = {
-                a: getattr(a_object, a)
-                for a in dir(a_object)
-                if not a.startswith("_")
-            }
-            # always encode class instance as interface
-            as_interface = True
-        else:
-            a_object_norm = a_object
-
-        keys = range(len(a_object_norm)) if isarray else a_object_norm.keys()
-        # encode interfaces
-        if (not isarray and a_object_norm.get("_rintf")) or as_interface:
-            if object_id is None:
-                object_id = str(uuid.uuid4())
-                _object_store[object_id] = a_object
-
-            has_function = False
-            for key in keys:
-                if isinstance(key, str) and key.startswith("_"):
-                    continue
-                encoded = _encode(
-                    a_object_norm[key],
-                    as_interface + "." + str(key)
-                    if isinstance(as_interface, str)
-                    else key,
-                    object_id,
-                )
-                if callable(a_object_norm[key]):
-                    has_function = True
-                if isarray:
-                    b_object.append(encoded)
-                else:
-                    b_object[key] = encoded
-            # TODO: how to despose list object? create a wrapper for list?
-            if not isarray and has_function:
-                b_object["_rintf"] = object_id
-            # remove interface when closed
-            if "on" in a_object_norm and callable(a_object_norm["on"]):
-
-                def remove_interface():
-                    del _object_store[object_id]
-
-                a_object_norm["on"]("close", remove_interface)
-        else:
-            for key in keys:
-                if isarray:
-                    b_object.append(_encode(a_object_norm[key]))
-                else:
-                    b_object[key] = _encode(a_object_norm[key])
-    else:
-        raise Exception("imjoy-rpc: Unsupported data type:" + str(aObject))
-    return b_object
-
-def _decode(a_object, with_promise=False):
-    """Decode object."""
-    if a_object is None:
-        return a_object
-    if isinstance(a_object, dict) and "_rtype" in a_object:
-        b_object = None
-        if (
-            _codecs.get(a_object["_rtype"])
-            and _codecs[a_object["_rtype"]].decoder
-        ):
-            if "_rintf" in a_object:
-                temp = a_object["_rtype"]
-                del a_object["_rtype"]
-                a_object = _decode(a_object, with_promise)
-                a_object["_rtype"] = temp
-            b_object = _codecs[a_object["_rtype"]].decoder(a_object)
-        elif a_object["_rtype"] == "callback":
-            raise Exception("Unsupported object decoding: callback")
-        elif a_object["_rtype"] == "interface":
-            raise Exception("Unsupported object decoding: interface")
-        elif a_object["_rtype"] == "ndarray":
-            # create build array/tensor if used in the plugin
-            try:
-                if isinstance(a_object["_rvalue"], (list, tuple)):
-                    a_object["_rvalue"] = reduce(
-                        (lambda x, y: x + y), a_object["_rvalue"]
-                    )
-                elif not isinstance(a_object["_rvalue"], bytes):
-                    raise Exception(
-                        "Unsupported data type: " + str(type(a_object["_rvalue"]))
-                    )
-                if NUMPY:
-                    b_object = NUMPY.frombuffer(
-                        a_object["_rvalue"], dtype=a_object["_rdtype"]
-                    ).reshape(tuple(a_object["_rshape"]))
-
-                else:
-                    b_object = a_object
-                    logger.warn("numpy is not available, failed to decode ndarray")
-
-            except Exception as exc:
-                logger.debug("Error in converting: %s", exc)
-                b_object = a_object
-                raise exc
-        elif a_object["_rtype"] == "memoryview":
-            b_object = memoryview(a_object["_rvalue"])
-        elif a_object["_rtype"] == "blob":
-            if isinstance(a_object["_rvalue"], str):
-                b_object = io.StringIO(a_object["_rvalue"])
-            elif isinstance(a_object["_rvalue"], bytes):
-                b_object = io.BytesIO(a_object["_rvalue"])
-            else:
-                raise Exception(
-                    "Unsupported blob value type: " + str(type(a_object["_rvalue"]))
-                )
-        elif a_object["_rtype"] == "typedarray":
-            if NUMPY:
-                b_object = NUMPY.frombuffer(
-                    a_object["_rvalue"], dtype=a_object["_rdtype"]
-                )
-            else:
-                b_object = a_object["_rvalue"]
-        elif a_object["_rtype"] == "orderedmap":
-            b_object = OrderedDict(_decode(a_object["_rvalue"], with_promise))
-        elif a_object["_rtype"] == "set":
-            b_object = set(_decode(a_object["_rvalue"], with_promise))
-        elif a_object["_rtype"] == "error":
-            b_object = Exception(a_object["_rvalue"])
-        else:
-            # make sure all the interface functions are decoded
-            if "_rintf" in a_object:
-                temp = a_object["_rtype"]
-                del a_object["_rtype"]
-                a_object = _decode(a_object, with_promise)
-                a_object["_rtype"] = temp
-            b_object = a_object
-    elif isinstance(a_object, (dict, list, tuple)):
-        if isinstance(a_object, tuple):
-            a_object = list(a_object)
-        isarray = isinstance(a_object, list)
-        b_object = [] if isarray else dotdict()
-        keys = range(len(a_object)) if isarray else a_object.keys()
-        for key in keys:
-            val = a_object[key]
-            if isarray:
-                b_object.append(_decode(val, with_promise))
-            else:
-                b_object[key] = _decode(val, with_promise)
-    else:
-        b_object = a_object
-
-    # object id, used for dispose the object
-    if isinstance(a_object, dict) and a_object.get("_rintf"):
-        # make the dict hashable
-        if isinstance(b_object, dict) and not isinstance(b_object, dotdict):
-            b_object = dotdict(b_object)
-        # _object_weakmap[b_object] = a_object.get("_rintf")
-    return b_object
-
-
-class dotdict(dict):  # pylint: disable=invalid-name
-    """Access dictionary attributes with dot.notation."""
-
-    __getattr__ = dict.get
-    __setattr__ = dict.__setitem__
-    __delattr__ = dict.__delitem__
-
-    def __hash__(self):
-        # TODO: is there any performance impact?
-        return hash(tuple(sorted(self.items())))
-
-    def __deepcopy__(self, memo=None):
-        """Make a deep copy."""
-        return dotdict(copy.deepcopy(dict(self), memo=memo))
-
-
-class WrappedPromise:
-    def __init__(self, promise):
-        self.promise = promise
-        try:
-            self.then = promise.then
-            self.catch = promise.catch
-            self.finally_ = promise.finally_
-        except:
-            self.then = lambda f: f(None)
-            self.catch = lambda f: f(None)
-            self.finally_ = lambda f: f(None)
-
-    def __await__(self):
-        x = yield self.promise
-        return x
-
-wrapped_api = dotdict()
-for k in Object.keys(api):
-    func = getattr(api, k)
-    if callable(func) and k not in ['export', 'registerCodec']:
-        def remote_method(func, *args, **kwargs):
-            args = list(args)
-            # wrap keywords to a dictionary and pass to the last argument
-            if kwargs:
-                args = args + [kwargs]
-            args = _encode(args)
-            return WrappedPromise(func(*args))
-        # this has to be partial, otherwise it crashes
-        wrapped_api[k] = partial(remote_method, func)
-    else:
-        wrapped_api[k] = func
-
-def unwrap_func_args(func):
-    def wrapped_function(*args):
-        return func(*_decode(args))
-    return wrapped_function
-    
-m = ModuleType("imjoy")
-sys.modules[m.__name__] = m
-m.__file__ = m.__name__ + ".py"
-m.api = wrapped_api
-`;
-let _export_plugin_api = null;
-
-const execute_python_code = function (code) {
-  try {
-    if (!_export_plugin_api) {
-      _export_plugin_api = window.api.export;
-
-      window.api.export = function (p) {
-        window.pyodide.runPython(startup_script);
-        const WebLoop = window.pyodide.pyimport("WebLoop");
-        const isawaitable = window.pyodide.pyimport("isawaitable");
-        const unwrap_func_args = window.pyodide.pyimport("unwrap_func_args");
-        const callable = window.pyodide.pyimport("callable");
-        const loop = WebLoop();
-
-        if (typeof p === "object") {
-          const _api = {};
-
-          for (let k in p) {
-            if (!k.startsWith("_") && callable(p[k])) {
-              const func = unwrap_func_args(p[k]);
-
-              _api[k] = function () {
-                return new Promise((resolve, reject) => {
-                  try {
-                    const ret = func(...Array.prototype.slice.call(arguments));
-
-                    if (isawaitable(ret)) {
-                      loop.call_soon(ret, resolve, reject);
-                    } else {
-                      resolve(ret);
-                    }
-                  } catch (e) {
-                    reject(e);
-                  }
-                });
-              };
-            }
-          }
-
-          _export_plugin_api(_api);
-        } else if (typeof p === "function") {
-          const _api = {};
-          const getattr = window.pyodide.pyimport("getattr");
-          const hasattr = window.pyodide.pyimport("hasattr");
-
-          for (let k of Object.getOwnPropertyNames(p)) {
-            if (!k.startsWith("_") && hasattr(p, k) && callable(getattr(p, k))) {
-              const func = unwrap_func_args(getattr(p, k));
-
-              _api[k] = function () {
-                return new Promise((resolve, reject) => {
-                  try {
-                    const ret = func(...Array.prototype.slice.call(arguments));
-
-                    if (isawaitable(ret)) {
-                      loop.call_soon(ret, resolve, reject);
-                    } else {
-                      resolve(ret);
-                    }
-                  } catch (e) {
-                    reject(e);
-                  }
-                });
-              };
-            }
-          }
-
-          _export_plugin_api(_api);
-        } else {
-          throw "unsupported api export";
-        }
-      };
-    }
-
-    window.pyodide.runPython(init_imjoy_script);
-    window.pyodide.runPython(code.content);
-  } catch (e) {
-    throw e;
-  }
-};
-
-function setupPyodide() {
-  return new Promise((resolve, reject) => {
-    window.languagePluginUrl = "https://static.imjoy.io/pyodide/";
-    importScripts("https://static.imjoy.io/pyodide/pyodide.js").then(() => {
-      // hack for matplotlib etc.
-      window.iodide = {
-        output: {
-          element: function element(type) {
-            const div = document.createElement(type);
-            const output = document.getElementById("output") || document.body;
-            output.appendChild(div);
-            return div;
-          }
-        }
-      };
-      window.languagePluginLoader.then(() => {
-        // pyodide is now ready to use...
-        console.log(window.pyodide.runPython("import sys\nsys.version"));
-        resolve();
-      }).catch(reject);
-    });
-  });
-} // connection object for the RPC constructor
-
-
-class Connection extends _pluginIframe__WEBPACK_IMPORTED_MODULE_2__["Connection"] {
-  constructor(config) {
-    super(config);
-  }
-
-  async execute(code) {
-    if (code.type === "requirements") {
-      if (code.requirements) {
-        code.requirements = typeof code.requirements === "string" ? [code.requirements] : code.requirements;
-
-        if (Array.isArray(code.requirements)) {
-          const python_packages = [];
-
-          for (var i = 0; i < code.requirements.length; i++) {
-            if (code.requirements[i].toLowerCase().endsWith(".css") || code.requirements[i].startsWith("css:")) {
-              if (code.requirements[i].startsWith("css:")) {
-                code.requirements[i] = code.requirements[i].slice(4);
-              }
-
-              link_node = document.createElement("link");
-              link_node.rel = "stylesheet";
-              link_node.href = code.requirements[i];
-              document.head.appendChild(link_node);
-            } else if ( // code.requirements[i].toLowerCase().endsWith(".js") ||
-            code.requirements[i].startsWith("js:")) {
-              if (code.requirements[i].startsWith("js:")) {
-                code.requirements[i] = code.requirements[i].slice(3);
-              }
-
-              await importScripts(code.requirements[i]);
-            } else if (code.requirements[i].startsWith("cache:")) {//ignore cache
-            } else if (code.requirements[i].toLowerCase().endsWith(".js") || code.requirements[i].startsWith("package:")) {
-              if (code.requirements[i].startsWith("package:")) {
-                code.requirements[i] = code.requirements[i].slice(8);
-              }
-
-              python_packages.push(code.requirements[i]);
-            } else if (code.requirements[i].startsWith("http:") || code.requirements[i].startsWith("https:")) {
-              console.log("Unprocessed requirements url: " + code.requirements[i]);
-            } else {
-              python_packages.push(code.requirements[i]);
-            }
-          }
-
-          await window.pyodide.loadPackage(python_packages);
-        } else {
-          throw "unsupported requirements definition";
-        }
-      }
-    } else if (code.type === "script") {
-      if (code.src) {
-        var script_node = document.createElement("script");
-        script_node.setAttribute("type", code.attrs.type);
-        script_node.setAttribute("src", code.src);
-        document.head.appendChild(script_node);
-      } else {
-        if (code.content && code.lang === "python") {
-          execute_python_code(code);
-        } else if (code.content && code.lang === "javascript") {
-          try {
-            eval(code.content);
-          } catch (e) {
-            console.error(e.message, e.stack);
-            throw e;
-          }
-        } else {
-          const node = document.createElement("script");
-          node.setAttribute("type", code.attrs.type);
-          node.appendChild(document.createTextNode(code.content));
-          document.body.appendChild(node);
-        }
-      }
-    } else if (code.type === "style") {
-      const style_node = document.createElement("style");
-
-      if (code.src) {
-        style_node.src = code.src;
-      }
-
-      style_node.innerHTML = code.content;
-      document.head.appendChild(style_node);
-    } else if (code.type === "link") {
-      const link_node = document.createElement("link");
-
-      if (code.rel) {
-        link_node.rel = code.rel;
-      }
-
-      if (code.href) {
-        link_node.href = code.href;
-      }
-
-      if (code.attrs && code.attrs.type) {
-        link_node.type = code.attrs.type;
-      }
-
-      document.head.appendChild(link_node);
-    } else if (code.type === "html") {
-      document.body.appendChild(_htmlToElement(code.content));
-    } else {
-      throw "unsupported code type.";
-    }
-  }
-
-}
-
-function setupWebPython(config) {
-  config = config || {};
-  config.debug = true;
-  config.dedicated_thread = false;
-  config.lang = "python";
-  config.api_version = _rpc_js__WEBPACK_IMPORTED_MODULE_1__["API_VERSION"];
-  const conn = new Connection(config);
-  setupPyodide().then(() => {
-    Object(_pluginCore_js__WEBPACK_IMPORTED_MODULE_0__["connectRPC"])(conn, config);
-    conn.connect();
-  });
 }
 
 /***/ }),
@@ -1871,7 +1191,7 @@ class RPC extends _utils_js__WEBPACK_IMPORTED_MODULE_0__["MessageEmitter"] {
           wrapped_reject.__promise_pair = encodedPromise[0]._rvalue;
           let args = Array.prototype.slice.call(arguments);
 
-          if (name === "register" || name === "export" || name === "on") {
+          if (name === "register" || name === "registerService" || name === "export" || name === "on") {
             args = await me._wrap(args, true);
           } else {
             args = await me._wrap(args);

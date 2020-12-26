@@ -1,4 +1,4 @@
-importScripts("precache-manifest.d885064611aeae1b81ce1dd739be3287.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("precache-manifest.a18470fd52e6047d96e7aafcd8210362.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable */
 if (typeof workbox !== "undefined") {
@@ -40,6 +40,16 @@ if (typeof workbox !== "undefined") {
   workbox.routing.registerRoute(
     new RegExp("(http|https)://lib.imjoy.io/.*"),
     new workbox.strategies.StaleWhileRevalidate()
+  );
+
+  workbox.routing.registerRoute(
+    new RegExp("https://cdn.jsdelivr.net/pyodide/v.*"),
+    new workbox.strategies.CacheFirst()
+  );
+
+  workbox.routing.registerRoute(
+    new RegExp("https://files.pythonhosted.org/packages/.*"),
+    new workbox.strategies.CacheFirst()
   );
 
   var cached_keys = new Set();

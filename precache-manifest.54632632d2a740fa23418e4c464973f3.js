@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6f3574f06bdde59c875a",
+    "revision": "8f46c86c25977a8d4846",
     "url": "imjoy-rpc-socketio.min.js"
   },
   {
-    "revision": "1cc45add3d216463d645",
+    "revision": "bb39613ab5c88d82e3d0",
     "url": "imjoy-rpc.min.js"
   }
 ]);

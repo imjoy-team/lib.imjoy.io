@@ -96,6 +96,258 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@socket.io/base64-arraybuffer/dist/base64-arraybuffer.es5.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@socket.io/base64-arraybuffer/dist/base64-arraybuffer.es5.js ***!
+  \***********************************************************************************/
+/*! exports provided: decode, encode */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decode", function() { return decode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encode", function() { return encode; });
+/*
+ * base64-arraybuffer 1.0.1 <https://github.com/niklasvh/base64-arraybuffer>
+ * Copyright (c) 2022 Niklas von Hertzen <https://hertzen.com>
+ * Released under MIT License
+ */
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+// Use a lookup table to find the index.
+var lookup = typeof Uint8Array === 'undefined' ? [] : new Uint8Array(256);
+for (var i = 0; i < chars.length; i++) {
+    lookup[chars.charCodeAt(i)] = i;
+}
+var encode = function (arraybuffer) {
+    var bytes = new Uint8Array(arraybuffer), i, len = bytes.length, base64 = '';
+    for (i = 0; i < len; i += 3) {
+        base64 += chars[bytes[i] >> 2];
+        base64 += chars[((bytes[i] & 3) << 4) | (bytes[i + 1] >> 4)];
+        base64 += chars[((bytes[i + 1] & 15) << 2) | (bytes[i + 2] >> 6)];
+        base64 += chars[bytes[i + 2] & 63];
+    }
+    if (len % 3 === 2) {
+        base64 = base64.substring(0, base64.length - 1) + '=';
+    }
+    else if (len % 3 === 1) {
+        base64 = base64.substring(0, base64.length - 2) + '==';
+    }
+    return base64;
+};
+var decode = function (base64) {
+    var bufferLength = base64.length * 0.75, len = base64.length, i, p = 0, encoded1, encoded2, encoded3, encoded4;
+    if (base64[base64.length - 1] === '=') {
+        bufferLength--;
+        if (base64[base64.length - 2] === '=') {
+            bufferLength--;
+        }
+    }
+    var arraybuffer = new ArrayBuffer(bufferLength), bytes = new Uint8Array(arraybuffer);
+    for (i = 0; i < len; i += 4) {
+        encoded1 = lookup[base64.charCodeAt(i)];
+        encoded2 = lookup[base64.charCodeAt(i + 1)];
+        encoded3 = lookup[base64.charCodeAt(i + 2)];
+        encoded4 = lookup[base64.charCodeAt(i + 3)];
+        bytes[p++] = (encoded1 << 2) | (encoded2 >> 4);
+        bytes[p++] = ((encoded2 & 15) << 4) | (encoded3 >> 2);
+        bytes[p++] = ((encoded3 & 3) << 6) | (encoded4 & 63);
+    }
+    return arraybuffer;
+};
+
+
+//# sourceMappingURL=base64-arraybuffer.es5.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@socket.io/component-emitter/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@socket.io/component-emitter/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * Expose `Emitter`.
+ */
+
+exports.Emitter = Emitter;
+
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
+
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+}
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+
+  // Remove event specific arrays for event types that no
+  // one is subscribed for to avoid memory leak.
+  if (callbacks.length === 0) {
+    delete this._callbacks['$' + event];
+  }
+
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+
+  var args = new Array(arguments.length - 1)
+    , callbacks = this._callbacks['$' + event];
+
+  for (var i = 1; i < arguments.length; i++) {
+    args[i - 1] = arguments[i];
+  }
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+// alias used for reserved events (protected method)
+Emitter.prototype.emitReserved = Emitter.prototype.emit;
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/backo2/index.js":
 /*!**************************************!*\
   !*** ./node_modules/backo2/index.js ***!
@@ -327,9 +579,7 @@ function fromByteArray (uint8) {
 
   // go through the array every three bytes, we'll deal with trailing stuff later
   for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-    parts.push(encodeChunk(
-      uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)
-    ))
+    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
   }
 
   // pad the end with zeros, but make sure to not forget the extra bytes
@@ -2158,2901 +2408,1589 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ "./node_modules/component-emitter/index.js":
-/*!*************************************************!*\
-  !*** ./node_modules/component-emitter/index.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * Expose `Emitter`.
- */
-
-if (true) {
-  module.exports = Emitter;
-}
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  function on() {
-    this.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks['$' + event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks['$' + event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
-
-  // Remove event specific arrays for event types that no
-  // one is subscribed for to avoid memory leak.
-  if (callbacks.length === 0) {
-    delete this._callbacks['$' + event];
-  }
-
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-
-  var args = new Array(arguments.length - 1)
-    , callbacks = this._callbacks['$' + event];
-
-  for (var i = 1; i < arguments.length; i++) {
-    args[i - 1] = arguments[i];
-  }
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
-
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks['$' + event] || [];
-};
-
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/lib/globalThis.browser.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/globalThis.browser.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = (() => {
-  if (typeof self !== "undefined") {
-    return self;
-  } else if (typeof window !== "undefined") {
-    return window;
-  } else {
-    return Function("return this")();
-  }
-})();
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/lib/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/index.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const Socket = __webpack_require__(/*! ./socket */ "./node_modules/engine.io-client/lib/socket.js");
-
-module.exports = (uri, opts) => new Socket(uri, opts);
-
-/**
- * Expose deps for legacy compatibility
- * and standalone browser access.
- */
-
-module.exports.Socket = Socket;
-module.exports.protocol = Socket.protocol; // this is an int
-module.exports.Transport = __webpack_require__(/*! ./transport */ "./node_modules/engine.io-client/lib/transport.js");
-module.exports.transports = __webpack_require__(/*! ./transports/index */ "./node_modules/engine.io-client/lib/transports/index.js");
-module.exports.parser = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/index.js");
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/lib/socket.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/socket.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const transports = __webpack_require__(/*! ./transports/index */ "./node_modules/engine.io-client/lib/transports/index.js");
-const Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
-const debug = __webpack_require__(/*! debug */ "./node_modules/engine.io-client/node_modules/debug/src/browser.js")("engine.io-client:socket");
-const parser = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/index.js");
-const parseuri = __webpack_require__(/*! parseuri */ "./node_modules/engine.io-client/node_modules/parseuri/index.js");
-const parseqs = __webpack_require__(/*! parseqs */ "./node_modules/engine.io-client/node_modules/parseqs/index.js");
-
-class Socket extends Emitter {
-  /**
-   * Socket constructor.
-   *
-   * @param {String|Object} uri or options
-   * @param {Object} options
-   * @api public
-   */
-  constructor(uri, opts = {}) {
-    super();
-
-    if (uri && "object" === typeof uri) {
-      opts = uri;
-      uri = null;
-    }
-
-    if (uri) {
-      uri = parseuri(uri);
-      opts.hostname = uri.host;
-      opts.secure = uri.protocol === "https" || uri.protocol === "wss";
-      opts.port = uri.port;
-      if (uri.query) opts.query = uri.query;
-    } else if (opts.host) {
-      opts.hostname = parseuri(opts.host).host;
-    }
-
-    this.secure =
-      null != opts.secure
-        ? opts.secure
-        : typeof location !== "undefined" && "https:" === location.protocol;
-
-    if (opts.hostname && !opts.port) {
-      // if no port is specified manually, use the protocol default
-      opts.port = this.secure ? "443" : "80";
-    }
-
-    this.hostname =
-      opts.hostname ||
-      (typeof location !== "undefined" ? location.hostname : "localhost");
-    this.port =
-      opts.port ||
-      (typeof location !== "undefined" && location.port
-        ? location.port
-        : this.secure
-        ? 443
-        : 80);
-
-    this.transports = opts.transports || ["polling", "websocket"];
-    this.readyState = "";
-    this.writeBuffer = [];
-    this.prevBufferLen = 0;
-
-    this.opts = Object.assign(
-      {
-        path: "/engine.io",
-        agent: false,
-        withCredentials: false,
-        upgrade: true,
-        jsonp: true,
-        timestampParam: "t",
-        rememberUpgrade: false,
-        rejectUnauthorized: true,
-        perMessageDeflate: {
-          threshold: 1024
-        },
-        transportOptions: {}
-      },
-      opts
-    );
-
-    this.opts.path = this.opts.path.replace(/\/$/, "") + "/";
-
-    if (typeof this.opts.query === "string") {
-      this.opts.query = parseqs.decode(this.opts.query);
-    }
-
-    // set on handshake
-    this.id = null;
-    this.upgrades = null;
-    this.pingInterval = null;
-    this.pingTimeout = null;
-
-    // set on heartbeat
-    this.pingTimeoutTimer = null;
-
-    if (typeof addEventListener === "function") {
-      addEventListener(
-        "beforeunload",
-        () => {
-          if (this.transport) {
-            // silently close the transport
-            this.transport.removeAllListeners();
-            this.transport.close();
-          }
-        },
-        false
-      );
-      if (this.hostname !== "localhost") {
-        this.offlineEventListener = () => {
-          this.onClose("transport close");
-        };
-        addEventListener("offline", this.offlineEventListener, false);
-      }
-    }
-
-    this.open();
-  }
-
-  /**
-   * Creates transport of the given type.
-   *
-   * @param {String} transport name
-   * @return {Transport}
-   * @api private
-   */
-  createTransport(name) {
-    debug('creating transport "%s"', name);
-    const query = clone(this.opts.query);
-
-    // append engine.io protocol identifier
-    query.EIO = parser.protocol;
-
-    // transport name
-    query.transport = name;
-
-    // session id if we already have one
-    if (this.id) query.sid = this.id;
-
-    const opts = Object.assign(
-      {},
-      this.opts.transportOptions[name],
-      this.opts,
-      {
-        query,
-        socket: this,
-        hostname: this.hostname,
-        secure: this.secure,
-        port: this.port
-      }
-    );
-
-    debug("options: %j", opts);
-
-    return new transports[name](opts);
-  }
-
-  /**
-   * Initializes transport to use and starts probe.
-   *
-   * @api private
-   */
-  open() {
-    let transport;
-    if (
-      this.opts.rememberUpgrade &&
-      Socket.priorWebsocketSuccess &&
-      this.transports.indexOf("websocket") !== -1
-    ) {
-      transport = "websocket";
-    } else if (0 === this.transports.length) {
-      // Emit error on next tick so it can be listened to
-      const self = this;
-      setTimeout(function() {
-        self.emit("error", "No transports available");
-      }, 0);
-      return;
-    } else {
-      transport = this.transports[0];
-    }
-    this.readyState = "opening";
-
-    // Retry with the next transport if the transport is disabled (jsonp: false)
-    try {
-      transport = this.createTransport(transport);
-    } catch (e) {
-      debug("error while creating transport: %s", e);
-      this.transports.shift();
-      this.open();
-      return;
-    }
-
-    transport.open();
-    this.setTransport(transport);
-  }
-
-  /**
-   * Sets the current transport. Disables the existing one (if any).
-   *
-   * @api private
-   */
-  setTransport(transport) {
-    debug("setting transport %s", transport.name);
-    const self = this;
-
-    if (this.transport) {
-      debug("clearing existing transport %s", this.transport.name);
-      this.transport.removeAllListeners();
-    }
-
-    // set up transport
-    this.transport = transport;
-
-    // set up transport listeners
-    transport
-      .on("drain", function() {
-        self.onDrain();
-      })
-      .on("packet", function(packet) {
-        self.onPacket(packet);
-      })
-      .on("error", function(e) {
-        self.onError(e);
-      })
-      .on("close", function() {
-        self.onClose("transport close");
-      });
-  }
-
-  /**
-   * Probes a transport.
-   *
-   * @param {String} transport name
-   * @api private
-   */
-  probe(name) {
-    debug('probing transport "%s"', name);
-    let transport = this.createTransport(name, { probe: 1 });
-    let failed = false;
-    const self = this;
-
-    Socket.priorWebsocketSuccess = false;
-
-    function onTransportOpen() {
-      if (self.onlyBinaryUpgrades) {
-        const upgradeLosesBinary =
-          !this.supportsBinary && self.transport.supportsBinary;
-        failed = failed || upgradeLosesBinary;
-      }
-      if (failed) return;
-
-      debug('probe transport "%s" opened', name);
-      transport.send([{ type: "ping", data: "probe" }]);
-      transport.once("packet", function(msg) {
-        if (failed) return;
-        if ("pong" === msg.type && "probe" === msg.data) {
-          debug('probe transport "%s" pong', name);
-          self.upgrading = true;
-          self.emit("upgrading", transport);
-          if (!transport) return;
-          Socket.priorWebsocketSuccess = "websocket" === transport.name;
-
-          debug('pausing current transport "%s"', self.transport.name);
-          self.transport.pause(function() {
-            if (failed) return;
-            if ("closed" === self.readyState) return;
-            debug("changing transport and sending upgrade packet");
-
-            cleanup();
-
-            self.setTransport(transport);
-            transport.send([{ type: "upgrade" }]);
-            self.emit("upgrade", transport);
-            transport = null;
-            self.upgrading = false;
-            self.flush();
-          });
-        } else {
-          debug('probe transport "%s" failed', name);
-          const err = new Error("probe error");
-          err.transport = transport.name;
-          self.emit("upgradeError", err);
-        }
-      });
-    }
-
-    function freezeTransport() {
-      if (failed) return;
-
-      // Any callback called by transport should be ignored since now
-      failed = true;
-
-      cleanup();
-
-      transport.close();
-      transport = null;
-    }
-
-    // Handle any error that happens while probing
-    function onerror(err) {
-      const error = new Error("probe error: " + err);
-      error.transport = transport.name;
-
-      freezeTransport();
-
-      debug('probe transport "%s" failed because of error: %s', name, err);
-
-      self.emit("upgradeError", error);
-    }
-
-    function onTransportClose() {
-      onerror("transport closed");
-    }
-
-    // When the socket is closed while we're probing
-    function onclose() {
-      onerror("socket closed");
-    }
-
-    // When the socket is upgraded while we're probing
-    function onupgrade(to) {
-      if (transport && to.name !== transport.name) {
-        debug('"%s" works - aborting "%s"', to.name, transport.name);
-        freezeTransport();
-      }
-    }
-
-    // Remove all listeners on the transport and on self
-    function cleanup() {
-      transport.removeListener("open", onTransportOpen);
-      transport.removeListener("error", onerror);
-      transport.removeListener("close", onTransportClose);
-      self.removeListener("close", onclose);
-      self.removeListener("upgrading", onupgrade);
-    }
-
-    transport.once("open", onTransportOpen);
-    transport.once("error", onerror);
-    transport.once("close", onTransportClose);
-
-    this.once("close", onclose);
-    this.once("upgrading", onupgrade);
-
-    transport.open();
-  }
-
-  /**
-   * Called when connection is deemed open.
-   *
-   * @api public
-   */
-  onOpen() {
-    debug("socket open");
-    this.readyState = "open";
-    Socket.priorWebsocketSuccess = "websocket" === this.transport.name;
-    this.emit("open");
-    this.flush();
-
-    // we check for `readyState` in case an `open`
-    // listener already closed the socket
-    if (
-      "open" === this.readyState &&
-      this.opts.upgrade &&
-      this.transport.pause
-    ) {
-      debug("starting upgrade probes");
-      let i = 0;
-      const l = this.upgrades.length;
-      for (; i < l; i++) {
-        this.probe(this.upgrades[i]);
-      }
-    }
-  }
-
-  /**
-   * Handles a packet.
-   *
-   * @api private
-   */
-  onPacket(packet) {
-    if (
-      "opening" === this.readyState ||
-      "open" === this.readyState ||
-      "closing" === this.readyState
-    ) {
-      debug('socket receive: type "%s", data "%s"', packet.type, packet.data);
-
-      this.emit("packet", packet);
-
-      // Socket is live - any packet counts
-      this.emit("heartbeat");
-
-      switch (packet.type) {
-        case "open":
-          this.onHandshake(JSON.parse(packet.data));
-          break;
-
-        case "ping":
-          this.resetPingTimeout();
-          this.sendPacket("pong");
-          this.emit("pong");
-          break;
-
-        case "error":
-          const err = new Error("server error");
-          err.code = packet.data;
-          this.onError(err);
-          break;
-
-        case "message":
-          this.emit("data", packet.data);
-          this.emit("message", packet.data);
-          break;
-      }
-    } else {
-      debug('packet received with socket readyState "%s"', this.readyState);
-    }
-  }
-
-  /**
-   * Called upon handshake completion.
-   *
-   * @param {Object} handshake obj
-   * @api private
-   */
-  onHandshake(data) {
-    this.emit("handshake", data);
-    this.id = data.sid;
-    this.transport.query.sid = data.sid;
-    this.upgrades = this.filterUpgrades(data.upgrades);
-    this.pingInterval = data.pingInterval;
-    this.pingTimeout = data.pingTimeout;
-    this.onOpen();
-    // In case open handler closes socket
-    if ("closed" === this.readyState) return;
-    this.resetPingTimeout();
-  }
-
-  /**
-   * Sets and resets ping timeout timer based on server pings.
-   *
-   * @api private
-   */
-  resetPingTimeout() {
-    clearTimeout(this.pingTimeoutTimer);
-    this.pingTimeoutTimer = setTimeout(() => {
-      this.onClose("ping timeout");
-    }, this.pingInterval + this.pingTimeout);
-    if (this.opts.autoUnref) {
-      this.pingTimeoutTimer.unref();
-    }
-  }
-
-  /**
-   * Called on `drain` event
-   *
-   * @api private
-   */
-  onDrain() {
-    this.writeBuffer.splice(0, this.prevBufferLen);
-
-    // setting prevBufferLen = 0 is very important
-    // for example, when upgrading, upgrade packet is sent over,
-    // and a nonzero prevBufferLen could cause problems on `drain`
-    this.prevBufferLen = 0;
-
-    if (0 === this.writeBuffer.length) {
-      this.emit("drain");
-    } else {
-      this.flush();
-    }
-  }
-
-  /**
-   * Flush write buffers.
-   *
-   * @api private
-   */
-  flush() {
-    if (
-      "closed" !== this.readyState &&
-      this.transport.writable &&
-      !this.upgrading &&
-      this.writeBuffer.length
-    ) {
-      debug("flushing %d packets in socket", this.writeBuffer.length);
-      this.transport.send(this.writeBuffer);
-      // keep track of current length of writeBuffer
-      // splice writeBuffer and callbackBuffer on `drain`
-      this.prevBufferLen = this.writeBuffer.length;
-      this.emit("flush");
-    }
-  }
-
-  /**
-   * Sends a message.
-   *
-   * @param {String} message.
-   * @param {Function} callback function.
-   * @param {Object} options.
-   * @return {Socket} for chaining.
-   * @api public
-   */
-  write(msg, options, fn) {
-    this.sendPacket("message", msg, options, fn);
-    return this;
-  }
-
-  send(msg, options, fn) {
-    this.sendPacket("message", msg, options, fn);
-    return this;
-  }
-
-  /**
-   * Sends a packet.
-   *
-   * @param {String} packet type.
-   * @param {String} data.
-   * @param {Object} options.
-   * @param {Function} callback function.
-   * @api private
-   */
-  sendPacket(type, data, options, fn) {
-    if ("function" === typeof data) {
-      fn = data;
-      data = undefined;
-    }
-
-    if ("function" === typeof options) {
-      fn = options;
-      options = null;
-    }
-
-    if ("closing" === this.readyState || "closed" === this.readyState) {
-      return;
-    }
-
-    options = options || {};
-    options.compress = false !== options.compress;
-
-    const packet = {
-      type: type,
-      data: data,
-      options: options
-    };
-    this.emit("packetCreate", packet);
-    this.writeBuffer.push(packet);
-    if (fn) this.once("flush", fn);
-    this.flush();
-  }
-
-  /**
-   * Closes the connection.
-   *
-   * @api private
-   */
-  close() {
-    const self = this;
-
-    if ("opening" === this.readyState || "open" === this.readyState) {
-      this.readyState = "closing";
-
-      if (this.writeBuffer.length) {
-        this.once("drain", function() {
-          if (this.upgrading) {
-            waitForUpgrade();
-          } else {
-            close();
-          }
-        });
-      } else if (this.upgrading) {
-        waitForUpgrade();
-      } else {
-        close();
-      }
-    }
-
-    function close() {
-      self.onClose("forced close");
-      debug("socket closing - telling transport to close");
-      self.transport.close();
-    }
-
-    function cleanupAndClose() {
-      self.removeListener("upgrade", cleanupAndClose);
-      self.removeListener("upgradeError", cleanupAndClose);
-      close();
-    }
-
-    function waitForUpgrade() {
-      // wait for upgrade to finish since we can't send packets while pausing a transport
-      self.once("upgrade", cleanupAndClose);
-      self.once("upgradeError", cleanupAndClose);
-    }
-
-    return this;
-  }
-
-  /**
-   * Called upon transport error
-   *
-   * @api private
-   */
-  onError(err) {
-    debug("socket error %j", err);
-    Socket.priorWebsocketSuccess = false;
-    this.emit("error", err);
-    this.onClose("transport error", err);
-  }
-
-  /**
-   * Called upon transport close.
-   *
-   * @api private
-   */
-  onClose(reason, desc) {
-    if (
-      "opening" === this.readyState ||
-      "open" === this.readyState ||
-      "closing" === this.readyState
-    ) {
-      debug('socket close with reason: "%s"', reason);
-      const self = this;
-
-      // clear timers
-      clearTimeout(this.pingIntervalTimer);
-      clearTimeout(this.pingTimeoutTimer);
-
-      // stop event from firing again for transport
-      this.transport.removeAllListeners("close");
-
-      // ensure transport won't stay open
-      this.transport.close();
-
-      // ignore further transport communication
-      this.transport.removeAllListeners();
-
-      if (typeof removeEventListener === "function") {
-        removeEventListener("offline", this.offlineEventListener, false);
-      }
-
-      // set ready state
-      this.readyState = "closed";
-
-      // clear session id
-      this.id = null;
-
-      // emit close event
-      this.emit("close", reason, desc);
-
-      // clean buffers after, so users can still
-      // grab the buffers on `close` event
-      self.writeBuffer = [];
-      self.prevBufferLen = 0;
-    }
-  }
-
-  /**
-   * Filters upgrades, returning only those matching client transports.
-   *
-   * @param {Array} server upgrades
-   * @api private
-   *
-   */
-  filterUpgrades(upgrades) {
-    const filteredUpgrades = [];
-    let i = 0;
-    const j = upgrades.length;
-    for (; i < j; i++) {
-      if (~this.transports.indexOf(upgrades[i]))
-        filteredUpgrades.push(upgrades[i]);
-    }
-    return filteredUpgrades;
-  }
-}
-
-Socket.priorWebsocketSuccess = false;
-
-/**
- * Protocol version.
- *
- * @api public
- */
-
-Socket.protocol = parser.protocol; // this is an int
-
-function clone(obj) {
-  const o = {};
-  for (let i in obj) {
-    if (obj.hasOwnProperty(i)) {
-      o[i] = obj[i];
-    }
-  }
-  return o;
-}
-
-module.exports = Socket;
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/lib/transport.js":
-/*!********************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/transport.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const parser = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/index.js");
-const Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
-const debug = __webpack_require__(/*! debug */ "./node_modules/engine.io-client/node_modules/debug/src/browser.js")("engine.io-client:transport");
-
-class Transport extends Emitter {
-  /**
-   * Transport abstract constructor.
-   *
-   * @param {Object} options.
-   * @api private
-   */
-  constructor(opts) {
-    super();
-
-    this.opts = opts;
-    this.query = opts.query;
-    this.readyState = "";
-    this.socket = opts.socket;
-  }
-
-  /**
-   * Emits an error.
-   *
-   * @param {String} str
-   * @return {Transport} for chaining
-   * @api public
-   */
-  onError(msg, desc) {
-    const err = new Error(msg);
-    err.type = "TransportError";
-    err.description = desc;
-    this.emit("error", err);
-    return this;
-  }
-
-  /**
-   * Opens the transport.
-   *
-   * @api public
-   */
-  open() {
-    if ("closed" === this.readyState || "" === this.readyState) {
-      this.readyState = "opening";
-      this.doOpen();
-    }
-
-    return this;
-  }
-
-  /**
-   * Closes the transport.
-   *
-   * @api private
-   */
-  close() {
-    if ("opening" === this.readyState || "open" === this.readyState) {
-      this.doClose();
-      this.onClose();
-    }
-
-    return this;
-  }
-
-  /**
-   * Sends multiple packets.
-   *
-   * @param {Array} packets
-   * @api private
-   */
-  send(packets) {
-    if ("open" === this.readyState) {
-      this.write(packets);
-    } else {
-      // this might happen if the transport was silently closed in the beforeunload event handler
-      debug("transport is not open, discarding packets");
-    }
-  }
-
-  /**
-   * Called upon open
-   *
-   * @api private
-   */
-  onOpen() {
-    this.readyState = "open";
-    this.writable = true;
-    this.emit("open");
-  }
-
-  /**
-   * Called with data.
-   *
-   * @param {String} data
-   * @api private
-   */
-  onData(data) {
-    const packet = parser.decodePacket(data, this.socket.binaryType);
-    this.onPacket(packet);
-  }
-
-  /**
-   * Called with a decoded packet.
-   */
-  onPacket(packet) {
-    this.emit("packet", packet);
-  }
-
-  /**
-   * Called upon close.
-   *
-   * @api private
-   */
-  onClose() {
-    this.readyState = "closed";
-    this.emit("close");
-  }
-}
-
-module.exports = Transport;
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/lib/transports/index.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/transports/index.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const XMLHttpRequest = __webpack_require__(/*! ../../contrib/xmlhttprequest-ssl/XMLHttpRequest */ "./node_modules/engine.io-client/lib/xmlhttprequest.js");
-const XHR = __webpack_require__(/*! ./polling-xhr */ "./node_modules/engine.io-client/lib/transports/polling-xhr.js");
-const JSONP = __webpack_require__(/*! ./polling-jsonp */ "./node_modules/engine.io-client/lib/transports/polling-jsonp.js");
-const websocket = __webpack_require__(/*! ./websocket */ "./node_modules/engine.io-client/lib/transports/websocket.js");
-
-exports.polling = polling;
-exports.websocket = websocket;
-
-/**
- * Polling transport polymorphic constructor.
- * Decides on xhr vs jsonp based on feature detection.
- *
- * @api private
- */
-
-function polling(opts) {
-  let xhr;
-  let xd = false;
-  let xs = false;
-  const jsonp = false !== opts.jsonp;
-
-  if (typeof location !== "undefined") {
-    const isSSL = "https:" === location.protocol;
-    let port = location.port;
-
-    // some user agents have empty `location.port`
-    if (!port) {
-      port = isSSL ? 443 : 80;
-    }
-
-    xd = opts.hostname !== location.hostname || port !== opts.port;
-    xs = opts.secure !== isSSL;
-  }
-
-  opts.xdomain = xd;
-  opts.xscheme = xs;
-  xhr = new XMLHttpRequest(opts);
-
-  if ("open" in xhr && !opts.forceJSONP) {
-    return new XHR(opts);
-  } else {
-    if (!jsonp) throw new Error("JSONP disabled");
-    return new JSONP(opts);
-  }
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/lib/transports/polling-jsonp.js":
+/***/ "./node_modules/engine.io-client/build/esm/globalThis.browser.js":
 /*!***********************************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/transports/polling-jsonp.js ***!
+  !*** ./node_modules/engine.io-client/build/esm/globalThis.browser.js ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const Polling = __webpack_require__(/*! ./polling */ "./node_modules/engine.io-client/lib/transports/polling.js");
-const globalThis = __webpack_require__(/*! ../globalThis */ "./node_modules/engine.io-client/lib/globalThis.browser.js");
-
-const rNewline = /\n/g;
-const rEscapedNewline = /\\n/g;
-
-/**
- * Global JSONP callbacks.
- */
-
-let callbacks;
-
-class JSONPPolling extends Polling {
-  /**
-   * JSONP Polling constructor.
-   *
-   * @param {Object} opts.
-   * @api public
-   */
-  constructor(opts) {
-    super(opts);
-
-    this.query = this.query || {};
-
-    // define global callbacks array if not present
-    // we do this here (lazily) to avoid unneeded global pollution
-    if (!callbacks) {
-      // we need to consider multiple engines in the same page
-      callbacks = globalThis.___eio = globalThis.___eio || [];
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ((() => {
+    if (typeof self !== "undefined") {
+        return self;
     }
-
-    // callback identifier
-    this.index = callbacks.length;
-
-    // add callback to jsonp global
-    const self = this;
-    callbacks.push(function(msg) {
-      self.onData(msg);
-    });
-
-    // append to query string
-    this.query.j = this.index;
-  }
-
-  /**
-   * JSONP only supports binary as base64 encoded strings
-   */
-  get supportsBinary() {
-    return false;
-  }
-
-  /**
-   * Closes the socket.
-   *
-   * @api private
-   */
-  doClose() {
-    if (this.script) {
-      // prevent spurious errors from being emitted when the window is unloaded
-      this.script.onerror = () => {};
-      this.script.parentNode.removeChild(this.script);
-      this.script = null;
+    else if (typeof window !== "undefined") {
+        return window;
     }
-
-    if (this.form) {
-      this.form.parentNode.removeChild(this.form);
-      this.form = null;
-      this.iframe = null;
+    else {
+        return Function("return this")();
     }
-
-    super.doClose();
-  }
-
-  /**
-   * Starts a poll cycle.
-   *
-   * @api private
-   */
-  doPoll() {
-    const self = this;
-    const script = document.createElement("script");
-
-    if (this.script) {
-      this.script.parentNode.removeChild(this.script);
-      this.script = null;
-    }
-
-    script.async = true;
-    script.src = this.uri();
-    script.onerror = function(e) {
-      self.onError("jsonp poll error", e);
-    };
-
-    const insertAt = document.getElementsByTagName("script")[0];
-    if (insertAt) {
-      insertAt.parentNode.insertBefore(script, insertAt);
-    } else {
-      (document.head || document.body).appendChild(script);
-    }
-    this.script = script;
-
-    const isUAgecko =
-      "undefined" !== typeof navigator && /gecko/i.test(navigator.userAgent);
-
-    if (isUAgecko) {
-      setTimeout(function() {
-        const iframe = document.createElement("iframe");
-        document.body.appendChild(iframe);
-        document.body.removeChild(iframe);
-      }, 100);
-    }
-  }
-
-  /**
-   * Writes with a hidden iframe.
-   *
-   * @param {String} data to send
-   * @param {Function} called upon flush.
-   * @api private
-   */
-  doWrite(data, fn) {
-    const self = this;
-    let iframe;
-
-    if (!this.form) {
-      const form = document.createElement("form");
-      const area = document.createElement("textarea");
-      const id = (this.iframeId = "eio_iframe_" + this.index);
-
-      form.className = "socketio";
-      form.style.position = "absolute";
-      form.style.top = "-1000px";
-      form.style.left = "-1000px";
-      form.target = id;
-      form.method = "POST";
-      form.setAttribute("accept-charset", "utf-8");
-      area.name = "d";
-      form.appendChild(area);
-      document.body.appendChild(form);
-
-      this.form = form;
-      this.area = area;
-    }
-
-    this.form.action = this.uri();
-
-    function complete() {
-      initIframe();
-      fn();
-    }
-
-    function initIframe() {
-      if (self.iframe) {
-        try {
-          self.form.removeChild(self.iframe);
-        } catch (e) {
-          self.onError("jsonp polling iframe removal error", e);
-        }
-      }
-
-      try {
-        // ie6 dynamic iframes with target="" support (thanks Chris Lambacher)
-        const html = '<iframe src="javascript:0" name="' + self.iframeId + '">';
-        iframe = document.createElement(html);
-      } catch (e) {
-        iframe = document.createElement("iframe");
-        iframe.name = self.iframeId;
-        iframe.src = "javascript:0";
-      }
-
-      iframe.id = self.iframeId;
-
-      self.form.appendChild(iframe);
-      self.iframe = iframe;
-    }
-
-    initIframe();
-
-    // escape \n to prevent it from being converted into \r\n by some UAs
-    // double escaping is required for escaped new lines because unescaping of new lines can be done safely on server-side
-    data = data.replace(rEscapedNewline, "\\\n");
-    this.area.value = data.replace(rNewline, "\\n");
-
-    try {
-      this.form.submit();
-    } catch (e) {}
-
-    if (this.iframe.attachEvent) {
-      this.iframe.onreadystatechange = function() {
-        if (self.iframe.readyState === "complete") {
-          complete();
-        }
-      };
-    } else {
-      this.iframe.onload = complete;
-    }
-  }
-}
-
-module.exports = JSONPPolling;
+})());
 
 
 /***/ }),
 
-/***/ "./node_modules/engine.io-client/lib/transports/polling-xhr.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/transports/polling-xhr.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/engine.io-client/build/esm/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/index.js ***!
+  \**********************************************************/
+/*! exports provided: Socket, protocol, Transport, transports, installTimerFunctions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "protocol", function() { return protocol; });
+/* harmony import */ var _socket_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./socket.js */ "./node_modules/engine.io-client/build/esm/socket.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Socket", function() { return _socket_js__WEBPACK_IMPORTED_MODULE_0__["Socket"]; });
+
+/* harmony import */ var _transport_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./transport.js */ "./node_modules/engine.io-client/build/esm/transport.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Transport", function() { return _transport_js__WEBPACK_IMPORTED_MODULE_1__["Transport"]; });
+
+/* harmony import */ var _transports_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./transports/index.js */ "./node_modules/engine.io-client/build/esm/transports/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "transports", function() { return _transports_index_js__WEBPACK_IMPORTED_MODULE_2__["transports"]; });
+
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "installTimerFunctions", function() { return _util_js__WEBPACK_IMPORTED_MODULE_3__["installTimerFunctions"]; });
+
+
+
+const protocol = _socket_js__WEBPACK_IMPORTED_MODULE_0__["Socket"].protocol;
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/socket.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/socket.js ***!
+  \***********************************************************/
+/*! exports provided: Socket */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Socket", function() { return Socket; });
+/* harmony import */ var _transports_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./transports/index.js */ "./node_modules/engine.io-client/build/esm/transports/index.js");
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony import */ var parseqs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! parseqs */ "./node_modules/parseqs/index.js");
+/* harmony import */ var parseqs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(parseqs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var parseuri__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! parseuri */ "./node_modules/parseuri/index.js");
+/* harmony import */ var parseuri__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(parseuri__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/index.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var engine_io_parser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/build/esm/index.js");
+
+
+
+
+
+
+class Socket extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_4__["Emitter"] {
+    /**
+     * Socket constructor.
+     *
+     * @param {String|Object} uri or options
+     * @param {Object} opts - options
+     * @api public
+     */
+    constructor(uri, opts = {}) {
+        super();
+        if (uri && "object" === typeof uri) {
+            opts = uri;
+            uri = null;
+        }
+        if (uri) {
+            uri = parseuri__WEBPACK_IMPORTED_MODULE_3___default()(uri);
+            opts.hostname = uri.host;
+            opts.secure = uri.protocol === "https" || uri.protocol === "wss";
+            opts.port = uri.port;
+            if (uri.query)
+                opts.query = uri.query;
+        }
+        else if (opts.host) {
+            opts.hostname = parseuri__WEBPACK_IMPORTED_MODULE_3___default()(opts.host).host;
+        }
+        Object(_util_js__WEBPACK_IMPORTED_MODULE_1__["installTimerFunctions"])(this, opts);
+        this.secure =
+            null != opts.secure
+                ? opts.secure
+                : typeof location !== "undefined" && "https:" === location.protocol;
+        if (opts.hostname && !opts.port) {
+            // if no port is specified manually, use the protocol default
+            opts.port = this.secure ? "443" : "80";
+        }
+        this.hostname =
+            opts.hostname ||
+                (typeof location !== "undefined" ? location.hostname : "localhost");
+        this.port =
+            opts.port ||
+                (typeof location !== "undefined" && location.port
+                    ? location.port
+                    : this.secure
+                        ? "443"
+                        : "80");
+        this.transports = opts.transports || ["polling", "websocket"];
+        this.readyState = "";
+        this.writeBuffer = [];
+        this.prevBufferLen = 0;
+        this.opts = Object.assign({
+            path: "/engine.io",
+            agent: false,
+            withCredentials: false,
+            upgrade: true,
+            timestampParam: "t",
+            rememberUpgrade: false,
+            rejectUnauthorized: true,
+            perMessageDeflate: {
+                threshold: 1024
+            },
+            transportOptions: {},
+            closeOnBeforeunload: true
+        }, opts);
+        this.opts.path = this.opts.path.replace(/\/$/, "") + "/";
+        if (typeof this.opts.query === "string") {
+            this.opts.query = parseqs__WEBPACK_IMPORTED_MODULE_2___default.a.decode(this.opts.query);
+        }
+        // set on handshake
+        this.id = null;
+        this.upgrades = null;
+        this.pingInterval = null;
+        this.pingTimeout = null;
+        // set on heartbeat
+        this.pingTimeoutTimer = null;
+        if (typeof addEventListener === "function") {
+            if (this.opts.closeOnBeforeunload) {
+                // Firefox closes the connection when the "beforeunload" event is emitted but not Chrome. This event listener
+                // ensures every browser behaves the same (no "disconnect" event at the Socket.IO level when the page is
+                // closed/reloaded)
+                addEventListener("beforeunload", () => {
+                    if (this.transport) {
+                        // silently close the transport
+                        this.transport.removeAllListeners();
+                        this.transport.close();
+                    }
+                }, false);
+            }
+            if (this.hostname !== "localhost") {
+                this.offlineEventListener = () => {
+                    this.onClose("transport close");
+                };
+                addEventListener("offline", this.offlineEventListener, false);
+            }
+        }
+        this.open();
+    }
+    /**
+     * Creates transport of the given type.
+     *
+     * @param {String} transport name
+     * @return {Transport}
+     * @api private
+     */
+    createTransport(name) {
+        const query = clone(this.opts.query);
+        // append engine.io protocol identifier
+        query.EIO = engine_io_parser__WEBPACK_IMPORTED_MODULE_5__["protocol"];
+        // transport name
+        query.transport = name;
+        // session id if we already have one
+        if (this.id)
+            query.sid = this.id;
+        const opts = Object.assign({}, this.opts.transportOptions[name], this.opts, {
+            query,
+            socket: this,
+            hostname: this.hostname,
+            secure: this.secure,
+            port: this.port
+        });
+        return new _transports_index_js__WEBPACK_IMPORTED_MODULE_0__["transports"][name](opts);
+    }
+    /**
+     * Initializes transport to use and starts probe.
+     *
+     * @api private
+     */
+    open() {
+        let transport;
+        if (this.opts.rememberUpgrade &&
+            Socket.priorWebsocketSuccess &&
+            this.transports.indexOf("websocket") !== -1) {
+            transport = "websocket";
+        }
+        else if (0 === this.transports.length) {
+            // Emit error on next tick so it can be listened to
+            this.setTimeoutFn(() => {
+                this.emitReserved("error", "No transports available");
+            }, 0);
+            return;
+        }
+        else {
+            transport = this.transports[0];
+        }
+        this.readyState = "opening";
+        // Retry with the next transport if the transport is disabled (jsonp: false)
+        try {
+            transport = this.createTransport(transport);
+        }
+        catch (e) {
+            this.transports.shift();
+            this.open();
+            return;
+        }
+        transport.open();
+        this.setTransport(transport);
+    }
+    /**
+     * Sets the current transport. Disables the existing one (if any).
+     *
+     * @api private
+     */
+    setTransport(transport) {
+        if (this.transport) {
+            this.transport.removeAllListeners();
+        }
+        // set up transport
+        this.transport = transport;
+        // set up transport listeners
+        transport
+            .on("drain", this.onDrain.bind(this))
+            .on("packet", this.onPacket.bind(this))
+            .on("error", this.onError.bind(this))
+            .on("close", () => {
+            this.onClose("transport close");
+        });
+    }
+    /**
+     * Probes a transport.
+     *
+     * @param {String} transport name
+     * @api private
+     */
+    probe(name) {
+        let transport = this.createTransport(name);
+        let failed = false;
+        Socket.priorWebsocketSuccess = false;
+        const onTransportOpen = () => {
+            if (failed)
+                return;
+            transport.send([{ type: "ping", data: "probe" }]);
+            transport.once("packet", msg => {
+                if (failed)
+                    return;
+                if ("pong" === msg.type && "probe" === msg.data) {
+                    this.upgrading = true;
+                    this.emitReserved("upgrading", transport);
+                    if (!transport)
+                        return;
+                    Socket.priorWebsocketSuccess = "websocket" === transport.name;
+                    this.transport.pause(() => {
+                        if (failed)
+                            return;
+                        if ("closed" === this.readyState)
+                            return;
+                        cleanup();
+                        this.setTransport(transport);
+                        transport.send([{ type: "upgrade" }]);
+                        this.emitReserved("upgrade", transport);
+                        transport = null;
+                        this.upgrading = false;
+                        this.flush();
+                    });
+                }
+                else {
+                    const err = new Error("probe error");
+                    // @ts-ignore
+                    err.transport = transport.name;
+                    this.emitReserved("upgradeError", err);
+                }
+            });
+        };
+        function freezeTransport() {
+            if (failed)
+                return;
+            // Any callback called by transport should be ignored since now
+            failed = true;
+            cleanup();
+            transport.close();
+            transport = null;
+        }
+        // Handle any error that happens while probing
+        const onerror = err => {
+            const error = new Error("probe error: " + err);
+            // @ts-ignore
+            error.transport = transport.name;
+            freezeTransport();
+            this.emitReserved("upgradeError", error);
+        };
+        function onTransportClose() {
+            onerror("transport closed");
+        }
+        // When the socket is closed while we're probing
+        function onclose() {
+            onerror("socket closed");
+        }
+        // When the socket is upgraded while we're probing
+        function onupgrade(to) {
+            if (transport && to.name !== transport.name) {
+                freezeTransport();
+            }
+        }
+        // Remove all listeners on the transport and on self
+        const cleanup = () => {
+            transport.removeListener("open", onTransportOpen);
+            transport.removeListener("error", onerror);
+            transport.removeListener("close", onTransportClose);
+            this.off("close", onclose);
+            this.off("upgrading", onupgrade);
+        };
+        transport.once("open", onTransportOpen);
+        transport.once("error", onerror);
+        transport.once("close", onTransportClose);
+        this.once("close", onclose);
+        this.once("upgrading", onupgrade);
+        transport.open();
+    }
+    /**
+     * Called when connection is deemed open.
+     *
+     * @api private
+     */
+    onOpen() {
+        this.readyState = "open";
+        Socket.priorWebsocketSuccess = "websocket" === this.transport.name;
+        this.emitReserved("open");
+        this.flush();
+        // we check for `readyState` in case an `open`
+        // listener already closed the socket
+        if ("open" === this.readyState &&
+            this.opts.upgrade &&
+            this.transport.pause) {
+            let i = 0;
+            const l = this.upgrades.length;
+            for (; i < l; i++) {
+                this.probe(this.upgrades[i]);
+            }
+        }
+    }
+    /**
+     * Handles a packet.
+     *
+     * @api private
+     */
+    onPacket(packet) {
+        if ("opening" === this.readyState ||
+            "open" === this.readyState ||
+            "closing" === this.readyState) {
+            this.emitReserved("packet", packet);
+            // Socket is live - any packet counts
+            this.emitReserved("heartbeat");
+            switch (packet.type) {
+                case "open":
+                    this.onHandshake(JSON.parse(packet.data));
+                    break;
+                case "ping":
+                    this.resetPingTimeout();
+                    this.sendPacket("pong");
+                    this.emitReserved("ping");
+                    this.emitReserved("pong");
+                    break;
+                case "error":
+                    const err = new Error("server error");
+                    // @ts-ignore
+                    err.code = packet.data;
+                    this.onError(err);
+                    break;
+                case "message":
+                    this.emitReserved("data", packet.data);
+                    this.emitReserved("message", packet.data);
+                    break;
+            }
+        }
+        else {
+        }
+    }
+    /**
+     * Called upon handshake completion.
+     *
+     * @param {Object} data - handshake obj
+     * @api private
+     */
+    onHandshake(data) {
+        this.emitReserved("handshake", data);
+        this.id = data.sid;
+        this.transport.query.sid = data.sid;
+        this.upgrades = this.filterUpgrades(data.upgrades);
+        this.pingInterval = data.pingInterval;
+        this.pingTimeout = data.pingTimeout;
+        this.onOpen();
+        // In case open handler closes socket
+        if ("closed" === this.readyState)
+            return;
+        this.resetPingTimeout();
+    }
+    /**
+     * Sets and resets ping timeout timer based on server pings.
+     *
+     * @api private
+     */
+    resetPingTimeout() {
+        this.clearTimeoutFn(this.pingTimeoutTimer);
+        this.pingTimeoutTimer = this.setTimeoutFn(() => {
+            this.onClose("ping timeout");
+        }, this.pingInterval + this.pingTimeout);
+        if (this.opts.autoUnref) {
+            this.pingTimeoutTimer.unref();
+        }
+    }
+    /**
+     * Called on `drain` event
+     *
+     * @api private
+     */
+    onDrain() {
+        this.writeBuffer.splice(0, this.prevBufferLen);
+        // setting prevBufferLen = 0 is very important
+        // for example, when upgrading, upgrade packet is sent over,
+        // and a nonzero prevBufferLen could cause problems on `drain`
+        this.prevBufferLen = 0;
+        if (0 === this.writeBuffer.length) {
+            this.emitReserved("drain");
+        }
+        else {
+            this.flush();
+        }
+    }
+    /**
+     * Flush write buffers.
+     *
+     * @api private
+     */
+    flush() {
+        if ("closed" !== this.readyState &&
+            this.transport.writable &&
+            !this.upgrading &&
+            this.writeBuffer.length) {
+            this.transport.send(this.writeBuffer);
+            // keep track of current length of writeBuffer
+            // splice writeBuffer and callbackBuffer on `drain`
+            this.prevBufferLen = this.writeBuffer.length;
+            this.emitReserved("flush");
+        }
+    }
+    /**
+     * Sends a message.
+     *
+     * @param {String} message.
+     * @param {Function} callback function.
+     * @param {Object} options.
+     * @return {Socket} for chaining.
+     * @api public
+     */
+    write(msg, options, fn) {
+        this.sendPacket("message", msg, options, fn);
+        return this;
+    }
+    send(msg, options, fn) {
+        this.sendPacket("message", msg, options, fn);
+        return this;
+    }
+    /**
+     * Sends a packet.
+     *
+     * @param {String} packet type.
+     * @param {String} data.
+     * @param {Object} options.
+     * @param {Function} callback function.
+     * @api private
+     */
+    sendPacket(type, data, options, fn) {
+        if ("function" === typeof data) {
+            fn = data;
+            data = undefined;
+        }
+        if ("function" === typeof options) {
+            fn = options;
+            options = null;
+        }
+        if ("closing" === this.readyState || "closed" === this.readyState) {
+            return;
+        }
+        options = options || {};
+        options.compress = false !== options.compress;
+        const packet = {
+            type: type,
+            data: data,
+            options: options
+        };
+        this.emitReserved("packetCreate", packet);
+        this.writeBuffer.push(packet);
+        if (fn)
+            this.once("flush", fn);
+        this.flush();
+    }
+    /**
+     * Closes the connection.
+     *
+     * @api public
+     */
+    close() {
+        const close = () => {
+            this.onClose("forced close");
+            this.transport.close();
+        };
+        const cleanupAndClose = () => {
+            this.off("upgrade", cleanupAndClose);
+            this.off("upgradeError", cleanupAndClose);
+            close();
+        };
+        const waitForUpgrade = () => {
+            // wait for upgrade to finish since we can't send packets while pausing a transport
+            this.once("upgrade", cleanupAndClose);
+            this.once("upgradeError", cleanupAndClose);
+        };
+        if ("opening" === this.readyState || "open" === this.readyState) {
+            this.readyState = "closing";
+            if (this.writeBuffer.length) {
+                this.once("drain", () => {
+                    if (this.upgrading) {
+                        waitForUpgrade();
+                    }
+                    else {
+                        close();
+                    }
+                });
+            }
+            else if (this.upgrading) {
+                waitForUpgrade();
+            }
+            else {
+                close();
+            }
+        }
+        return this;
+    }
+    /**
+     * Called upon transport error
+     *
+     * @api private
+     */
+    onError(err) {
+        Socket.priorWebsocketSuccess = false;
+        this.emitReserved("error", err);
+        this.onClose("transport error", err);
+    }
+    /**
+     * Called upon transport close.
+     *
+     * @api private
+     */
+    onClose(reason, desc) {
+        if ("opening" === this.readyState ||
+            "open" === this.readyState ||
+            "closing" === this.readyState) {
+            // clear timers
+            this.clearTimeoutFn(this.pingTimeoutTimer);
+            // stop event from firing again for transport
+            this.transport.removeAllListeners("close");
+            // ensure transport won't stay open
+            this.transport.close();
+            // ignore further transport communication
+            this.transport.removeAllListeners();
+            if (typeof removeEventListener === "function") {
+                removeEventListener("offline", this.offlineEventListener, false);
+            }
+            // set ready state
+            this.readyState = "closed";
+            // clear session id
+            this.id = null;
+            // emit close event
+            this.emitReserved("close", reason, desc);
+            // clean buffers after, so users can still
+            // grab the buffers on `close` event
+            this.writeBuffer = [];
+            this.prevBufferLen = 0;
+        }
+    }
+    /**
+     * Filters upgrades, returning only those matching client transports.
+     *
+     * @param {Array} server upgrades
+     * @api private
+     *
+     */
+    filterUpgrades(upgrades) {
+        const filteredUpgrades = [];
+        let i = 0;
+        const j = upgrades.length;
+        for (; i < j; i++) {
+            if (~this.transports.indexOf(upgrades[i]))
+                filteredUpgrades.push(upgrades[i]);
+        }
+        return filteredUpgrades;
+    }
+}
+Socket.protocol = engine_io_parser__WEBPACK_IMPORTED_MODULE_5__["protocol"];
+function clone(obj) {
+    const o = {};
+    for (let i in obj) {
+        if (obj.hasOwnProperty(i)) {
+            o[i] = obj[i];
+        }
+    }
+    return o;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transport.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transport.js ***!
+  \**************************************************************/
+/*! exports provided: Transport */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Transport", function() { return Transport; });
+/* harmony import */ var engine_io_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/build/esm/index.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/index.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+
+
+
+class Transport extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_1__["Emitter"] {
+    /**
+     * Transport abstract constructor.
+     *
+     * @param {Object} options.
+     * @api private
+     */
+    constructor(opts) {
+        super();
+        this.writable = false;
+        Object(_util_js__WEBPACK_IMPORTED_MODULE_2__["installTimerFunctions"])(this, opts);
+        this.opts = opts;
+        this.query = opts.query;
+        this.readyState = "";
+        this.socket = opts.socket;
+    }
+    /**
+     * Emits an error.
+     *
+     * @param {String} str
+     * @return {Transport} for chaining
+     * @api protected
+     */
+    onError(msg, desc) {
+        const err = new Error(msg);
+        // @ts-ignore
+        err.type = "TransportError";
+        // @ts-ignore
+        err.description = desc;
+        super.emit("error", err);
+        return this;
+    }
+    /**
+     * Opens the transport.
+     *
+     * @api public
+     */
+    open() {
+        if ("closed" === this.readyState || "" === this.readyState) {
+            this.readyState = "opening";
+            this.doOpen();
+        }
+        return this;
+    }
+    /**
+     * Closes the transport.
+     *
+     * @api public
+     */
+    close() {
+        if ("opening" === this.readyState || "open" === this.readyState) {
+            this.doClose();
+            this.onClose();
+        }
+        return this;
+    }
+    /**
+     * Sends multiple packets.
+     *
+     * @param {Array} packets
+     * @api public
+     */
+    send(packets) {
+        if ("open" === this.readyState) {
+            this.write(packets);
+        }
+        else {
+            // this might happen if the transport was silently closed in the beforeunload event handler
+        }
+    }
+    /**
+     * Called upon open
+     *
+     * @api protected
+     */
+    onOpen() {
+        this.readyState = "open";
+        this.writable = true;
+        super.emit("open");
+    }
+    /**
+     * Called with data.
+     *
+     * @param {String} data
+     * @api protected
+     */
+    onData(data) {
+        const packet = Object(engine_io_parser__WEBPACK_IMPORTED_MODULE_0__["decodePacket"])(data, this.socket.binaryType);
+        this.onPacket(packet);
+    }
+    /**
+     * Called with a decoded packet.
+     *
+     * @api protected
+     */
+    onPacket(packet) {
+        super.emit("packet", packet);
+    }
+    /**
+     * Called upon close.
+     *
+     * @api protected
+     */
+    onClose() {
+        this.readyState = "closed";
+        super.emit("close");
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transports/index.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/index.js ***!
+  \*********************************************************************/
+/*! exports provided: transports */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transports", function() { return transports; });
+/* harmony import */ var _polling_xhr_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./polling-xhr.js */ "./node_modules/engine.io-client/build/esm/transports/polling-xhr.js");
+/* harmony import */ var _websocket_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./websocket.js */ "./node_modules/engine.io-client/build/esm/transports/websocket.js");
+
+
+const transports = {
+    websocket: _websocket_js__WEBPACK_IMPORTED_MODULE_1__["WS"],
+    polling: _polling_xhr_js__WEBPACK_IMPORTED_MODULE_0__["XHR"]
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transports/polling-xhr.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/polling-xhr.js ***!
+  \***************************************************************************/
+/*! exports provided: XHR, Request */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "XHR", function() { return XHR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Request", function() { return Request; });
+/* harmony import */ var _xmlhttprequest_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./xmlhttprequest.js */ "./node_modules/engine.io-client/build/esm/transports/xmlhttprequest.browser.js");
+/* harmony import */ var _globalThis_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../globalThis.js */ "./node_modules/engine.io-client/build/esm/globalThis.browser.js");
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/index.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _polling_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./polling.js */ "./node_modules/engine.io-client/build/esm/transports/polling.js");
 /* global attachEvent */
 
-const XMLHttpRequest = __webpack_require__(/*! ../../contrib/xmlhttprequest-ssl/XMLHttpRequest */ "./node_modules/engine.io-client/lib/xmlhttprequest.js");
-const Polling = __webpack_require__(/*! ./polling */ "./node_modules/engine.io-client/lib/transports/polling.js");
-const Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
-const { pick } = __webpack_require__(/*! ../util */ "./node_modules/engine.io-client/lib/util.js");
-const globalThis = __webpack_require__(/*! ../globalThis */ "./node_modules/engine.io-client/lib/globalThis.browser.js");
 
-const debug = __webpack_require__(/*! debug */ "./node_modules/engine.io-client/node_modules/debug/src/browser.js")("engine.io-client:polling-xhr");
+
+
 
 /**
  * Empty function
  */
-
-function empty() {}
-
-const hasXHR2 = (function() {
-  const xhr = new XMLHttpRequest({ xdomain: false });
-  return null != xhr.responseType;
+function empty() { }
+const hasXHR2 = (function () {
+    const xhr = new _xmlhttprequest_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
+        xdomain: false
+    });
+    return null != xhr.responseType;
 })();
-
-class XHR extends Polling {
-  /**
-   * XHR Polling constructor.
-   *
-   * @param {Object} opts
-   * @api public
-   */
-  constructor(opts) {
-    super(opts);
-
-    if (typeof location !== "undefined") {
-      const isSSL = "https:" === location.protocol;
-      let port = location.port;
-
-      // some user agents have empty `location.port`
-      if (!port) {
-        port = isSSL ? 443 : 80;
-      }
-
-      this.xd =
-        (typeof location !== "undefined" &&
-          opts.hostname !== location.hostname) ||
-        port !== opts.port;
-      this.xs = opts.secure !== isSSL;
+class XHR extends _polling_js__WEBPACK_IMPORTED_MODULE_4__["Polling"] {
+    /**
+     * XHR Polling constructor.
+     *
+     * @param {Object} opts
+     * @api public
+     */
+    constructor(opts) {
+        super(opts);
+        if (typeof location !== "undefined") {
+            const isSSL = "https:" === location.protocol;
+            let port = location.port;
+            // some user agents have empty `location.port`
+            if (!port) {
+                port = isSSL ? "443" : "80";
+            }
+            this.xd =
+                (typeof location !== "undefined" &&
+                    opts.hostname !== location.hostname) ||
+                    port !== opts.port;
+            this.xs = opts.secure !== isSSL;
+        }
+        /**
+         * XHR supports binary
+         */
+        const forceBase64 = opts && opts.forceBase64;
+        this.supportsBinary = hasXHR2 && !forceBase64;
     }
     /**
-     * XHR supports binary
+     * Creates a request.
+     *
+     * @param {String} method
+     * @api private
      */
-    const forceBase64 = opts && opts.forceBase64;
-    this.supportsBinary = hasXHR2 && !forceBase64;
-  }
-
-  /**
-   * Creates a request.
-   *
-   * @param {String} method
-   * @api private
-   */
-  request(opts = {}) {
-    Object.assign(opts, { xd: this.xd, xs: this.xs }, this.opts);
-    return new Request(this.uri(), opts);
-  }
-
-  /**
-   * Sends data.
-   *
-   * @param {String} data to send.
-   * @param {Function} called upon flush.
-   * @api private
-   */
-  doWrite(data, fn) {
-    const req = this.request({
-      method: "POST",
-      data: data
-    });
-    const self = this;
-    req.on("success", fn);
-    req.on("error", function(err) {
-      self.onError("xhr post error", err);
-    });
-  }
-
-  /**
-   * Starts a poll cycle.
-   *
-   * @api private
-   */
-  doPoll() {
-    debug("xhr poll");
-    const req = this.request();
-    const self = this;
-    req.on("data", function(data) {
-      self.onData(data);
-    });
-    req.on("error", function(err) {
-      self.onError("xhr poll error", err);
-    });
-    this.pollXhr = req;
-  }
+    request(opts = {}) {
+        Object.assign(opts, { xd: this.xd, xs: this.xs }, this.opts);
+        return new Request(this.uri(), opts);
+    }
+    /**
+     * Sends data.
+     *
+     * @param {String} data to send.
+     * @param {Function} called upon flush.
+     * @api private
+     */
+    doWrite(data, fn) {
+        const req = this.request({
+            method: "POST",
+            data: data
+        });
+        req.on("success", fn);
+        req.on("error", err => {
+            this.onError("xhr post error", err);
+        });
+    }
+    /**
+     * Starts a poll cycle.
+     *
+     * @api private
+     */
+    doPoll() {
+        const req = this.request();
+        req.on("data", this.onData.bind(this));
+        req.on("error", err => {
+            this.onError("xhr poll error", err);
+        });
+        this.pollXhr = req;
+    }
 }
-
-class Request extends Emitter {
-  /**
-   * Request constructor
-   *
-   * @param {Object} options
-   * @api public
-   */
-  constructor(uri, opts) {
-    super();
-    this.opts = opts;
-
-    this.method = opts.method || "GET";
-    this.uri = uri;
-    this.async = false !== opts.async;
-    this.data = undefined !== opts.data ? opts.data : null;
-
-    this.create();
-  }
-
-  /**
-   * Creates the XHR object and sends the request.
-   *
-   * @api private
-   */
-  create() {
-    const opts = pick(
-      this.opts,
-      "agent",
-      "enablesXDR",
-      "pfx",
-      "key",
-      "passphrase",
-      "cert",
-      "ca",
-      "ciphers",
-      "rejectUnauthorized",
-      "autoUnref"
-    );
-    opts.xdomain = !!this.opts.xd;
-    opts.xscheme = !!this.opts.xs;
-
-    const xhr = (this.xhr = new XMLHttpRequest(opts));
-    const self = this;
-
-    try {
-      debug("xhr open %s: %s", this.method, this.uri);
-      xhr.open(this.method, this.uri, this.async);
-      try {
-        if (this.opts.extraHeaders) {
-          xhr.setDisableHeaderCheck && xhr.setDisableHeaderCheck(true);
-          for (let i in this.opts.extraHeaders) {
-            if (this.opts.extraHeaders.hasOwnProperty(i)) {
-              xhr.setRequestHeader(i, this.opts.extraHeaders[i]);
-            }
-          }
-        }
-      } catch (e) {}
-
-      if ("POST" === this.method) {
+class Request extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_3__["Emitter"] {
+    /**
+     * Request constructor
+     *
+     * @param {Object} options
+     * @api public
+     */
+    constructor(uri, opts) {
+        super();
+        Object(_util_js__WEBPACK_IMPORTED_MODULE_2__["installTimerFunctions"])(this, opts);
+        this.opts = opts;
+        this.method = opts.method || "GET";
+        this.uri = uri;
+        this.async = false !== opts.async;
+        this.data = undefined !== opts.data ? opts.data : null;
+        this.create();
+    }
+    /**
+     * Creates the XHR object and sends the request.
+     *
+     * @api private
+     */
+    create() {
+        const opts = Object(_util_js__WEBPACK_IMPORTED_MODULE_2__["pick"])(this.opts, "agent", "pfx", "key", "passphrase", "cert", "ca", "ciphers", "rejectUnauthorized", "autoUnref");
+        opts.xdomain = !!this.opts.xd;
+        opts.xscheme = !!this.opts.xs;
+        const xhr = (this.xhr = new _xmlhttprequest_js__WEBPACK_IMPORTED_MODULE_0__["default"](opts));
         try {
-          xhr.setRequestHeader("Content-type", "text/plain;charset=UTF-8");
-        } catch (e) {}
-      }
-
-      try {
-        xhr.setRequestHeader("Accept", "*/*");
-      } catch (e) {}
-
-      // ie6 check
-      if ("withCredentials" in xhr) {
-        xhr.withCredentials = this.opts.withCredentials;
-      }
-
-      if (this.opts.requestTimeout) {
-        xhr.timeout = this.opts.requestTimeout;
-      }
-
-      if (this.hasXDR()) {
-        xhr.onload = function() {
-          self.onLoad();
-        };
-        xhr.onerror = function() {
-          self.onError(xhr.responseText);
-        };
-      } else {
-        xhr.onreadystatechange = function() {
-          if (4 !== xhr.readyState) return;
-          if (200 === xhr.status || 1223 === xhr.status) {
-            self.onLoad();
-          } else {
-            // make sure the `error` event handler that's user-set
-            // does not throw in the same tick and gets caught here
-            setTimeout(function() {
-              self.onError(typeof xhr.status === "number" ? xhr.status : 0);
+            xhr.open(this.method, this.uri, this.async);
+            try {
+                if (this.opts.extraHeaders) {
+                    xhr.setDisableHeaderCheck && xhr.setDisableHeaderCheck(true);
+                    for (let i in this.opts.extraHeaders) {
+                        if (this.opts.extraHeaders.hasOwnProperty(i)) {
+                            xhr.setRequestHeader(i, this.opts.extraHeaders[i]);
+                        }
+                    }
+                }
+            }
+            catch (e) { }
+            if ("POST" === this.method) {
+                try {
+                    xhr.setRequestHeader("Content-type", "text/plain;charset=UTF-8");
+                }
+                catch (e) { }
+            }
+            try {
+                xhr.setRequestHeader("Accept", "*/*");
+            }
+            catch (e) { }
+            // ie6 check
+            if ("withCredentials" in xhr) {
+                xhr.withCredentials = this.opts.withCredentials;
+            }
+            if (this.opts.requestTimeout) {
+                xhr.timeout = this.opts.requestTimeout;
+            }
+            xhr.onreadystatechange = () => {
+                if (4 !== xhr.readyState)
+                    return;
+                if (200 === xhr.status || 1223 === xhr.status) {
+                    this.onLoad();
+                }
+                else {
+                    // make sure the `error` event handler that's user-set
+                    // does not throw in the same tick and gets caught here
+                    this.setTimeoutFn(() => {
+                        this.onError(typeof xhr.status === "number" ? xhr.status : 0);
+                    }, 0);
+                }
+            };
+            xhr.send(this.data);
+        }
+        catch (e) {
+            // Need to defer since .create() is called directly from the constructor
+            // and thus the 'error' event can only be only bound *after* this exception
+            // occurs.  Therefore, also, we cannot throw here at all.
+            this.setTimeoutFn(() => {
+                this.onError(e);
             }, 0);
-          }
-        };
-      }
-
-      debug("xhr data %s", this.data);
-      xhr.send(this.data);
-    } catch (e) {
-      // Need to defer since .create() is called directly from the constructor
-      // and thus the 'error' event can only be only bound *after* this exception
-      // occurs.  Therefore, also, we cannot throw here at all.
-      setTimeout(function() {
-        self.onError(e);
-      }, 0);
-      return;
+            return;
+        }
+        if (typeof document !== "undefined") {
+            this.index = Request.requestsCount++;
+            Request.requests[this.index] = this;
+        }
     }
-
-    if (typeof document !== "undefined") {
-      this.index = Request.requestsCount++;
-      Request.requests[this.index] = this;
+    /**
+     * Called upon successful response.
+     *
+     * @api private
+     */
+    onSuccess() {
+        this.emit("success");
+        this.cleanup();
     }
-  }
-
-  /**
-   * Called upon successful response.
-   *
-   * @api private
-   */
-  onSuccess() {
-    this.emit("success");
-    this.cleanup();
-  }
-
-  /**
-   * Called if we have data.
-   *
-   * @api private
-   */
-  onData(data) {
-    this.emit("data", data);
-    this.onSuccess();
-  }
-
-  /**
-   * Called upon error.
-   *
-   * @api private
-   */
-  onError(err) {
-    this.emit("error", err);
-    this.cleanup(true);
-  }
-
-  /**
-   * Cleans up house.
-   *
-   * @api private
-   */
-  cleanup(fromError) {
-    if ("undefined" === typeof this.xhr || null === this.xhr) {
-      return;
+    /**
+     * Called if we have data.
+     *
+     * @api private
+     */
+    onData(data) {
+        this.emit("data", data);
+        this.onSuccess();
     }
-    // xmlhttprequest
-    if (this.hasXDR()) {
-      this.xhr.onload = this.xhr.onerror = empty;
-    } else {
-      this.xhr.onreadystatechange = empty;
+    /**
+     * Called upon error.
+     *
+     * @api private
+     */
+    onError(err) {
+        this.emit("error", err);
+        this.cleanup(true);
     }
-
-    if (fromError) {
-      try {
-        this.xhr.abort();
-      } catch (e) {}
+    /**
+     * Cleans up house.
+     *
+     * @api private
+     */
+    cleanup(fromError) {
+        if ("undefined" === typeof this.xhr || null === this.xhr) {
+            return;
+        }
+        this.xhr.onreadystatechange = empty;
+        if (fromError) {
+            try {
+                this.xhr.abort();
+            }
+            catch (e) { }
+        }
+        if (typeof document !== "undefined") {
+            delete Request.requests[this.index];
+        }
+        this.xhr = null;
     }
-
-    if (typeof document !== "undefined") {
-      delete Request.requests[this.index];
+    /**
+     * Called upon load.
+     *
+     * @api private
+     */
+    onLoad() {
+        const data = this.xhr.responseText;
+        if (data !== null) {
+            this.onData(data);
+        }
     }
-
-    this.xhr = null;
-  }
-
-  /**
-   * Called upon load.
-   *
-   * @api private
-   */
-  onLoad() {
-    const data = this.xhr.responseText;
-    if (data !== null) {
-      this.onData(data);
+    /**
+     * Aborts the request.
+     *
+     * @api public
+     */
+    abort() {
+        this.cleanup();
     }
-  }
-
-  /**
-   * Check if it has XDomainRequest.
-   *
-   * @api private
-   */
-  hasXDR() {
-    return typeof XDomainRequest !== "undefined" && !this.xs && this.enablesXDR;
-  }
-
-  /**
-   * Aborts the request.
-   *
-   * @api public
-   */
-  abort() {
-    this.cleanup();
-  }
 }
-
+Request.requestsCount = 0;
+Request.requests = {};
 /**
  * Aborts pending requests when unloading the window. This is needed to prevent
  * memory leaks (e.g. when using IE) and to ensure that no spurious error is
  * emitted.
  */
-
-Request.requestsCount = 0;
-Request.requests = {};
-
 if (typeof document !== "undefined") {
-  if (typeof attachEvent === "function") {
-    attachEvent("onunload", unloadHandler);
-  } else if (typeof addEventListener === "function") {
-    const terminationEvent = "onpagehide" in globalThis ? "pagehide" : "unload";
-    addEventListener(terminationEvent, unloadHandler, false);
-  }
+    // @ts-ignore
+    if (typeof attachEvent === "function") {
+        // @ts-ignore
+        attachEvent("onunload", unloadHandler);
+    }
+    else if (typeof addEventListener === "function") {
+        const terminationEvent = "onpagehide" in _globalThis_js__WEBPACK_IMPORTED_MODULE_1__["default"] ? "pagehide" : "unload";
+        addEventListener(terminationEvent, unloadHandler, false);
+    }
 }
-
 function unloadHandler() {
-  for (let i in Request.requests) {
-    if (Request.requests.hasOwnProperty(i)) {
-      Request.requests[i].abort();
+    for (let i in Request.requests) {
+        if (Request.requests.hasOwnProperty(i)) {
+            Request.requests[i].abort();
+        }
     }
-  }
 }
-
-module.exports = XHR;
-module.exports.Request = Request;
 
 
 /***/ }),
 
-/***/ "./node_modules/engine.io-client/lib/transports/polling.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/transports/polling.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/engine.io-client/build/esm/transports/polling.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/polling.js ***!
+  \***********************************************************************/
+/*! exports provided: Polling */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const Transport = __webpack_require__(/*! ../transport */ "./node_modules/engine.io-client/lib/transport.js");
-const parseqs = __webpack_require__(/*! parseqs */ "./node_modules/engine.io-client/node_modules/parseqs/index.js");
-const parser = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/index.js");
-const yeast = __webpack_require__(/*! yeast */ "./node_modules/yeast/index.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Polling", function() { return Polling; });
+/* harmony import */ var _transport_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../transport.js */ "./node_modules/engine.io-client/build/esm/transport.js");
+/* harmony import */ var yeast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! yeast */ "./node_modules/yeast/index.js");
+/* harmony import */ var yeast__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(yeast__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var parseqs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! parseqs */ "./node_modules/parseqs/index.js");
+/* harmony import */ var parseqs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(parseqs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var engine_io_parser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/build/esm/index.js");
 
-const debug = __webpack_require__(/*! debug */ "./node_modules/engine.io-client/node_modules/debug/src/browser.js")("engine.io-client:polling");
 
-class Polling extends Transport {
-  /**
-   * Transport name.
-   */
-  get name() {
-    return "polling";
-  }
 
-  /**
-   * Opens the socket (triggers polling). We write a PING message to determine
-   * when the transport is open.
-   *
-   * @api private
-   */
-  doOpen() {
-    this.poll();
-  }
 
-  /**
-   * Pauses polling.
-   *
-   * @param {Function} callback upon buffers are flushed and transport is paused
-   * @api private
-   */
-  pause(onPause) {
-    const self = this;
-
-    this.readyState = "pausing";
-
-    function pause() {
-      debug("paused");
-      self.readyState = "paused";
-      onPause();
+class Polling extends _transport_js__WEBPACK_IMPORTED_MODULE_0__["Transport"] {
+    constructor() {
+        super(...arguments);
+        this.polling = false;
     }
-
-    if (this.polling || !this.writable) {
-      let total = 0;
-
-      if (this.polling) {
-        debug("we are currently polling - waiting to pause");
-        total++;
-        this.once("pollComplete", function() {
-          debug("pre-pause polling complete");
-          --total || pause();
-        });
-      }
-
-      if (!this.writable) {
-        debug("we are currently writing - waiting to pause");
-        total++;
-        this.once("drain", function() {
-          debug("pre-pause writing complete");
-          --total || pause();
-        });
-      }
-    } else {
-      pause();
+    /**
+     * Transport name.
+     */
+    get name() {
+        return "polling";
     }
-  }
-
-  /**
-   * Starts polling cycle.
-   *
-   * @api public
-   */
-  poll() {
-    debug("polling");
-    this.polling = true;
-    this.doPoll();
-    this.emit("poll");
-  }
-
-  /**
-   * Overloads onData to detect payloads.
-   *
-   * @api private
-   */
-  onData(data) {
-    const self = this;
-    debug("polling got data %s", data);
-    const callback = function(packet, index, total) {
-      // if its the first message we consider the transport open
-      if ("opening" === self.readyState && packet.type === "open") {
-        self.onOpen();
-      }
-
-      // if its a close packet, we close the ongoing requests
-      if ("close" === packet.type) {
-        self.onClose();
-        return false;
-      }
-
-      // otherwise bypass onData and handle the message
-      self.onPacket(packet);
-    };
-
-    // decode payload
-    parser.decodePayload(data, this.socket.binaryType).forEach(callback);
-
-    // if an event did not trigger closing
-    if ("closed" !== this.readyState) {
-      // if we got data we're not polling
-      this.polling = false;
-      this.emit("pollComplete");
-
-      if ("open" === this.readyState) {
+    /**
+     * Opens the socket (triggers polling). We write a PING message to determine
+     * when the transport is open.
+     *
+     * @api private
+     */
+    doOpen() {
         this.poll();
-      } else {
-        debug('ignoring poll - transport state "%s"', this.readyState);
-      }
     }
-  }
-
-  /**
-   * For polling, send a close packet.
-   *
-   * @api private
-   */
-  doClose() {
-    const self = this;
-
-    function close() {
-      debug("writing close packet");
-      self.write([{ type: "close" }]);
+    /**
+     * Pauses polling.
+     *
+     * @param {Function} callback upon buffers are flushed and transport is paused
+     * @api private
+     */
+    pause(onPause) {
+        this.readyState = "pausing";
+        const pause = () => {
+            this.readyState = "paused";
+            onPause();
+        };
+        if (this.polling || !this.writable) {
+            let total = 0;
+            if (this.polling) {
+                total++;
+                this.once("pollComplete", function () {
+                    --total || pause();
+                });
+            }
+            if (!this.writable) {
+                total++;
+                this.once("drain", function () {
+                    --total || pause();
+                });
+            }
+        }
+        else {
+            pause();
+        }
     }
-
-    if ("open" === this.readyState) {
-      debug("transport open - closing");
-      close();
-    } else {
-      // in case we're trying to close while
-      // handshaking is in progress (GH-164)
-      debug("transport not open - deferring close");
-      this.once("open", close);
+    /**
+     * Starts polling cycle.
+     *
+     * @api public
+     */
+    poll() {
+        this.polling = true;
+        this.doPoll();
+        this.emit("poll");
     }
-  }
-
-  /**
-   * Writes a packets payload.
-   *
-   * @param {Array} data packets
-   * @param {Function} drain callback
-   * @api private
-   */
-  write(packets) {
-    this.writable = false;
-
-    parser.encodePayload(packets, data => {
-      this.doWrite(data, () => {
-        this.writable = true;
-        this.emit("drain");
-      });
-    });
-  }
-
-  /**
-   * Generates uri for connection.
-   *
-   * @api private
-   */
-  uri() {
-    let query = this.query || {};
-    const schema = this.opts.secure ? "https" : "http";
-    let port = "";
-
-    // cache busting is forced
-    if (false !== this.opts.timestampRequests) {
-      query[this.opts.timestampParam] = yeast();
+    /**
+     * Overloads onData to detect payloads.
+     *
+     * @api private
+     */
+    onData(data) {
+        const callback = packet => {
+            // if its the first message we consider the transport open
+            if ("opening" === this.readyState && packet.type === "open") {
+                this.onOpen();
+            }
+            // if its a close packet, we close the ongoing requests
+            if ("close" === packet.type) {
+                this.onClose();
+                return false;
+            }
+            // otherwise bypass onData and handle the message
+            this.onPacket(packet);
+        };
+        // decode payload
+        Object(engine_io_parser__WEBPACK_IMPORTED_MODULE_3__["decodePayload"])(data, this.socket.binaryType).forEach(callback);
+        // if an event did not trigger closing
+        if ("closed" !== this.readyState) {
+            // if we got data we're not polling
+            this.polling = false;
+            this.emit("pollComplete");
+            if ("open" === this.readyState) {
+                this.poll();
+            }
+            else {
+            }
+        }
     }
-
-    if (!this.supportsBinary && !query.sid) {
-      query.b64 = 1;
+    /**
+     * For polling, send a close packet.
+     *
+     * @api private
+     */
+    doClose() {
+        const close = () => {
+            this.write([{ type: "close" }]);
+        };
+        if ("open" === this.readyState) {
+            close();
+        }
+        else {
+            // in case we're trying to close while
+            // handshaking is in progress (GH-164)
+            this.once("open", close);
+        }
     }
-
-    query = parseqs.encode(query);
-
-    // avoid port if default for schema
-    if (
-      this.opts.port &&
-      (("https" === schema && Number(this.opts.port) !== 443) ||
-        ("http" === schema && Number(this.opts.port) !== 80))
-    ) {
-      port = ":" + this.opts.port;
+    /**
+     * Writes a packets payload.
+     *
+     * @param {Array} data packets
+     * @param {Function} drain callback
+     * @api private
+     */
+    write(packets) {
+        this.writable = false;
+        Object(engine_io_parser__WEBPACK_IMPORTED_MODULE_3__["encodePayload"])(packets, data => {
+            this.doWrite(data, () => {
+                this.writable = true;
+                this.emit("drain");
+            });
+        });
     }
-
-    // prepend ? to query
-    if (query.length) {
-      query = "?" + query;
+    /**
+     * Generates uri for connection.
+     *
+     * @api private
+     */
+    uri() {
+        let query = this.query || {};
+        const schema = this.opts.secure ? "https" : "http";
+        let port = "";
+        // cache busting is forced
+        if (false !== this.opts.timestampRequests) {
+            query[this.opts.timestampParam] = yeast__WEBPACK_IMPORTED_MODULE_1___default()();
+        }
+        if (!this.supportsBinary && !query.sid) {
+            query.b64 = 1;
+        }
+        // avoid port if default for schema
+        if (this.opts.port &&
+            (("https" === schema && Number(this.opts.port) !== 443) ||
+                ("http" === schema && Number(this.opts.port) !== 80))) {
+            port = ":" + this.opts.port;
+        }
+        const encodedQuery = parseqs__WEBPACK_IMPORTED_MODULE_2___default.a.encode(query);
+        const ipv6 = this.opts.hostname.indexOf(":") !== -1;
+        return (schema +
+            "://" +
+            (ipv6 ? "[" + this.opts.hostname + "]" : this.opts.hostname) +
+            port +
+            this.opts.path +
+            (encodedQuery.length ? "?" + encodedQuery : ""));
     }
-
-    const ipv6 = this.opts.hostname.indexOf(":") !== -1;
-    return (
-      schema +
-      "://" +
-      (ipv6 ? "[" + this.opts.hostname + "]" : this.opts.hostname) +
-      port +
-      this.opts.path +
-      query
-    );
-  }
 }
 
-module.exports = Polling;
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transports/websocket-constructor.browser.js":
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/websocket-constructor.browser.js ***!
+  \*********************************************************************************************/
+/*! exports provided: nextTick, WebSocket, usingBrowserWebSocket, defaultBinaryType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nextTick", function() { return nextTick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebSocket", function() { return WebSocket; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "usingBrowserWebSocket", function() { return usingBrowserWebSocket; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultBinaryType", function() { return defaultBinaryType; });
+/* harmony import */ var _globalThis_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../globalThis.js */ "./node_modules/engine.io-client/build/esm/globalThis.browser.js");
+
+const nextTick = (() => {
+    const isPromiseAvailable = typeof Promise === "function" && typeof Promise.resolve === "function";
+    if (isPromiseAvailable) {
+        return cb => Promise.resolve().then(cb);
+    }
+    else {
+        return (cb, setTimeoutFn) => setTimeoutFn(cb, 0);
+    }
+})();
+const WebSocket = _globalThis_js__WEBPACK_IMPORTED_MODULE_0__["default"].WebSocket || _globalThis_js__WEBPACK_IMPORTED_MODULE_0__["default"].MozWebSocket;
+const usingBrowserWebSocket = true;
+const defaultBinaryType = "arraybuffer";
 
 
 /***/ }),
 
-/***/ "./node_modules/engine.io-client/lib/transports/websocket-constructor.browser.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/transports/websocket-constructor.browser.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/engine.io-client/build/esm/transports/websocket.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/websocket.js ***!
+  \*************************************************************************/
+/*! exports provided: WS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const globalThis = __webpack_require__(/*! ../globalThis */ "./node_modules/engine.io-client/lib/globalThis.browser.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WS", function() { return WS; });
+/* harmony import */ var _transport_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../transport.js */ "./node_modules/engine.io-client/build/esm/transport.js");
+/* harmony import */ var parseqs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! parseqs */ "./node_modules/parseqs/index.js");
+/* harmony import */ var parseqs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(parseqs__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var yeast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! yeast */ "./node_modules/yeast/index.js");
+/* harmony import */ var yeast__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(yeast__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony import */ var _websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./websocket-constructor.js */ "./node_modules/engine.io-client/build/esm/transports/websocket-constructor.browser.js");
+/* harmony import */ var engine_io_parser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/build/esm/index.js");
 
-module.exports = {
-  WebSocket: globalThis.WebSocket || globalThis.MozWebSocket,
-  usingBrowserWebSocket: true,
-  defaultBinaryType: "arraybuffer"
-};
 
 
-/***/ }),
 
-/***/ "./node_modules/engine.io-client/lib/transports/websocket.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/transports/websocket.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {const Transport = __webpack_require__(/*! ../transport */ "./node_modules/engine.io-client/lib/transport.js");
-const parser = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/index.js");
-const parseqs = __webpack_require__(/*! parseqs */ "./node_modules/engine.io-client/node_modules/parseqs/index.js");
-const yeast = __webpack_require__(/*! yeast */ "./node_modules/yeast/index.js");
-const { pick } = __webpack_require__(/*! ../util */ "./node_modules/engine.io-client/lib/util.js");
-const {
-  WebSocket,
-  usingBrowserWebSocket,
-  defaultBinaryType
-} = __webpack_require__(/*! ./websocket-constructor */ "./node_modules/engine.io-client/lib/transports/websocket-constructor.browser.js");
-
-const debug = __webpack_require__(/*! debug */ "./node_modules/engine.io-client/node_modules/debug/src/browser.js")("engine.io-client:websocket");
 
 // detect ReactNative environment
-const isReactNative =
-  typeof navigator !== "undefined" &&
-  typeof navigator.product === "string" &&
-  navigator.product.toLowerCase() === "reactnative";
-
-class WS extends Transport {
-  /**
-   * WebSocket transport constructor.
-   *
-   * @api {Object} connection options
-   * @api public
-   */
-  constructor(opts) {
-    super(opts);
-
-    this.supportsBinary = !opts.forceBase64;
-  }
-
-  /**
-   * Transport name.
-   *
-   * @api public
-   */
-  get name() {
-    return "websocket";
-  }
-
-  /**
-   * Opens socket.
-   *
-   * @api private
-   */
-  doOpen() {
-    if (!this.check()) {
-      // let probe timeout
-      return;
+const isReactNative = typeof navigator !== "undefined" &&
+    typeof navigator.product === "string" &&
+    navigator.product.toLowerCase() === "reactnative";
+class WS extends _transport_js__WEBPACK_IMPORTED_MODULE_0__["Transport"] {
+    /**
+     * WebSocket transport constructor.
+     *
+     * @api {Object} connection options
+     * @api public
+     */
+    constructor(opts) {
+        super(opts);
+        this.supportsBinary = !opts.forceBase64;
     }
-
-    const uri = this.uri();
-    const protocols = this.opts.protocols;
-
-    // React Native only supports the 'headers' option, and will print a warning if anything else is passed
-    const opts = isReactNative
-      ? {}
-      : pick(
-          this.opts,
-          "agent",
-          "perMessageDeflate",
-          "pfx",
-          "key",
-          "passphrase",
-          "cert",
-          "ca",
-          "ciphers",
-          "rejectUnauthorized",
-          "localAddress",
-          "protocolVersion",
-          "origin",
-          "maxPayload",
-          "family",
-          "checkServerIdentity"
-        );
-
-    if (this.opts.extraHeaders) {
-      opts.headers = this.opts.extraHeaders;
+    /**
+     * Transport name.
+     *
+     * @api public
+     */
+    get name() {
+        return "websocket";
     }
-
-    try {
-      this.ws =
-        usingBrowserWebSocket && !isReactNative
-          ? protocols
-            ? new WebSocket(uri, protocols)
-            : new WebSocket(uri)
-          : new WebSocket(uri, protocols, opts);
-    } catch (err) {
-      return this.emit("error", err);
+    /**
+     * Opens socket.
+     *
+     * @api private
+     */
+    doOpen() {
+        if (!this.check()) {
+            // let probe timeout
+            return;
+        }
+        const uri = this.uri();
+        const protocols = this.opts.protocols;
+        // React Native only supports the 'headers' option, and will print a warning if anything else is passed
+        const opts = isReactNative
+            ? {}
+            : Object(_util_js__WEBPACK_IMPORTED_MODULE_3__["pick"])(this.opts, "agent", "perMessageDeflate", "pfx", "key", "passphrase", "cert", "ca", "ciphers", "rejectUnauthorized", "localAddress", "protocolVersion", "origin", "maxPayload", "family", "checkServerIdentity");
+        if (this.opts.extraHeaders) {
+            opts.headers = this.opts.extraHeaders;
+        }
+        try {
+            this.ws =
+                _websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["usingBrowserWebSocket"] && !isReactNative
+                    ? protocols
+                        ? new _websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["WebSocket"](uri, protocols)
+                        : new _websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["WebSocket"](uri)
+                    : new _websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["WebSocket"](uri, protocols, opts);
+        }
+        catch (err) {
+            return this.emit("error", err);
+        }
+        this.ws.binaryType = this.socket.binaryType || _websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["defaultBinaryType"];
+        this.addEventListeners();
     }
-
-    this.ws.binaryType = this.socket.binaryType || defaultBinaryType;
-
-    this.addEventListeners();
-  }
-
-  /**
-   * Adds event listeners to the socket
-   *
-   * @api private
-   */
-  addEventListeners() {
-    this.ws.onopen = () => {
-      if (this.opts.autoUnref) {
-        this.ws._socket.unref();
-      }
-      this.onOpen();
-    };
-    this.ws.onclose = this.onClose.bind(this);
-    this.ws.onmessage = ev => this.onData(ev.data);
-    this.ws.onerror = e => this.onError("websocket error", e);
-  }
-
-  /**
-   * Writes data to socket.
-   *
-   * @param {Array} array of packets.
-   * @api private
-   */
-  write(packets) {
-    const self = this;
-    this.writable = false;
-
-    // encodePacket efficient as it uses WS framing
-    // no need for encodePayload
-    let total = packets.length;
-    let i = 0;
-    const l = total;
-    for (; i < l; i++) {
-      (function(packet) {
-        parser.encodePacket(packet, self.supportsBinary, function(data) {
-          // always create a new object (GH-437)
-          const opts = {};
-          if (!usingBrowserWebSocket) {
-            if (packet.options) {
-              opts.compress = packet.options.compress;
+    /**
+     * Adds event listeners to the socket
+     *
+     * @api private
+     */
+    addEventListeners() {
+        this.ws.onopen = () => {
+            if (this.opts.autoUnref) {
+                this.ws._socket.unref();
             }
-
-            if (self.opts.perMessageDeflate) {
-              const len =
-                "string" === typeof data
-                  ? Buffer.byteLength(data)
-                  : data.length;
-              if (len < self.opts.perMessageDeflate.threshold) {
-                opts.compress = false;
-              }
-            }
-          }
-
-          // Sometimes the websocket has already been closed but the browser didn't
-          // have a chance of informing us about it yet, in that case send will
-          // throw an error
-          try {
-            if (usingBrowserWebSocket) {
-              // TypeError is thrown when passing the second argument on Safari
-              self.ws.send(data);
-            } else {
-              self.ws.send(data, opts);
-            }
-          } catch (e) {
-            debug("websocket closed before onclose event");
-          }
-
-          --total || done();
-        });
-      })(packets[i]);
+            this.onOpen();
+        };
+        this.ws.onclose = this.onClose.bind(this);
+        this.ws.onmessage = ev => this.onData(ev.data);
+        this.ws.onerror = e => this.onError("websocket error", e);
     }
-
-    function done() {
-      self.emit("flush");
-
-      // fake drain
-      // defer to next tick to allow Socket to clear writeBuffer
-      setTimeout(function() {
-        self.writable = true;
-        self.emit("drain");
-      }, 0);
+    /**
+     * Writes data to socket.
+     *
+     * @param {Array} array of packets.
+     * @api private
+     */
+    write(packets) {
+        this.writable = false;
+        // encodePacket efficient as it uses WS framing
+        // no need for encodePayload
+        for (let i = 0; i < packets.length; i++) {
+            const packet = packets[i];
+            const lastPacket = i === packets.length - 1;
+            Object(engine_io_parser__WEBPACK_IMPORTED_MODULE_5__["encodePacket"])(packet, this.supportsBinary, data => {
+                // always create a new object (GH-437)
+                const opts = {};
+                if (!_websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["usingBrowserWebSocket"]) {
+                    if (packet.options) {
+                        opts.compress = packet.options.compress;
+                    }
+                    if (this.opts.perMessageDeflate) {
+                        const len = "string" === typeof data ? Buffer.byteLength(data) : data.length;
+                        if (len < this.opts.perMessageDeflate.threshold) {
+                            opts.compress = false;
+                        }
+                    }
+                }
+                // Sometimes the websocket has already been closed but the browser didn't
+                // have a chance of informing us about it yet, in that case send will
+                // throw an error
+                try {
+                    if (_websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["usingBrowserWebSocket"]) {
+                        // TypeError is thrown when passing the second argument on Safari
+                        this.ws.send(data);
+                    }
+                    else {
+                        this.ws.send(data, opts);
+                    }
+                }
+                catch (e) {
+                }
+                if (lastPacket) {
+                    // fake drain
+                    // defer to next tick to allow Socket to clear writeBuffer
+                    Object(_websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["nextTick"])(() => {
+                        this.writable = true;
+                        this.emit("drain");
+                    }, this.setTimeoutFn);
+                }
+            });
+        }
     }
-  }
-
-  /**
-   * Called upon close
-   *
-   * @api private
-   */
-  onClose() {
-    Transport.prototype.onClose.call(this);
-  }
-
-  /**
-   * Closes socket.
-   *
-   * @api private
-   */
-  doClose() {
-    if (typeof this.ws !== "undefined") {
-      this.ws.close();
-      this.ws = null;
+    /**
+     * Closes socket.
+     *
+     * @api private
+     */
+    doClose() {
+        if (typeof this.ws !== "undefined") {
+            this.ws.close();
+            this.ws = null;
+        }
     }
-  }
-
-  /**
-   * Generates uri for connection.
-   *
-   * @api private
-   */
-  uri() {
-    let query = this.query || {};
-    const schema = this.opts.secure ? "wss" : "ws";
-    let port = "";
-
-    // avoid port if default for schema
-    if (
-      this.opts.port &&
-      (("wss" === schema && Number(this.opts.port) !== 443) ||
-        ("ws" === schema && Number(this.opts.port) !== 80))
-    ) {
-      port = ":" + this.opts.port;
+    /**
+     * Generates uri for connection.
+     *
+     * @api private
+     */
+    uri() {
+        let query = this.query || {};
+        const schema = this.opts.secure ? "wss" : "ws";
+        let port = "";
+        // avoid port if default for schema
+        if (this.opts.port &&
+            (("wss" === schema && Number(this.opts.port) !== 443) ||
+                ("ws" === schema && Number(this.opts.port) !== 80))) {
+            port = ":" + this.opts.port;
+        }
+        // append timestamp to URI
+        if (this.opts.timestampRequests) {
+            query[this.opts.timestampParam] = yeast__WEBPACK_IMPORTED_MODULE_2___default()();
+        }
+        // communicate binary support capabilities
+        if (!this.supportsBinary) {
+            query.b64 = 1;
+        }
+        const encodedQuery = parseqs__WEBPACK_IMPORTED_MODULE_1___default.a.encode(query);
+        const ipv6 = this.opts.hostname.indexOf(":") !== -1;
+        return (schema +
+            "://" +
+            (ipv6 ? "[" + this.opts.hostname + "]" : this.opts.hostname) +
+            port +
+            this.opts.path +
+            (encodedQuery.length ? "?" + encodedQuery : ""));
     }
-
-    // append timestamp to URI
-    if (this.opts.timestampRequests) {
-      query[this.opts.timestampParam] = yeast();
+    /**
+     * Feature detection for WebSocket.
+     *
+     * @return {Boolean} whether this transport is available.
+     * @api public
+     */
+    check() {
+        return (!!_websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["WebSocket"] &&
+            !("__initialize" in _websocket_constructor_js__WEBPACK_IMPORTED_MODULE_4__["WebSocket"] && this.name === WS.prototype.name));
     }
-
-    // communicate binary support capabilities
-    if (!this.supportsBinary) {
-      query.b64 = 1;
-    }
-
-    query = parseqs.encode(query);
-
-    // prepend ? to query
-    if (query.length) {
-      query = "?" + query;
-    }
-
-    const ipv6 = this.opts.hostname.indexOf(":") !== -1;
-    return (
-      schema +
-      "://" +
-      (ipv6 ? "[" + this.opts.hostname + "]" : this.opts.hostname) +
-      port +
-      this.opts.path +
-      query
-    );
-  }
-
-  /**
-   * Feature detection for WebSocket.
-   *
-   * @return {Boolean} whether this transport is available.
-   * @api public
-   */
-  check() {
-    return (
-      !!WebSocket &&
-      !("__initialize" in WebSocket && this.name === WS.prototype.name)
-    );
-  }
 }
 
-module.exports = WS;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../buffer/index.js */ "./node_modules/buffer/index.js").Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../buffer/index.js */ "./node_modules/buffer/index.js").Buffer))
 
 /***/ }),
 
-/***/ "./node_modules/engine.io-client/lib/util.js":
-/*!***************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/util.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/engine.io-client/build/esm/transports/xmlhttprequest.browser.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/xmlhttprequest.browser.js ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports.pick = (obj, ...attr) => {
-  return attr.reduce((acc, k) => {
-    if (obj.hasOwnProperty(k)) {
-      acc[k] = obj[k];
-    }
-    return acc;
-  }, {});
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/lib/xmlhttprequest.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/engine.io-client/lib/xmlhttprequest.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var has_cors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! has-cors */ "./node_modules/has-cors/index.js");
+/* harmony import */ var has_cors__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(has_cors__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _globalThis_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../globalThis.js */ "./node_modules/engine.io-client/build/esm/globalThis.browser.js");
 // browser shim for xmlhttprequest module
 
-const hasCORS = __webpack_require__(/*! has-cors */ "./node_modules/has-cors/index.js");
-const globalThis = __webpack_require__(/*! ./globalThis */ "./node_modules/engine.io-client/lib/globalThis.browser.js");
 
-module.exports = function(opts) {
-  const xdomain = opts.xdomain;
-
-  // scheme must be same when usign XDomainRequest
-  // http://blogs.msdn.com/b/ieinternals/archive/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds.aspx
-  const xscheme = opts.xscheme;
-
-  // XDomainRequest has a flow of not sending cookie, therefore it should be disabled as a default.
-  // https://github.com/Automattic/engine.io-client/pull/217
-  const enablesXDR = opts.enablesXDR;
-
-  // XMLHttpRequest can be disabled on IE
-  try {
-    if ("undefined" !== typeof XMLHttpRequest && (!xdomain || hasCORS)) {
-      return new XMLHttpRequest();
-    }
-  } catch (e) {}
-
-  // Use XDomainRequest for IE8 if enablesXDR is true
-  // because loading bar keeps flashing when using jsonp-polling
-  // https://github.com/yujiosaka/socke.io-ie8-loading-example
-  try {
-    if ("undefined" !== typeof XDomainRequest && !xscheme && enablesXDR) {
-      return new XDomainRequest();
-    }
-  } catch (e) {}
-
-  if (!xdomain) {
+/* harmony default export */ __webpack_exports__["default"] = (function (opts) {
+    const xdomain = opts.xdomain;
+    // XMLHttpRequest can be disabled on IE
     try {
-      return new globalThis[["Active"].concat("Object").join("X")](
-        "Microsoft.XMLHTTP"
-      );
-    } catch (e) {}
-  }
-};
+        if ("undefined" !== typeof XMLHttpRequest && (!xdomain || has_cors__WEBPACK_IMPORTED_MODULE_0___default.a)) {
+            return new XMLHttpRequest();
+        }
+    }
+    catch (e) { }
+    if (!xdomain) {
+        try {
+            return new _globalThis_js__WEBPACK_IMPORTED_MODULE_1__["default"][["Active"].concat("Object").join("X")]("Microsoft.XMLHTTP");
+        }
+        catch (e) { }
+    }
+});
 
 
 /***/ }),
 
-/***/ "./node_modules/engine.io-client/node_modules/base64-arraybuffer/lib/base64-arraybuffer.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/engine.io-client/node_modules/base64-arraybuffer/lib/base64-arraybuffer.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/engine.io-client/build/esm/util.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/util.js ***!
+  \*********************************************************/
+/*! exports provided: pick, installTimerFunctions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/*
- * base64-arraybuffer
- * https://github.com/niklasvh/base64-arraybuffer
- *
- * Copyright (c) 2012 Niklas von Hertzen
- * Licensed under the MIT license.
- */
-(function(chars){
-  "use strict";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pick", function() { return pick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "installTimerFunctions", function() { return installTimerFunctions; });
+/* harmony import */ var _globalThis_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globalThis.js */ "./node_modules/engine.io-client/build/esm/globalThis.browser.js");
 
-  exports.encode = function(arraybuffer) {
-    var bytes = new Uint8Array(arraybuffer),
-    i, len = bytes.length, base64 = "";
-
-    for (i = 0; i < len; i+=3) {
-      base64 += chars[bytes[i] >> 2];
-      base64 += chars[((bytes[i] & 3) << 4) | (bytes[i + 1] >> 4)];
-      base64 += chars[((bytes[i + 1] & 15) << 2) | (bytes[i + 2] >> 6)];
-      base64 += chars[bytes[i + 2] & 63];
+function pick(obj, ...attr) {
+    return attr.reduce((acc, k) => {
+        if (obj.hasOwnProperty(k)) {
+            acc[k] = obj[k];
+        }
+        return acc;
+    }, {});
+}
+// Keep a reference to the real timeout functions so they can be used when overridden
+const NATIVE_SET_TIMEOUT = setTimeout;
+const NATIVE_CLEAR_TIMEOUT = clearTimeout;
+function installTimerFunctions(obj, opts) {
+    if (opts.useNativeTimers) {
+        obj.setTimeoutFn = NATIVE_SET_TIMEOUT.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
+        obj.clearTimeoutFn = NATIVE_CLEAR_TIMEOUT.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
     }
-
-    if ((len % 3) === 2) {
-      base64 = base64.substring(0, base64.length - 1) + "=";
-    } else if (len % 3 === 1) {
-      base64 = base64.substring(0, base64.length - 2) + "==";
+    else {
+        obj.setTimeoutFn = setTimeout.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
+        obj.clearTimeoutFn = clearTimeout.bind(_globalThis_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
     }
-
-    return base64;
-  };
-
-  exports.decode =  function(base64) {
-    var bufferLength = base64.length * 0.75,
-    len = base64.length, i, p = 0,
-    encoded1, encoded2, encoded3, encoded4;
-
-    if (base64[base64.length - 1] === "=") {
-      bufferLength--;
-      if (base64[base64.length - 2] === "=") {
-        bufferLength--;
-      }
-    }
-
-    var arraybuffer = new ArrayBuffer(bufferLength),
-    bytes = new Uint8Array(arraybuffer);
-
-    for (i = 0; i < len; i+=4) {
-      encoded1 = chars.indexOf(base64[i]);
-      encoded2 = chars.indexOf(base64[i+1]);
-      encoded3 = chars.indexOf(base64[i+2]);
-      encoded4 = chars.indexOf(base64[i+3]);
-
-      bytes[p++] = (encoded1 << 2) | (encoded2 >> 4);
-      bytes[p++] = ((encoded2 & 15) << 4) | (encoded3 >> 2);
-      bytes[p++] = ((encoded3 & 3) << 6) | (encoded4 & 63);
-    }
-
-    return arraybuffer;
-  };
-})("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
+}
 
 
 /***/ }),
 
-/***/ "./node_modules/engine.io-client/node_modules/debug/src/browser.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/engine.io-client/node_modules/debug/src/browser.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {/* eslint-env browser */
-
-/**
- * This is the web browser implementation of `debug()`.
- */
-
-exports.formatArgs = formatArgs;
-exports.save = save;
-exports.load = load;
-exports.useColors = useColors;
-exports.storage = localstorage();
-exports.destroy = (() => {
-	let warned = false;
-
-	return () => {
-		if (!warned) {
-			warned = true;
-			console.warn('Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.');
-		}
-	};
-})();
-
-/**
- * Colors.
- */
-
-exports.colors = [
-	'#0000CC',
-	'#0000FF',
-	'#0033CC',
-	'#0033FF',
-	'#0066CC',
-	'#0066FF',
-	'#0099CC',
-	'#0099FF',
-	'#00CC00',
-	'#00CC33',
-	'#00CC66',
-	'#00CC99',
-	'#00CCCC',
-	'#00CCFF',
-	'#3300CC',
-	'#3300FF',
-	'#3333CC',
-	'#3333FF',
-	'#3366CC',
-	'#3366FF',
-	'#3399CC',
-	'#3399FF',
-	'#33CC00',
-	'#33CC33',
-	'#33CC66',
-	'#33CC99',
-	'#33CCCC',
-	'#33CCFF',
-	'#6600CC',
-	'#6600FF',
-	'#6633CC',
-	'#6633FF',
-	'#66CC00',
-	'#66CC33',
-	'#9900CC',
-	'#9900FF',
-	'#9933CC',
-	'#9933FF',
-	'#99CC00',
-	'#99CC33',
-	'#CC0000',
-	'#CC0033',
-	'#CC0066',
-	'#CC0099',
-	'#CC00CC',
-	'#CC00FF',
-	'#CC3300',
-	'#CC3333',
-	'#CC3366',
-	'#CC3399',
-	'#CC33CC',
-	'#CC33FF',
-	'#CC6600',
-	'#CC6633',
-	'#CC9900',
-	'#CC9933',
-	'#CCCC00',
-	'#CCCC33',
-	'#FF0000',
-	'#FF0033',
-	'#FF0066',
-	'#FF0099',
-	'#FF00CC',
-	'#FF00FF',
-	'#FF3300',
-	'#FF3333',
-	'#FF3366',
-	'#FF3399',
-	'#FF33CC',
-	'#FF33FF',
-	'#FF6600',
-	'#FF6633',
-	'#FF9900',
-	'#FF9933',
-	'#FFCC00',
-	'#FFCC33'
-];
-
-/**
- * Currently only WebKit-based Web Inspectors, Firefox >= v31,
- * and the Firebug extension (any Firefox version) are known
- * to support "%c" CSS customizations.
- *
- * TODO: add a `localStorage` variable to explicitly enable/disable colors
- */
-
-// eslint-disable-next-line complexity
-function useColors() {
-	// NB: In an Electron preload script, document will be defined but not fully
-	// initialized. Since we know we're in Chrome, we'll just detect this case
-	// explicitly
-	if (typeof window !== 'undefined' && window.process && (window.process.type === 'renderer' || window.process.__nwjs)) {
-		return true;
-	}
-
-	// Internet Explorer and Edge do not support colors.
-	if (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/)) {
-		return false;
-	}
-
-	// Is webkit? http://stackoverflow.com/a/16459606/376773
-	// document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
-	return (typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance) ||
-		// Is firebug? http://stackoverflow.com/a/398120/376773
-		(typeof window !== 'undefined' && window.console && (window.console.firebug || (window.console.exception && window.console.table))) ||
-		// Is firefox >= v31?
-		// https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-		(typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31) ||
-		// Double check webkit in userAgent just in case we are in a worker
-		(typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
-}
-
-/**
- * Colorize log arguments if enabled.
- *
- * @api public
- */
-
-function formatArgs(args) {
-	args[0] = (this.useColors ? '%c' : '') +
-		this.namespace +
-		(this.useColors ? ' %c' : ' ') +
-		args[0] +
-		(this.useColors ? '%c ' : ' ') +
-		'+' + module.exports.humanize(this.diff);
-
-	if (!this.useColors) {
-		return;
-	}
-
-	const c = 'color: ' + this.color;
-	args.splice(1, 0, c, 'color: inherit');
-
-	// The final "%c" is somewhat tricky, because there could be other
-	// arguments passed either before or after the %c, so we need to
-	// figure out the correct index to insert the CSS into
-	let index = 0;
-	let lastC = 0;
-	args[0].replace(/%[a-zA-Z%]/g, match => {
-		if (match === '%%') {
-			return;
-		}
-		index++;
-		if (match === '%c') {
-			// We only are interested in the *last* %c
-			// (the user may have provided their own)
-			lastC = index;
-		}
-	});
-
-	args.splice(lastC, 0, c);
-}
-
-/**
- * Invokes `console.debug()` when available.
- * No-op when `console.debug` is not a "function".
- * If `console.debug` is not available, falls back
- * to `console.log`.
- *
- * @api public
- */
-exports.log = console.debug || console.log || (() => {});
-
-/**
- * Save `namespaces`.
- *
- * @param {String} namespaces
- * @api private
- */
-function save(namespaces) {
-	try {
-		if (namespaces) {
-			exports.storage.setItem('debug', namespaces);
-		} else {
-			exports.storage.removeItem('debug');
-		}
-	} catch (error) {
-		// Swallow
-		// XXX (@Qix-) should we be logging these?
-	}
-}
-
-/**
- * Load `namespaces`.
- *
- * @return {String} returns the previously persisted debug modes
- * @api private
- */
-function load() {
-	let r;
-	try {
-		r = exports.storage.getItem('debug');
-	} catch (error) {
-		// Swallow
-		// XXX (@Qix-) should we be logging these?
-	}
-
-	// If debug isn't set in LS, and we're in Electron, try to load $DEBUG
-	if (!r && typeof process !== 'undefined' && 'env' in process) {
-		r = process.env.DEBUG;
-	}
-
-	return r;
-}
-
-/**
- * Localstorage attempts to return the localstorage.
- *
- * This is necessary because safari throws
- * when a user disables cookies/localstorage
- * and you attempt to access it.
- *
- * @return {LocalStorage}
- * @api private
- */
-
-function localstorage() {
-	try {
-		// TVMLKit (Apple TV JS Runtime) does not have a window object, just localStorage in the global context
-		// The Browser also has localStorage in the global context.
-		return localStorage;
-	} catch (error) {
-		// Swallow
-		// XXX (@Qix-) should we be logging these?
-	}
-}
-
-module.exports = __webpack_require__(/*! ./common */ "./node_modules/engine.io-client/node_modules/debug/src/common.js")(exports);
-
-const {formatters} = module.exports;
-
-/**
- * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
- */
-
-formatters.j = function (v) {
-	try {
-		return JSON.stringify(v);
-	} catch (error) {
-		return '[UnexpectedJSONParseError]: ' + error.message;
-	}
-};
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../process/browser.js */ "./node_modules/process/browser.js")))
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/node_modules/debug/src/common.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/engine.io-client/node_modules/debug/src/common.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * This is the common logic for both the Node.js and web browser
- * implementations of `debug()`.
- */
-
-function setup(env) {
-	createDebug.debug = createDebug;
-	createDebug.default = createDebug;
-	createDebug.coerce = coerce;
-	createDebug.disable = disable;
-	createDebug.enable = enable;
-	createDebug.enabled = enabled;
-	createDebug.humanize = __webpack_require__(/*! ms */ "./node_modules/ms/index.js");
-	createDebug.destroy = destroy;
-
-	Object.keys(env).forEach(key => {
-		createDebug[key] = env[key];
-	});
-
-	/**
-	* The currently active debug mode names, and names to skip.
-	*/
-
-	createDebug.names = [];
-	createDebug.skips = [];
-
-	/**
-	* Map of special "%n" handling functions, for the debug "format" argument.
-	*
-	* Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
-	*/
-	createDebug.formatters = {};
-
-	/**
-	* Selects a color for a debug namespace
-	* @param {String} namespace The namespace string for the for the debug instance to be colored
-	* @return {Number|String} An ANSI color code for the given namespace
-	* @api private
-	*/
-	function selectColor(namespace) {
-		let hash = 0;
-
-		for (let i = 0; i < namespace.length; i++) {
-			hash = ((hash << 5) - hash) + namespace.charCodeAt(i);
-			hash |= 0; // Convert to 32bit integer
-		}
-
-		return createDebug.colors[Math.abs(hash) % createDebug.colors.length];
-	}
-	createDebug.selectColor = selectColor;
-
-	/**
-	* Create a debugger with the given `namespace`.
-	*
-	* @param {String} namespace
-	* @return {Function}
-	* @api public
-	*/
-	function createDebug(namespace) {
-		let prevTime;
-		let enableOverride = null;
-
-		function debug(...args) {
-			// Disabled?
-			if (!debug.enabled) {
-				return;
-			}
-
-			const self = debug;
-
-			// Set `diff` timestamp
-			const curr = Number(new Date());
-			const ms = curr - (prevTime || curr);
-			self.diff = ms;
-			self.prev = prevTime;
-			self.curr = curr;
-			prevTime = curr;
-
-			args[0] = createDebug.coerce(args[0]);
-
-			if (typeof args[0] !== 'string') {
-				// Anything else let's inspect with %O
-				args.unshift('%O');
-			}
-
-			// Apply any `formatters` transformations
-			let index = 0;
-			args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
-				// If we encounter an escaped % then don't increase the array index
-				if (match === '%%') {
-					return '%';
-				}
-				index++;
-				const formatter = createDebug.formatters[format];
-				if (typeof formatter === 'function') {
-					const val = args[index];
-					match = formatter.call(self, val);
-
-					// Now we need to remove `args[index]` since it's inlined in the `format`
-					args.splice(index, 1);
-					index--;
-				}
-				return match;
-			});
-
-			// Apply env-specific formatting (colors, etc.)
-			createDebug.formatArgs.call(self, args);
-
-			const logFn = self.log || createDebug.log;
-			logFn.apply(self, args);
-		}
-
-		debug.namespace = namespace;
-		debug.useColors = createDebug.useColors();
-		debug.color = createDebug.selectColor(namespace);
-		debug.extend = extend;
-		debug.destroy = createDebug.destroy; // XXX Temporary. Will be removed in the next major release.
-
-		Object.defineProperty(debug, 'enabled', {
-			enumerable: true,
-			configurable: false,
-			get: () => enableOverride === null ? createDebug.enabled(namespace) : enableOverride,
-			set: v => {
-				enableOverride = v;
-			}
-		});
-
-		// Env-specific initialization logic for debug instances
-		if (typeof createDebug.init === 'function') {
-			createDebug.init(debug);
-		}
-
-		return debug;
-	}
-
-	function extend(namespace, delimiter) {
-		const newDebug = createDebug(this.namespace + (typeof delimiter === 'undefined' ? ':' : delimiter) + namespace);
-		newDebug.log = this.log;
-		return newDebug;
-	}
-
-	/**
-	* Enables a debug mode by namespaces. This can include modes
-	* separated by a colon and wildcards.
-	*
-	* @param {String} namespaces
-	* @api public
-	*/
-	function enable(namespaces) {
-		createDebug.save(namespaces);
-
-		createDebug.names = [];
-		createDebug.skips = [];
-
-		let i;
-		const split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
-		const len = split.length;
-
-		for (i = 0; i < len; i++) {
-			if (!split[i]) {
-				// ignore empty strings
-				continue;
-			}
-
-			namespaces = split[i].replace(/\*/g, '.*?');
-
-			if (namespaces[0] === '-') {
-				createDebug.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
-			} else {
-				createDebug.names.push(new RegExp('^' + namespaces + '$'));
-			}
-		}
-	}
-
-	/**
-	* Disable debug output.
-	*
-	* @return {String} namespaces
-	* @api public
-	*/
-	function disable() {
-		const namespaces = [
-			...createDebug.names.map(toNamespace),
-			...createDebug.skips.map(toNamespace).map(namespace => '-' + namespace)
-		].join(',');
-		createDebug.enable('');
-		return namespaces;
-	}
-
-	/**
-	* Returns true if the given mode name is enabled, false otherwise.
-	*
-	* @param {String} name
-	* @return {Boolean}
-	* @api public
-	*/
-	function enabled(name) {
-		if (name[name.length - 1] === '*') {
-			return true;
-		}
-
-		let i;
-		let len;
-
-		for (i = 0, len = createDebug.skips.length; i < len; i++) {
-			if (createDebug.skips[i].test(name)) {
-				return false;
-			}
-		}
-
-		for (i = 0, len = createDebug.names.length; i < len; i++) {
-			if (createDebug.names[i].test(name)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	* Convert regexp to namespace
-	*
-	* @param {RegExp} regxep
-	* @return {String} namespace
-	* @api private
-	*/
-	function toNamespace(regexp) {
-		return regexp.toString()
-			.substring(2, regexp.toString().length - 2)
-			.replace(/\.\*\?$/, '*');
-	}
-
-	/**
-	* Coerce `val`.
-	*
-	* @param {Mixed} val
-	* @return {Mixed}
-	* @api private
-	*/
-	function coerce(val) {
-		if (val instanceof Error) {
-			return val.stack || val.message;
-		}
-		return val;
-	}
-
-	/**
-	* XXX DO NOT USE. This is a temporary stub function.
-	* XXX It WILL be removed in the next major release.
-	*/
-	function destroy() {
-		console.warn('Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.');
-	}
-
-	createDebug.enable(createDebug.load());
-
-	return createDebug;
-}
-
-module.exports = setup;
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/commons.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/engine.io-client/node_modules/engine.io-parser/lib/commons.js ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
+/***/ "./node_modules/engine.io-parser/build/esm/commons.js":
+/*!************************************************************!*\
+  !*** ./node_modules/engine.io-parser/build/esm/commons.js ***!
+  \************************************************************/
+/*! exports provided: PACKET_TYPES, PACKET_TYPES_REVERSE, ERROR_PACKET */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PACKET_TYPES", function() { return PACKET_TYPES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PACKET_TYPES_REVERSE", function() { return PACKET_TYPES_REVERSE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_PACKET", function() { return ERROR_PACKET; });
 const PACKET_TYPES = Object.create(null); // no Map = no polyfill
 PACKET_TYPES["open"] = "0";
 PACKET_TYPES["close"] = "1";
@@ -5061,324 +3999,185 @@ PACKET_TYPES["pong"] = "3";
 PACKET_TYPES["message"] = "4";
 PACKET_TYPES["upgrade"] = "5";
 PACKET_TYPES["noop"] = "6";
-
 const PACKET_TYPES_REVERSE = Object.create(null);
 Object.keys(PACKET_TYPES).forEach(key => {
-  PACKET_TYPES_REVERSE[PACKET_TYPES[key]] = key;
+    PACKET_TYPES_REVERSE[PACKET_TYPES[key]] = key;
 });
-
 const ERROR_PACKET = { type: "error", data: "parser error" };
 
-module.exports = {
-  PACKET_TYPES,
-  PACKET_TYPES_REVERSE,
-  ERROR_PACKET
-};
 
 
 /***/ }),
 
-/***/ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/decodePacket.browser.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/engine.io-client/node_modules/engine.io-parser/lib/decodePacket.browser.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/engine.io-parser/build/esm/decodePacket.browser.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/engine.io-parser/build/esm/decodePacket.browser.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const { PACKET_TYPES_REVERSE, ERROR_PACKET } = __webpack_require__(/*! ./commons */ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/commons.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _commons_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./commons.js */ "./node_modules/engine.io-parser/build/esm/commons.js");
+/* harmony import */ var _socket_io_base64_arraybuffer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @socket.io/base64-arraybuffer */ "./node_modules/@socket.io/base64-arraybuffer/dist/base64-arraybuffer.es5.js");
+
 
 const withNativeArrayBuffer = typeof ArrayBuffer === "function";
-
-let base64decoder;
-if (withNativeArrayBuffer) {
-  base64decoder = __webpack_require__(/*! base64-arraybuffer */ "./node_modules/engine.io-client/node_modules/base64-arraybuffer/lib/base64-arraybuffer.js");
-}
-
 const decodePacket = (encodedPacket, binaryType) => {
-  if (typeof encodedPacket !== "string") {
-    return {
-      type: "message",
-      data: mapBinary(encodedPacket, binaryType)
-    };
-  }
-  const type = encodedPacket.charAt(0);
-  if (type === "b") {
-    return {
-      type: "message",
-      data: decodeBase64Packet(encodedPacket.substring(1), binaryType)
-    };
-  }
-  const packetType = PACKET_TYPES_REVERSE[type];
-  if (!packetType) {
-    return ERROR_PACKET;
-  }
-  return encodedPacket.length > 1
-    ? {
-        type: PACKET_TYPES_REVERSE[type],
-        data: encodedPacket.substring(1)
-      }
-    : {
-        type: PACKET_TYPES_REVERSE[type]
-      };
+    if (typeof encodedPacket !== "string") {
+        return {
+            type: "message",
+            data: mapBinary(encodedPacket, binaryType)
+        };
+    }
+    const type = encodedPacket.charAt(0);
+    if (type === "b") {
+        return {
+            type: "message",
+            data: decodeBase64Packet(encodedPacket.substring(1), binaryType)
+        };
+    }
+    const packetType = _commons_js__WEBPACK_IMPORTED_MODULE_0__["PACKET_TYPES_REVERSE"][type];
+    if (!packetType) {
+        return _commons_js__WEBPACK_IMPORTED_MODULE_0__["ERROR_PACKET"];
+    }
+    return encodedPacket.length > 1
+        ? {
+            type: _commons_js__WEBPACK_IMPORTED_MODULE_0__["PACKET_TYPES_REVERSE"][type],
+            data: encodedPacket.substring(1)
+        }
+        : {
+            type: _commons_js__WEBPACK_IMPORTED_MODULE_0__["PACKET_TYPES_REVERSE"][type]
+        };
 };
-
 const decodeBase64Packet = (data, binaryType) => {
-  if (base64decoder) {
-    const decoded = base64decoder.decode(data);
-    return mapBinary(decoded, binaryType);
-  } else {
-    return { base64: true, data }; // fallback for old browsers
-  }
+    if (withNativeArrayBuffer) {
+        const decoded = Object(_socket_io_base64_arraybuffer__WEBPACK_IMPORTED_MODULE_1__["decode"])(data);
+        return mapBinary(decoded, binaryType);
+    }
+    else {
+        return { base64: true, data }; // fallback for old browsers
+    }
 };
-
 const mapBinary = (data, binaryType) => {
-  switch (binaryType) {
-    case "blob":
-      return data instanceof ArrayBuffer ? new Blob([data]) : data;
-    case "arraybuffer":
-    default:
-      return data; // assuming the data is already an ArrayBuffer
-  }
+    switch (binaryType) {
+        case "blob":
+            return data instanceof ArrayBuffer ? new Blob([data]) : data;
+        case "arraybuffer":
+        default:
+            return data; // assuming the data is already an ArrayBuffer
+    }
 };
-
-module.exports = decodePacket;
+/* harmony default export */ __webpack_exports__["default"] = (decodePacket);
 
 
 /***/ }),
 
-/***/ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/encodePacket.browser.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/engine.io-client/node_modules/engine.io-parser/lib/encodePacket.browser.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/engine.io-parser/build/esm/encodePacket.browser.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/engine.io-parser/build/esm/encodePacket.browser.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const { PACKET_TYPES } = __webpack_require__(/*! ./commons */ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/commons.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _commons_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./commons.js */ "./node_modules/engine.io-parser/build/esm/commons.js");
 
-const withNativeBlob =
-  typeof Blob === "function" ||
-  (typeof Blob !== "undefined" &&
-    Object.prototype.toString.call(Blob) === "[object BlobConstructor]");
+const withNativeBlob = typeof Blob === "function" ||
+    (typeof Blob !== "undefined" &&
+        Object.prototype.toString.call(Blob) === "[object BlobConstructor]");
 const withNativeArrayBuffer = typeof ArrayBuffer === "function";
-
 // ArrayBuffer.isView method is not defined in IE10
 const isView = obj => {
-  return typeof ArrayBuffer.isView === "function"
-    ? ArrayBuffer.isView(obj)
-    : obj && obj.buffer instanceof ArrayBuffer;
+    return typeof ArrayBuffer.isView === "function"
+        ? ArrayBuffer.isView(obj)
+        : obj && obj.buffer instanceof ArrayBuffer;
 };
-
 const encodePacket = ({ type, data }, supportsBinary, callback) => {
-  if (withNativeBlob && data instanceof Blob) {
-    if (supportsBinary) {
-      return callback(data);
-    } else {
-      return encodeBlobAsBase64(data, callback);
+    if (withNativeBlob && data instanceof Blob) {
+        if (supportsBinary) {
+            return callback(data);
+        }
+        else {
+            return encodeBlobAsBase64(data, callback);
+        }
     }
-  } else if (
-    withNativeArrayBuffer &&
-    (data instanceof ArrayBuffer || isView(data))
-  ) {
-    if (supportsBinary) {
-      return callback(data instanceof ArrayBuffer ? data : data.buffer);
-    } else {
-      return encodeBlobAsBase64(new Blob([data]), callback);
+    else if (withNativeArrayBuffer &&
+        (data instanceof ArrayBuffer || isView(data))) {
+        if (supportsBinary) {
+            return callback(data);
+        }
+        else {
+            return encodeBlobAsBase64(new Blob([data]), callback);
+        }
     }
-  }
-  // plain string
-  return callback(PACKET_TYPES[type] + (data || ""));
+    // plain string
+    return callback(_commons_js__WEBPACK_IMPORTED_MODULE_0__["PACKET_TYPES"][type] + (data || ""));
 };
-
 const encodeBlobAsBase64 = (data, callback) => {
-  const fileReader = new FileReader();
-  fileReader.onload = function() {
-    const content = fileReader.result.split(",")[1];
-    callback("b" + content);
-  };
-  return fileReader.readAsDataURL(data);
+    const fileReader = new FileReader();
+    fileReader.onload = function () {
+        const content = fileReader.result.split(",")[1];
+        callback("b" + content);
+    };
+    return fileReader.readAsDataURL(data);
 };
-
-module.exports = encodePacket;
+/* harmony default export */ __webpack_exports__["default"] = (encodePacket);
 
 
 /***/ }),
 
-/***/ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/index.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/engine.io-client/node_modules/engine.io-parser/lib/index.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/engine.io-parser/build/esm/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/engine.io-parser/build/esm/index.js ***!
+  \**********************************************************/
+/*! exports provided: protocol, encodePacket, encodePayload, decodePacket, decodePayload */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const encodePacket = __webpack_require__(/*! ./encodePacket */ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/encodePacket.browser.js");
-const decodePacket = __webpack_require__(/*! ./decodePacket */ "./node_modules/engine.io-client/node_modules/engine.io-parser/lib/decodePacket.browser.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "protocol", function() { return protocol; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodePayload", function() { return encodePayload; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodePayload", function() { return decodePayload; });
+/* harmony import */ var _encodePacket_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./encodePacket.js */ "./node_modules/engine.io-parser/build/esm/encodePacket.browser.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodePacket", function() { return _encodePacket_js__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _decodePacket_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./decodePacket.js */ "./node_modules/engine.io-parser/build/esm/decodePacket.browser.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodePacket", function() { return _decodePacket_js__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+
 
 const SEPARATOR = String.fromCharCode(30); // see https://en.wikipedia.org/wiki/Delimiter#ASCII_delimited_text
-
 const encodePayload = (packets, callback) => {
-  // some packets may be added to the array while encoding, so the initial length must be saved
-  const length = packets.length;
-  const encodedPackets = new Array(length);
-  let count = 0;
-
-  packets.forEach((packet, i) => {
-    // force base64 encoding for binary packets
-    encodePacket(packet, false, encodedPacket => {
-      encodedPackets[i] = encodedPacket;
-      if (++count === length) {
-        callback(encodedPackets.join(SEPARATOR));
-      }
+    // some packets may be added to the array while encoding, so the initial length must be saved
+    const length = packets.length;
+    const encodedPackets = new Array(length);
+    let count = 0;
+    packets.forEach((packet, i) => {
+        // force base64 encoding for binary packets
+        Object(_encodePacket_js__WEBPACK_IMPORTED_MODULE_0__["default"])(packet, false, encodedPacket => {
+            encodedPackets[i] = encodedPacket;
+            if (++count === length) {
+                callback(encodedPackets.join(SEPARATOR));
+            }
+        });
     });
-  });
 };
-
 const decodePayload = (encodedPayload, binaryType) => {
-  const encodedPackets = encodedPayload.split(SEPARATOR);
-  const packets = [];
-  for (let i = 0; i < encodedPackets.length; i++) {
-    const decodedPacket = decodePacket(encodedPackets[i], binaryType);
-    packets.push(decodedPacket);
-    if (decodedPacket.type === "error") {
-      break;
-    }
-  }
-  return packets;
-};
-
-module.exports = {
-  protocol: 4,
-  encodePacket,
-  encodePayload,
-  decodePacket,
-  decodePayload
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/node_modules/parseqs/index.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/engine.io-client/node_modules/parseqs/index.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Compiles a querystring
- * Returns string representation of the object
- *
- * @param {Object}
- * @api private
- */
-
-exports.encode = function (obj) {
-  var str = '';
-
-  for (var i in obj) {
-    if (obj.hasOwnProperty(i)) {
-      if (str.length) str += '&';
-      str += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]);
-    }
-  }
-
-  return str;
-};
-
-/**
- * Parses a simple querystring into an object
- *
- * @param {String} qs
- * @api private
- */
-
-exports.decode = function(qs){
-  var qry = {};
-  var pairs = qs.split('&');
-  for (var i = 0, l = pairs.length; i < l; i++) {
-    var pair = pairs[i].split('=');
-    qry[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-  }
-  return qry;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/engine.io-client/node_modules/parseuri/index.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/engine.io-client/node_modules/parseuri/index.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Parses an URI
- *
- * @author Steven Levithan <stevenlevithan.com> (MIT license)
- * @api private
- */
-
-var re = /^(?:(?![^:@]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
-
-var parts = [
-    'source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'
-];
-
-module.exports = function parseuri(str) {
-    var src = str,
-        b = str.indexOf('['),
-        e = str.indexOf(']');
-
-    if (b != -1 && e != -1) {
-        str = str.substring(0, b) + str.substring(b, e).replace(/:/g, ';') + str.substring(e, str.length);
-    }
-
-    var m = re.exec(str || ''),
-        uri = {},
-        i = 14;
-
-    while (i--) {
-        uri[parts[i]] = m[i] || '';
-    }
-
-    if (b != -1 && e != -1) {
-        uri.source = src;
-        uri.host = uri.host.substring(1, uri.host.length - 1).replace(/;/g, ':');
-        uri.authority = uri.authority.replace('[', '').replace(']', '').replace(/;/g, ':');
-        uri.ipv6uri = true;
-    }
-
-    uri.pathNames = pathNames(uri, uri['path']);
-    uri.queryKey = queryKey(uri, uri['query']);
-
-    return uri;
-};
-
-function pathNames(obj, path) {
-    var regx = /\/{2,9}/g,
-        names = path.replace(regx, "/").split("/");
-
-    if (path.substr(0, 1) == '/' || path.length === 0) {
-        names.splice(0, 1);
-    }
-    if (path.substr(path.length - 1, 1) == '/') {
-        names.splice(names.length - 1, 1);
-    }
-
-    return names;
-}
-
-function queryKey(uri, query) {
-    var data = {};
-
-    query.replace(/(?:^|&)([^&=]*)=?([^&]*)/g, function ($0, $1, $2) {
-        if ($1) {
-            data[$1] = $2;
+    const encodedPackets = encodedPayload.split(SEPARATOR);
+    const packets = [];
+    for (let i = 0; i < encodedPackets.length; i++) {
+        const decodedPacket = Object(_decodePacket_js__WEBPACK_IMPORTED_MODULE_1__["default"])(encodedPackets[i], binaryType);
+        packets.push(decodedPacket);
+        if (decodedPacket.type === "error") {
+            break;
         }
-    });
+    }
+    return packets;
+};
+const protocol = 4;
 
-    return data;
-}
 
 
 /***/ }),
@@ -5418,6 +4217,7 @@ try {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -5522,2057 +4322,58 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 
-/***/ "./node_modules/ms/index.js":
-/*!**********************************!*\
-  !*** ./node_modules/ms/index.js ***!
-  \**********************************/
+/***/ "./node_modules/parseqs/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/parseqs/index.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 /**
- * Helpers.
- */
-
-var s = 1000;
-var m = s * 60;
-var h = m * 60;
-var d = h * 24;
-var w = d * 7;
-var y = d * 365.25;
-
-/**
- * Parse or format the given `val`.
+ * Compiles a querystring
+ * Returns string representation of the object
  *
- * Options:
- *
- *  - `long` verbose formatting [false]
- *
- * @param {String|Number} val
- * @param {Object} [options]
- * @throws {Error} throw an error if val is not a non-empty string or a number
- * @return {String|Number}
- * @api public
- */
-
-module.exports = function(val, options) {
-  options = options || {};
-  var type = typeof val;
-  if (type === 'string' && val.length > 0) {
-    return parse(val);
-  } else if (type === 'number' && isFinite(val)) {
-    return options.long ? fmtLong(val) : fmtShort(val);
-  }
-  throw new Error(
-    'val is not a non-empty string or a valid number. val=' +
-      JSON.stringify(val)
-  );
-};
-
-/**
- * Parse the given `str` and return milliseconds.
- *
- * @param {String} str
- * @return {Number}
+ * @param {Object}
  * @api private
  */
 
-function parse(str) {
-  str = String(str);
-  if (str.length > 100) {
-    return;
+exports.encode = function (obj) {
+  var str = '';
+
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i)) {
+      if (str.length) str += '&';
+      str += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]);
+    }
   }
-  var match = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
-    str
-  );
-  if (!match) {
-    return;
-  }
-  var n = parseFloat(match[1]);
-  var type = (match[2] || 'ms').toLowerCase();
-  switch (type) {
-    case 'years':
-    case 'year':
-    case 'yrs':
-    case 'yr':
-    case 'y':
-      return n * y;
-    case 'weeks':
-    case 'week':
-    case 'w':
-      return n * w;
-    case 'days':
-    case 'day':
-    case 'd':
-      return n * d;
-    case 'hours':
-    case 'hour':
-    case 'hrs':
-    case 'hr':
-    case 'h':
-      return n * h;
-    case 'minutes':
-    case 'minute':
-    case 'mins':
-    case 'min':
-    case 'm':
-      return n * m;
-    case 'seconds':
-    case 'second':
-    case 'secs':
-    case 'sec':
-    case 's':
-      return n * s;
-    case 'milliseconds':
-    case 'millisecond':
-    case 'msecs':
-    case 'msec':
-    case 'ms':
-      return n;
-    default:
-      return undefined;
-  }
-}
+
+  return str;
+};
 
 /**
- * Short format for `ms`.
+ * Parses a simple querystring into an object
  *
- * @param {Number} ms
- * @return {String}
+ * @param {String} qs
  * @api private
  */
 
-function fmtShort(ms) {
-  var msAbs = Math.abs(ms);
-  if (msAbs >= d) {
-    return Math.round(ms / d) + 'd';
+exports.decode = function(qs){
+  var qry = {};
+  var pairs = qs.split('&');
+  for (var i = 0, l = pairs.length; i < l; i++) {
+    var pair = pairs[i].split('=');
+    qry[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
   }
-  if (msAbs >= h) {
-    return Math.round(ms / h) + 'h';
-  }
-  if (msAbs >= m) {
-    return Math.round(ms / m) + 'm';
-  }
-  if (msAbs >= s) {
-    return Math.round(ms / s) + 's';
-  }
-  return ms + 'ms';
-}
-
-/**
- * Long format for `ms`.
- *
- * @param {Number} ms
- * @return {String}
- * @api private
- */
-
-function fmtLong(ms) {
-  var msAbs = Math.abs(ms);
-  if (msAbs >= d) {
-    return plural(ms, msAbs, d, 'day');
-  }
-  if (msAbs >= h) {
-    return plural(ms, msAbs, h, 'hour');
-  }
-  if (msAbs >= m) {
-    return plural(ms, msAbs, m, 'minute');
-  }
-  if (msAbs >= s) {
-    return plural(ms, msAbs, s, 'second');
-  }
-  return ms + ' ms';
-}
-
-/**
- * Pluralization helper.
- */
-
-function plural(ms, msAbs, n, name) {
-  var isPlural = msAbs >= n * 1.5;
-  return Math.round(ms / n) + ' ' + name + (isPlural ? 's' : '');
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/process/browser.js":
-/*!*****************************************!*\
-  !*** ./node_modules/process/browser.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
+  return qry;
 };
 
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
 
 /***/ }),
 
-/***/ "./node_modules/socket.io-client/build/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/socket.io-client/build/index.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Socket = exports.io = exports.Manager = exports.protocol = void 0;
-const url_1 = __webpack_require__(/*! ./url */ "./node_modules/socket.io-client/build/url.js");
-const manager_1 = __webpack_require__(/*! ./manager */ "./node_modules/socket.io-client/build/manager.js");
-const socket_1 = __webpack_require__(/*! ./socket */ "./node_modules/socket.io-client/build/socket.js");
-Object.defineProperty(exports, "Socket", { enumerable: true, get: function () { return socket_1.Socket; } });
-const debug = __webpack_require__(/*! debug */ "./node_modules/socket.io-client/node_modules/debug/src/browser.js")("socket.io-client");
-/**
- * Module exports.
- */
-module.exports = exports = lookup;
-/**
- * Managers cache.
- */
-const cache = (exports.managers = {});
-function lookup(uri, opts) {
-    if (typeof uri === "object") {
-        opts = uri;
-        uri = undefined;
-    }
-    opts = opts || {};
-    const parsed = url_1.url(uri, opts.path);
-    const source = parsed.source;
-    const id = parsed.id;
-    const path = parsed.path;
-    const sameNamespace = cache[id] && path in cache[id]["nsps"];
-    const newConnection = opts.forceNew ||
-        opts["force new connection"] ||
-        false === opts.multiplex ||
-        sameNamespace;
-    let io;
-    if (newConnection) {
-        debug("ignoring socket cache for %s", source);
-        io = new manager_1.Manager(source, opts);
-    }
-    else {
-        if (!cache[id]) {
-            debug("new io instance for %s", source);
-            cache[id] = new manager_1.Manager(source, opts);
-        }
-        io = cache[id];
-    }
-    if (parsed.query && !opts.query) {
-        opts.query = parsed.queryKey;
-    }
-    return io.socket(parsed.path, opts);
-}
-exports.io = lookup;
-/**
- * Protocol version.
- *
- * @public
- */
-var socket_io_parser_1 = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-client/node_modules/socket.io-parser/dist/index.js");
-Object.defineProperty(exports, "protocol", { enumerable: true, get: function () { return socket_io_parser_1.protocol; } });
-/**
- * `connect`.
- *
- * @param {String} uri
- * @public
- */
-exports.connect = lookup;
-/**
- * Expose constructors for standalone build.
- *
- * @public
- */
-var manager_2 = __webpack_require__(/*! ./manager */ "./node_modules/socket.io-client/build/manager.js");
-Object.defineProperty(exports, "Manager", { enumerable: true, get: function () { return manager_2.Manager; } });
-exports.default = lookup;
-
-
-/***/ }),
-
-/***/ "./node_modules/socket.io-client/build/manager.js":
-/*!********************************************************!*\
-  !*** ./node_modules/socket.io-client/build/manager.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Manager = void 0;
-const eio = __webpack_require__(/*! engine.io-client */ "./node_modules/engine.io-client/lib/index.js");
-const socket_1 = __webpack_require__(/*! ./socket */ "./node_modules/socket.io-client/build/socket.js");
-const parser = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-client/node_modules/socket.io-parser/dist/index.js");
-const on_1 = __webpack_require__(/*! ./on */ "./node_modules/socket.io-client/build/on.js");
-const Backoff = __webpack_require__(/*! backo2 */ "./node_modules/backo2/index.js");
-const typed_events_1 = __webpack_require__(/*! ./typed-events */ "./node_modules/socket.io-client/build/typed-events.js");
-const debug = __webpack_require__(/*! debug */ "./node_modules/socket.io-client/node_modules/debug/src/browser.js")("socket.io-client:manager");
-class Manager extends typed_events_1.StrictEventEmitter {
-    constructor(uri, opts) {
-        super();
-        this.nsps = {};
-        this.subs = [];
-        if (uri && "object" === typeof uri) {
-            opts = uri;
-            uri = undefined;
-        }
-        opts = opts || {};
-        opts.path = opts.path || "/socket.io";
-        this.opts = opts;
-        this.reconnection(opts.reconnection !== false);
-        this.reconnectionAttempts(opts.reconnectionAttempts || Infinity);
-        this.reconnectionDelay(opts.reconnectionDelay || 1000);
-        this.reconnectionDelayMax(opts.reconnectionDelayMax || 5000);
-        this.randomizationFactor(opts.randomizationFactor || 0.5);
-        this.backoff = new Backoff({
-            min: this.reconnectionDelay(),
-            max: this.reconnectionDelayMax(),
-            jitter: this.randomizationFactor(),
-        });
-        this.timeout(null == opts.timeout ? 20000 : opts.timeout);
-        this._readyState = "closed";
-        this.uri = uri;
-        const _parser = opts.parser || parser;
-        this.encoder = new _parser.Encoder();
-        this.decoder = new _parser.Decoder();
-        this._autoConnect = opts.autoConnect !== false;
-        if (this._autoConnect)
-            this.open();
-    }
-    reconnection(v) {
-        if (!arguments.length)
-            return this._reconnection;
-        this._reconnection = !!v;
-        return this;
-    }
-    reconnectionAttempts(v) {
-        if (v === undefined)
-            return this._reconnectionAttempts;
-        this._reconnectionAttempts = v;
-        return this;
-    }
-    reconnectionDelay(v) {
-        var _a;
-        if (v === undefined)
-            return this._reconnectionDelay;
-        this._reconnectionDelay = v;
-        (_a = this.backoff) === null || _a === void 0 ? void 0 : _a.setMin(v);
-        return this;
-    }
-    randomizationFactor(v) {
-        var _a;
-        if (v === undefined)
-            return this._randomizationFactor;
-        this._randomizationFactor = v;
-        (_a = this.backoff) === null || _a === void 0 ? void 0 : _a.setJitter(v);
-        return this;
-    }
-    reconnectionDelayMax(v) {
-        var _a;
-        if (v === undefined)
-            return this._reconnectionDelayMax;
-        this._reconnectionDelayMax = v;
-        (_a = this.backoff) === null || _a === void 0 ? void 0 : _a.setMax(v);
-        return this;
-    }
-    timeout(v) {
-        if (!arguments.length)
-            return this._timeout;
-        this._timeout = v;
-        return this;
-    }
-    /**
-     * Starts trying to reconnect if reconnection is enabled and we have not
-     * started reconnecting yet
-     *
-     * @private
-     */
-    maybeReconnectOnOpen() {
-        // Only try to reconnect if it's the first time we're connecting
-        if (!this._reconnecting &&
-            this._reconnection &&
-            this.backoff.attempts === 0) {
-            // keeps reconnection from firing twice for the same reconnection loop
-            this.reconnect();
-        }
-    }
-    /**
-     * Sets the current transport `socket`.
-     *
-     * @param {Function} fn - optional, callback
-     * @return self
-     * @public
-     */
-    open(fn) {
-        debug("readyState %s", this._readyState);
-        if (~this._readyState.indexOf("open"))
-            return this;
-        debug("opening %s", this.uri);
-        this.engine = eio(this.uri, this.opts);
-        const socket = this.engine;
-        const self = this;
-        this._readyState = "opening";
-        this.skipReconnect = false;
-        // emit `open`
-        const openSubDestroy = on_1.on(socket, "open", function () {
-            self.onopen();
-            fn && fn();
-        });
-        // emit `error`
-        const errorSub = on_1.on(socket, "error", (err) => {
-            debug("error");
-            self.cleanup();
-            self._readyState = "closed";
-            this.emitReserved("error", err);
-            if (fn) {
-                fn(err);
-            }
-            else {
-                // Only do this if there is no fn to handle the error
-                self.maybeReconnectOnOpen();
-            }
-        });
-        if (false !== this._timeout) {
-            const timeout = this._timeout;
-            debug("connect attempt will timeout after %d", timeout);
-            if (timeout === 0) {
-                openSubDestroy(); // prevents a race condition with the 'open' event
-            }
-            // set timer
-            const timer = setTimeout(() => {
-                debug("connect attempt timed out after %d", timeout);
-                openSubDestroy();
-                socket.close();
-                socket.emit("error", new Error("timeout"));
-            }, timeout);
-            if (this.opts.autoUnref) {
-                timer.unref();
-            }
-            this.subs.push(function subDestroy() {
-                clearTimeout(timer);
-            });
-        }
-        this.subs.push(openSubDestroy);
-        this.subs.push(errorSub);
-        return this;
-    }
-    /**
-     * Alias for open()
-     *
-     * @return self
-     * @public
-     */
-    connect(fn) {
-        return this.open(fn);
-    }
-    /**
-     * Called upon transport open.
-     *
-     * @private
-     */
-    onopen() {
-        debug("open");
-        // clear old subs
-        this.cleanup();
-        // mark as open
-        this._readyState = "open";
-        this.emitReserved("open");
-        // add new subs
-        const socket = this.engine;
-        this.subs.push(on_1.on(socket, "ping", this.onping.bind(this)), on_1.on(socket, "data", this.ondata.bind(this)), on_1.on(socket, "error", this.onerror.bind(this)), on_1.on(socket, "close", this.onclose.bind(this)), on_1.on(this.decoder, "decoded", this.ondecoded.bind(this)));
-    }
-    /**
-     * Called upon a ping.
-     *
-     * @private
-     */
-    onping() {
-        this.emitReserved("ping");
-    }
-    /**
-     * Called with data.
-     *
-     * @private
-     */
-    ondata(data) {
-        this.decoder.add(data);
-    }
-    /**
-     * Called when parser fully decodes a packet.
-     *
-     * @private
-     */
-    ondecoded(packet) {
-        this.emitReserved("packet", packet);
-    }
-    /**
-     * Called upon socket error.
-     *
-     * @private
-     */
-    onerror(err) {
-        debug("error", err);
-        this.emitReserved("error", err);
-    }
-    /**
-     * Creates a new socket for the given `nsp`.
-     *
-     * @return {Socket}
-     * @public
-     */
-    socket(nsp, opts) {
-        let socket = this.nsps[nsp];
-        if (!socket) {
-            socket = new socket_1.Socket(this, nsp, opts);
-            this.nsps[nsp] = socket;
-        }
-        return socket;
-    }
-    /**
-     * Called upon a socket close.
-     *
-     * @param socket
-     * @private
-     */
-    _destroy(socket) {
-        const nsps = Object.keys(this.nsps);
-        for (const nsp of nsps) {
-            const socket = this.nsps[nsp];
-            if (socket.active) {
-                debug("socket %s is still active, skipping close", nsp);
-                return;
-            }
-        }
-        this._close();
-    }
-    /**
-     * Writes a packet.
-     *
-     * @param packet
-     * @private
-     */
-    _packet(packet) {
-        debug("writing packet %j", packet);
-        const encodedPackets = this.encoder.encode(packet);
-        for (let i = 0; i < encodedPackets.length; i++) {
-            this.engine.write(encodedPackets[i], packet.options);
-        }
-    }
-    /**
-     * Clean up transport subscriptions and packet buffer.
-     *
-     * @private
-     */
-    cleanup() {
-        debug("cleanup");
-        this.subs.forEach((subDestroy) => subDestroy());
-        this.subs.length = 0;
-        this.decoder.destroy();
-    }
-    /**
-     * Close the current socket.
-     *
-     * @private
-     */
-    _close() {
-        debug("disconnect");
-        this.skipReconnect = true;
-        this._reconnecting = false;
-        if ("opening" === this._readyState) {
-            // `onclose` will not fire because
-            // an open event never happened
-            this.cleanup();
-        }
-        this.backoff.reset();
-        this._readyState = "closed";
-        if (this.engine)
-            this.engine.close();
-    }
-    /**
-     * Alias for close()
-     *
-     * @private
-     */
-    disconnect() {
-        return this._close();
-    }
-    /**
-     * Called upon engine close.
-     *
-     * @private
-     */
-    onclose(reason) {
-        debug("onclose");
-        this.cleanup();
-        this.backoff.reset();
-        this._readyState = "closed";
-        this.emitReserved("close", reason);
-        if (this._reconnection && !this.skipReconnect) {
-            this.reconnect();
-        }
-    }
-    /**
-     * Attempt a reconnection.
-     *
-     * @private
-     */
-    reconnect() {
-        if (this._reconnecting || this.skipReconnect)
-            return this;
-        const self = this;
-        if (this.backoff.attempts >= this._reconnectionAttempts) {
-            debug("reconnect failed");
-            this.backoff.reset();
-            this.emitReserved("reconnect_failed");
-            this._reconnecting = false;
-        }
-        else {
-            const delay = this.backoff.duration();
-            debug("will wait %dms before reconnect attempt", delay);
-            this._reconnecting = true;
-            const timer = setTimeout(() => {
-                if (self.skipReconnect)
-                    return;
-                debug("attempting reconnect");
-                this.emitReserved("reconnect_attempt", self.backoff.attempts);
-                // check again for the case socket closed in above events
-                if (self.skipReconnect)
-                    return;
-                self.open((err) => {
-                    if (err) {
-                        debug("reconnect attempt error");
-                        self._reconnecting = false;
-                        self.reconnect();
-                        this.emitReserved("reconnect_error", err);
-                    }
-                    else {
-                        debug("reconnect success");
-                        self.onreconnect();
-                    }
-                });
-            }, delay);
-            if (this.opts.autoUnref) {
-                timer.unref();
-            }
-            this.subs.push(function subDestroy() {
-                clearTimeout(timer);
-            });
-        }
-    }
-    /**
-     * Called upon successful reconnect.
-     *
-     * @private
-     */
-    onreconnect() {
-        const attempt = this.backoff.attempts;
-        this._reconnecting = false;
-        this.backoff.reset();
-        this.emitReserved("reconnect", attempt);
-    }
-}
-exports.Manager = Manager;
-
-
-/***/ }),
-
-/***/ "./node_modules/socket.io-client/build/on.js":
-/*!***************************************************!*\
-  !*** ./node_modules/socket.io-client/build/on.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.on = void 0;
-function on(obj, ev, fn) {
-    obj.on(ev, fn);
-    return function subDestroy() {
-        obj.off(ev, fn);
-    };
-}
-exports.on = on;
-
-
-/***/ }),
-
-/***/ "./node_modules/socket.io-client/build/socket.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/socket.io-client/build/socket.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Socket = void 0;
-const socket_io_parser_1 = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-client/node_modules/socket.io-parser/dist/index.js");
-const on_1 = __webpack_require__(/*! ./on */ "./node_modules/socket.io-client/build/on.js");
-const typed_events_1 = __webpack_require__(/*! ./typed-events */ "./node_modules/socket.io-client/build/typed-events.js");
-const debug = __webpack_require__(/*! debug */ "./node_modules/socket.io-client/node_modules/debug/src/browser.js")("socket.io-client:socket");
-/**
- * Internal events.
- * These events can't be emitted by the user.
- */
-const RESERVED_EVENTS = Object.freeze({
-    connect: 1,
-    connect_error: 1,
-    disconnect: 1,
-    disconnecting: 1,
-    // EventEmitter reserved events: https://nodejs.org/api/events.html#events_event_newlistener
-    newListener: 1,
-    removeListener: 1,
-});
-class Socket extends typed_events_1.StrictEventEmitter {
-    /**
-     * `Socket` constructor.
-     *
-     * @public
-     */
-    constructor(io, nsp, opts) {
-        super();
-        this.receiveBuffer = [];
-        this.sendBuffer = [];
-        this.ids = 0;
-        this.acks = {};
-        this.flags = {};
-        this.io = io;
-        this.nsp = nsp;
-        this.ids = 0;
-        this.acks = {};
-        this.receiveBuffer = [];
-        this.sendBuffer = [];
-        this.connected = false;
-        this.disconnected = true;
-        this.flags = {};
-        if (opts && opts.auth) {
-            this.auth = opts.auth;
-        }
-        if (this.io._autoConnect)
-            this.open();
-    }
-    /**
-     * Subscribe to open, close and packet events
-     *
-     * @private
-     */
-    subEvents() {
-        if (this.subs)
-            return;
-        const io = this.io;
-        this.subs = [
-            on_1.on(io, "open", this.onopen.bind(this)),
-            on_1.on(io, "packet", this.onpacket.bind(this)),
-            on_1.on(io, "error", this.onerror.bind(this)),
-            on_1.on(io, "close", this.onclose.bind(this)),
-        ];
-    }
-    /**
-     * Whether the Socket will try to reconnect when its Manager connects or reconnects
-     */
-    get active() {
-        return !!this.subs;
-    }
-    /**
-     * "Opens" the socket.
-     *
-     * @public
-     */
-    connect() {
-        if (this.connected)
-            return this;
-        this.subEvents();
-        if (!this.io["_reconnecting"])
-            this.io.open(); // ensure open
-        if ("open" === this.io._readyState)
-            this.onopen();
-        return this;
-    }
-    /**
-     * Alias for connect()
-     */
-    open() {
-        return this.connect();
-    }
-    /**
-     * Sends a `message` event.
-     *
-     * @return self
-     * @public
-     */
-    send(...args) {
-        args.unshift("message");
-        this.emit.apply(this, args);
-        return this;
-    }
-    /**
-     * Override `emit`.
-     * If the event is in `events`, it's emitted normally.
-     *
-     * @return self
-     * @public
-     */
-    emit(ev, ...args) {
-        if (RESERVED_EVENTS.hasOwnProperty(ev)) {
-            throw new Error('"' + ev + '" is a reserved event name');
-        }
-        args.unshift(ev);
-        const packet = {
-            type: socket_io_parser_1.PacketType.EVENT,
-            data: args,
-        };
-        packet.options = {};
-        packet.options.compress = this.flags.compress !== false;
-        // event ack callback
-        if ("function" === typeof args[args.length - 1]) {
-            debug("emitting packet with ack id %d", this.ids);
-            this.acks[this.ids] = args.pop();
-            packet.id = this.ids++;
-        }
-        const isTransportWritable = this.io.engine &&
-            this.io.engine.transport &&
-            this.io.engine.transport.writable;
-        const discardPacket = this.flags.volatile && (!isTransportWritable || !this.connected);
-        if (discardPacket) {
-            debug("discard packet as the transport is not currently writable");
-        }
-        else if (this.connected) {
-            this.packet(packet);
-        }
-        else {
-            this.sendBuffer.push(packet);
-        }
-        this.flags = {};
-        return this;
-    }
-    /**
-     * Sends a packet.
-     *
-     * @param packet
-     * @private
-     */
-    packet(packet) {
-        packet.nsp = this.nsp;
-        this.io._packet(packet);
-    }
-    /**
-     * Called upon engine `open`.
-     *
-     * @private
-     */
-    onopen() {
-        debug("transport is open - connecting");
-        if (typeof this.auth == "function") {
-            this.auth((data) => {
-                this.packet({ type: socket_io_parser_1.PacketType.CONNECT, data });
-            });
-        }
-        else {
-            this.packet({ type: socket_io_parser_1.PacketType.CONNECT, data: this.auth });
-        }
-    }
-    /**
-     * Called upon engine or manager `error`.
-     *
-     * @param err
-     * @private
-     */
-    onerror(err) {
-        if (!this.connected) {
-            this.emitReserved("connect_error", err);
-        }
-    }
-    /**
-     * Called upon engine `close`.
-     *
-     * @param reason
-     * @private
-     */
-    onclose(reason) {
-        debug("close (%s)", reason);
-        this.connected = false;
-        this.disconnected = true;
-        delete this.id;
-        this.emitReserved("disconnect", reason);
-    }
-    /**
-     * Called with socket packet.
-     *
-     * @param packet
-     * @private
-     */
-    onpacket(packet) {
-        const sameNamespace = packet.nsp === this.nsp;
-        if (!sameNamespace)
-            return;
-        switch (packet.type) {
-            case socket_io_parser_1.PacketType.CONNECT:
-                if (packet.data && packet.data.sid) {
-                    const id = packet.data.sid;
-                    this.onconnect(id);
-                }
-                else {
-                    this.emitReserved("connect_error", new Error("It seems you are trying to reach a Socket.IO server in v2.x with a v3.x client, but they are not compatible (more information here: https://socket.io/docs/v3/migrating-from-2-x-to-3-0/)"));
-                }
-                break;
-            case socket_io_parser_1.PacketType.EVENT:
-                this.onevent(packet);
-                break;
-            case socket_io_parser_1.PacketType.BINARY_EVENT:
-                this.onevent(packet);
-                break;
-            case socket_io_parser_1.PacketType.ACK:
-                this.onack(packet);
-                break;
-            case socket_io_parser_1.PacketType.BINARY_ACK:
-                this.onack(packet);
-                break;
-            case socket_io_parser_1.PacketType.DISCONNECT:
-                this.ondisconnect();
-                break;
-            case socket_io_parser_1.PacketType.CONNECT_ERROR:
-                const err = new Error(packet.data.message);
-                // @ts-ignore
-                err.data = packet.data.data;
-                this.emitReserved("connect_error", err);
-                break;
-        }
-    }
-    /**
-     * Called upon a server event.
-     *
-     * @param packet
-     * @private
-     */
-    onevent(packet) {
-        const args = packet.data || [];
-        debug("emitting event %j", args);
-        if (null != packet.id) {
-            debug("attaching ack callback to event");
-            args.push(this.ack(packet.id));
-        }
-        if (this.connected) {
-            this.emitEvent(args);
-        }
-        else {
-            this.receiveBuffer.push(Object.freeze(args));
-        }
-    }
-    emitEvent(args) {
-        if (this._anyListeners && this._anyListeners.length) {
-            const listeners = this._anyListeners.slice();
-            for (const listener of listeners) {
-                listener.apply(this, args);
-            }
-        }
-        super.emit.apply(this, args);
-    }
-    /**
-     * Produces an ack callback to emit with an event.
-     *
-     * @private
-     */
-    ack(id) {
-        const self = this;
-        let sent = false;
-        return function (...args) {
-            // prevent double callbacks
-            if (sent)
-                return;
-            sent = true;
-            debug("sending ack %j", args);
-            self.packet({
-                type: socket_io_parser_1.PacketType.ACK,
-                id: id,
-                data: args,
-            });
-        };
-    }
-    /**
-     * Called upon a server acknowlegement.
-     *
-     * @param packet
-     * @private
-     */
-    onack(packet) {
-        const ack = this.acks[packet.id];
-        if ("function" === typeof ack) {
-            debug("calling ack %s with %j", packet.id, packet.data);
-            ack.apply(this, packet.data);
-            delete this.acks[packet.id];
-        }
-        else {
-            debug("bad ack %s", packet.id);
-        }
-    }
-    /**
-     * Called upon server connect.
-     *
-     * @private
-     */
-    onconnect(id) {
-        debug("socket connected with id %s", id);
-        this.id = id;
-        this.connected = true;
-        this.disconnected = false;
-        this.emitReserved("connect");
-        this.emitBuffered();
-    }
-    /**
-     * Emit buffered events (received and emitted).
-     *
-     * @private
-     */
-    emitBuffered() {
-        this.receiveBuffer.forEach((args) => this.emitEvent(args));
-        this.receiveBuffer = [];
-        this.sendBuffer.forEach((packet) => this.packet(packet));
-        this.sendBuffer = [];
-    }
-    /**
-     * Called upon server disconnect.
-     *
-     * @private
-     */
-    ondisconnect() {
-        debug("server disconnect (%s)", this.nsp);
-        this.destroy();
-        this.onclose("io server disconnect");
-    }
-    /**
-     * Called upon forced client/server side disconnections,
-     * this method ensures the manager stops tracking us and
-     * that reconnections don't get triggered for this.
-     *
-     * @private
-     */
-    destroy() {
-        if (this.subs) {
-            // clean subscriptions to avoid reconnections
-            this.subs.forEach((subDestroy) => subDestroy());
-            this.subs = undefined;
-        }
-        this.io["_destroy"](this);
-    }
-    /**
-     * Disconnects the socket manually.
-     *
-     * @return self
-     * @public
-     */
-    disconnect() {
-        if (this.connected) {
-            debug("performing disconnect (%s)", this.nsp);
-            this.packet({ type: socket_io_parser_1.PacketType.DISCONNECT });
-        }
-        // remove socket from pool
-        this.destroy();
-        if (this.connected) {
-            // fire events
-            this.onclose("io client disconnect");
-        }
-        return this;
-    }
-    /**
-     * Alias for disconnect()
-     *
-     * @return self
-     * @public
-     */
-    close() {
-        return this.disconnect();
-    }
-    /**
-     * Sets the compress flag.
-     *
-     * @param compress - if `true`, compresses the sending data
-     * @return self
-     * @public
-     */
-    compress(compress) {
-        this.flags.compress = compress;
-        return this;
-    }
-    /**
-     * Sets a modifier for a subsequent event emission that the event message will be dropped when this socket is not
-     * ready to send messages.
-     *
-     * @returns self
-     * @public
-     */
-    get volatile() {
-        this.flags.volatile = true;
-        return this;
-    }
-    /**
-     * Adds a listener that will be fired when any event is emitted. The event name is passed as the first argument to the
-     * callback.
-     *
-     * @param listener
-     * @public
-     */
-    onAny(listener) {
-        this._anyListeners = this._anyListeners || [];
-        this._anyListeners.push(listener);
-        return this;
-    }
-    /**
-     * Adds a listener that will be fired when any event is emitted. The event name is passed as the first argument to the
-     * callback. The listener is added to the beginning of the listeners array.
-     *
-     * @param listener
-     * @public
-     */
-    prependAny(listener) {
-        this._anyListeners = this._anyListeners || [];
-        this._anyListeners.unshift(listener);
-        return this;
-    }
-    /**
-     * Removes the listener that will be fired when any event is emitted.
-     *
-     * @param listener
-     * @public
-     */
-    offAny(listener) {
-        if (!this._anyListeners) {
-            return this;
-        }
-        if (listener) {
-            const listeners = this._anyListeners;
-            for (let i = 0; i < listeners.length; i++) {
-                if (listener === listeners[i]) {
-                    listeners.splice(i, 1);
-                    return this;
-                }
-            }
-        }
-        else {
-            this._anyListeners = [];
-        }
-        return this;
-    }
-    /**
-     * Returns an array of listeners that are listening for any event that is specified. This array can be manipulated,
-     * e.g. to remove listeners.
-     *
-     * @public
-     */
-    listenersAny() {
-        return this._anyListeners || [];
-    }
-}
-exports.Socket = Socket;
-
-
-/***/ }),
-
-/***/ "./node_modules/socket.io-client/build/typed-events.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/socket.io-client/build/typed-events.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.StrictEventEmitter = void 0;
-const Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
-/**
- * Strictly typed version of an `EventEmitter`. A `TypedEventEmitter` takes type
- * parameters for mappings of event names to event data types, and strictly
- * types method calls to the `EventEmitter` according to these event maps.
- *
- * @typeParam ListenEvents - `EventsMap` of user-defined events that can be
- * listened to with `on` or `once`
- * @typeParam EmitEvents - `EventsMap` of user-defined events that can be
- * emitted with `emit`
- * @typeParam ReservedEvents - `EventsMap` of reserved events, that can be
- * emitted by socket.io with `emitReserved`, and can be listened to with
- * `listen`.
- */
-class StrictEventEmitter extends Emitter {
-    /**
-     * Adds the `listener` function as an event listener for `ev`.
-     *
-     * @param ev Name of the event
-     * @param listener Callback function
-     */
-    on(ev, listener) {
-        super.on(ev, listener);
-        return this;
-    }
-    /**
-     * Adds a one-time `listener` function as an event listener for `ev`.
-     *
-     * @param ev Name of the event
-     * @param listener Callback function
-     */
-    once(ev, listener) {
-        super.once(ev, listener);
-        return this;
-    }
-    /**
-     * Emits an event.
-     *
-     * @param ev Name of the event
-     * @param args Values to send to listeners of this event
-     */
-    emit(ev, ...args) {
-        super.emit(ev, ...args);
-        return this;
-    }
-    /**
-     * Emits a reserved event.
-     *
-     * This method is `protected`, so that only a class extending
-     * `StrictEventEmitter` can emit its own reserved events.
-     *
-     * @param ev Reserved event name
-     * @param args Arguments to emit along with the event
-     */
-    emitReserved(ev, ...args) {
-        super.emit(ev, ...args);
-        return this;
-    }
-    /**
-     * Returns the listeners listening to an event.
-     *
-     * @param event Event name
-     * @returns Array of listeners subscribed to `event`
-     */
-    listeners(event) {
-        return super.listeners(event);
-    }
-}
-exports.StrictEventEmitter = StrictEventEmitter;
-
-
-/***/ }),
-
-/***/ "./node_modules/socket.io-client/build/url.js":
-/*!****************************************************!*\
-  !*** ./node_modules/socket.io-client/build/url.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.url = void 0;
-const parseuri = __webpack_require__(/*! parseuri */ "./node_modules/socket.io-client/node_modules/parseuri/index.js");
-const debug = __webpack_require__(/*! debug */ "./node_modules/socket.io-client/node_modules/debug/src/browser.js")("socket.io-client:url");
-/**
- * URL parser.
- *
- * @param uri - url
- * @param path - the request path of the connection
- * @param loc - An object meant to mimic window.location.
- *        Defaults to window.location.
- * @public
- */
-function url(uri, path = "", loc) {
-    let obj = uri;
-    // default to window.location
-    loc = loc || (typeof location !== "undefined" && location);
-    if (null == uri)
-        uri = loc.protocol + "//" + loc.host;
-    // relative path support
-    if (typeof uri === "string") {
-        if ("/" === uri.charAt(0)) {
-            if ("/" === uri.charAt(1)) {
-                uri = loc.protocol + uri;
-            }
-            else {
-                uri = loc.host + uri;
-            }
-        }
-        if (!/^(https?|wss?):\/\//.test(uri)) {
-            debug("protocol-less url %s", uri);
-            if ("undefined" !== typeof loc) {
-                uri = loc.protocol + "//" + uri;
-            }
-            else {
-                uri = "https://" + uri;
-            }
-        }
-        // parse
-        debug("parse %s", uri);
-        obj = parseuri(uri);
-    }
-    // make sure we treat `localhost:80` and `localhost` equally
-    if (!obj.port) {
-        if (/^(http|ws)$/.test(obj.protocol)) {
-            obj.port = "80";
-        }
-        else if (/^(http|ws)s$/.test(obj.protocol)) {
-            obj.port = "443";
-        }
-    }
-    obj.path = obj.path || "/";
-    const ipv6 = obj.host.indexOf(":") !== -1;
-    const host = ipv6 ? "[" + obj.host + "]" : obj.host;
-    // define unique id
-    obj.id = obj.protocol + "://" + host + ":" + obj.port + path;
-    // define href
-    obj.href =
-        obj.protocol +
-            "://" +
-            host +
-            (loc && loc.port === obj.port ? "" : ":" + obj.port);
-    return obj;
-}
-exports.url = url;
-
-
-/***/ }),
-
-/***/ "./node_modules/socket.io-client/node_modules/debug/src/browser.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/socket.io-client/node_modules/debug/src/browser.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {/* eslint-env browser */
-
-/**
- * This is the web browser implementation of `debug()`.
- */
-
-exports.formatArgs = formatArgs;
-exports.save = save;
-exports.load = load;
-exports.useColors = useColors;
-exports.storage = localstorage();
-exports.destroy = (() => {
-	let warned = false;
-
-	return () => {
-		if (!warned) {
-			warned = true;
-			console.warn('Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.');
-		}
-	};
-})();
-
-/**
- * Colors.
- */
-
-exports.colors = [
-	'#0000CC',
-	'#0000FF',
-	'#0033CC',
-	'#0033FF',
-	'#0066CC',
-	'#0066FF',
-	'#0099CC',
-	'#0099FF',
-	'#00CC00',
-	'#00CC33',
-	'#00CC66',
-	'#00CC99',
-	'#00CCCC',
-	'#00CCFF',
-	'#3300CC',
-	'#3300FF',
-	'#3333CC',
-	'#3333FF',
-	'#3366CC',
-	'#3366FF',
-	'#3399CC',
-	'#3399FF',
-	'#33CC00',
-	'#33CC33',
-	'#33CC66',
-	'#33CC99',
-	'#33CCCC',
-	'#33CCFF',
-	'#6600CC',
-	'#6600FF',
-	'#6633CC',
-	'#6633FF',
-	'#66CC00',
-	'#66CC33',
-	'#9900CC',
-	'#9900FF',
-	'#9933CC',
-	'#9933FF',
-	'#99CC00',
-	'#99CC33',
-	'#CC0000',
-	'#CC0033',
-	'#CC0066',
-	'#CC0099',
-	'#CC00CC',
-	'#CC00FF',
-	'#CC3300',
-	'#CC3333',
-	'#CC3366',
-	'#CC3399',
-	'#CC33CC',
-	'#CC33FF',
-	'#CC6600',
-	'#CC6633',
-	'#CC9900',
-	'#CC9933',
-	'#CCCC00',
-	'#CCCC33',
-	'#FF0000',
-	'#FF0033',
-	'#FF0066',
-	'#FF0099',
-	'#FF00CC',
-	'#FF00FF',
-	'#FF3300',
-	'#FF3333',
-	'#FF3366',
-	'#FF3399',
-	'#FF33CC',
-	'#FF33FF',
-	'#FF6600',
-	'#FF6633',
-	'#FF9900',
-	'#FF9933',
-	'#FFCC00',
-	'#FFCC33'
-];
-
-/**
- * Currently only WebKit-based Web Inspectors, Firefox >= v31,
- * and the Firebug extension (any Firefox version) are known
- * to support "%c" CSS customizations.
- *
- * TODO: add a `localStorage` variable to explicitly enable/disable colors
- */
-
-// eslint-disable-next-line complexity
-function useColors() {
-	// NB: In an Electron preload script, document will be defined but not fully
-	// initialized. Since we know we're in Chrome, we'll just detect this case
-	// explicitly
-	if (typeof window !== 'undefined' && window.process && (window.process.type === 'renderer' || window.process.__nwjs)) {
-		return true;
-	}
-
-	// Internet Explorer and Edge do not support colors.
-	if (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/)) {
-		return false;
-	}
-
-	// Is webkit? http://stackoverflow.com/a/16459606/376773
-	// document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
-	return (typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance) ||
-		// Is firebug? http://stackoverflow.com/a/398120/376773
-		(typeof window !== 'undefined' && window.console && (window.console.firebug || (window.console.exception && window.console.table))) ||
-		// Is firefox >= v31?
-		// https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-		(typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31) ||
-		// Double check webkit in userAgent just in case we are in a worker
-		(typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
-}
-
-/**
- * Colorize log arguments if enabled.
- *
- * @api public
- */
-
-function formatArgs(args) {
-	args[0] = (this.useColors ? '%c' : '') +
-		this.namespace +
-		(this.useColors ? ' %c' : ' ') +
-		args[0] +
-		(this.useColors ? '%c ' : ' ') +
-		'+' + module.exports.humanize(this.diff);
-
-	if (!this.useColors) {
-		return;
-	}
-
-	const c = 'color: ' + this.color;
-	args.splice(1, 0, c, 'color: inherit');
-
-	// The final "%c" is somewhat tricky, because there could be other
-	// arguments passed either before or after the %c, so we need to
-	// figure out the correct index to insert the CSS into
-	let index = 0;
-	let lastC = 0;
-	args[0].replace(/%[a-zA-Z%]/g, match => {
-		if (match === '%%') {
-			return;
-		}
-		index++;
-		if (match === '%c') {
-			// We only are interested in the *last* %c
-			// (the user may have provided their own)
-			lastC = index;
-		}
-	});
-
-	args.splice(lastC, 0, c);
-}
-
-/**
- * Invokes `console.debug()` when available.
- * No-op when `console.debug` is not a "function".
- * If `console.debug` is not available, falls back
- * to `console.log`.
- *
- * @api public
- */
-exports.log = console.debug || console.log || (() => {});
-
-/**
- * Save `namespaces`.
- *
- * @param {String} namespaces
- * @api private
- */
-function save(namespaces) {
-	try {
-		if (namespaces) {
-			exports.storage.setItem('debug', namespaces);
-		} else {
-			exports.storage.removeItem('debug');
-		}
-	} catch (error) {
-		// Swallow
-		// XXX (@Qix-) should we be logging these?
-	}
-}
-
-/**
- * Load `namespaces`.
- *
- * @return {String} returns the previously persisted debug modes
- * @api private
- */
-function load() {
-	let r;
-	try {
-		r = exports.storage.getItem('debug');
-	} catch (error) {
-		// Swallow
-		// XXX (@Qix-) should we be logging these?
-	}
-
-	// If debug isn't set in LS, and we're in Electron, try to load $DEBUG
-	if (!r && typeof process !== 'undefined' && 'env' in process) {
-		r = process.env.DEBUG;
-	}
-
-	return r;
-}
-
-/**
- * Localstorage attempts to return the localstorage.
- *
- * This is necessary because safari throws
- * when a user disables cookies/localstorage
- * and you attempt to access it.
- *
- * @return {LocalStorage}
- * @api private
- */
-
-function localstorage() {
-	try {
-		// TVMLKit (Apple TV JS Runtime) does not have a window object, just localStorage in the global context
-		// The Browser also has localStorage in the global context.
-		return localStorage;
-	} catch (error) {
-		// Swallow
-		// XXX (@Qix-) should we be logging these?
-	}
-}
-
-module.exports = __webpack_require__(/*! ./common */ "./node_modules/socket.io-client/node_modules/debug/src/common.js")(exports);
-
-const {formatters} = module.exports;
-
-/**
- * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
- */
-
-formatters.j = function (v) {
-	try {
-		return JSON.stringify(v);
-	} catch (error) {
-		return '[UnexpectedJSONParseError]: ' + error.message;
-	}
-};
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../process/browser.js */ "./node_modules/process/browser.js")))
-
-/***/ }),
-
-/***/ "./node_modules/socket.io-client/node_modules/debug/src/common.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/socket.io-client/node_modules/debug/src/common.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * This is the common logic for both the Node.js and web browser
- * implementations of `debug()`.
- */
-
-function setup(env) {
-	createDebug.debug = createDebug;
-	createDebug.default = createDebug;
-	createDebug.coerce = coerce;
-	createDebug.disable = disable;
-	createDebug.enable = enable;
-	createDebug.enabled = enabled;
-	createDebug.humanize = __webpack_require__(/*! ms */ "./node_modules/ms/index.js");
-	createDebug.destroy = destroy;
-
-	Object.keys(env).forEach(key => {
-		createDebug[key] = env[key];
-	});
-
-	/**
-	* The currently active debug mode names, and names to skip.
-	*/
-
-	createDebug.names = [];
-	createDebug.skips = [];
-
-	/**
-	* Map of special "%n" handling functions, for the debug "format" argument.
-	*
-	* Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
-	*/
-	createDebug.formatters = {};
-
-	/**
-	* Selects a color for a debug namespace
-	* @param {String} namespace The namespace string for the for the debug instance to be colored
-	* @return {Number|String} An ANSI color code for the given namespace
-	* @api private
-	*/
-	function selectColor(namespace) {
-		let hash = 0;
-
-		for (let i = 0; i < namespace.length; i++) {
-			hash = ((hash << 5) - hash) + namespace.charCodeAt(i);
-			hash |= 0; // Convert to 32bit integer
-		}
-
-		return createDebug.colors[Math.abs(hash) % createDebug.colors.length];
-	}
-	createDebug.selectColor = selectColor;
-
-	/**
-	* Create a debugger with the given `namespace`.
-	*
-	* @param {String} namespace
-	* @return {Function}
-	* @api public
-	*/
-	function createDebug(namespace) {
-		let prevTime;
-		let enableOverride = null;
-
-		function debug(...args) {
-			// Disabled?
-			if (!debug.enabled) {
-				return;
-			}
-
-			const self = debug;
-
-			// Set `diff` timestamp
-			const curr = Number(new Date());
-			const ms = curr - (prevTime || curr);
-			self.diff = ms;
-			self.prev = prevTime;
-			self.curr = curr;
-			prevTime = curr;
-
-			args[0] = createDebug.coerce(args[0]);
-
-			if (typeof args[0] !== 'string') {
-				// Anything else let's inspect with %O
-				args.unshift('%O');
-			}
-
-			// Apply any `formatters` transformations
-			let index = 0;
-			args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
-				// If we encounter an escaped % then don't increase the array index
-				if (match === '%%') {
-					return '%';
-				}
-				index++;
-				const formatter = createDebug.formatters[format];
-				if (typeof formatter === 'function') {
-					const val = args[index];
-					match = formatter.call(self, val);
-
-					// Now we need to remove `args[index]` since it's inlined in the `format`
-					args.splice(index, 1);
-					index--;
-				}
-				return match;
-			});
-
-			// Apply env-specific formatting (colors, etc.)
-			createDebug.formatArgs.call(self, args);
-
-			const logFn = self.log || createDebug.log;
-			logFn.apply(self, args);
-		}
-
-		debug.namespace = namespace;
-		debug.useColors = createDebug.useColors();
-		debug.color = createDebug.selectColor(namespace);
-		debug.extend = extend;
-		debug.destroy = createDebug.destroy; // XXX Temporary. Will be removed in the next major release.
-
-		Object.defineProperty(debug, 'enabled', {
-			enumerable: true,
-			configurable: false,
-			get: () => enableOverride === null ? createDebug.enabled(namespace) : enableOverride,
-			set: v => {
-				enableOverride = v;
-			}
-		});
-
-		// Env-specific initialization logic for debug instances
-		if (typeof createDebug.init === 'function') {
-			createDebug.init(debug);
-		}
-
-		return debug;
-	}
-
-	function extend(namespace, delimiter) {
-		const newDebug = createDebug(this.namespace + (typeof delimiter === 'undefined' ? ':' : delimiter) + namespace);
-		newDebug.log = this.log;
-		return newDebug;
-	}
-
-	/**
-	* Enables a debug mode by namespaces. This can include modes
-	* separated by a colon and wildcards.
-	*
-	* @param {String} namespaces
-	* @api public
-	*/
-	function enable(namespaces) {
-		createDebug.save(namespaces);
-
-		createDebug.names = [];
-		createDebug.skips = [];
-
-		let i;
-		const split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
-		const len = split.length;
-
-		for (i = 0; i < len; i++) {
-			if (!split[i]) {
-				// ignore empty strings
-				continue;
-			}
-
-			namespaces = split[i].replace(/\*/g, '.*?');
-
-			if (namespaces[0] === '-') {
-				createDebug.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
-			} else {
-				createDebug.names.push(new RegExp('^' + namespaces + '$'));
-			}
-		}
-	}
-
-	/**
-	* Disable debug output.
-	*
-	* @return {String} namespaces
-	* @api public
-	*/
-	function disable() {
-		const namespaces = [
-			...createDebug.names.map(toNamespace),
-			...createDebug.skips.map(toNamespace).map(namespace => '-' + namespace)
-		].join(',');
-		createDebug.enable('');
-		return namespaces;
-	}
-
-	/**
-	* Returns true if the given mode name is enabled, false otherwise.
-	*
-	* @param {String} name
-	* @return {Boolean}
-	* @api public
-	*/
-	function enabled(name) {
-		if (name[name.length - 1] === '*') {
-			return true;
-		}
-
-		let i;
-		let len;
-
-		for (i = 0, len = createDebug.skips.length; i < len; i++) {
-			if (createDebug.skips[i].test(name)) {
-				return false;
-			}
-		}
-
-		for (i = 0, len = createDebug.names.length; i < len; i++) {
-			if (createDebug.names[i].test(name)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	* Convert regexp to namespace
-	*
-	* @param {RegExp} regxep
-	* @return {String} namespace
-	* @api private
-	*/
-	function toNamespace(regexp) {
-		return regexp.toString()
-			.substring(2, regexp.toString().length - 2)
-			.replace(/\.\*\?$/, '*');
-	}
-
-	/**
-	* Coerce `val`.
-	*
-	* @param {Mixed} val
-	* @return {Mixed}
-	* @api private
-	*/
-	function coerce(val) {
-		if (val instanceof Error) {
-			return val.stack || val.message;
-		}
-		return val;
-	}
-
-	/**
-	* XXX DO NOT USE. This is a temporary stub function.
-	* XXX It WILL be removed in the next major release.
-	*/
-	function destroy() {
-		console.warn('Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.');
-	}
-
-	createDebug.enable(createDebug.load());
-
-	return createDebug;
-}
-
-module.exports = setup;
-
-
-/***/ }),
-
-/***/ "./node_modules/socket.io-client/node_modules/parseuri/index.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/socket.io-client/node_modules/parseuri/index.js ***!
-  \**********************************************************************/
+/***/ "./node_modules/parseuri/index.js":
+/*!****************************************!*\
+  !*** ./node_modules/parseuri/index.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -7648,18 +4449,1072 @@ function queryKey(uri, query) {
 
 /***/ }),
 
-/***/ "./node_modules/socket.io-client/node_modules/socket.io-parser/dist/binary.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/socket.io-client/node_modules/socket.io-parser/dist/binary.js ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/socket.io-client/build/esm/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/index.js ***!
+  \**********************************************************/
+/*! exports provided: protocol, Manager, Socket, io, connect, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "io", function() { return lookup; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return lookup; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return lookup; });
+/* harmony import */ var _url_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./url.js */ "./node_modules/socket.io-client/build/esm/url.js");
+/* harmony import */ var _manager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./manager.js */ "./node_modules/socket.io-client/build/esm/manager.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Manager", function() { return _manager_js__WEBPACK_IMPORTED_MODULE_1__["Manager"]; });
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.reconstructPacket = exports.deconstructPacket = void 0;
-const is_binary_1 = __webpack_require__(/*! ./is-binary */ "./node_modules/socket.io-client/node_modules/socket.io-parser/dist/is-binary.js");
+/* harmony import */ var _socket_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./socket.js */ "./node_modules/socket.io-client/build/esm/socket.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Socket", function() { return _socket_js__WEBPACK_IMPORTED_MODULE_2__["Socket"]; });
+
+/* harmony import */ var socket_io_parser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "protocol", function() { return socket_io_parser__WEBPACK_IMPORTED_MODULE_3__["protocol"]; });
+
+
+
+
+/**
+ * Managers cache.
+ */
+const cache = {};
+function lookup(uri, opts) {
+    if (typeof uri === "object") {
+        opts = uri;
+        uri = undefined;
+    }
+    opts = opts || {};
+    const parsed = Object(_url_js__WEBPACK_IMPORTED_MODULE_0__["url"])(uri, opts.path || "/socket.io");
+    const source = parsed.source;
+    const id = parsed.id;
+    const path = parsed.path;
+    const sameNamespace = cache[id] && path in cache[id]["nsps"];
+    const newConnection = opts.forceNew ||
+        opts["force new connection"] ||
+        false === opts.multiplex ||
+        sameNamespace;
+    let io;
+    if (newConnection) {
+        io = new _manager_js__WEBPACK_IMPORTED_MODULE_1__["Manager"](source, opts);
+    }
+    else {
+        if (!cache[id]) {
+            cache[id] = new _manager_js__WEBPACK_IMPORTED_MODULE_1__["Manager"](source, opts);
+        }
+        io = cache[id];
+    }
+    if (parsed.query && !opts.query) {
+        opts.query = parsed.queryKey;
+    }
+    return io.socket(parsed.path, opts);
+}
+// so that "lookup" can be used both as a function (e.g. `io(...)`) and as a
+// namespace (e.g. `io.connect(...)`), for backward compatibility
+Object.assign(lookup, {
+    Manager: _manager_js__WEBPACK_IMPORTED_MODULE_1__["Manager"],
+    Socket: _socket_js__WEBPACK_IMPORTED_MODULE_2__["Socket"],
+    io: lookup,
+    connect: lookup,
+});
+/**
+ * Protocol version.
+ *
+ * @public
+ */
+
+/**
+ * Expose constructors for standalone build.
+ *
+ * @public
+ */
+
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/manager.js":
+/*!************************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/manager.js ***!
+  \************************************************************/
+/*! exports provided: Manager */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Manager", function() { return Manager; });
+/* harmony import */ var engine_io_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! engine.io-client */ "./node_modules/engine.io-client/build/esm/index.js");
+/* harmony import */ var _socket_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./socket.js */ "./node_modules/socket.io-client/build/esm/socket.js");
+/* harmony import */ var socket_io_parser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/index.js");
+/* harmony import */ var _on_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./on.js */ "./node_modules/socket.io-client/build/esm/on.js");
+/* harmony import */ var backo2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! backo2 */ "./node_modules/backo2/index.js");
+/* harmony import */ var backo2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(backo2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/index.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+class Manager extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_5__["Emitter"] {
+    constructor(uri, opts) {
+        var _a;
+        super();
+        this.nsps = {};
+        this.subs = [];
+        if (uri && "object" === typeof uri) {
+            opts = uri;
+            uri = undefined;
+        }
+        opts = opts || {};
+        opts.path = opts.path || "/socket.io";
+        this.opts = opts;
+        Object(engine_io_client__WEBPACK_IMPORTED_MODULE_0__["installTimerFunctions"])(this, opts);
+        this.reconnection(opts.reconnection !== false);
+        this.reconnectionAttempts(opts.reconnectionAttempts || Infinity);
+        this.reconnectionDelay(opts.reconnectionDelay || 1000);
+        this.reconnectionDelayMax(opts.reconnectionDelayMax || 5000);
+        this.randomizationFactor((_a = opts.randomizationFactor) !== null && _a !== void 0 ? _a : 0.5);
+        this.backoff = new backo2__WEBPACK_IMPORTED_MODULE_4___default.a({
+            min: this.reconnectionDelay(),
+            max: this.reconnectionDelayMax(),
+            jitter: this.randomizationFactor(),
+        });
+        this.timeout(null == opts.timeout ? 20000 : opts.timeout);
+        this._readyState = "closed";
+        this.uri = uri;
+        const _parser = opts.parser || socket_io_parser__WEBPACK_IMPORTED_MODULE_2__;
+        this.encoder = new _parser.Encoder();
+        this.decoder = new _parser.Decoder();
+        this._autoConnect = opts.autoConnect !== false;
+        if (this._autoConnect)
+            this.open();
+    }
+    reconnection(v) {
+        if (!arguments.length)
+            return this._reconnection;
+        this._reconnection = !!v;
+        return this;
+    }
+    reconnectionAttempts(v) {
+        if (v === undefined)
+            return this._reconnectionAttempts;
+        this._reconnectionAttempts = v;
+        return this;
+    }
+    reconnectionDelay(v) {
+        var _a;
+        if (v === undefined)
+            return this._reconnectionDelay;
+        this._reconnectionDelay = v;
+        (_a = this.backoff) === null || _a === void 0 ? void 0 : _a.setMin(v);
+        return this;
+    }
+    randomizationFactor(v) {
+        var _a;
+        if (v === undefined)
+            return this._randomizationFactor;
+        this._randomizationFactor = v;
+        (_a = this.backoff) === null || _a === void 0 ? void 0 : _a.setJitter(v);
+        return this;
+    }
+    reconnectionDelayMax(v) {
+        var _a;
+        if (v === undefined)
+            return this._reconnectionDelayMax;
+        this._reconnectionDelayMax = v;
+        (_a = this.backoff) === null || _a === void 0 ? void 0 : _a.setMax(v);
+        return this;
+    }
+    timeout(v) {
+        if (!arguments.length)
+            return this._timeout;
+        this._timeout = v;
+        return this;
+    }
+    /**
+     * Starts trying to reconnect if reconnection is enabled and we have not
+     * started reconnecting yet
+     *
+     * @private
+     */
+    maybeReconnectOnOpen() {
+        // Only try to reconnect if it's the first time we're connecting
+        if (!this._reconnecting &&
+            this._reconnection &&
+            this.backoff.attempts === 0) {
+            // keeps reconnection from firing twice for the same reconnection loop
+            this.reconnect();
+        }
+    }
+    /**
+     * Sets the current transport `socket`.
+     *
+     * @param {Function} fn - optional, callback
+     * @return self
+     * @public
+     */
+    open(fn) {
+        if (~this._readyState.indexOf("open"))
+            return this;
+        this.engine = new engine_io_client__WEBPACK_IMPORTED_MODULE_0__["Socket"](this.uri, this.opts);
+        const socket = this.engine;
+        const self = this;
+        this._readyState = "opening";
+        this.skipReconnect = false;
+        // emit `open`
+        const openSubDestroy = Object(_on_js__WEBPACK_IMPORTED_MODULE_3__["on"])(socket, "open", function () {
+            self.onopen();
+            fn && fn();
+        });
+        // emit `error`
+        const errorSub = Object(_on_js__WEBPACK_IMPORTED_MODULE_3__["on"])(socket, "error", (err) => {
+            self.cleanup();
+            self._readyState = "closed";
+            this.emitReserved("error", err);
+            if (fn) {
+                fn(err);
+            }
+            else {
+                // Only do this if there is no fn to handle the error
+                self.maybeReconnectOnOpen();
+            }
+        });
+        if (false !== this._timeout) {
+            const timeout = this._timeout;
+            if (timeout === 0) {
+                openSubDestroy(); // prevents a race condition with the 'open' event
+            }
+            // set timer
+            const timer = this.setTimeoutFn(() => {
+                openSubDestroy();
+                socket.close();
+                // @ts-ignore
+                socket.emit("error", new Error("timeout"));
+            }, timeout);
+            if (this.opts.autoUnref) {
+                timer.unref();
+            }
+            this.subs.push(function subDestroy() {
+                clearTimeout(timer);
+            });
+        }
+        this.subs.push(openSubDestroy);
+        this.subs.push(errorSub);
+        return this;
+    }
+    /**
+     * Alias for open()
+     *
+     * @return self
+     * @public
+     */
+    connect(fn) {
+        return this.open(fn);
+    }
+    /**
+     * Called upon transport open.
+     *
+     * @private
+     */
+    onopen() {
+        // clear old subs
+        this.cleanup();
+        // mark as open
+        this._readyState = "open";
+        this.emitReserved("open");
+        // add new subs
+        const socket = this.engine;
+        this.subs.push(Object(_on_js__WEBPACK_IMPORTED_MODULE_3__["on"])(socket, "ping", this.onping.bind(this)), Object(_on_js__WEBPACK_IMPORTED_MODULE_3__["on"])(socket, "data", this.ondata.bind(this)), Object(_on_js__WEBPACK_IMPORTED_MODULE_3__["on"])(socket, "error", this.onerror.bind(this)), Object(_on_js__WEBPACK_IMPORTED_MODULE_3__["on"])(socket, "close", this.onclose.bind(this)), Object(_on_js__WEBPACK_IMPORTED_MODULE_3__["on"])(this.decoder, "decoded", this.ondecoded.bind(this)));
+    }
+    /**
+     * Called upon a ping.
+     *
+     * @private
+     */
+    onping() {
+        this.emitReserved("ping");
+    }
+    /**
+     * Called with data.
+     *
+     * @private
+     */
+    ondata(data) {
+        this.decoder.add(data);
+    }
+    /**
+     * Called when parser fully decodes a packet.
+     *
+     * @private
+     */
+    ondecoded(packet) {
+        this.emitReserved("packet", packet);
+    }
+    /**
+     * Called upon socket error.
+     *
+     * @private
+     */
+    onerror(err) {
+        this.emitReserved("error", err);
+    }
+    /**
+     * Creates a new socket for the given `nsp`.
+     *
+     * @return {Socket}
+     * @public
+     */
+    socket(nsp, opts) {
+        let socket = this.nsps[nsp];
+        if (!socket) {
+            socket = new _socket_js__WEBPACK_IMPORTED_MODULE_1__["Socket"](this, nsp, opts);
+            this.nsps[nsp] = socket;
+        }
+        return socket;
+    }
+    /**
+     * Called upon a socket close.
+     *
+     * @param socket
+     * @private
+     */
+    _destroy(socket) {
+        const nsps = Object.keys(this.nsps);
+        for (const nsp of nsps) {
+            const socket = this.nsps[nsp];
+            if (socket.active) {
+                return;
+            }
+        }
+        this._close();
+    }
+    /**
+     * Writes a packet.
+     *
+     * @param packet
+     * @private
+     */
+    _packet(packet) {
+        const encodedPackets = this.encoder.encode(packet);
+        for (let i = 0; i < encodedPackets.length; i++) {
+            this.engine.write(encodedPackets[i], packet.options);
+        }
+    }
+    /**
+     * Clean up transport subscriptions and packet buffer.
+     *
+     * @private
+     */
+    cleanup() {
+        this.subs.forEach((subDestroy) => subDestroy());
+        this.subs.length = 0;
+        this.decoder.destroy();
+    }
+    /**
+     * Close the current socket.
+     *
+     * @private
+     */
+    _close() {
+        this.skipReconnect = true;
+        this._reconnecting = false;
+        this.onclose("forced close");
+        if (this.engine)
+            this.engine.close();
+    }
+    /**
+     * Alias for close()
+     *
+     * @private
+     */
+    disconnect() {
+        return this._close();
+    }
+    /**
+     * Called upon engine close.
+     *
+     * @private
+     */
+    onclose(reason) {
+        this.cleanup();
+        this.backoff.reset();
+        this._readyState = "closed";
+        this.emitReserved("close", reason);
+        if (this._reconnection && !this.skipReconnect) {
+            this.reconnect();
+        }
+    }
+    /**
+     * Attempt a reconnection.
+     *
+     * @private
+     */
+    reconnect() {
+        if (this._reconnecting || this.skipReconnect)
+            return this;
+        const self = this;
+        if (this.backoff.attempts >= this._reconnectionAttempts) {
+            this.backoff.reset();
+            this.emitReserved("reconnect_failed");
+            this._reconnecting = false;
+        }
+        else {
+            const delay = this.backoff.duration();
+            this._reconnecting = true;
+            const timer = this.setTimeoutFn(() => {
+                if (self.skipReconnect)
+                    return;
+                this.emitReserved("reconnect_attempt", self.backoff.attempts);
+                // check again for the case socket closed in above events
+                if (self.skipReconnect)
+                    return;
+                self.open((err) => {
+                    if (err) {
+                        self._reconnecting = false;
+                        self.reconnect();
+                        this.emitReserved("reconnect_error", err);
+                    }
+                    else {
+                        self.onreconnect();
+                    }
+                });
+            }, delay);
+            if (this.opts.autoUnref) {
+                timer.unref();
+            }
+            this.subs.push(function subDestroy() {
+                clearTimeout(timer);
+            });
+        }
+    }
+    /**
+     * Called upon successful reconnect.
+     *
+     * @private
+     */
+    onreconnect() {
+        const attempt = this.backoff.attempts;
+        this._reconnecting = false;
+        this.backoff.reset();
+        this.emitReserved("reconnect", attempt);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/on.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/on.js ***!
+  \*******************************************************/
+/*! exports provided: on */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "on", function() { return on; });
+function on(obj, ev, fn) {
+    obj.on(ev, fn);
+    return function subDestroy() {
+        obj.off(ev, fn);
+    };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/socket.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/socket.js ***!
+  \***********************************************************/
+/*! exports provided: Socket */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Socket", function() { return Socket; });
+/* harmony import */ var socket_io_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/index.js");
+/* harmony import */ var _on_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./on.js */ "./node_modules/socket.io-client/build/esm/on.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/index.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/**
+ * Internal events.
+ * These events can't be emitted by the user.
+ */
+const RESERVED_EVENTS = Object.freeze({
+    connect: 1,
+    connect_error: 1,
+    disconnect: 1,
+    disconnecting: 1,
+    // EventEmitter reserved events: https://nodejs.org/api/events.html#events_event_newlistener
+    newListener: 1,
+    removeListener: 1,
+});
+class Socket extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_2__["Emitter"] {
+    /**
+     * `Socket` constructor.
+     *
+     * @public
+     */
+    constructor(io, nsp, opts) {
+        super();
+        this.connected = false;
+        this.disconnected = true;
+        this.receiveBuffer = [];
+        this.sendBuffer = [];
+        this.ids = 0;
+        this.acks = {};
+        this.flags = {};
+        this.io = io;
+        this.nsp = nsp;
+        if (opts && opts.auth) {
+            this.auth = opts.auth;
+        }
+        if (this.io._autoConnect)
+            this.open();
+    }
+    /**
+     * Subscribe to open, close and packet events
+     *
+     * @private
+     */
+    subEvents() {
+        if (this.subs)
+            return;
+        const io = this.io;
+        this.subs = [
+            Object(_on_js__WEBPACK_IMPORTED_MODULE_1__["on"])(io, "open", this.onopen.bind(this)),
+            Object(_on_js__WEBPACK_IMPORTED_MODULE_1__["on"])(io, "packet", this.onpacket.bind(this)),
+            Object(_on_js__WEBPACK_IMPORTED_MODULE_1__["on"])(io, "error", this.onerror.bind(this)),
+            Object(_on_js__WEBPACK_IMPORTED_MODULE_1__["on"])(io, "close", this.onclose.bind(this)),
+        ];
+    }
+    /**
+     * Whether the Socket will try to reconnect when its Manager connects or reconnects
+     */
+    get active() {
+        return !!this.subs;
+    }
+    /**
+     * "Opens" the socket.
+     *
+     * @public
+     */
+    connect() {
+        if (this.connected)
+            return this;
+        this.subEvents();
+        if (!this.io["_reconnecting"])
+            this.io.open(); // ensure open
+        if ("open" === this.io._readyState)
+            this.onopen();
+        return this;
+    }
+    /**
+     * Alias for connect()
+     */
+    open() {
+        return this.connect();
+    }
+    /**
+     * Sends a `message` event.
+     *
+     * @return self
+     * @public
+     */
+    send(...args) {
+        args.unshift("message");
+        this.emit.apply(this, args);
+        return this;
+    }
+    /**
+     * Override `emit`.
+     * If the event is in `events`, it's emitted normally.
+     *
+     * @return self
+     * @public
+     */
+    emit(ev, ...args) {
+        if (RESERVED_EVENTS.hasOwnProperty(ev)) {
+            throw new Error('"' + ev + '" is a reserved event name');
+        }
+        args.unshift(ev);
+        const packet = {
+            type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].EVENT,
+            data: args,
+        };
+        packet.options = {};
+        packet.options.compress = this.flags.compress !== false;
+        // event ack callback
+        if ("function" === typeof args[args.length - 1]) {
+            const id = this.ids++;
+            const ack = args.pop();
+            this._registerAckCallback(id, ack);
+            packet.id = id;
+        }
+        const isTransportWritable = this.io.engine &&
+            this.io.engine.transport &&
+            this.io.engine.transport.writable;
+        const discardPacket = this.flags.volatile && (!isTransportWritable || !this.connected);
+        if (discardPacket) {
+        }
+        else if (this.connected) {
+            this.packet(packet);
+        }
+        else {
+            this.sendBuffer.push(packet);
+        }
+        this.flags = {};
+        return this;
+    }
+    /**
+     * @private
+     */
+    _registerAckCallback(id, ack) {
+        const timeout = this.flags.timeout;
+        if (timeout === undefined) {
+            this.acks[id] = ack;
+            return;
+        }
+        // @ts-ignore
+        const timer = this.io.setTimeoutFn(() => {
+            delete this.acks[id];
+            for (let i = 0; i < this.sendBuffer.length; i++) {
+                if (this.sendBuffer[i].id === id) {
+                    this.sendBuffer.splice(i, 1);
+                }
+            }
+            ack.call(this, new Error("operation has timed out"));
+        }, timeout);
+        this.acks[id] = (...args) => {
+            // @ts-ignore
+            this.io.clearTimeoutFn(timer);
+            ack.apply(this, [null, ...args]);
+        };
+    }
+    /**
+     * Sends a packet.
+     *
+     * @param packet
+     * @private
+     */
+    packet(packet) {
+        packet.nsp = this.nsp;
+        this.io._packet(packet);
+    }
+    /**
+     * Called upon engine `open`.
+     *
+     * @private
+     */
+    onopen() {
+        if (typeof this.auth == "function") {
+            this.auth((data) => {
+                this.packet({ type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].CONNECT, data });
+            });
+        }
+        else {
+            this.packet({ type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].CONNECT, data: this.auth });
+        }
+    }
+    /**
+     * Called upon engine or manager `error`.
+     *
+     * @param err
+     * @private
+     */
+    onerror(err) {
+        if (!this.connected) {
+            this.emitReserved("connect_error", err);
+        }
+    }
+    /**
+     * Called upon engine `close`.
+     *
+     * @param reason
+     * @private
+     */
+    onclose(reason) {
+        this.connected = false;
+        this.disconnected = true;
+        delete this.id;
+        this.emitReserved("disconnect", reason);
+    }
+    /**
+     * Called with socket packet.
+     *
+     * @param packet
+     * @private
+     */
+    onpacket(packet) {
+        const sameNamespace = packet.nsp === this.nsp;
+        if (!sameNamespace)
+            return;
+        switch (packet.type) {
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].CONNECT:
+                if (packet.data && packet.data.sid) {
+                    const id = packet.data.sid;
+                    this.onconnect(id);
+                }
+                else {
+                    this.emitReserved("connect_error", new Error("It seems you are trying to reach a Socket.IO server in v2.x with a v3.x client, but they are not compatible (more information here: https://socket.io/docs/v3/migrating-from-2-x-to-3-0/)"));
+                }
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].EVENT:
+                this.onevent(packet);
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].BINARY_EVENT:
+                this.onevent(packet);
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].ACK:
+                this.onack(packet);
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].BINARY_ACK:
+                this.onack(packet);
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].DISCONNECT:
+                this.ondisconnect();
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].CONNECT_ERROR:
+                this.destroy();
+                const err = new Error(packet.data.message);
+                // @ts-ignore
+                err.data = packet.data.data;
+                this.emitReserved("connect_error", err);
+                break;
+        }
+    }
+    /**
+     * Called upon a server event.
+     *
+     * @param packet
+     * @private
+     */
+    onevent(packet) {
+        const args = packet.data || [];
+        if (null != packet.id) {
+            args.push(this.ack(packet.id));
+        }
+        if (this.connected) {
+            this.emitEvent(args);
+        }
+        else {
+            this.receiveBuffer.push(Object.freeze(args));
+        }
+    }
+    emitEvent(args) {
+        if (this._anyListeners && this._anyListeners.length) {
+            const listeners = this._anyListeners.slice();
+            for (const listener of listeners) {
+                listener.apply(this, args);
+            }
+        }
+        super.emit.apply(this, args);
+    }
+    /**
+     * Produces an ack callback to emit with an event.
+     *
+     * @private
+     */
+    ack(id) {
+        const self = this;
+        let sent = false;
+        return function (...args) {
+            // prevent double callbacks
+            if (sent)
+                return;
+            sent = true;
+            self.packet({
+                type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].ACK,
+                id: id,
+                data: args,
+            });
+        };
+    }
+    /**
+     * Called upon a server acknowlegement.
+     *
+     * @param packet
+     * @private
+     */
+    onack(packet) {
+        const ack = this.acks[packet.id];
+        if ("function" === typeof ack) {
+            ack.apply(this, packet.data);
+            delete this.acks[packet.id];
+        }
+        else {
+        }
+    }
+    /**
+     * Called upon server connect.
+     *
+     * @private
+     */
+    onconnect(id) {
+        this.id = id;
+        this.connected = true;
+        this.disconnected = false;
+        this.emitBuffered();
+        this.emitReserved("connect");
+    }
+    /**
+     * Emit buffered events (received and emitted).
+     *
+     * @private
+     */
+    emitBuffered() {
+        this.receiveBuffer.forEach((args) => this.emitEvent(args));
+        this.receiveBuffer = [];
+        this.sendBuffer.forEach((packet) => this.packet(packet));
+        this.sendBuffer = [];
+    }
+    /**
+     * Called upon server disconnect.
+     *
+     * @private
+     */
+    ondisconnect() {
+        this.destroy();
+        this.onclose("io server disconnect");
+    }
+    /**
+     * Called upon forced client/server side disconnections,
+     * this method ensures the manager stops tracking us and
+     * that reconnections don't get triggered for this.
+     *
+     * @private
+     */
+    destroy() {
+        if (this.subs) {
+            // clean subscriptions to avoid reconnections
+            this.subs.forEach((subDestroy) => subDestroy());
+            this.subs = undefined;
+        }
+        this.io["_destroy"](this);
+    }
+    /**
+     * Disconnects the socket manually.
+     *
+     * @return self
+     * @public
+     */
+    disconnect() {
+        if (this.connected) {
+            this.packet({ type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__["PacketType"].DISCONNECT });
+        }
+        // remove socket from pool
+        this.destroy();
+        if (this.connected) {
+            // fire events
+            this.onclose("io client disconnect");
+        }
+        return this;
+    }
+    /**
+     * Alias for disconnect()
+     *
+     * @return self
+     * @public
+     */
+    close() {
+        return this.disconnect();
+    }
+    /**
+     * Sets the compress flag.
+     *
+     * @param compress - if `true`, compresses the sending data
+     * @return self
+     * @public
+     */
+    compress(compress) {
+        this.flags.compress = compress;
+        return this;
+    }
+    /**
+     * Sets a modifier for a subsequent event emission that the event message will be dropped when this socket is not
+     * ready to send messages.
+     *
+     * @returns self
+     * @public
+     */
+    get volatile() {
+        this.flags.volatile = true;
+        return this;
+    }
+    /**
+     * Sets a modifier for a subsequent event emission that the callback will be called with an error when the
+     * given number of milliseconds have elapsed without an acknowledgement from the server:
+     *
+     * ```
+     * socket.timeout(5000).emit("my-event", (err) => {
+     *   if (err) {
+     *     // the server did not acknowledge the event in the given delay
+     *   }
+     * });
+     * ```
+     *
+     * @returns self
+     * @public
+     */
+    timeout(timeout) {
+        this.flags.timeout = timeout;
+        return this;
+    }
+    /**
+     * Adds a listener that will be fired when any event is emitted. The event name is passed as the first argument to the
+     * callback.
+     *
+     * @param listener
+     * @public
+     */
+    onAny(listener) {
+        this._anyListeners = this._anyListeners || [];
+        this._anyListeners.push(listener);
+        return this;
+    }
+    /**
+     * Adds a listener that will be fired when any event is emitted. The event name is passed as the first argument to the
+     * callback. The listener is added to the beginning of the listeners array.
+     *
+     * @param listener
+     * @public
+     */
+    prependAny(listener) {
+        this._anyListeners = this._anyListeners || [];
+        this._anyListeners.unshift(listener);
+        return this;
+    }
+    /**
+     * Removes the listener that will be fired when any event is emitted.
+     *
+     * @param listener
+     * @public
+     */
+    offAny(listener) {
+        if (!this._anyListeners) {
+            return this;
+        }
+        if (listener) {
+            const listeners = this._anyListeners;
+            for (let i = 0; i < listeners.length; i++) {
+                if (listener === listeners[i]) {
+                    listeners.splice(i, 1);
+                    return this;
+                }
+            }
+        }
+        else {
+            this._anyListeners = [];
+        }
+        return this;
+    }
+    /**
+     * Returns an array of listeners that are listening for any event that is specified. This array can be manipulated,
+     * e.g. to remove listeners.
+     *
+     * @public
+     */
+    listenersAny() {
+        return this._anyListeners || [];
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/url.js":
+/*!********************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/url.js ***!
+  \********************************************************/
+/*! exports provided: url */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "url", function() { return url; });
+/* harmony import */ var parseuri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! parseuri */ "./node_modules/parseuri/index.js");
+/* harmony import */ var parseuri__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(parseuri__WEBPACK_IMPORTED_MODULE_0__);
+
+/**
+ * URL parser.
+ *
+ * @param uri - url
+ * @param path - the request path of the connection
+ * @param loc - An object meant to mimic window.location.
+ *        Defaults to window.location.
+ * @public
+ */
+function url(uri, path = "", loc) {
+    let obj = uri;
+    // default to window.location
+    loc = loc || (typeof location !== "undefined" && location);
+    if (null == uri)
+        uri = loc.protocol + "//" + loc.host;
+    // relative path support
+    if (typeof uri === "string") {
+        if ("/" === uri.charAt(0)) {
+            if ("/" === uri.charAt(1)) {
+                uri = loc.protocol + uri;
+            }
+            else {
+                uri = loc.host + uri;
+            }
+        }
+        if (!/^(https?|wss?):\/\//.test(uri)) {
+            if ("undefined" !== typeof loc) {
+                uri = loc.protocol + "//" + uri;
+            }
+            else {
+                uri = "https://" + uri;
+            }
+        }
+        // parse
+        obj = parseuri__WEBPACK_IMPORTED_MODULE_0___default()(uri);
+    }
+    // make sure we treat `localhost:80` and `localhost` equally
+    if (!obj.port) {
+        if (/^(http|ws)$/.test(obj.protocol)) {
+            obj.port = "80";
+        }
+        else if (/^(http|ws)s$/.test(obj.protocol)) {
+            obj.port = "443";
+        }
+    }
+    obj.path = obj.path || "/";
+    const ipv6 = obj.host.indexOf(":") !== -1;
+    const host = ipv6 ? "[" + obj.host + "]" : obj.host;
+    // define unique id
+    obj.id = obj.protocol + "://" + host + ":" + obj.port + path;
+    // define href
+    obj.href =
+        obj.protocol +
+            "://" +
+            host +
+            (loc && loc.port === obj.port ? "" : ":" + obj.port);
+    return obj;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/binary.js":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/binary.js ***!
+  \*****************************************************************************************/
+/*! exports provided: deconstructPacket, reconstructPacket */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deconstructPacket", function() { return deconstructPacket; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reconstructPacket", function() { return reconstructPacket; });
+/* harmony import */ var _is_binary_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./is-binary.js */ "./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/is-binary.js");
+
 /**
  * Replaces every Buffer | ArrayBuffer | Blob | File in packet with a numbered placeholder.
  *
@@ -7675,11 +5530,10 @@ function deconstructPacket(packet) {
     pack.attachments = buffers.length; // number of binary 'attachments'
     return { packet: pack, buffers: buffers };
 }
-exports.deconstructPacket = deconstructPacket;
 function _deconstructPacket(data, buffers) {
     if (!data)
         return data;
-    if (is_binary_1.isBinary(data)) {
+    if (Object(_is_binary_js__WEBPACK_IMPORTED_MODULE_0__["isBinary"])(data)) {
         const placeholder = { _placeholder: true, num: buffers.length };
         buffers.push(data);
         return placeholder;
@@ -7715,7 +5569,6 @@ function reconstructPacket(packet, buffers) {
     packet.attachments = undefined; // no longer useful
     return packet;
 }
-exports.reconstructPacket = reconstructPacket;
 function _reconstructPacket(data, buffers) {
     if (!data)
         return data;
@@ -7740,27 +5593,32 @@ function _reconstructPacket(data, buffers) {
 
 /***/ }),
 
-/***/ "./node_modules/socket.io-client/node_modules/socket.io-parser/dist/index.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/socket.io-client/node_modules/socket.io-parser/dist/index.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/index.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/index.js ***!
+  \****************************************************************************************/
+/*! exports provided: protocol, PacketType, Encoder, Decoder */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "protocol", function() { return protocol; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PacketType", function() { return PacketType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Encoder", function() { return Encoder; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Decoder", function() { return Decoder; });
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/index.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _binary_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./binary.js */ "./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/binary.js");
+/* harmony import */ var _is_binary_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./is-binary.js */ "./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/is-binary.js");
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Decoder = exports.Encoder = exports.PacketType = exports.protocol = void 0;
-const Emitter = __webpack_require__(/*! component-emitter */ "./node_modules/component-emitter/index.js");
-const binary_1 = __webpack_require__(/*! ./binary */ "./node_modules/socket.io-client/node_modules/socket.io-parser/dist/binary.js");
-const is_binary_1 = __webpack_require__(/*! ./is-binary */ "./node_modules/socket.io-client/node_modules/socket.io-parser/dist/is-binary.js");
-const debug = __webpack_require__(/*! debug */ "./node_modules/socket.io-client/node_modules/debug/src/browser.js")("socket.io-parser");
+
+
 /**
  * Protocol version.
  *
  * @public
  */
-exports.protocol = 5;
+const protocol = 5;
 var PacketType;
 (function (PacketType) {
     PacketType[PacketType["CONNECT"] = 0] = "CONNECT";
@@ -7770,7 +5628,7 @@ var PacketType;
     PacketType[PacketType["CONNECT_ERROR"] = 4] = "CONNECT_ERROR";
     PacketType[PacketType["BINARY_EVENT"] = 5] = "BINARY_EVENT";
     PacketType[PacketType["BINARY_ACK"] = 6] = "BINARY_ACK";
-})(PacketType = exports.PacketType || (exports.PacketType = {}));
+})(PacketType || (PacketType = {}));
 /**
  * A socket.io Encoder instance
  */
@@ -7782,9 +5640,8 @@ class Encoder {
      * @param {Object} obj - packet object
      */
     encode(obj) {
-        debug("encoding packet %j", obj);
         if (obj.type === PacketType.EVENT || obj.type === PacketType.ACK) {
-            if (is_binary_1.hasBinary(obj)) {
+            if (Object(_is_binary_js__WEBPACK_IMPORTED_MODULE_2__["hasBinary"])(obj)) {
                 obj.type =
                     obj.type === PacketType.EVENT
                         ? PacketType.BINARY_EVENT
@@ -7818,7 +5675,6 @@ class Encoder {
         if (null != obj.data) {
             str += JSON.stringify(obj.data);
         }
-        debug("encoded %j as %s", obj, str);
         return str;
     }
     /**
@@ -7827,20 +5683,19 @@ class Encoder {
      * a list of buffers.
      */
     encodeAsBinary(obj) {
-        const deconstruction = binary_1.deconstructPacket(obj);
+        const deconstruction = Object(_binary_js__WEBPACK_IMPORTED_MODULE_1__["deconstructPacket"])(obj);
         const pack = this.encodeAsString(deconstruction.packet);
         const buffers = deconstruction.buffers;
         buffers.unshift(pack); // add packet info to beginning of data list
         return buffers; // write all the buffers
     }
 }
-exports.Encoder = Encoder;
 /**
  * A socket.io Decoder instance
  *
  * @return {Object} decoder
  */
-class Decoder extends Emitter {
+class Decoder extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_0__["Emitter"] {
     constructor() {
         super();
     }
@@ -7859,15 +5714,15 @@ class Decoder extends Emitter {
                 this.reconstructor = new BinaryReconstructor(packet);
                 // no attachments, labeled binary but no binary data to follow
                 if (packet.attachments === 0) {
-                    super.emit("decoded", packet);
+                    super.emitReserved("decoded", packet);
                 }
             }
             else {
                 // non-binary full packet
-                super.emit("decoded", packet);
+                super.emitReserved("decoded", packet);
             }
         }
-        else if (is_binary_1.isBinary(obj) || obj.base64) {
+        else if (Object(_is_binary_js__WEBPACK_IMPORTED_MODULE_2__["isBinary"])(obj) || obj.base64) {
             // raw binary data
             if (!this.reconstructor) {
                 throw new Error("got binary data when not reconstructing a packet");
@@ -7877,7 +5732,7 @@ class Decoder extends Emitter {
                 if (packet) {
                     // received final buffer
                     this.reconstructor = null;
-                    super.emit("decoded", packet);
+                    super.emitReserved("decoded", packet);
                 }
             }
         }
@@ -7951,7 +5806,6 @@ class Decoder extends Emitter {
                 throw new Error("invalid payload");
             }
         }
-        debug("decoded %s as %j", str, p);
         return p;
     }
     static isPayloadValid(type, payload) {
@@ -7979,7 +5833,6 @@ class Decoder extends Emitter {
         }
     }
 }
-exports.Decoder = Decoder;
 function tryParse(str) {
     try {
         return JSON.parse(str);
@@ -8014,7 +5867,7 @@ class BinaryReconstructor {
         this.buffers.push(binData);
         if (this.buffers.length === this.reconPack.attachments) {
             // done with buffer list
-            const packet = binary_1.reconstructPacket(this.reconPack, this.buffers);
+            const packet = Object(_binary_js__WEBPACK_IMPORTED_MODULE_1__["reconstructPacket"])(this.reconPack, this.buffers);
             this.finishedReconstruction();
             return packet;
         }
@@ -8032,17 +5885,17 @@ class BinaryReconstructor {
 
 /***/ }),
 
-/***/ "./node_modules/socket.io-client/node_modules/socket.io-parser/dist/is-binary.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/socket.io-client/node_modules/socket.io-parser/dist/is-binary.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/is-binary.js":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/socket.io-client/node_modules/socket.io-parser/build/esm/is-binary.js ***!
+  \********************************************************************************************/
+/*! exports provided: isBinary, hasBinary */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.hasBinary = exports.isBinary = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBinary", function() { return isBinary; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasBinary", function() { return hasBinary; });
 const withNativeArrayBuffer = typeof ArrayBuffer === "function";
 const isView = (obj) => {
     return typeof ArrayBuffer.isView === "function"
@@ -8066,7 +5919,6 @@ function isBinary(obj) {
         (withNativeBlob && obj instanceof Blob) ||
         (withNativeFile && obj instanceof File));
 }
-exports.isBinary = isBinary;
 function hasBinary(obj, toJSON) {
     if (!obj || typeof obj !== "object") {
         return false;
@@ -8094,7 +5946,6 @@ function hasBinary(obj, toJSON) {
     }
     return false;
 }
-exports.hasBinary = hasBinary;
 
 
 /***/ }),
@@ -8265,7 +6116,7 @@ module.exports = yeast;
 /*! exports provided: name, version, description, module, scripts, repository, keywords, author, license, bugs, homepage, dependencies, devDependencies, eslintConfig, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"imjoy-rpc\",\"version\":\"0.3.35\",\"description\":\"Remote procedure calls for ImJoy.\",\"module\":\"index.js\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd\",\"build-umd\":\"webpack --config webpack.config.js --mode development && NODE_ENV=production webpack --config webpack.config.js --mode production --devtool source-map \",\"watch\":\"NODE_ENV=production webpack --watch --progress --config webpack.config.js --mode production --devtool source-map\",\"publish-npm\":\"npm install && npm run build && npm publish\",\"serve\":\"webpack-dev-server\",\"stats\":\"webpack --profile --json > stats.json\",\"stats-prod\":\"webpack --profile --json --mode production > stats-prod.json\",\"analyze\":\"webpack-bundle-analyzer -p 9999 stats.json\",\"analyze-prod\":\"webpack-bundle-analyzer -p 9999 stats-prod.json\",\"clean\":\"rimraf dist/*\",\"deploy\":\"npm run build && node deploy-site.js\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"test-watch\":\"karma start --auto-watch --browsers Chrome,FirefoxHeadless karma.conf.js --debug\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-rpc.git\"},\"keywords\":[\"imjoy\",\"rpc\"],\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/imjoy-team/imjoy-rpc/issues\"},\"homepage\":\"https://github.com/imjoy-team/imjoy-rpc\",\"dependencies\":{\"socket.io-client\":\"^4.0.1\"},\"devDependencies\":{\"@babel/core\":\"^7.0.0-beta.39\",\"@babel/plugin-syntax-dynamic-import\":\"^7.0.0-beta.39\",\"@babel/polyfill\":\"^7.0.0-beta.39\",\"@babel/preset-env\":\"^7.0.0-beta.39\",\"@types/requirejs\":\"^2.1.28\",\"babel-core\":\"^6.26.0\",\"babel-eslint\":\"^10.1.0\",\"babel-loader\":\"^8.1.0\",\"babel-runtime\":\"^6.26.0\",\"chai\":\"^4.2.0\",\"clean-webpack-plugin\":\"^0.1.19\",\"copy-webpack-plugin\":\"^5.0.5\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"eslint-loader\":\"^4.0.2\",\"file-loader\":\"^0.11.2\",\"fs-extra\":\"^0.30.0\",\"gh-pages\":\"^2.0.1\",\"html-loader\":\"^0.5.5\",\"html-webpack-plugin\":\"^3.2.0\",\"json-loader\":\"^0.5.4\",\"karma\":\"^6.3.2\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-spec-reporter\":\"0.0.32\",\"karma-webpack\":\"^4.0.2\",\"lerna\":\"^3.8.0\",\"lodash.debounce\":\"^4.0.8\",\"mocha\":\"^7.1.2\",\"postcss\":\"^6.0.2\",\"prettier\":\"^1.6.1\",\"rimraf\":\"^2.6.2\",\"schema-utils\":\"^0.4.3\",\"style-loader\":\"^0.18.1\",\"url-loader\":\"^0.5.9\",\"webpack\":\"^4.0.0\",\"webpack-bundle-analyzer\":\"^3.3.2\",\"webpack-cli\":\"^3.1.2\",\"webpack-dev-server\":\"^3.1.1\",\"webpack-merge\":\"^4.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\",\"worker-loader\":\"^2.0.0\",\"write-file-webpack-plugin\":\"^4.5.1\"},\"eslintConfig\":{\"globals\":{\"document\":true,\"window\":true}}}");
+module.exports = JSON.parse("{\"name\":\"imjoy-rpc\",\"version\":\"0.5.9\",\"description\":\"Remote procedure calls for ImJoy.\",\"module\":\"index.js\",\"scripts\":{\"build\":\"rm -rf dist && npm run build-umd\",\"build-umd\":\"webpack --config webpack.config.js --mode development && NODE_ENV=production webpack --config webpack.config.js --mode production --devtool source-map \",\"watch\":\"NODE_ENV=production webpack --watch --progress --config webpack.config.js --mode production --devtool source-map\",\"publish-npm\":\"npm install && npm run build && npm publish\",\"serve\":\"webpack-dev-server\",\"stats\":\"webpack --profile --json > stats.json\",\"stats-prod\":\"webpack --profile --json --mode production > stats-prod.json\",\"analyze\":\"webpack-bundle-analyzer -p 9999 stats.json\",\"analyze-prod\":\"webpack-bundle-analyzer -p 9999 stats-prod.json\",\"clean\":\"rimraf dist/*\",\"deploy\":\"npm run build && node deploy-site.js\",\"format\":\"prettier --write \\\"{src,tests}/**/**\\\"\",\"check-format\":\"prettier --check \\\"{src,tests}/**/**\\\"\",\"test\":\"karma start --single-run --browsers ChromeHeadless,FirefoxHeadless karma.conf.js\",\"test-watch\":\"karma start --auto-watch --browsers ChromeDebugging karma.conf.js --debug\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/imjoy-team/imjoy-rpc.git\"},\"keywords\":[\"imjoy\",\"rpc\"],\"author\":\"imjoy-team <imjoy.team@gmail.com>\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/imjoy-team/imjoy-rpc/issues\"},\"homepage\":\"https://github.com/imjoy-team/imjoy-rpc\",\"dependencies\":{\"@msgpack/msgpack\":\"^2.7.1\",\"socket.io-client\":\"^4.4.1\"},\"devDependencies\":{\"@babel/core\":\"^7.16.12\",\"@babel/plugin-syntax-dynamic-import\":\"^7.8.3\",\"@babel/polyfill\":\"^7.12.1\",\"@babel/preset-env\":\"^7.16.11\",\"@types/requirejs\":\"^2.1.34\",\"babel-core\":\"^6.26.0\",\"babel-eslint\":\"^10.1.0\",\"babel-loader\":\"^8.2.3\",\"babel-runtime\":\"^6.26.0\",\"chai\":\"^4.3.6\",\"clean-webpack-plugin\":\"^0.1.19\",\"copy-webpack-plugin\":\"^5.1.2\",\"eslint\":\"^6.8.0\",\"eslint-config-prettier\":\"^4.2.0\",\"eslint-loader\":\"^4.0.2\",\"file-loader\":\"^0.11.2\",\"fs-extra\":\"^0.30.0\",\"gh-pages\":\"^2.0.1\",\"html-loader\":\"^0.5.5\",\"html-webpack-plugin\":\"^3.2.0\",\"json-loader\":\"^0.5.4\",\"karma\":\"^6.3.12\",\"karma-chrome-launcher\":\"^3.1.0\",\"karma-firefox-launcher\":\"^1.3.0\",\"karma-mocha\":\"^1.3.0\",\"karma-sourcemap-loader\":\"^0.3.8\",\"karma-spec-reporter\":\"0.0.32\",\"karma-webpack\":\"^4.0.2\",\"lerna\":\"^3.22.1\",\"lodash.debounce\":\"^4.0.8\",\"mocha\":\"^7.2.0\",\"postcss\":\"^7.0.36\",\"prettier\":\"^1.6.1\",\"rimraf\":\"^2.6.2\",\"schema-utils\":\"^0.4.3\",\"style-loader\":\"^0.18.1\",\"url-loader\":\"^0.5.9\",\"webpack\":\"^4.46.0\",\"webpack-bundle-analyzer\":\"^3.9.0\",\"webpack-cli\":\"^3.3.12\",\"webpack-dev-server\":\"^3.11.3\",\"webpack-merge\":\"^4.1.1\",\"workbox-webpack-plugin\":\"^4.3.1\",\"worker-loader\":\"^2.0.0\",\"write-file-webpack-plugin\":\"^4.5.1\"},\"eslintConfig\":{\"globals\":{\"document\":true,\"window\":true}}}");
 
 /***/ }),
 
@@ -8317,6 +6168,10 @@ function _inIframe() {
   } catch (e) {
     return true;
   }
+}
+
+function _inWebWorker() {
+  return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
 }
 /**
  * Initializes the plugin inside a web worker. May throw an exception
@@ -8397,8 +6252,8 @@ function setupWebWorker(config) {
 }
 
 function waitForInitialization(config) {
-  if (!_inIframe()) {
-    throw new Error("waitForInitialization (imjoy-rpc) should only run inside an iframe.");
+  if (_inWebWorker()) {
+    globalThis.parent = self;
   }
 
   config = config || {};
@@ -8423,13 +6278,13 @@ function waitForInitialization(config) {
   }
 
   const done = () => {
-    window.removeEventListener("message", handleEvent);
+    globalThis.removeEventListener("message", handleEvent);
   };
 
   const peer_id = Object(_utils_js__WEBPACK_IMPORTED_MODULE_2__["randId"])();
 
   const handleEvent = e => {
-    if (e.type === "message" && (targetOrigin === "*" || e.origin === targetOrigin)) {
+    if (e.type === "message" && (!e.origin || targetOrigin === "*" || e.origin === targetOrigin)) {
       if (e.data.type === "initialize") {
         done();
 
@@ -8468,12 +6323,21 @@ function waitForInitialization(config) {
     }
   };
 
-  window.addEventListener("message", handleEvent);
-  parent.postMessage({
-    type: "imjoyRPCReady",
-    config: config,
-    peer_id: peer_id
-  }, "*");
+  globalThis.addEventListener("message", handleEvent);
+
+  if (_inWebWorker()) {
+    parent.postMessage({
+      type: "imjoyRPCReady",
+      config: config,
+      peer_id: peer_id
+    });
+  } else {
+    parent.postMessage({
+      type: "imjoyRPCReady",
+      config: config,
+      peer_id: peer_id
+    }, "*");
+  }
 }
 function setupRPC(config) {
   config = config || {};
@@ -8518,8 +6382,11 @@ function setupRPC(config) {
       }
 
       globalThis.addEventListener("imjoy_remote_api_ready", handleEvent);
+    } else if (_inWebWorker()) {
+      // inside a webworker
+      Object(_pluginIframe_js__WEBPACK_IMPORTED_MODULE_1__["default"])(config);
     } else {
-      reject(new Error("imjoy-rpc should only run inside an iframe."));
+      reject(new Error("imjoy-rpc should only run inside an iframe or a webworker."));
     }
   });
 }
@@ -8534,7 +6401,7 @@ function setupRPC(config) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function() {
-  return __webpack_require__(/*! !./node_modules/worker-loader/dist/workers/InlineWorker.js */ "./node_modules/worker-loader/dist/workers/InlineWorker.js")("/******/ (function(modules) { // webpackBootstrap\n/******/ \t// The module cache\n/******/ \tvar installedModules = {};\n/******/\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/\n/******/ \t\t// Check if module is in cache\n/******/ \t\tif(installedModules[moduleId]) {\n/******/ \t\t\treturn installedModules[moduleId].exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = installedModules[moduleId] = {\n/******/ \t\t\ti: moduleId,\n/******/ \t\t\tl: false,\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/\n/******/ \t\t// Execute the module function\n/******/ \t\tmodules[moduleId].call(module.exports, module, module.exports, __webpack_require__);\n/******/\n/******/ \t\t// Flag the module as loaded\n/******/ \t\tmodule.l = true;\n/******/\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/\n/******/\n/******/ \t// expose the modules object (__webpack_modules__)\n/******/ \t__webpack_require__.m = modules;\n/******/\n/******/ \t// expose the module cache\n/******/ \t__webpack_require__.c = installedModules;\n/******/\n/******/ \t// define getter function for harmony exports\n/******/ \t__webpack_require__.d = function(exports, name, getter) {\n/******/ \t\tif(!__webpack_require__.o(exports, name)) {\n/******/ \t\t\tObject.defineProperty(exports, name, { enumerable: true, get: getter });\n/******/ \t\t}\n/******/ \t};\n/******/\n/******/ \t// define __esModule on exports\n/******/ \t__webpack_require__.r = function(exports) {\n/******/ \t\tif(typeof Symbol !== 'undefined' && Symbol.toStringTag) {\n/******/ \t\t\tObject.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });\n/******/ \t\t}\n/******/ \t\tObject.defineProperty(exports, '__esModule', { value: true });\n/******/ \t};\n/******/\n/******/ \t// create a fake namespace object\n/******/ \t// mode & 1: value is a module id, require it\n/******/ \t// mode & 2: merge all properties of value into the ns\n/******/ \t// mode & 4: return value when already ns object\n/******/ \t// mode & 8|1: behave like require\n/******/ \t__webpack_require__.t = function(value, mode) {\n/******/ \t\tif(mode & 1) value = __webpack_require__(value);\n/******/ \t\tif(mode & 8) return value;\n/******/ \t\tif((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;\n/******/ \t\tvar ns = Object.create(null);\n/******/ \t\t__webpack_require__.r(ns);\n/******/ \t\tObject.defineProperty(ns, 'default', { enumerable: true, value: value });\n/******/ \t\tif(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));\n/******/ \t\treturn ns;\n/******/ \t};\n/******/\n/******/ \t// getDefaultExport function for compatibility with non-harmony modules\n/******/ \t__webpack_require__.n = function(module) {\n/******/ \t\tvar getter = module && module.__esModule ?\n/******/ \t\t\tfunction getDefault() { return module['default']; } :\n/******/ \t\t\tfunction getModuleExports() { return module; };\n/******/ \t\t__webpack_require__.d(getter, 'a', getter);\n/******/ \t\treturn getter;\n/******/ \t};\n/******/\n/******/ \t// Object.prototype.hasOwnProperty.call\n/******/ \t__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n/******/\n/******/ \t// __webpack_public_path__\n/******/ \t__webpack_require__.p = \"\";\n/******/\n/******/\n/******/ \t// Load entry module and return exports\n/******/ \treturn __webpack_require__(__webpack_require__.s = \"./src/plugin.webworker.js\");\n/******/ })\n/************************************************************************/\n/******/ ({\n\n/***/ \"./src/plugin.webworker.js\":\n/*!*********************************!*\\\n  !*** ./src/plugin.webworker.js ***!\n  \\*********************************/\n/*! no exports provided */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pluginCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pluginCore.js */ \"./src/pluginCore.js\");\n/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rpc.js */ \"./src/rpc.js\");\n/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ \"./src/utils.js\");\n/**\n * Contains the routines loaded by the plugin Worker under web-browser.\n *\n * Initializes the web environment version of the platform-dependent\n * connection object for the plugin site\n */\n\n\n\n\n// make sure this runs inside a webworker\nif (\n  typeof WorkerGlobalScope === \"undefined\" ||\n  !self ||\n  !(self instanceof WorkerGlobalScope)\n) {\n  throw new Error(\"This script can only loaded in a webworker\");\n}\n\nasync function executeEsModule(content) {\n  const dataUri =\n    \"data:text/javascript;charset=utf-8,\" + encodeURIComponent(content);\n  await import(/* webpackIgnore: true */ dataUri);\n}\n\n/**\n * Connection object provided to the RPC constructor,\n * plugin site implementation for the web-based environment.\n * Global will be then cleared to prevent exposure into the\n * Worker, so we put this local connection object into a closure\n */\nclass Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__[\"MessageEmitter\"] {\n  constructor(config) {\n    super(config && config.debug);\n    this.config = config || {};\n  }\n  connect() {\n    self.addEventListener(\"message\", e => {\n      this._fire(e.data.type, e.data);\n    });\n    this.emit({\n      type: \"initialized\",\n      config: this.config\n    });\n  }\n  disconnect() {\n    this._fire(\"beforeDisconnect\");\n    self.close();\n    this._fire(\"disconnected\");\n  }\n  emit(data) {\n    let transferables = undefined;\n    if (data.__transferables__) {\n      transferables = data.__transferables__;\n      delete data.__transferables__;\n    }\n    self.postMessage(data, transferables);\n  }\n  async execute(code) {\n    if (code.type === \"requirements\") {\n      await Object(_utils_js__WEBPACK_IMPORTED_MODULE_2__[\"loadRequirementsInWebworker\"])(code.requirements);\n    } else if (code.type === \"script\") {\n      try {\n        if (code.attrs.type === \"module\") {\n          await executeEsModule(code.content);\n        } else {\n          eval(code.content);\n        }\n      } catch (e) {\n        console.error(e.message, e.stack);\n        throw e;\n      }\n    } else {\n      throw \"unsupported code type.\";\n    }\n    if (code.type === \"requirements\") {\n      self.postMessage({\n        type: \"cacheRequirements\",\n        requirements: code.requirements\n      });\n    }\n  }\n}\nconst config = {\n  type: \"web-worker\",\n  dedicated_thread: true,\n  allow_execution: true,\n  lang: \"javascript\",\n  api_version: _rpc_js__WEBPACK_IMPORTED_MODULE_1__[\"API_VERSION\"]\n};\nconst conn = new Connection(config);\nconn.on(\"connectRPC\", data => {\n  Object(_pluginCore_js__WEBPACK_IMPORTED_MODULE_0__[\"connectRPC\"])(conn, Object.assign(data.config, config));\n});\nconn.connect();\nself.postMessage({\n  type: \"worker-ready\"\n});\n\n\n/***/ }),\n\n/***/ \"./src/pluginCore.js\":\n/*!***************************!*\\\n  !*** ./src/pluginCore.js ***!\n  \\***************************/\n/*! exports provided: connectRPC */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"connectRPC\", function() { return connectRPC; });\n/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rpc.js */ \"./src/rpc.js\");\n/**\n * Core plugin script loaded into the plugin process/thread.\n *\n * Initializes the plugin-site API global methods.\n */\n\nfunction connectRPC(connection, config) {\n  config = config || {};\n  const codecs = {};\n  const rpc = new _rpc_js__WEBPACK_IMPORTED_MODULE_0__[\"RPC\"](connection, config, codecs);\n  rpc.on(\"getInterface\", function () {\n    launchConnected();\n  });\n  rpc.on(\"remoteReady\", function () {\n    const api = rpc.getRemote() || {};\n\n    api.registerCodec = function (config) {\n      if (!config[\"name\"] || !config[\"encoder\"] && !config[\"decoder\"]) {\n        throw new Error(\"Invalid codec format, please make sure you provide a name, type, encoder and decoder.\");\n      } else {\n        if (config.type) {\n          for (let k of Object.keys(codecs)) {\n            if (codecs[k].type === config.type || k === config.name) {\n              delete codecs[k];\n              console.warn(\"Remove duplicated codec: \" + k);\n            }\n          }\n        }\n\n        codecs[config[\"name\"]] = config;\n      }\n    };\n\n    api.init = function (config) {\n      // register a minimal plugin api\n      rpc.setInterface({\n        setup() {}\n\n      }, config);\n    };\n\n    api.disposeObject = function (obj) {\n      rpc.disposeObject(obj);\n    };\n\n    api.export = function (_interface, config) {\n      rpc.setInterface(_interface, config);\n    };\n\n    api.onLoad = function (handler) {\n      handler = checkHandler(handler);\n\n      if (connected) {\n        handler();\n      } else {\n        connectedHandlers.push(handler);\n      }\n    };\n\n    api.dispose = function (_interface) {\n      rpc.disconnect();\n    };\n\n    api._rpc = rpc;\n\n    if (typeof WorkerGlobalScope !== \"undefined\" && self instanceof WorkerGlobalScope) {\n      self.api = api;\n      self.postMessage({\n        type: \"imjoy_remote_api_ready\"\n      });\n      self.dispatchEvent(new CustomEvent(\"imjoy_remote_api_ready\", {\n        detail: api\n      }));\n    } else if (typeof window) {\n      window.dispatchEvent(new CustomEvent(\"imjoy_remote_api_ready\", {\n        detail: api\n      }));\n    }\n  });\n  let connected = false;\n  const connectedHandlers = [];\n\n  const launchConnected = function () {\n    if (!connected) {\n      connected = true;\n      let handler;\n\n      while (handler = connectedHandlers.pop()) {\n        handler();\n      }\n    }\n  };\n\n  const checkHandler = function (handler) {\n    const type = typeof handler;\n\n    if (type !== \"function\") {\n      const msg = \"A function may only be subsribed to the event, \" + type + \" was provided instead\";\n      throw new Error(msg);\n    }\n\n    return handler;\n  };\n\n  return rpc;\n}\n\n/***/ }),\n\n/***/ \"./src/rpc.js\":\n/*!********************!*\\\n  !*** ./src/rpc.js ***!\n  \\********************/\n/*! exports provided: API_VERSION, RPC */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"API_VERSION\", function() { return API_VERSION; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"RPC\", function() { return RPC; });\n/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ \"./src/utils.js\");\n/**\n * Contains the RPC object used both by the application\n * site, and by each plugin\n */\n\nconst API_VERSION = \"0.2.3\";\nconst ArrayBufferView = Object.getPrototypeOf(Object.getPrototypeOf(new Uint8Array())).constructor;\n\nfunction _appendBuffer(buffer1, buffer2) {\n  const tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);\n  tmp.set(new Uint8Array(buffer1), 0);\n  tmp.set(new Uint8Array(buffer2), buffer1.byteLength);\n  return tmp.buffer;\n}\n\nfunction indexObject(obj, is) {\n  if (!is) throw new Error(\"undefined index\");\n  if (typeof is === \"string\") return indexObject(obj, is.split(\".\"));else if (is.length === 0) return obj;else return indexObject(obj[is[0]], is.slice(1));\n}\n/**\n * RPC object represents a single site in the\n * communication protocol between the application and the plugin\n *\n * @param {Object} connection a special object allowing to send\n * and receive messages from the opposite site (basically it\n * should only provide send() and onMessage() methods)\n */\n\n\nclass RPC extends _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"MessageEmitter\"] {\n  constructor(connection, config, codecs) {\n    super(config && config.debug);\n    this._connection = connection;\n    this.config = config || {};\n    this._codecs = codecs || {};\n    this._object_store = {};\n    this._method_weakmap = new WeakMap();\n    this._object_weakmap = new WeakMap();\n    this._local_api = null;\n    this._remote_set = false; // make sure there is an execute function\n\n    const name = this.config.name;\n\n    this._connection.execute = this._connection.execute || function () {\n      throw new Error(`connection.execute not implemented (in \"${name}\")`);\n    };\n\n    this._store = new ReferenceStore();\n    this._method_refs = new ReferenceStore();\n\n    this._method_refs.onReady(() => {\n      this._fire(\"remoteIdle\");\n    });\n\n    this._method_refs.onBusy(() => {\n      this._fire(\"remoteBusy\");\n    });\n\n    this._setupMessageHanlders();\n  }\n\n  init() {\n    this._connection.emit({\n      type: \"initialized\",\n      config: this.config,\n      peer_id: this._connection.peer_id\n    });\n  }\n\n  setConfig(config) {\n    if (config) for (const k of Object.keys(config)) {\n      this.config[k] = config[k];\n    }\n  }\n  /**\n   * Set a handler to be called when received a responce from the\n   * remote site reporting that the previously provided interface\n   * has been successfully set as remote for that site\n   *\n   * @param {Function} handler\n   */\n\n\n  getRemoteCallStack() {\n    return this._method_refs.getStack();\n  }\n  /**\n   * @returns {Object} set of remote interface methods\n   */\n\n\n  getRemote() {\n    return this._remote_interface;\n  }\n  /**\n   * Sets the interface of this site making it available to the\n   * remote site by sending a message with a set of methods names\n   *\n   * @param {Object} _interface to set\n   */\n\n\n  setInterface(_interface, config) {\n    config = config || {};\n    this.config.name = config.name || this.config.name;\n    this.config.description = config.description || this.config.description;\n\n    if (this.config.forwarding_functions) {\n      for (let func_name of this.config.forwarding_functions) {\n        const _remote = this._remote_interface;\n\n        if (_remote[func_name]) {\n          if (_interface.constructor === Object) {\n            if (!_interface[func_name]) {\n              _interface[func_name] = (...args) => {\n                _remote[func_name](...args);\n              };\n            }\n          } else if (_interface.constructor.constructor === Function) {\n            if (!_interface.constructor.prototype[func_name]) {\n              _interface.constructor.prototype[func_name] = (...args) => {\n                _remote[func_name](...args);\n              };\n            }\n          }\n        }\n      }\n    }\n\n    this._local_api = _interface;\n    if (!this._remote_set) this._fire(\"interfaceAvailable\");else this.send_interface();\n    return new Promise(resolve => {\n      this.once(\"interfaceSetAsRemote\", resolve);\n    });\n  }\n  /**\n   * Sends the actual interface to the remote site upon it was\n   * updated or by a special request of the remote site\n   */\n\n\n  sendInterface() {\n    if (!this._local_api) {\n      throw new Error(\"interface is not set.\");\n    }\n\n    this._encode(this._local_api, true).then(api => {\n      this._connection.emit({\n        type: \"setInterface\",\n        api: api\n      });\n    });\n  }\n\n  _disposeObject(objectId) {\n    if (this._object_store[objectId]) {\n      delete this._object_store[objectId];\n    } else {\n      throw new Error(`Object (id=${objectId}) not found.`);\n    }\n  }\n\n  disposeObject(obj) {\n    return new Promise((resolve, reject) => {\n      if (this._object_weakmap.has(obj)) {\n        const objectId = this._object_weakmap.get(obj);\n\n        this._connection.once(\"disposed\", data => {\n          if (data.error) reject(new Error(data.error));else resolve();\n        });\n\n        this._connection.emit({\n          type: \"disposeObject\",\n          object_id: objectId\n        });\n      } else {\n        throw new Error(\"Invalid object\");\n      }\n    });\n  }\n  /**\n   * Handles a message from the remote site\n   */\n\n\n  _setupMessageHanlders() {\n    this._connection.on(\"init\", this.init);\n\n    this._connection.on(\"execute\", data => {\n      Promise.resolve(this._connection.execute(data.code)).then(() => {\n        this._connection.emit({\n          type: \"executed\"\n        });\n      }).catch(e => {\n        console.error(e);\n\n        this._connection.emit({\n          type: \"executed\",\n          error: String(e)\n        });\n      });\n    });\n\n    this._connection.on(\"method\", async data => {\n      let resolve, reject, method, method_this, args, result;\n\n      try {\n        if (data.promise) {\n          [resolve, reject] = await this._unwrap(data.promise, false);\n        }\n\n        const _interface = this._object_store[data.object_id];\n        method = indexObject(_interface, data.name);\n\n        if (data.name.includes(\".\")) {\n          const tmp = data.name.split(\".\");\n          const intf_index = tmp.slice(0, tmp.length - 1).join(\".\");\n          method_this = indexObject(_interface, intf_index);\n        } else {\n          method_this = _interface;\n        }\n\n        args = await this._unwrap(data.args, true);\n\n        if (data.promise) {\n          result = method.apply(method_this, args);\n\n          if (result instanceof Promise || method.constructor && method.constructor.name === \"AsyncFunction\") {\n            result.then(resolve).catch(reject);\n          } else {\n            resolve(result);\n          }\n        } else {\n          method.apply(method_this, args);\n        }\n      } catch (err) {\n        console.error(this.config.name, err);\n\n        if (reject) {\n          reject(err);\n        }\n      }\n    });\n\n    this._connection.on(\"callback\", async data => {\n      let resolve, reject, method, args, result;\n\n      try {\n        if (data.promise) {\n          [resolve, reject] = await this._unwrap(data.promise, false);\n        }\n\n        if (data.promise) {\n          method = this._store.fetch(data.id);\n          args = await this._unwrap(data.args, true);\n\n          if (!method) {\n            throw new Error(\"Callback function can only called once, if you want to call a function for multiple times, please make it as a plugin api function. See https://imjoy.io/docs for more details.\");\n          }\n\n          result = method.apply(null, args);\n\n          if (result instanceof Promise || method.constructor && method.constructor.name === \"AsyncFunction\") {\n            result.then(resolve).catch(reject);\n          } else {\n            resolve(result);\n          }\n        } else {\n          method = this._store.fetch(data.id);\n          args = await this._unwrap(data.args, true);\n\n          if (!method) {\n            throw new Error(\"Please notice that callback function can only called once, if you want to call a function for multiple times, please make it as a plugin api function. See https://imjoy.io/docs for more details.\");\n          }\n\n          method.apply(null, args);\n        }\n      } catch (err) {\n        console.error(this.config.name, err);\n\n        if (reject) {\n          reject(err);\n        }\n      }\n    });\n\n    this._connection.on(\"disposeObject\", data => {\n      try {\n        this._disposeObject(data.object_id);\n\n        this._connection.emit({\n          type: \"disposed\"\n        });\n      } catch (e) {\n        console.error(e);\n\n        this._connection.emit({\n          type: \"disposed\",\n          error: String(e)\n        });\n      }\n    });\n\n    this._connection.on(\"setInterface\", data => {\n      this._setRemoteInterface(data.api);\n    });\n\n    this._connection.on(\"getInterface\", () => {\n      this._fire(\"getInterface\");\n\n      if (this._local_api) {\n        this.sendInterface();\n      } else {\n        this.once(\"interfaceAvailable\", () => {\n          this.sendInterface();\n        });\n      }\n    });\n\n    this._connection.on(\"interfaceSetAsRemote\", () => {\n      this._remote_set = true;\n\n      this._fire(\"interfaceSetAsRemote\");\n    });\n\n    this._connection.on(\"disconnect\", () => {\n      this._fire(\"beforeDisconnect\");\n\n      this._connection.disconnect();\n\n      this._fire(\"disconnected\");\n    });\n  }\n  /**\n   * Sends a requests to the remote site asking it to provide its\n   * current interface\n   */\n\n\n  requestRemote() {\n    this._connection.emit({\n      type: \"getInterface\"\n    });\n  }\n\n  _ndarray(typedArray, shape, dtype) {\n    const _dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(typedArray);\n\n    if (dtype && dtype !== _dtype) {\n      throw \"dtype doesn't match the type of the array: \" + _dtype + \" != \" + dtype;\n    }\n\n    shape = shape || [typedArray.length];\n    return {\n      _rtype: \"ndarray\",\n      _rvalue: typedArray.buffer,\n      _rshape: shape,\n      _rdtype: _dtype\n    };\n  }\n  /**\n   * Sets the new remote interface provided by the other site\n   *\n   * @param {Array} names list of function names\n   */\n\n\n  _setRemoteInterface(api) {\n    this._decode(api).then(intf => {\n      // update existing interface instead of recreating it\n      // this will preserve the object reference\n      if (this._remote_interface) {\n        // clear the interface\n        for (let k in this._remote_interface) delete this._remote_interface[k]; // then assign the new interfaces\n\n\n        Object.assign(this._remote_interface, intf);\n      } else this._remote_interface = intf;\n\n      this._fire(\"remoteReady\");\n\n      this._reportRemoteSet();\n    });\n  }\n  /**\n   * Generates the wrapped function corresponding to a single remote\n   * method. When the generated function is called, it will send the\n   * corresponding message to the remote site asking it to execute\n   * the particular method of its interface\n   *\n   * @param {String} name of the remote method\n   *\n   * @returns {Function} wrapped remote method\n   */\n\n\n  _genRemoteMethod(targetId, name, objectId) {\n    const me = this;\n\n    const remoteMethod = function () {\n      return new Promise(async (resolve, reject) => {\n        let id = null;\n\n        try {\n          id = me._method_refs.put(objectId ? objectId + \"/\" + name : name);\n\n          const wrapped_resolve = function () {\n            if (id !== null) me._method_refs.fetch(id);\n            return resolve.apply(this, arguments);\n          };\n\n          const wrapped_reject = function () {\n            if (id !== null) me._method_refs.fetch(id);\n            return reject.apply(this, arguments);\n          };\n\n          const encodedPromise = await me._wrap([wrapped_resolve, wrapped_reject]); // store the key id for removing them from the reference store together\n\n          wrapped_resolve.__promise_pair = encodedPromise[1]._rvalue;\n          wrapped_reject.__promise_pair = encodedPromise[0]._rvalue;\n          let args = Array.prototype.slice.call(arguments);\n          const argLength = args.length; // if the last argument is an object, mark it as kwargs\n\n          const withKwargs = argLength > 0 && typeof args[argLength - 1] === \"object\" && args[argLength - 1] !== null && args[argLength - 1]._rkwargs;\n          if (withKwargs) delete args[argLength - 1]._rkwargs;\n\n          if (name === \"register\" || name === \"registerService\" || name === \"register_service\" || name === \"export\" || name === \"on\") {\n            args = await me._wrap(args, true);\n          } else {\n            args = await me._wrap(args);\n          }\n\n          const transferables = args.__transferables__;\n          if (transferables) delete args.__transferables__;\n\n          me._connection.emit({\n            type: \"method\",\n            target_id: targetId,\n            name: name,\n            object_id: objectId,\n            args: args,\n            promise: encodedPromise,\n            with_kwargs: withKwargs\n          }, transferables);\n        } catch (e) {\n          if (id) me._method_refs.fetch(id);\n          reject(`Failed to exectue remote method (interface: ${objectId || me.id}, method: ${name}), error: ${e}`);\n        }\n      });\n    };\n\n    remoteMethod.__remote_method = true;\n    return remoteMethod;\n  }\n  /**\n   * Sends a responce reporting that interface just provided by the\n   * remote site was successfully set by this site as remote\n   */\n\n\n  _reportRemoteSet() {\n    this._connection.emit({\n      type: \"interfaceSetAsRemote\"\n    });\n  }\n  /**\n   * Prepares the provided set of remote method arguments for\n   * sending to the remote site, replaces all the callbacks with\n   * identifiers\n   *\n   * @param {Array} args to wrap\n   *\n   * @returns {Array} wrapped arguments\n   */\n\n\n  async _encode(aObject, asInterface, objectId) {\n    const aType = typeof aObject;\n\n    if (aType === \"number\" || aType === \"string\" || aType === \"boolean\" || aObject === null || aObject === undefined || aObject instanceof ArrayBuffer) {\n      return aObject;\n    }\n\n    let bObject;\n\n    if (typeof aObject === \"function\") {\n      if (asInterface) {\n        if (!objectId) throw new Error(\"objectId is not specified.\");\n        bObject = {\n          _rtype: \"interface\",\n          _rtarget_id: this._connection.peer_id,\n          _rintf: objectId,\n          _rvalue: asInterface\n        };\n\n        this._method_weakmap.set(aObject, bObject);\n      } else if (this._method_weakmap.has(aObject)) {\n        bObject = this._method_weakmap.get(aObject);\n      } else {\n        const cid = this._store.put(aObject);\n\n        bObject = {\n          _rtype: \"callback\",\n          _rtarget_id: this._connection.peer_id,\n          _rname: aObject.constructor && aObject.constructor.name || cid,\n          _rvalue: cid\n        };\n      }\n\n      return bObject;\n    } // skip if already encoded\n\n\n    if (aObject.constructor instanceof Object && aObject._rtype) {\n      // make sure the interface functions are encoded\n      if (aObject._rintf) {\n        const temp = aObject._rtype;\n        delete aObject._rtype;\n        bObject = await this._encode(aObject, asInterface, objectId);\n        bObject._rtype = temp;\n      } else {\n        bObject = aObject;\n      }\n\n      return bObject;\n    }\n\n    const transferables = [];\n    const _transfer = aObject._transfer;\n    const isarray = Array.isArray(aObject);\n\n    for (let tp of Object.keys(this._codecs)) {\n      const codec = this._codecs[tp];\n\n      if (codec.encoder && aObject instanceof codec.type) {\n        // TODO: what if multiple encoders found\n        let encodedObj = await Promise.resolve(codec.encoder(aObject));\n        if (encodedObj && !encodedObj._rtype) encodedObj._rtype = codec.name; // encode the functions in the interface object\n\n        if (encodedObj && encodedObj._rintf) {\n          const temp = encodedObj._rtype;\n          delete encodedObj._rtype;\n          encodedObj = await this._encode(encodedObj, asInterface, objectId);\n          encodedObj._rtype = temp;\n        }\n\n        bObject = encodedObj;\n        return bObject;\n      }\n    }\n\n    if (\n    /*global tf*/\n    typeof tf !== \"undefined\" && tf.Tensor && aObject instanceof tf.Tensor) {\n      const v_buffer = aObject.dataSync();\n\n      if (aObject._transfer || _transfer) {\n        transferables.push(v_buffer.buffer);\n        delete aObject._transfer;\n      }\n\n      bObject = {\n        _rtype: \"ndarray\",\n        _rvalue: v_buffer.buffer,\n        _rshape: aObject.shape,\n        _rdtype: aObject.dtype\n      };\n    } else if (\n    /*global nj*/\n    typeof nj !== \"undefined\" && nj.NdArray && aObject instanceof nj.NdArray) {\n      const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(aObject.selection.data);\n\n      if (aObject._transfer || _transfer) {\n        transferables.push(aObject.selection.data.buffer);\n        delete aObject._transfer;\n      }\n\n      bObject = {\n        _rtype: \"ndarray\",\n        _rvalue: aObject.selection.data.buffer,\n        _rshape: aObject.shape,\n        _rdtype: dtype\n      };\n    } else if (aObject instanceof Error) {\n      console.error(aObject);\n      bObject = {\n        _rtype: \"error\",\n        _rvalue: aObject.toString()\n      };\n    } else if (typeof File !== \"undefined\" && aObject instanceof File) {\n      bObject = {\n        _rtype: \"file\",\n        _rvalue: aObject,\n        _rpath: aObject._path || aObject.webkitRelativePath\n      };\n    } // send objects supported by structure clone algorithm\n    // https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm\n    else if (aObject !== Object(aObject) || aObject instanceof Boolean || aObject instanceof String || aObject instanceof Date || aObject instanceof RegExp || aObject instanceof ImageData || typeof FileList !== \"undefined\" && aObject instanceof FileList || typeof FileSystemDirectoryHandle !== \"undefined\" && aObject instanceof FileSystemDirectoryHandle || typeof FileSystemFileHandle !== \"undefined\" && aObject instanceof FileSystemFileHandle || typeof FileSystemHandle !== \"undefined\" && aObject instanceof FileSystemHandle || typeof FileSystemWritableFileStream !== \"undefined\" && aObject instanceof FileSystemWritableFileStream) {\n        bObject = aObject; // TODO: avoid object such as DynamicPlugin instance.\n      } else if (typeof File !== \"undefined\" && aObject instanceof File) {\n        bObject = {\n          _rtype: \"file\",\n          _rname: aObject.name,\n          _rmime: aObject.type,\n          _rvalue: aObject,\n          _rpath: aObject._path || aObject.webkitRelativePath\n        };\n      } else if (aObject instanceof Blob) {\n        bObject = {\n          _rtype: \"blob\",\n          _rvalue: aObject\n        };\n      } else if (aObject instanceof ArrayBufferView) {\n        if (aObject._transfer || _transfer) {\n          transferables.push(aObject.buffer);\n          delete aObject._transfer;\n        }\n\n        const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(aObject);\n        bObject = {\n          _rtype: \"typedarray\",\n          _rvalue: aObject.buffer,\n          _rdtype: dtype\n        };\n      } else if (aObject instanceof DataView) {\n        if (aObject._transfer || _transfer) {\n          transferables.push(aObject.buffer);\n          delete aObject._transfer;\n        }\n\n        bObject = {\n          _rtype: \"memoryview\",\n          _rvalue: aObject.buffer\n        };\n      } else if (aObject instanceof Set) {\n        bObject = {\n          _rtype: \"set\",\n          _rvalue: await this._encode(Array.from(aObject), asInterface)\n        };\n      } else if (aObject instanceof Map) {\n        bObject = {\n          _rtype: \"orderedmap\",\n          _rvalue: await this._encode(Array.from(aObject), asInterface)\n        };\n      } else if (aObject.constructor instanceof Object || Array.isArray(aObject)) {\n        bObject = isarray ? [] : {};\n        let keys; // an object/array\n\n        if (aObject.constructor === Object || Array.isArray(aObject)) {\n          keys = Object.keys(aObject);\n        } // a class\n        else if (aObject.constructor === Function) {\n            throw new Error(\"Please instantiate the class before exportting it.\");\n          } // instance of a class\n          else if (aObject.constructor.constructor === Function) {\n              keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject)); // TODO: use a proxy object to represent the actual object\n              // always encode class instance as interface\n\n              asInterface = true;\n            } else {\n              throw Error(\"Unsupported interface type\");\n            }\n\n        let hasFunction = false; // encode interfaces\n\n        if (aObject._rintf || asInterface) {\n          if (!objectId) {\n            objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"randId\"])();\n            this._object_store[objectId] = aObject;\n          }\n\n          for (let k of keys) {\n            if (k === \"constructor\") continue;\n\n            if (k.startsWith(\"_\")) {\n              continue;\n            }\n\n            bObject[k] = await this._encode(aObject[k], typeof asInterface === \"string\" ? asInterface + \".\" + k : k, objectId);\n\n            if (typeof aObject[k] === \"function\") {\n              hasFunction = true;\n            }\n          } // object id for dispose the object remotely\n\n\n          if (hasFunction) bObject._rintf = objectId; // remove interface when closed\n\n          if (aObject.on && typeof aObject.on === \"function\") {\n            aObject.on(\"close\", () => {\n              delete this._object_store[objectId];\n            });\n          }\n        } else {\n          for (let k of keys) {\n            if ([\"hasOwnProperty\", \"constructor\"].includes(k)) continue;\n            bObject[k] = await this._encode(aObject[k]);\n          }\n        } // for example, browserFS object\n\n      } else if (typeof aObject === \"object\") {\n        const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject));\n        const objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"randId\"])();\n\n        for (let k of keys) {\n          if ([\"hasOwnProperty\", \"constructor\"].includes(k)) continue; // encode as interface\n\n          bObject[k] = await this._encode(aObject[k], k, bObject);\n        } // object id, used for dispose the object\n\n\n        bObject._rintf = objectId;\n      } else {\n        throw \"imjoy-rpc: Unsupported data type:\" + aObject;\n      }\n\n    if (transferables.length > 0) {\n      bObject.__transferables__ = transferables;\n    }\n\n    if (!bObject) {\n      throw new Error(\"Failed to encode object\");\n    }\n\n    return bObject;\n  }\n\n  async _decode(aObject, withPromise) {\n    if (!aObject) {\n      return aObject;\n    }\n\n    let bObject;\n\n    if (aObject[\"_rtype\"]) {\n      if (this._codecs[aObject._rtype] && this._codecs[aObject._rtype].decoder) {\n        if (aObject._rintf) {\n          const temp = aObject._rtype;\n          delete aObject._rtype;\n          aObject = await this._decode(aObject, withPromise);\n          aObject._rtype = temp;\n        }\n\n        bObject = await Promise.resolve(this._codecs[aObject._rtype].decoder(aObject));\n      } else if (aObject._rtype === \"callback\") {\n        bObject = this._genRemoteCallback(aObject._rtarget_id, aObject._rvalue, withPromise);\n      } else if (aObject._rtype === \"interface\") {\n        bObject = this._genRemoteMethod(aObject._rtarget_id, aObject._rvalue, aObject._rintf);\n      } else if (aObject._rtype === \"ndarray\") {\n        /*global nj tf*/\n        //create build array/tensor if used in the plugin\n        if (typeof nj !== \"undefined\" && nj.array) {\n          if (Array.isArray(aObject._rvalue)) {\n            aObject._rvalue = aObject._rvalue.reduce(_appendBuffer);\n          }\n\n          bObject = nj.array(new Uint8(aObject._rvalue), aObject._rdtype).reshape(aObject._rshape);\n        } else if (typeof tf !== \"undefined\" && tf.Tensor) {\n          if (Array.isArray(aObject._rvalue)) {\n            aObject._rvalue = aObject._rvalue.reduce(_appendBuffer);\n          }\n\n          const arraytype = _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"dtypeToTypedArray\"][aObject._rdtype];\n          bObject = tf.tensor(new arraytype(aObject._rvalue), aObject._rshape, aObject._rdtype);\n        } else {\n          //keep it as regular if transfered to the main app\n          bObject = aObject;\n        }\n      } else if (aObject._rtype === \"error\") {\n        bObject = new Error(aObject._rvalue);\n      } else if (aObject._rtype === \"file\") {\n        if (aObject._rvalue instanceof File) {\n          bObject = aObject._rvalue; //patch _path\n\n          bObject._path = aObject._rpath;\n        } else {\n          bObject = new File([aObject._rvalue], aObject._rname, {\n            type: aObject._rmime\n          });\n          bObject._path = aObject._rpath;\n        }\n      } else if (aObject._rtype === \"typedarray\") {\n        const arraytype = _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"dtypeToTypedArray\"][aObject._rdtype];\n        if (!arraytype) throw new Error(\"unsupported dtype: \" + aObject._rdtype);\n        bObject = new arraytype(aObject._rvalue);\n      } else if (aObject._rtype === \"memoryview\") {\n        bObject = new DataView(aObject._rvalue);\n      } else if (aObject._rtype === \"blob\") {\n        if (aObject._rvalue instanceof Blob) {\n          bObject = aObject._rvalue;\n        } else {\n          bObject = new Blob([aObject._rvalue], {\n            type: aObject._rmime\n          });\n        }\n      } else if (aObject._rtype === \"orderedmap\") {\n        bObject = new Map((await this._decode(aObject._rvalue, withPromise)));\n      } else if (aObject._rtype === \"set\") {\n        bObject = new Set((await this._decode(aObject._rvalue, withPromise)));\n      } else {\n        // make sure all the interface functions are decoded\n        if (aObject._rintf) {\n          const temp = aObject._rtype;\n          delete aObject._rtype;\n          bObject = await this._decode(aObject, withPromise);\n          bObject._rtype = temp;\n        } else bObject = aObject;\n      }\n    } else if (aObject.constructor === Object || Array.isArray(aObject)) {\n      const isarray = Array.isArray(aObject);\n      bObject = isarray ? [] : {};\n\n      for (let k of Object.keys(aObject)) {\n        if (isarray || aObject.hasOwnProperty(k)) {\n          const v = aObject[k];\n          bObject[k] = await this._decode(v, withPromise);\n        }\n      }\n    } else {\n      bObject = aObject;\n    }\n\n    if (bObject === undefined) {\n      throw new Error(\"Failed to decode object\");\n    } // store the object id for dispose\n\n\n    if (aObject._rintf) {\n      this._object_weakmap.set(bObject, aObject._rintf);\n    }\n\n    return bObject;\n  }\n\n  async _wrap(args, asInterface) {\n    return await this._encode(args, asInterface);\n  }\n  /**\n   * Unwraps the set of arguments delivered from the remote site,\n   * replaces all callback identifiers with a function which will\n   * initiate sending that callback identifier back to other site\n   *\n   * @param {Object} args to unwrap\n   *\n   * @param {Boolean} withPromise is true means this the callback should contain a promise\n   *\n   * @returns {Array} unwrapped args\n   */\n\n\n  async _unwrap(args, withPromise) {\n    return await this._decode(args, withPromise);\n  }\n  /**\n   * Generates the wrapped function corresponding to a single remote\n   * callback. When the generated function is called, it will send\n   * the corresponding message to the remote site asking it to\n   * execute the particular callback previously saved during a call\n   * by the remote site a method from the interface of this site\n   *\n   * @param {Number} id of the remote callback to execute\n   * @param {Number} argNum argument index of the callback\n   * @param {Boolean} withPromise is true means this the callback should contain a promise\n   *\n   * @returns {Function} wrapped remote callback\n   */\n\n\n  _genRemoteCallback(targetId, cid, withPromise) {\n    const me = this;\n    let remoteCallback;\n\n    if (withPromise) {\n      remoteCallback = function () {\n        return new Promise(async (resolve, reject) => {\n          const args = await me._wrap(Array.prototype.slice.call(arguments));\n          const argLength = args.length; // if the last argument is an object, mark it as kwargs\n\n          const withKwargs = argLength > 0 && typeof args[argLength - 1] === \"object\" && args[argLength - 1] !== null && args[argLength - 1]._rkwargs;\n          if (withKwargs) delete args[argLength - 1]._rkwargs;\n          const transferables = args.__transferables__;\n          if (transferables) delete args.__transferables__;\n          const encodedPromise = await me._wrap([resolve, reject]); // store the key id for removing them from the reference store together\n\n          resolve.__promise_pair = encodedPromise[1]._rvalue;\n          reject.__promise_pair = encodedPromise[0]._rvalue;\n\n          try {\n            me._connection.emit({\n              type: \"callback\",\n              target_id: targetId,\n              id: cid,\n              args: args,\n              promise: encodedPromise,\n              with_kwargs: withKwargs\n            }, transferables);\n          } catch (e) {\n            reject(`Failed to exectue remote callback ( id: ${cid}).`);\n          }\n        });\n      };\n\n      return remoteCallback;\n    } else {\n      remoteCallback = async function () {\n        const args = await me._wrap(Array.prototype.slice.call(arguments));\n        const argLength = args.length; // if the last argument is an object, mark it as kwargs\n\n        const withKwargs = argLength > 0 && typeof args[argLength - 1] === \"object\" && args[argLength - 1] !== null && args[argLength - 1]._rkwargs;\n        if (withKwargs) delete args[argLength - 1]._rkwargs;\n        const transferables = args.__transferables__;\n        if (transferables) delete args.__transferables__;\n        return me._connection.emit({\n          type: \"callback\",\n          target_id: targetId,\n          id: cid,\n          args: args,\n          with_kwargs: withKwargs\n        }, transferables);\n      };\n\n      return remoteCallback;\n    }\n  }\n\n  reset() {\n    this._event_handlers = {};\n    this._once_handlers = {};\n    this._remote_interface = null;\n    this._object_store = {};\n    this._method_weakmap = new WeakMap();\n    this._object_weakmap = new WeakMap();\n    this._local_api = null;\n    this._store = new ReferenceStore();\n    this._method_refs = new ReferenceStore();\n  }\n  /**\n   * Sends the notification message and breaks the connection\n   */\n\n\n  disconnect() {\n    this._connection.emit({\n      type: \"disconnect\"\n    });\n\n    this.reset();\n    setTimeout(() => {\n      this._connection.disconnect();\n    }, 2000);\n  }\n\n}\n/**\n * ReferenceStore is a special object which stores other objects\n * and provides the references (number) instead. This reference\n * may then be sent over a json-based communication channel (IPC\n * to another Node.js process or a message to the Worker). Other\n * site may then provide the reference in the responce message\n * implying the given object should be activated.\n *\n * Primary usage for the ReferenceStore is a storage for the\n * callbacks, which therefore makes it possible to initiate a\n * callback execution by the opposite site (which normally cannot\n * directly execute functions over the communication channel).\n *\n * Each stored object can only be fetched once and is not\n * available for the second time. Each stored object must be\n * fetched, since otherwise it will remain stored forever and\n * consume memory.\n *\n * Stored object indeces are simply the numbers, which are however\n * released along with the objects, and are later reused again (in\n * order to postpone the overflow, which should not likely happen,\n * but anyway).\n */\n\nclass ReferenceStore {\n  constructor() {\n    this._store = {}; // stored object\n\n    this._indices = [0]; // smallest available indices\n\n    this._readyHandler = function () {};\n\n    this._busyHandler = function () {};\n\n    this._readyHandler();\n  }\n  /**\n   * call handler when the store is empty\n   *\n   * @param {FUNCTION} id of a handler\n   */\n\n\n  onReady(readyHandler) {\n    this._readyHandler = readyHandler || function () {};\n  }\n  /**\n   * call handler when the store is not empty\n   *\n   * @param {FUNCTION} id of a handler\n   */\n\n\n  onBusy(busyHandler) {\n    this._busyHandler = busyHandler || function () {};\n  }\n  /**\n   * get the length of the store\n   *\n   */\n\n\n  getStack() {\n    return Object.keys(this._store).length;\n  }\n  /**\n   * @function _genId() generates the new reference id\n   *\n   * @returns {Number} smallest available id and reserves it\n   */\n\n\n  _genId() {\n    let id;\n\n    if (this._indices.length === 1) {\n      id = this._indices[0]++;\n    } else {\n      id = this._indices.shift();\n    }\n\n    return id;\n  }\n  /**\n   * Releases the given reference id so that it will be available by\n   * another object stored\n   *\n   * @param {Number} id to release\n   */\n\n\n  _releaseId(id) {\n    for (let i = 0; i < this._indices.length; i++) {\n      if (id < this._indices[i]) {\n        this._indices.splice(i, 0, id);\n\n        break;\n      }\n    } // cleaning-up the sequence tail\n\n\n    for (let i = this._indices.length - 1; i >= 0; i--) {\n      if (this._indices[i] - 1 === this._indices[i - 1]) {\n        this._indices.pop();\n      } else {\n        break;\n      }\n    }\n  }\n  /**\n   * Stores the given object and returns the refernce id instead\n   *\n   * @param {Object} obj to store\n   *\n   * @returns {Number} reference id of the stored object\n   */\n\n\n  put(obj) {\n    if (this._busyHandler && Object.keys(this._store).length === 0) {\n      this._busyHandler();\n    }\n\n    const id = this._genId();\n\n    this._store[id] = obj;\n    return id;\n  }\n  /**\n   * Retrieves previously stored object and releases its reference\n   *\n   * @param {Number} id of an object to retrieve\n   */\n\n\n  fetch(id) {\n    const obj = this._store[id];\n\n    if (obj && !obj.__remote_method) {\n      delete this._store[id];\n\n      this._releaseId(id);\n\n      if (this._readyHandler && Object.keys(this._store).length === 0) {\n        this._readyHandler();\n      }\n    }\n\n    if (obj && obj.__promise_pair) {\n      this.fetch(obj.__promise_pair);\n    }\n\n    return obj;\n  }\n\n}\n\n/***/ }),\n\n/***/ \"./src/utils.js\":\n/*!**********************!*\\\n  !*** ./src/utils.js ***!\n  \\**********************/\n/*! exports provided: randId, dtypeToTypedArray, loadRequirementsInWindow, loadRequirementsInWebworker, loadRequirements, normalizeConfig, typedArrayToDtypeMapping, typedArrayToDtype, cacheRequirements, setupServiceWorker, urlJoin, MessageEmitter */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"randId\", function() { return randId; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"dtypeToTypedArray\", function() { return dtypeToTypedArray; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadRequirementsInWindow\", function() { return loadRequirementsInWindow; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadRequirementsInWebworker\", function() { return loadRequirementsInWebworker; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadRequirements\", function() { return loadRequirements; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"normalizeConfig\", function() { return normalizeConfig; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"typedArrayToDtypeMapping\", function() { return typedArrayToDtypeMapping; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"typedArrayToDtype\", function() { return typedArrayToDtype; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cacheRequirements\", function() { return cacheRequirements; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"setupServiceWorker\", function() { return setupServiceWorker; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"urlJoin\", function() { return urlJoin; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MessageEmitter\", function() { return MessageEmitter; });\nfunction randId() {\n  return Math.random().toString(36).substr(2, 10) + new Date().getTime();\n}\nconst dtypeToTypedArray = {\n  int8: Int8Array,\n  int16: Int16Array,\n  int32: Int32Array,\n  uint8: Uint8Array,\n  uint16: Uint16Array,\n  uint32: Uint32Array,\n  float32: Float32Array,\n  float64: Float64Array,\n  array: Array\n};\nasync function loadRequirementsInWindow(requirements) {\n  function _importScript(url) {\n    //url is URL of external file, implementationCode is the code\n    //to be called from the file, location is the location to\n    //insert the <script> element\n    return new Promise((resolve, reject) => {\n      var scriptTag = document.createElement(\"script\");\n      scriptTag.src = url;\n      scriptTag.type = \"text/javascript\";\n      scriptTag.onload = resolve;\n\n      scriptTag.onreadystatechange = function () {\n        if (this.readyState === \"loaded\" || this.readyState === \"complete\") {\n          resolve();\n        }\n      };\n\n      scriptTag.onerror = reject;\n      document.head.appendChild(scriptTag);\n    });\n  } // support importScripts outside web worker\n\n\n  async function importScripts() {\n    var args = Array.prototype.slice.call(arguments),\n        len = args.length,\n        i = 0;\n\n    for (; i < len; i++) {\n      await _importScript(args[i]);\n    }\n  }\n\n  if (requirements && (Array.isArray(requirements) || typeof requirements === \"string\")) {\n    try {\n      var link_node;\n      requirements = typeof requirements === \"string\" ? [requirements] : requirements;\n\n      if (Array.isArray(requirements)) {\n        for (var i = 0; i < requirements.length; i++) {\n          if (requirements[i].toLowerCase().endsWith(\".css\") || requirements[i].startsWith(\"css:\")) {\n            if (requirements[i].startsWith(\"css:\")) {\n              requirements[i] = requirements[i].slice(4);\n            }\n\n            link_node = document.createElement(\"link\");\n            link_node.rel = \"stylesheet\";\n            link_node.href = requirements[i];\n            document.head.appendChild(link_node);\n          } else if (requirements[i].toLowerCase().endsWith(\".mjs\") || requirements[i].startsWith(\"mjs:\")) {\n            // import esmodule\n            if (requirements[i].startsWith(\"mjs:\")) {\n              requirements[i] = requirements[i].slice(4);\n            }\n\n            await import(\n            /* webpackIgnore: true */\n            requirements[i]);\n          } else if (requirements[i].toLowerCase().endsWith(\".js\") || requirements[i].startsWith(\"js:\")) {\n            if (requirements[i].startsWith(\"js:\")) {\n              requirements[i] = requirements[i].slice(3);\n            }\n\n            await importScripts(requirements[i]);\n          } else if (requirements[i].startsWith(\"http\")) {\n            await importScripts(requirements[i]);\n          } else if (requirements[i].startsWith(\"cache:\")) {//ignore cache\n          } else {\n            console.log(\"Unprocessed requirements url: \" + requirements[i]);\n          }\n        }\n      } else {\n        throw \"unsupported requirements definition\";\n      }\n    } catch (e) {\n      throw \"failed to import required scripts: \" + requirements.toString();\n    }\n  }\n}\nasync function loadRequirementsInWebworker(requirements) {\n  if (requirements && (Array.isArray(requirements) || typeof requirements === \"string\")) {\n    try {\n      if (!Array.isArray(requirements)) {\n        requirements = [requirements];\n      }\n\n      for (var i = 0; i < requirements.length; i++) {\n        if (requirements[i].toLowerCase().endsWith(\".css\") || requirements[i].startsWith(\"css:\")) {\n          throw \"unable to import css in a webworker\";\n        } else if (requirements[i].toLowerCase().endsWith(\".js\") || requirements[i].startsWith(\"js:\")) {\n          if (requirements[i].startsWith(\"js:\")) {\n            requirements[i] = requirements[i].slice(3);\n          }\n\n          importScripts(requirements[i]);\n        } else if (requirements[i].startsWith(\"http\")) {\n          importScripts(requirements[i]);\n        } else if (requirements[i].startsWith(\"cache:\")) {//ignore cache\n        } else {\n          console.log(\"Unprocessed requirements url: \" + requirements[i]);\n        }\n      }\n    } catch (e) {\n      throw \"failed to import required scripts: \" + requirements.toString();\n    }\n  }\n}\nfunction loadRequirements(requirements) {\n  if (typeof WorkerGlobalScope !== \"undefined\" && self instanceof WorkerGlobalScope) {\n    return loadRequirementsInWebworker(requirements);\n  } else {\n    return loadRequirementsInWindow(requirements);\n  }\n}\nfunction normalizeConfig(config) {\n  config.version = config.version || \"0.1.0\";\n  config.description = config.description || `[TODO: add description for ${config.name} ]`;\n  config.type = config.type || \"rpc-window\";\n  config.id = config.id || randId();\n  config.target_origin = config.target_origin || \"*\";\n  config.allow_execution = config.allow_execution || false; // remove functions\n\n  config = Object.keys(config).reduce((p, c) => {\n    if (typeof config[c] !== \"function\") p[c] = config[c];\n    return p;\n  }, {});\n  return config;\n}\nconst typedArrayToDtypeMapping = {\n  Int8Array: \"int8\",\n  Int16Array: \"int16\",\n  Int32Array: \"int32\",\n  Uint8Array: \"uint8\",\n  Uint16Array: \"uint16\",\n  Uint32Array: \"uint32\",\n  Float32Array: \"float32\",\n  Float64Array: \"float64\",\n  Array: \"array\"\n};\nconst typedArrayToDtypeKeys = [];\n\nfor (const arrType of Object.keys(typedArrayToDtypeMapping)) {\n  typedArrayToDtypeKeys.push(eval(arrType));\n}\n\nfunction typedArrayToDtype(obj) {\n  let dtype = typedArrayToDtypeMapping[obj.constructor.name];\n\n  if (!dtype) {\n    const pt = Object.getPrototypeOf(obj);\n\n    for (const arrType of typedArrayToDtypeKeys) {\n      if (pt instanceof arrType) {\n        dtype = typedArrayToDtypeMapping[arrType.name];\n        break;\n      }\n    }\n  }\n\n  return dtype;\n}\n\nfunction cacheUrlInServiceWorker(url) {\n  return new Promise(function (resolve, reject) {\n    const message = {\n      command: \"add\",\n      url: url\n    };\n\n    if (!navigator.serviceWorker || !navigator.serviceWorker.register) {\n      reject(\"Service worker is not supported.\");\n      return;\n    }\n\n    const messageChannel = new MessageChannel();\n\n    messageChannel.port1.onmessage = function (event) {\n      if (event.data && event.data.error) {\n        reject(event.data.error);\n      } else {\n        resolve(event.data && event.data.result);\n      }\n    };\n\n    if (navigator.serviceWorker && navigator.serviceWorker.controller) {\n      navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);\n    } else {\n      reject(\"Service worker controller is not available\");\n    }\n  });\n}\n\nasync function cacheRequirements(requirements) {\n  requirements = requirements || [];\n\n  if (!Array.isArray(requirements)) {\n    requirements = [requirements];\n  }\n\n  for (let req of requirements) {\n    //remove prefix\n    if (req.startsWith(\"js:\")) req = req.slice(3);\n    if (req.startsWith(\"css:\")) req = req.slice(4);\n    if (req.startsWith(\"cache:\")) req = req.slice(6);\n    if (!req.startsWith(\"http\")) continue;\n    await cacheUrlInServiceWorker(req).catch(e => {\n      console.error(e);\n    });\n  }\n}\nfunction setupServiceWorker(baseUrl, targetOrigin, cacheCallback) {\n  // register service worker for offline access\n  if (\"serviceWorker\" in navigator) {\n    baseUrl = baseUrl || \"/\";\n    navigator.serviceWorker.register(baseUrl + \"plugin-service-worker.js\").then(function (registration) {\n      // Registration was successful\n      console.log(\"ServiceWorker registration successful with scope: \", registration.scope);\n    }, function (err) {\n      // registration failed :(\n      console.log(\"ServiceWorker registration failed: \", err);\n    });\n    targetOrigin = targetOrigin || \"*\";\n    cacheCallback = cacheCallback || cacheRequirements;\n\n    if (cacheCallback && typeof cacheCallback !== \"function\") {\n      throw new Error(\"config.cache_requirements must be a function\");\n    }\n\n    window.addEventListener(\"message\", function (e) {\n      if (targetOrigin === \"*\" || e.origin === targetOrigin) {\n        const m = e.data;\n\n        if (m.type === \"cacheRequirements\") {\n          cacheCallback(m.requirements);\n        }\n      }\n    });\n  }\n} //#Source https://bit.ly/2neWfJ2\n\nfunction urlJoin(...args) {\n  return args.join(\"/\").replace(/[\\/]+/g, \"/\").replace(/^(.+):\\//, \"$1://\").replace(/^file:/, \"file:/\").replace(/\\/(\\?|&|#[^!])/g, \"$1\").replace(/\\?/g, \"&\").replace(\"&\", \"?\");\n}\nclass MessageEmitter {\n  constructor(debug) {\n    this._event_handlers = {};\n    this._once_handlers = {};\n    this._debug = debug;\n  }\n\n  emit() {\n    throw new Error(\"emit is not implemented\");\n  }\n\n  on(event, handler) {\n    if (!this._event_handlers[event]) {\n      this._event_handlers[event] = [];\n    }\n\n    this._event_handlers[event].push(handler);\n  }\n\n  once(event, handler) {\n    handler.___event_run_once = true;\n    this.on(event, handler);\n  }\n\n  off(event, handler) {\n    if (!event && !handler) {\n      // remove all events handlers\n      this._event_handlers = {};\n    } else if (event && !handler) {\n      // remove all hanlders for the event\n      if (this._event_handlers[event]) this._event_handlers[event] = [];\n    } else {\n      // remove a specific handler\n      if (this._event_handlers[event]) {\n        const idx = this._event_handlers[event].indexOf(handler);\n\n        if (idx >= 0) {\n          this._event_handlers[event].splice(idx, 1);\n        }\n      }\n    }\n  }\n\n  _fire(event, data) {\n    if (this._event_handlers[event]) {\n      var i = this._event_handlers[event].length;\n\n      while (i--) {\n        const handler = this._event_handlers[event][i];\n\n        try {\n          handler(data);\n        } catch (e) {\n          console.error(e);\n        } finally {\n          if (handler.___event_run_once) {\n            this._event_handlers[event].splice(i, 1);\n          }\n        }\n      }\n    } else {\n      if (this._debug) {\n        console.warn(\"unhandled event\", event, data);\n      }\n    }\n  }\n\n}\n\n/***/ })\n\n/******/ });\n//# sourceMappingURL=plugin.webworker.js.map", null);
+  return __webpack_require__(/*! !./node_modules/worker-loader/dist/workers/InlineWorker.js */ "./node_modules/worker-loader/dist/workers/InlineWorker.js")("/******/ (function(modules) { // webpackBootstrap\n/******/ \t// The module cache\n/******/ \tvar installedModules = {};\n/******/\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/\n/******/ \t\t// Check if module is in cache\n/******/ \t\tif(installedModules[moduleId]) {\n/******/ \t\t\treturn installedModules[moduleId].exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = installedModules[moduleId] = {\n/******/ \t\t\ti: moduleId,\n/******/ \t\t\tl: false,\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/\n/******/ \t\t// Execute the module function\n/******/ \t\tmodules[moduleId].call(module.exports, module, module.exports, __webpack_require__);\n/******/\n/******/ \t\t// Flag the module as loaded\n/******/ \t\tmodule.l = true;\n/******/\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/\n/******/\n/******/ \t// expose the modules object (__webpack_modules__)\n/******/ \t__webpack_require__.m = modules;\n/******/\n/******/ \t// expose the module cache\n/******/ \t__webpack_require__.c = installedModules;\n/******/\n/******/ \t// define getter function for harmony exports\n/******/ \t__webpack_require__.d = function(exports, name, getter) {\n/******/ \t\tif(!__webpack_require__.o(exports, name)) {\n/******/ \t\t\tObject.defineProperty(exports, name, { enumerable: true, get: getter });\n/******/ \t\t}\n/******/ \t};\n/******/\n/******/ \t// define __esModule on exports\n/******/ \t__webpack_require__.r = function(exports) {\n/******/ \t\tif(typeof Symbol !== 'undefined' && Symbol.toStringTag) {\n/******/ \t\t\tObject.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });\n/******/ \t\t}\n/******/ \t\tObject.defineProperty(exports, '__esModule', { value: true });\n/******/ \t};\n/******/\n/******/ \t// create a fake namespace object\n/******/ \t// mode & 1: value is a module id, require it\n/******/ \t// mode & 2: merge all properties of value into the ns\n/******/ \t// mode & 4: return value when already ns object\n/******/ \t// mode & 8|1: behave like require\n/******/ \t__webpack_require__.t = function(value, mode) {\n/******/ \t\tif(mode & 1) value = __webpack_require__(value);\n/******/ \t\tif(mode & 8) return value;\n/******/ \t\tif((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;\n/******/ \t\tvar ns = Object.create(null);\n/******/ \t\t__webpack_require__.r(ns);\n/******/ \t\tObject.defineProperty(ns, 'default', { enumerable: true, value: value });\n/******/ \t\tif(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));\n/******/ \t\treturn ns;\n/******/ \t};\n/******/\n/******/ \t// getDefaultExport function for compatibility with non-harmony modules\n/******/ \t__webpack_require__.n = function(module) {\n/******/ \t\tvar getter = module && module.__esModule ?\n/******/ \t\t\tfunction getDefault() { return module['default']; } :\n/******/ \t\t\tfunction getModuleExports() { return module; };\n/******/ \t\t__webpack_require__.d(getter, 'a', getter);\n/******/ \t\treturn getter;\n/******/ \t};\n/******/\n/******/ \t// Object.prototype.hasOwnProperty.call\n/******/ \t__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n/******/\n/******/ \t// __webpack_public_path__\n/******/ \t__webpack_require__.p = \"\";\n/******/\n/******/\n/******/ \t// Load entry module and return exports\n/******/ \treturn __webpack_require__(__webpack_require__.s = \"./src/plugin.webworker.js\");\n/******/ })\n/************************************************************************/\n/******/ ({\n\n/***/ \"./src/plugin.webworker.js\":\n/*!*********************************!*\\\n  !*** ./src/plugin.webworker.js ***!\n  \\*********************************/\n/*! no exports provided */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pluginCore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pluginCore.js */ \"./src/pluginCore.js\");\n/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rpc.js */ \"./src/rpc.js\");\n/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ \"./src/utils.js\");\n/**\n * Contains the routines loaded by the plugin Worker under web-browser.\n *\n * Initializes the web environment version of the platform-dependent\n * connection object for the plugin site\n */\n\n\n\n\n// make sure this runs inside a webworker\nif (\n  typeof WorkerGlobalScope === \"undefined\" ||\n  !self ||\n  !(self instanceof WorkerGlobalScope)\n) {\n  throw new Error(\"This script can only loaded in a webworker\");\n}\n\nasync function executeEsModule(content) {\n  const dataUri =\n    \"data:text/javascript;charset=utf-8,\" + encodeURIComponent(content);\n  await import(/* webpackIgnore: true */ dataUri);\n}\n\n/**\n * Connection object provided to the RPC constructor,\n * plugin site implementation for the web-based environment.\n * Global will be then cleared to prevent exposure into the\n * Worker, so we put this local connection object into a closure\n */\nclass Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__[\"MessageEmitter\"] {\n  constructor(config) {\n    super(config && config.debug);\n    this.config = config || {};\n  }\n  connect() {\n    self.addEventListener(\"message\", e => {\n      this._fire(e.data.type, e.data);\n    });\n    this.emit({\n      type: \"initialized\",\n      config: this.config\n    });\n  }\n  disconnect() {\n    this._fire(\"beforeDisconnect\");\n    self.close();\n    this._fire(\"disconnected\");\n  }\n  emit(data) {\n    let transferables = undefined;\n    if (data.__transferables__) {\n      transferables = data.__transferables__;\n      delete data.__transferables__;\n    }\n    self.postMessage(data, transferables);\n  }\n  async execute(code) {\n    if (code.type === \"requirements\") {\n      await Object(_utils_js__WEBPACK_IMPORTED_MODULE_2__[\"loadRequirementsInWebworker\"])(code.requirements);\n    } else if (code.type === \"script\") {\n      try {\n        if (code.attrs.type === \"module\") {\n          await executeEsModule(code.content);\n        } else {\n          eval(code.content);\n        }\n      } catch (e) {\n        console.error(e.message, e.stack);\n        throw e;\n      }\n    } else {\n      throw \"unsupported code type.\";\n    }\n    if (code.type === \"requirements\") {\n      self.postMessage({\n        type: \"cacheRequirements\",\n        requirements: code.requirements\n      });\n    }\n  }\n}\nconst config = {\n  type: \"web-worker\",\n  dedicated_thread: true,\n  allow_execution: true,\n  lang: \"javascript\",\n  api_version: _rpc_js__WEBPACK_IMPORTED_MODULE_1__[\"API_VERSION\"]\n};\nconst conn = new Connection(config);\nconn.on(\"connectRPC\", data => {\n  Object(_pluginCore_js__WEBPACK_IMPORTED_MODULE_0__[\"connectRPC\"])(conn, Object.assign(data.config, config));\n});\nconn.connect();\nself.postMessage({\n  type: \"worker-ready\"\n});\n\n\n/***/ }),\n\n/***/ \"./src/pluginCore.js\":\n/*!***************************!*\\\n  !*** ./src/pluginCore.js ***!\n  \\***************************/\n/*! exports provided: connectRPC */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"connectRPC\", function() { return connectRPC; });\n/* harmony import */ var _rpc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rpc.js */ \"./src/rpc.js\");\n/**\n * Core plugin script loaded into the plugin process/thread.\n *\n * Initializes the plugin-site API global methods.\n */\n\nfunction connectRPC(connection, config) {\n  config = config || {};\n  const codecs = {};\n  const rpc = new _rpc_js__WEBPACK_IMPORTED_MODULE_0__[\"RPC\"](connection, config, codecs);\n  rpc.on(\"getInterface\", function () {\n    launchConnected();\n  });\n  rpc.on(\"remoteReady\", function () {\n    const api = rpc.getRemote() || {};\n\n    api.registerCodec = function (config) {\n      if (!config[\"name\"] || !config[\"encoder\"] && !config[\"decoder\"]) {\n        throw new Error(\"Invalid codec format, please make sure you provide a name, type, encoder and decoder.\");\n      } else {\n        if (config.type) {\n          for (let k of Object.keys(codecs)) {\n            if (codecs[k].type === config.type || k === config.name) {\n              delete codecs[k];\n              console.warn(\"Remove duplicated codec: \" + k);\n            }\n          }\n        }\n\n        codecs[config[\"name\"]] = config;\n      }\n    };\n\n    api.init = function (config) {\n      // register a minimal plugin api\n      rpc.setInterface({\n        setup() {}\n\n      }, config);\n    };\n\n    api.disposeObject = function (obj) {\n      rpc.disposeObject(obj);\n    };\n\n    api.export = function (_interface, config) {\n      rpc.setInterface(_interface, config);\n    };\n\n    api.onLoad = function (handler) {\n      handler = checkHandler(handler);\n\n      if (connected) {\n        handler();\n      } else {\n        connectedHandlers.push(handler);\n      }\n    };\n\n    api.dispose = function (_interface) {\n      rpc.disconnect();\n    };\n\n    api._rpc = rpc;\n\n    if (typeof WorkerGlobalScope !== \"undefined\" && self instanceof WorkerGlobalScope) {\n      self.api = api;\n      self.postMessage({\n        type: \"imjoy_remote_api_ready\"\n      });\n      self.dispatchEvent(new CustomEvent(\"imjoy_remote_api_ready\", {\n        detail: api\n      }));\n    } else if (typeof window) {\n      window.dispatchEvent(new CustomEvent(\"imjoy_remote_api_ready\", {\n        detail: api\n      }));\n    }\n  });\n  let connected = false;\n  const connectedHandlers = [];\n\n  const launchConnected = function () {\n    if (!connected) {\n      connected = true;\n      let handler;\n\n      while (handler = connectedHandlers.pop()) {\n        handler();\n      }\n    }\n  };\n\n  const checkHandler = function (handler) {\n    const type = typeof handler;\n\n    if (type !== \"function\") {\n      const msg = \"A function may only be subsribed to the event, \" + type + \" was provided instead\";\n      throw new Error(msg);\n    }\n\n    return handler;\n  };\n\n  return rpc;\n}\n\n/***/ }),\n\n/***/ \"./src/rpc.js\":\n/*!********************!*\\\n  !*** ./src/rpc.js ***!\n  \\********************/\n/*! exports provided: API_VERSION, RPC */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"API_VERSION\", function() { return API_VERSION; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"RPC\", function() { return RPC; });\n/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ \"./src/utils.js\");\n/**\n * Contains the RPC object used both by the application\n * site, and by each plugin\n */\n\nconst API_VERSION = \"0.2.3\";\nconst ArrayBufferView = Object.getPrototypeOf(Object.getPrototypeOf(new Uint8Array())).constructor;\n\nfunction _appendBuffer(buffer1, buffer2) {\n  const tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);\n  tmp.set(new Uint8Array(buffer1), 0);\n  tmp.set(new Uint8Array(buffer2), buffer1.byteLength);\n  return tmp.buffer;\n}\n\nfunction indexObject(obj, is) {\n  if (!is) throw new Error(\"undefined index\");\n  if (typeof is === \"string\") return indexObject(obj, is.split(\".\"));else if (is.length === 0) return obj;else return indexObject(obj[is[0]], is.slice(1));\n}\n/**\n * RPC object represents a single site in the\n * communication protocol between the application and the plugin\n *\n * @param {Object} connection a special object allowing to send\n * and receive messages from the opposite site (basically it\n * should only provide send() and onMessage() methods)\n */\n\n\nclass RPC extends _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"MessageEmitter\"] {\n  constructor(connection, config, codecs) {\n    super(config && config.debug);\n    this._connection = connection;\n    this.config = config || {};\n    this._codecs = codecs || {};\n    this._object_store = {};\n    this._method_weakmap = new WeakMap();\n    this._object_weakmap = new WeakMap();\n    this._local_api = null;\n    this._remote_set = false; // make sure there is an execute function\n\n    const name = this.config.name;\n\n    this._connection.execute = this._connection.execute || function () {\n      throw new Error(`connection.execute not implemented (in \"${name}\")`);\n    };\n\n    this._store = new ReferenceStore();\n    this._method_refs = new ReferenceStore();\n\n    this._method_refs.onReady(() => {\n      this._fire(\"remoteIdle\");\n    });\n\n    this._method_refs.onBusy(() => {\n      this._fire(\"remoteBusy\");\n    });\n\n    this._setupMessageHanlders();\n  }\n\n  init() {\n    this._connection.emit({\n      type: \"initialized\",\n      config: this.config,\n      peer_id: this._connection.peer_id\n    });\n  }\n\n  setConfig(config) {\n    if (config) for (const k of Object.keys(config)) {\n      this.config[k] = config[k];\n    }\n  }\n  /**\n   * Set a handler to be called when received a responce from the\n   * remote site reporting that the previously provided interface\n   * has been successfully set as remote for that site\n   *\n   * @param {Function} handler\n   */\n\n\n  getRemoteCallStack() {\n    return this._method_refs.getStack();\n  }\n  /**\n   * @returns {Object} set of remote interface methods\n   */\n\n\n  getRemote() {\n    return this._remote_interface;\n  }\n  /**\n   * Sets the interface of this site making it available to the\n   * remote site by sending a message with a set of methods names\n   *\n   * @param {Object} _interface to set\n   */\n\n\n  setInterface(_interface, config) {\n    config = config || {};\n    this.config.name = config.name || this.config.name;\n    this.config.description = config.description || this.config.description;\n\n    if (this.config.forwarding_functions) {\n      for (let func_name of this.config.forwarding_functions) {\n        const _remote = this._remote_interface;\n\n        if (_remote[func_name]) {\n          if (_interface.constructor === Object) {\n            if (!_interface[func_name]) {\n              _interface[func_name] = (...args) => {\n                _remote[func_name](...args);\n              };\n            }\n          } else if (_interface.constructor.constructor === Function) {\n            if (!_interface.constructor.prototype[func_name]) {\n              _interface.constructor.prototype[func_name] = (...args) => {\n                _remote[func_name](...args);\n              };\n            }\n          }\n        }\n      }\n    }\n\n    this._local_api = _interface;\n    if (!this._remote_set) this._fire(\"interfaceAvailable\");else this.sendInterface();\n    return new Promise(resolve => {\n      this.once(\"interfaceSetAsRemote\", resolve);\n    });\n  }\n  /**\n   * Sends the actual interface to the remote site upon it was\n   * updated or by a special request of the remote site\n   */\n\n\n  sendInterface() {\n    if (!this._local_api) {\n      throw new Error(\"interface is not set.\");\n    }\n\n    this._encode(this._local_api, true).then(api => {\n      this._connection.emit({\n        type: \"setInterface\",\n        api: api\n      });\n    });\n  }\n\n  _disposeObject(objectId) {\n    if (this._object_store[objectId]) {\n      delete this._object_store[objectId];\n    } else {\n      throw new Error(`Object (id=${objectId}) not found.`);\n    }\n  }\n\n  disposeObject(obj) {\n    return new Promise((resolve, reject) => {\n      if (this._object_weakmap.has(obj)) {\n        const objectId = this._object_weakmap.get(obj);\n\n        this._connection.once(\"disposed\", data => {\n          if (data.error) reject(new Error(data.error));else resolve();\n        });\n\n        this._connection.emit({\n          type: \"disposeObject\",\n          object_id: objectId\n        });\n      } else {\n        throw new Error(\"Invalid object\");\n      }\n    });\n  }\n  /**\n   * Handles a message from the remote site\n   */\n\n\n  _setupMessageHanlders() {\n    this._connection.on(\"init\", this.init);\n\n    this._connection.on(\"execute\", data => {\n      Promise.resolve(this._connection.execute(data.code)).then(() => {\n        this._connection.emit({\n          type: \"executed\"\n        });\n      }).catch(e => {\n        console.error(e);\n\n        this._connection.emit({\n          type: \"executed\",\n          error: String(e)\n        });\n      });\n    });\n\n    this._connection.on(\"method\", async data => {\n      let resolve, reject, method, method_this, args, result;\n\n      try {\n        if (data.promise) {\n          [resolve, reject] = await this._unwrap(data.promise, false);\n        }\n\n        const _interface = this._object_store[data.object_id];\n        method = indexObject(_interface, data.name);\n\n        if (data.name.includes(\".\")) {\n          const tmp = data.name.split(\".\");\n          const intf_index = tmp.slice(0, tmp.length - 1).join(\".\");\n          method_this = indexObject(_interface, intf_index);\n        } else {\n          method_this = _interface;\n        }\n\n        args = await this._unwrap(data.args, true);\n\n        if (data.promise) {\n          result = method.apply(method_this, args);\n\n          if (result instanceof Promise || method.constructor && method.constructor.name === \"AsyncFunction\") {\n            result.then(resolve).catch(reject);\n          } else {\n            resolve(result);\n          }\n        } else {\n          method.apply(method_this, args);\n        }\n      } catch (err) {\n        console.error(this.config.name, err);\n\n        if (reject) {\n          reject(err);\n        }\n      }\n    });\n\n    this._connection.on(\"callback\", async data => {\n      let resolve, reject, method, args, result;\n\n      try {\n        if (data.promise) {\n          [resolve, reject] = await this._unwrap(data.promise, false);\n        }\n\n        if (data.promise) {\n          method = this._store.fetch(data.id);\n          args = await this._unwrap(data.args, true);\n\n          if (!method) {\n            throw new Error(\"Callback function can only called once, if you want to call a function for multiple times, please make it as a plugin api function. See https://imjoy.io/docs for more details.\");\n          }\n\n          result = method.apply(null, args);\n\n          if (result instanceof Promise || method.constructor && method.constructor.name === \"AsyncFunction\") {\n            result.then(resolve).catch(reject);\n          } else {\n            resolve(result);\n          }\n        } else {\n          method = this._store.fetch(data.id);\n          args = await this._unwrap(data.args, true);\n\n          if (!method) {\n            throw new Error(\"Please notice that callback function can only called once, if you want to call a function for multiple times, please make it as a plugin api function. See https://imjoy.io/docs for more details.\");\n          }\n\n          method.apply(null, args);\n        }\n      } catch (err) {\n        console.error(this.config.name, err);\n\n        if (reject) {\n          reject(err);\n        }\n      }\n    });\n\n    this._connection.on(\"disposeObject\", data => {\n      try {\n        this._disposeObject(data.object_id);\n\n        this._connection.emit({\n          type: \"disposed\"\n        });\n      } catch (e) {\n        console.error(e);\n\n        this._connection.emit({\n          type: \"disposed\",\n          error: String(e)\n        });\n      }\n    });\n\n    this._connection.on(\"setInterface\", data => {\n      this._setRemoteInterface(data.api);\n    });\n\n    this._connection.on(\"getInterface\", () => {\n      this._fire(\"getInterface\");\n\n      if (this._local_api) {\n        this.sendInterface();\n      } else {\n        this.once(\"interfaceAvailable\", () => {\n          this.sendInterface();\n        });\n      }\n    });\n\n    this._connection.on(\"interfaceSetAsRemote\", () => {\n      this._remote_set = true;\n\n      this._fire(\"interfaceSetAsRemote\");\n    });\n\n    this._connection.on(\"disconnect\", () => {\n      this._fire(\"beforeDisconnect\");\n\n      this._connection.disconnect();\n\n      this._fire(\"disconnected\");\n    });\n  }\n  /**\n   * Sends a requests to the remote site asking it to provide its\n   * current interface\n   */\n\n\n  requestRemote() {\n    this._connection.emit({\n      type: \"getInterface\"\n    });\n  }\n\n  _ndarray(typedArray, shape, dtype) {\n    const _dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(typedArray);\n\n    if (dtype && dtype !== _dtype) {\n      throw \"dtype doesn't match the type of the array: \" + _dtype + \" != \" + dtype;\n    }\n\n    shape = shape || [typedArray.length];\n    return {\n      _rtype: \"ndarray\",\n      _rvalue: typedArray.buffer,\n      _rshape: shape,\n      _rdtype: _dtype\n    };\n  }\n  /**\n   * Sets the new remote interface provided by the other site\n   *\n   * @param {Array} names list of function names\n   */\n\n\n  _setRemoteInterface(api) {\n    this._decode(api).then(intf => {\n      // update existing interface instead of recreating it\n      // this will preserve the object reference\n      if (this._remote_interface) {\n        // clear the interface\n        for (let k in this._remote_interface) delete this._remote_interface[k]; // then assign the new interfaces\n\n\n        Object.assign(this._remote_interface, intf);\n      } else this._remote_interface = intf;\n\n      this._fire(\"remoteReady\");\n\n      this._reportRemoteSet();\n    });\n  }\n  /**\n   * Generates the wrapped function corresponding to a single remote\n   * method. When the generated function is called, it will send the\n   * corresponding message to the remote site asking it to execute\n   * the particular method of its interface\n   *\n   * @param {String} name of the remote method\n   *\n   * @returns {Function} wrapped remote method\n   */\n\n\n  _genRemoteMethod(targetId, name, objectId) {\n    const me = this;\n\n    const remoteMethod = function () {\n      return new Promise(async (resolve, reject) => {\n        let id = null;\n\n        try {\n          id = me._method_refs.put(objectId ? objectId + \"/\" + name : name);\n\n          const wrapped_resolve = function () {\n            if (id !== null) me._method_refs.fetch(id);\n            return resolve.apply(this, arguments);\n          };\n\n          const wrapped_reject = function () {\n            if (id !== null) me._method_refs.fetch(id);\n            return reject.apply(this, arguments);\n          };\n\n          const encodedPromise = await me._wrap([wrapped_resolve, wrapped_reject]); // store the key id for removing them from the reference store together\n\n          wrapped_resolve.__promise_pair = encodedPromise[1]._rvalue;\n          wrapped_reject.__promise_pair = encodedPromise[0]._rvalue;\n          let args = Array.prototype.slice.call(arguments);\n          const argLength = args.length; // if the last argument is an object, mark it as kwargs\n\n          const withKwargs = argLength > 0 && typeof args[argLength - 1] === \"object\" && args[argLength - 1] !== null && args[argLength - 1]._rkwargs;\n          if (withKwargs) delete args[argLength - 1]._rkwargs;\n\n          if (name === \"register\" || name === \"registerService\" || name === \"register_service\" || name === \"export\" || name === \"on\") {\n            args = await me._wrap(args, true);\n          } else {\n            args = await me._wrap(args);\n          }\n\n          const transferables = args.__transferables__;\n          if (transferables) delete args.__transferables__;\n\n          me._connection.emit({\n            type: \"method\",\n            target_id: targetId,\n            name: name,\n            object_id: objectId,\n            args: args,\n            promise: encodedPromise,\n            with_kwargs: withKwargs\n          }, transferables);\n        } catch (e) {\n          if (id) me._method_refs.fetch(id);\n          reject(`Failed to exectue remote method (interface: ${objectId || me.id}, method: ${name}), error: ${e}`);\n        }\n      });\n    };\n\n    remoteMethod.__remote_method = true;\n    return remoteMethod;\n  }\n  /**\n   * Sends a responce reporting that interface just provided by the\n   * remote site was successfully set by this site as remote\n   */\n\n\n  _reportRemoteSet() {\n    this._connection.emit({\n      type: \"interfaceSetAsRemote\"\n    });\n  }\n  /**\n   * Prepares the provided set of remote method arguments for\n   * sending to the remote site, replaces all the callbacks with\n   * identifiers\n   *\n   * @param {Array} args to wrap\n   *\n   * @returns {Array} wrapped arguments\n   */\n\n\n  async _encode(aObject, asInterface, objectId) {\n    const aType = typeof aObject;\n\n    if (aType === \"number\" || aType === \"string\" || aType === \"boolean\" || aObject === null || aObject === undefined || aObject instanceof ArrayBuffer) {\n      return aObject;\n    }\n\n    let bObject;\n\n    if (typeof aObject === \"function\") {\n      if (asInterface) {\n        if (!objectId) throw new Error(\"objectId is not specified.\");\n        bObject = {\n          _rtype: \"interface\",\n          _rtarget_id: this._connection.peer_id,\n          _rintf: objectId,\n          _rvalue: asInterface\n        };\n\n        this._method_weakmap.set(aObject, bObject);\n      } else if (this._method_weakmap.has(aObject)) {\n        bObject = this._method_weakmap.get(aObject);\n      } else {\n        const cid = this._store.put(aObject);\n\n        bObject = {\n          _rtype: \"callback\",\n          _rtarget_id: this._connection.peer_id,\n          _rname: aObject.constructor && aObject.constructor.name || cid,\n          _rvalue: cid\n        };\n      }\n\n      return bObject;\n    } // skip if already encoded\n\n\n    if (aObject.constructor instanceof Object && aObject._rtype) {\n      // make sure the interface functions are encoded\n      if (aObject._rintf) {\n        const temp = aObject._rtype;\n        delete aObject._rtype;\n        bObject = await this._encode(aObject, asInterface, objectId);\n        bObject._rtype = temp;\n      } else {\n        bObject = aObject;\n      }\n\n      return bObject;\n    }\n\n    const transferables = [];\n    const _transfer = aObject._transfer;\n    const isarray = Array.isArray(aObject);\n\n    for (let tp of Object.keys(this._codecs)) {\n      const codec = this._codecs[tp];\n\n      if (codec.encoder && aObject instanceof codec.type) {\n        // TODO: what if multiple encoders found\n        let encodedObj = await Promise.resolve(codec.encoder(aObject));\n        if (encodedObj && !encodedObj._rtype) encodedObj._rtype = codec.name; // encode the functions in the interface object\n\n        if (encodedObj && encodedObj._rintf) {\n          const temp = encodedObj._rtype;\n          delete encodedObj._rtype;\n          encodedObj = await this._encode(encodedObj, asInterface, objectId);\n          encodedObj._rtype = temp;\n        }\n\n        bObject = encodedObj;\n        return bObject;\n      }\n    }\n\n    if (\n    /*global tf*/\n    typeof tf !== \"undefined\" && tf.Tensor && aObject instanceof tf.Tensor) {\n      const v_buffer = aObject.dataSync();\n\n      if (aObject._transfer || _transfer) {\n        transferables.push(v_buffer.buffer);\n        delete aObject._transfer;\n      }\n\n      bObject = {\n        _rtype: \"ndarray\",\n        _rvalue: v_buffer.buffer,\n        _rshape: aObject.shape,\n        _rdtype: aObject.dtype\n      };\n    } else if (\n    /*global nj*/\n    typeof nj !== \"undefined\" && nj.NdArray && aObject instanceof nj.NdArray) {\n      const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(aObject.selection.data);\n\n      if (aObject._transfer || _transfer) {\n        transferables.push(aObject.selection.data.buffer);\n        delete aObject._transfer;\n      }\n\n      bObject = {\n        _rtype: \"ndarray\",\n        _rvalue: aObject.selection.data.buffer,\n        _rshape: aObject.shape,\n        _rdtype: dtype\n      };\n    } else if (aObject instanceof Error) {\n      console.error(aObject);\n      bObject = {\n        _rtype: \"error\",\n        _rvalue: aObject.toString()\n      };\n    } else if (typeof File !== \"undefined\" && aObject instanceof File) {\n      bObject = {\n        _rtype: \"file\",\n        _rvalue: aObject,\n        _rpath: aObject._path || aObject.webkitRelativePath\n      };\n    } // send objects supported by structure clone algorithm\n    // https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm\n    else if (aObject !== Object(aObject) || aObject instanceof Boolean || aObject instanceof String || aObject instanceof Date || aObject instanceof RegExp || aObject instanceof ImageData || typeof FileList !== \"undefined\" && aObject instanceof FileList || typeof FileSystemDirectoryHandle !== \"undefined\" && aObject instanceof FileSystemDirectoryHandle || typeof FileSystemFileHandle !== \"undefined\" && aObject instanceof FileSystemFileHandle || typeof FileSystemHandle !== \"undefined\" && aObject instanceof FileSystemHandle || typeof FileSystemWritableFileStream !== \"undefined\" && aObject instanceof FileSystemWritableFileStream) {\n      bObject = aObject; // TODO: avoid object such as DynamicPlugin instance.\n    } else if (typeof File !== \"undefined\" && aObject instanceof File) {\n      bObject = {\n        _rtype: \"file\",\n        _rname: aObject.name,\n        _rmime: aObject.type,\n        _rvalue: aObject,\n        _rpath: aObject._path || aObject.webkitRelativePath\n      };\n    } else if (aObject instanceof Blob) {\n      bObject = {\n        _rtype: \"blob\",\n        _rvalue: aObject\n      };\n    } else if (aObject instanceof ArrayBufferView) {\n      if (aObject._transfer || _transfer) {\n        transferables.push(aObject.buffer);\n        delete aObject._transfer;\n      }\n\n      const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"typedArrayToDtype\"])(aObject);\n      bObject = {\n        _rtype: \"typedarray\",\n        _rvalue: aObject.buffer,\n        _rdtype: dtype\n      };\n    } else if (aObject instanceof DataView) {\n      if (aObject._transfer || _transfer) {\n        transferables.push(aObject.buffer);\n        delete aObject._transfer;\n      }\n\n      bObject = {\n        _rtype: \"memoryview\",\n        _rvalue: aObject.buffer\n      };\n    } else if (aObject instanceof Set) {\n      bObject = {\n        _rtype: \"set\",\n        _rvalue: await this._encode(Array.from(aObject), asInterface)\n      };\n    } else if (aObject instanceof Map) {\n      bObject = {\n        _rtype: \"orderedmap\",\n        _rvalue: await this._encode(Array.from(aObject), asInterface)\n      };\n    } else if (aObject.constructor instanceof Object || Array.isArray(aObject)) {\n      bObject = isarray ? [] : {};\n      let keys; // an object/array\n\n      if (aObject.constructor === Object || Array.isArray(aObject)) {\n        keys = Object.keys(aObject);\n      } // a class\n      else if (aObject.constructor === Function) {\n        throw new Error(\"Please instantiate the class before exportting it.\");\n      } // instance of a class\n      else if (aObject.constructor.constructor === Function) {\n        keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject)); // TODO: use a proxy object to represent the actual object\n        // always encode class instance as interface\n\n        asInterface = true;\n      } else {\n        throw Error(\"Unsupported interface type\");\n      }\n\n      let hasFunction = false; // encode interfaces\n\n      if (aObject._rintf || asInterface) {\n        if (!objectId) {\n          if (typeof aObject._rintf === \"string\" && aObject._rintf.length > 0) {\n            objectId = aObject._rintf; // enable custom object id\n          } else {\n            objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"randId\"])();\n          } // Note: object with the same id will be overwritten\n\n\n          if (this._object_store[objectId]) console.warn(`Overwritting interface object with the same id: ${objectId}`);\n          this._object_store[objectId] = aObject;\n        }\n\n        for (let k of keys) {\n          if (k === \"constructor\") continue;\n\n          if (k.startsWith(\"_\")) {\n            continue;\n          }\n\n          bObject[k] = await this._encode(aObject[k], typeof asInterface === \"string\" ? asInterface + \".\" + k : k, objectId);\n\n          if (typeof aObject[k] === \"function\") {\n            hasFunction = true;\n          }\n        } // object id for dispose the object remotely\n\n\n        if (hasFunction) bObject._rintf = objectId; // remove interface when closed\n\n        if (aObject.on && typeof aObject.on === \"function\") {\n          aObject.on(\"close\", () => {\n            delete this._object_store[objectId];\n          });\n        }\n      } else {\n        for (let k of keys) {\n          if ([\"hasOwnProperty\", \"constructor\"].includes(k)) continue;\n          bObject[k] = await this._encode(aObject[k]);\n        }\n      } // for example, browserFS object\n\n    } else if (typeof aObject === \"object\") {\n      const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject));\n      const objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__[\"randId\"])();\n\n      for (let k of keys) {\n        if ([\"hasOwnProperty\", \"constructor\"].includes(k)) continue; // encode as interface\n\n        bObject[k] = await this._encode(aObject[k], k, bObject);\n      } // object id, used for dispose the object\n\n\n      bObject._rintf = objectId;\n    } else {\n      throw \"imjoy-rpc: Unsupported data type:\" + aObject;\n    }\n\n    if (transferables.length > 0) {\n      bObject.__transferables__ = transferables;\n    }\n\n    if (!bObject) {\n      throw new Error(\"Failed to encode object\");\n    }\n\n    return bObject;\n  }\n\n  async _decode(aObject, withPromise) {\n    if (!aObject) {\n      return aObject;\n    }\n\n    let bObject;\n\n    if (aObject[\"_rtype\"]) {\n      if (this._codecs[aObject._rtype] && this._codecs[aObject._rtype].decoder) {\n        if (aObject._rintf) {\n          const temp = aObject._rtype;\n          delete aObject._rtype;\n          aObject = await this._decode(aObject, withPromise);\n          aObject._rtype = temp;\n        }\n\n        bObject = await Promise.resolve(this._codecs[aObject._rtype].decoder(aObject));\n      } else if (aObject._rtype === \"callback\") {\n        bObject = this._genRemoteCallback(aObject._rtarget_id, aObject._rvalue, withPromise);\n      } else if (aObject._rtype === \"interface\") {\n        bObject = this._genRemoteMethod(aObject._rtarget_id, aObject._rvalue, aObject._rintf);\n      } else if (aObject._rtype === \"ndarray\") {\n        /*global nj tf*/\n        //create build array/tensor if used in the plugin\n        if (typeof nj !== \"undefined\" && nj.array) {\n          if (Array.isArray(aObject._rvalue)) {\n            aObject._rvalue = aObject._rvalue.reduce(_appendBuffer);\n          }\n\n          bObject = nj.array(new Uint8(aObject._rvalue), aObject._rdtype).reshape(aObject._rshape);\n        } else if (typeof tf !== \"undefined\" && tf.Tensor) {\n          if (Array.isArray(aObject._rvalue)) {\n            aObject._rvalue = aObject._rvalue.reduce(_appendBuffer);\n          }\n\n          const arraytype = _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"dtypeToTypedArray\"][aObject._rdtype];\n          bObject = tf.tensor(new arraytype(aObject._rvalue), aObject._rshape, aObject._rdtype);\n        } else {\n          //keep it as regular if transfered to the main app\n          bObject = aObject;\n        }\n      } else if (aObject._rtype === \"error\") {\n        bObject = new Error(aObject._rvalue);\n      } else if (aObject._rtype === \"file\") {\n        if (aObject._rvalue instanceof File) {\n          bObject = aObject._rvalue; //patch _path\n\n          bObject._path = aObject._rpath;\n        } else {\n          bObject = new File([aObject._rvalue], aObject._rname, {\n            type: aObject._rmime\n          });\n          bObject._path = aObject._rpath;\n        }\n      } else if (aObject._rtype === \"typedarray\") {\n        const arraytype = _utils_js__WEBPACK_IMPORTED_MODULE_0__[\"dtypeToTypedArray\"][aObject._rdtype];\n        if (!arraytype) throw new Error(\"unsupported dtype: \" + aObject._rdtype);\n        bObject = new arraytype(aObject._rvalue);\n      } else if (aObject._rtype === \"memoryview\") {\n        bObject = new DataView(aObject._rvalue);\n      } else if (aObject._rtype === \"blob\") {\n        if (aObject._rvalue instanceof Blob) {\n          bObject = aObject._rvalue;\n        } else {\n          bObject = new Blob([aObject._rvalue], {\n            type: aObject._rmime\n          });\n        }\n      } else if (aObject._rtype === \"orderedmap\") {\n        bObject = new Map(await this._decode(aObject._rvalue, withPromise));\n      } else if (aObject._rtype === \"set\") {\n        bObject = new Set(await this._decode(aObject._rvalue, withPromise));\n      } else {\n        // make sure all the interface functions are decoded\n        if (aObject._rintf) {\n          const temp = aObject._rtype;\n          delete aObject._rtype;\n          bObject = await this._decode(aObject, withPromise);\n          bObject._rtype = temp;\n        } else bObject = aObject;\n      }\n    } else if (aObject.constructor === Object || Array.isArray(aObject)) {\n      const isarray = Array.isArray(aObject);\n      bObject = isarray ? [] : {};\n\n      for (let k of Object.keys(aObject)) {\n        if (isarray || aObject.hasOwnProperty(k)) {\n          const v = aObject[k];\n          bObject[k] = await this._decode(v, withPromise);\n        }\n      }\n    } else {\n      bObject = aObject;\n    }\n\n    if (bObject === undefined) {\n      throw new Error(\"Failed to decode object\");\n    } // store the object id for dispose\n\n\n    if (aObject._rintf) {\n      this._object_weakmap.set(bObject, aObject._rintf);\n    }\n\n    return bObject;\n  }\n\n  async _wrap(args, asInterface) {\n    return await this._encode(args, asInterface);\n  }\n  /**\n   * Unwraps the set of arguments delivered from the remote site,\n   * replaces all callback identifiers with a function which will\n   * initiate sending that callback identifier back to other site\n   *\n   * @param {Object} args to unwrap\n   *\n   * @param {Boolean} withPromise is true means this the callback should contain a promise\n   *\n   * @returns {Array} unwrapped args\n   */\n\n\n  async _unwrap(args, withPromise) {\n    return await this._decode(args, withPromise);\n  }\n  /**\n   * Generates the wrapped function corresponding to a single remote\n   * callback. When the generated function is called, it will send\n   * the corresponding message to the remote site asking it to\n   * execute the particular callback previously saved during a call\n   * by the remote site a method from the interface of this site\n   *\n   * @param {Number} id of the remote callback to execute\n   * @param {Number} argNum argument index of the callback\n   * @param {Boolean} withPromise is true means this the callback should contain a promise\n   *\n   * @returns {Function} wrapped remote callback\n   */\n\n\n  _genRemoteCallback(targetId, cid, withPromise) {\n    const me = this;\n    let remoteCallback;\n\n    if (withPromise) {\n      remoteCallback = function () {\n        return new Promise(async (resolve, reject) => {\n          const args = await me._wrap(Array.prototype.slice.call(arguments));\n          const argLength = args.length; // if the last argument is an object, mark it as kwargs\n\n          const withKwargs = argLength > 0 && typeof args[argLength - 1] === \"object\" && args[argLength - 1] !== null && args[argLength - 1]._rkwargs;\n          if (withKwargs) delete args[argLength - 1]._rkwargs;\n          const transferables = args.__transferables__;\n          if (transferables) delete args.__transferables__;\n          const encodedPromise = await me._wrap([resolve, reject]); // store the key id for removing them from the reference store together\n\n          resolve.__promise_pair = encodedPromise[1]._rvalue;\n          reject.__promise_pair = encodedPromise[0]._rvalue;\n\n          try {\n            me._connection.emit({\n              type: \"callback\",\n              target_id: targetId,\n              id: cid,\n              args: args,\n              promise: encodedPromise,\n              with_kwargs: withKwargs\n            }, transferables);\n          } catch (e) {\n            reject(`Failed to exectue remote callback ( id: ${cid}).`);\n          }\n        });\n      };\n\n      return remoteCallback;\n    } else {\n      remoteCallback = async function () {\n        const args = await me._wrap(Array.prototype.slice.call(arguments));\n        const argLength = args.length; // if the last argument is an object, mark it as kwargs\n\n        const withKwargs = argLength > 0 && typeof args[argLength - 1] === \"object\" && args[argLength - 1] !== null && args[argLength - 1]._rkwargs;\n        if (withKwargs) delete args[argLength - 1]._rkwargs;\n        const transferables = args.__transferables__;\n        if (transferables) delete args.__transferables__;\n        return me._connection.emit({\n          type: \"callback\",\n          target_id: targetId,\n          id: cid,\n          args: args,\n          with_kwargs: withKwargs\n        }, transferables);\n      };\n\n      return remoteCallback;\n    }\n  }\n\n  reset() {\n    this._event_handlers = {};\n    this._once_handlers = {};\n    this._remote_interface = null;\n    this._object_store = {};\n    this._method_weakmap = new WeakMap();\n    this._object_weakmap = new WeakMap();\n    this._local_api = null;\n    this._store = new ReferenceStore();\n    this._method_refs = new ReferenceStore();\n  }\n  /**\n   * Sends the notification message and breaks the connection\n   */\n\n\n  disconnect() {\n    this._connection.emit({\n      type: \"disconnect\"\n    });\n\n    this.reset();\n    setTimeout(() => {\n      this._connection.disconnect();\n    }, 2000);\n  }\n\n}\n/**\n * ReferenceStore is a special object which stores other objects\n * and provides the references (number) instead. This reference\n * may then be sent over a json-based communication channel (IPC\n * to another Node.js process or a message to the Worker). Other\n * site may then provide the reference in the responce message\n * implying the given object should be activated.\n *\n * Primary usage for the ReferenceStore is a storage for the\n * callbacks, which therefore makes it possible to initiate a\n * callback execution by the opposite site (which normally cannot\n * directly execute functions over the communication channel).\n *\n * Each stored object can only be fetched once and is not\n * available for the second time. Each stored object must be\n * fetched, since otherwise it will remain stored forever and\n * consume memory.\n *\n * Stored object indeces are simply the numbers, which are however\n * released along with the objects, and are later reused again (in\n * order to postpone the overflow, which should not likely happen,\n * but anyway).\n */\n\nclass ReferenceStore {\n  constructor() {\n    this._store = {}; // stored object\n\n    this._indices = [0]; // smallest available indices\n\n    this._readyHandler = function () {};\n\n    this._busyHandler = function () {};\n\n    this._readyHandler();\n  }\n  /**\n   * call handler when the store is empty\n   *\n   * @param {FUNCTION} id of a handler\n   */\n\n\n  onReady(readyHandler) {\n    this._readyHandler = readyHandler || function () {};\n  }\n  /**\n   * call handler when the store is not empty\n   *\n   * @param {FUNCTION} id of a handler\n   */\n\n\n  onBusy(busyHandler) {\n    this._busyHandler = busyHandler || function () {};\n  }\n  /**\n   * get the length of the store\n   *\n   */\n\n\n  getStack() {\n    return Object.keys(this._store).length;\n  }\n  /**\n   * @function _genId() generates the new reference id\n   *\n   * @returns {Number} smallest available id and reserves it\n   */\n\n\n  _genId() {\n    let id;\n\n    if (this._indices.length === 1) {\n      id = this._indices[0]++;\n    } else {\n      id = this._indices.shift();\n    }\n\n    return id;\n  }\n  /**\n   * Releases the given reference id so that it will be available by\n   * another object stored\n   *\n   * @param {Number} id to release\n   */\n\n\n  _releaseId(id) {\n    for (let i = 0; i < this._indices.length; i++) {\n      if (id < this._indices[i]) {\n        this._indices.splice(i, 0, id);\n\n        break;\n      }\n    } // cleaning-up the sequence tail\n\n\n    for (let i = this._indices.length - 1; i >= 0; i--) {\n      if (this._indices[i] - 1 === this._indices[i - 1]) {\n        this._indices.pop();\n      } else {\n        break;\n      }\n    }\n  }\n  /**\n   * Stores the given object and returns the refernce id instead\n   *\n   * @param {Object} obj to store\n   *\n   * @returns {Number} reference id of the stored object\n   */\n\n\n  put(obj) {\n    if (this._busyHandler && Object.keys(this._store).length === 0) {\n      this._busyHandler();\n    }\n\n    const id = this._genId();\n\n    this._store[id] = obj;\n    return id;\n  }\n  /**\n   * Retrieves previously stored object and releases its reference\n   *\n   * @param {Number} id of an object to retrieve\n   */\n\n\n  fetch(id) {\n    const obj = this._store[id];\n\n    if (obj && !obj.__remote_method) {\n      delete this._store[id];\n\n      this._releaseId(id);\n\n      if (this._readyHandler && Object.keys(this._store).length === 0) {\n        this._readyHandler();\n      }\n    }\n\n    if (obj && obj.__promise_pair) {\n      this.fetch(obj.__promise_pair);\n    }\n\n    return obj;\n  }\n\n}\n\n/***/ }),\n\n/***/ \"./src/utils.js\":\n/*!**********************!*\\\n  !*** ./src/utils.js ***!\n  \\**********************/\n/*! exports provided: randId, dtypeToTypedArray, loadRequirementsInWindow, loadRequirementsInWebworker, loadRequirements, normalizeConfig, typedArrayToDtypeMapping, typedArrayToDtype, cacheRequirements, setupServiceWorker, urlJoin, MessageEmitter */\n/***/ (function(module, __webpack_exports__, __webpack_require__) {\n\n\"use strict\";\n__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"randId\", function() { return randId; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"dtypeToTypedArray\", function() { return dtypeToTypedArray; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadRequirementsInWindow\", function() { return loadRequirementsInWindow; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadRequirementsInWebworker\", function() { return loadRequirementsInWebworker; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loadRequirements\", function() { return loadRequirements; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"normalizeConfig\", function() { return normalizeConfig; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"typedArrayToDtypeMapping\", function() { return typedArrayToDtypeMapping; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"typedArrayToDtype\", function() { return typedArrayToDtype; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cacheRequirements\", function() { return cacheRequirements; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"setupServiceWorker\", function() { return setupServiceWorker; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"urlJoin\", function() { return urlJoin; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MessageEmitter\", function() { return MessageEmitter; });\nfunction randId() {\n  return Math.random().toString(36).substr(2, 10) + new Date().getTime();\n}\nconst dtypeToTypedArray = {\n  int8: Int8Array,\n  int16: Int16Array,\n  int32: Int32Array,\n  uint8: Uint8Array,\n  uint16: Uint16Array,\n  uint32: Uint32Array,\n  float32: Float32Array,\n  float64: Float64Array,\n  array: Array\n};\nasync function loadRequirementsInWindow(requirements) {\n  function _importScript(url) {\n    //url is URL of external file, implementationCode is the code\n    //to be called from the file, location is the location to\n    //insert the <script> element\n    return new Promise((resolve, reject) => {\n      var scriptTag = document.createElement(\"script\");\n      scriptTag.src = url;\n      scriptTag.type = \"text/javascript\";\n      scriptTag.onload = resolve;\n\n      scriptTag.onreadystatechange = function () {\n        if (this.readyState === \"loaded\" || this.readyState === \"complete\") {\n          resolve();\n        }\n      };\n\n      scriptTag.onerror = reject;\n      document.head.appendChild(scriptTag);\n    });\n  } // support importScripts outside web worker\n\n\n  async function importScripts() {\n    var args = Array.prototype.slice.call(arguments),\n        len = args.length,\n        i = 0;\n\n    for (; i < len; i++) {\n      await _importScript(args[i]);\n    }\n  }\n\n  if (requirements && (Array.isArray(requirements) || typeof requirements === \"string\")) {\n    try {\n      var link_node;\n      requirements = typeof requirements === \"string\" ? [requirements] : requirements;\n\n      if (Array.isArray(requirements)) {\n        for (var i = 0; i < requirements.length; i++) {\n          if (requirements[i].toLowerCase().endsWith(\".css\") || requirements[i].startsWith(\"css:\")) {\n            if (requirements[i].startsWith(\"css:\")) {\n              requirements[i] = requirements[i].slice(4);\n            }\n\n            link_node = document.createElement(\"link\");\n            link_node.rel = \"stylesheet\";\n            link_node.href = requirements[i];\n            document.head.appendChild(link_node);\n          } else if (requirements[i].toLowerCase().endsWith(\".mjs\") || requirements[i].startsWith(\"mjs:\")) {\n            // import esmodule\n            if (requirements[i].startsWith(\"mjs:\")) {\n              requirements[i] = requirements[i].slice(4);\n            }\n\n            await import(\n            /* webpackIgnore: true */\n            requirements[i]);\n          } else if (requirements[i].toLowerCase().endsWith(\".js\") || requirements[i].startsWith(\"js:\")) {\n            if (requirements[i].startsWith(\"js:\")) {\n              requirements[i] = requirements[i].slice(3);\n            }\n\n            await importScripts(requirements[i]);\n          } else if (requirements[i].startsWith(\"http\")) {\n            await importScripts(requirements[i]);\n          } else if (requirements[i].startsWith(\"cache:\")) {//ignore cache\n          } else {\n            console.log(\"Unprocessed requirements url: \" + requirements[i]);\n          }\n        }\n      } else {\n        throw \"unsupported requirements definition\";\n      }\n    } catch (e) {\n      throw \"failed to import required scripts: \" + requirements.toString();\n    }\n  }\n}\nasync function loadRequirementsInWebworker(requirements) {\n  if (requirements && (Array.isArray(requirements) || typeof requirements === \"string\")) {\n    try {\n      if (!Array.isArray(requirements)) {\n        requirements = [requirements];\n      }\n\n      for (var i = 0; i < requirements.length; i++) {\n        if (requirements[i].toLowerCase().endsWith(\".css\") || requirements[i].startsWith(\"css:\")) {\n          throw \"unable to import css in a webworker\";\n        } else if (requirements[i].toLowerCase().endsWith(\".js\") || requirements[i].startsWith(\"js:\")) {\n          if (requirements[i].startsWith(\"js:\")) {\n            requirements[i] = requirements[i].slice(3);\n          }\n\n          importScripts(requirements[i]);\n        } else if (requirements[i].startsWith(\"http\")) {\n          importScripts(requirements[i]);\n        } else if (requirements[i].startsWith(\"cache:\")) {//ignore cache\n        } else {\n          console.log(\"Unprocessed requirements url: \" + requirements[i]);\n        }\n      }\n    } catch (e) {\n      throw \"failed to import required scripts: \" + requirements.toString();\n    }\n  }\n}\nfunction loadRequirements(requirements) {\n  if (typeof WorkerGlobalScope !== \"undefined\" && self instanceof WorkerGlobalScope) {\n    return loadRequirementsInWebworker(requirements);\n  } else {\n    return loadRequirementsInWindow(requirements);\n  }\n}\nfunction normalizeConfig(config) {\n  config.version = config.version || \"0.1.0\";\n  config.description = config.description || `[TODO: add description for ${config.name} ]`;\n  config.type = config.type || \"rpc-window\";\n  config.id = config.id || randId();\n  config.target_origin = config.target_origin || \"*\";\n  config.allow_execution = config.allow_execution || false; // remove functions\n\n  config = Object.keys(config).reduce((p, c) => {\n    if (typeof config[c] !== \"function\") p[c] = config[c];\n    return p;\n  }, {});\n  return config;\n}\nconst typedArrayToDtypeMapping = {\n  Int8Array: \"int8\",\n  Int16Array: \"int16\",\n  Int32Array: \"int32\",\n  Uint8Array: \"uint8\",\n  Uint16Array: \"uint16\",\n  Uint32Array: \"uint32\",\n  Float32Array: \"float32\",\n  Float64Array: \"float64\",\n  Array: \"array\"\n};\nconst typedArrayToDtypeKeys = [];\n\nfor (const arrType of Object.keys(typedArrayToDtypeMapping)) {\n  typedArrayToDtypeKeys.push(eval(arrType));\n}\n\nfunction typedArrayToDtype(obj) {\n  let dtype = typedArrayToDtypeMapping[obj.constructor.name];\n\n  if (!dtype) {\n    const pt = Object.getPrototypeOf(obj);\n\n    for (const arrType of typedArrayToDtypeKeys) {\n      if (pt instanceof arrType) {\n        dtype = typedArrayToDtypeMapping[arrType.name];\n        break;\n      }\n    }\n  }\n\n  return dtype;\n}\n\nfunction cacheUrlInServiceWorker(url) {\n  return new Promise(function (resolve, reject) {\n    const message = {\n      command: \"add\",\n      url: url\n    };\n\n    if (!navigator.serviceWorker || !navigator.serviceWorker.register) {\n      reject(\"Service worker is not supported.\");\n      return;\n    }\n\n    const messageChannel = new MessageChannel();\n\n    messageChannel.port1.onmessage = function (event) {\n      if (event.data && event.data.error) {\n        reject(event.data.error);\n      } else {\n        resolve(event.data && event.data.result);\n      }\n    };\n\n    if (navigator.serviceWorker && navigator.serviceWorker.controller) {\n      navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);\n    } else {\n      reject(\"Service worker controller is not available\");\n    }\n  });\n}\n\nasync function cacheRequirements(requirements) {\n  requirements = requirements || [];\n\n  if (!Array.isArray(requirements)) {\n    requirements = [requirements];\n  }\n\n  for (let req of requirements) {\n    //remove prefix\n    if (req.startsWith(\"js:\")) req = req.slice(3);\n    if (req.startsWith(\"css:\")) req = req.slice(4);\n    if (req.startsWith(\"cache:\")) req = req.slice(6);\n    if (!req.startsWith(\"http\")) continue;\n    await cacheUrlInServiceWorker(req).catch(e => {\n      console.error(e);\n    });\n  }\n}\nfunction setupServiceWorker(baseUrl, targetOrigin, cacheCallback) {\n  // register service worker for offline access\n  if (\"serviceWorker\" in navigator) {\n    baseUrl = baseUrl || \"/\";\n    navigator.serviceWorker.register(baseUrl + \"plugin-service-worker.js\").then(function (registration) {\n      // Registration was successful\n      console.log(\"ServiceWorker registration successful with scope: \", registration.scope);\n    }, function (err) {\n      // registration failed :(\n      console.log(\"ServiceWorker registration failed: \", err);\n    });\n    targetOrigin = targetOrigin || \"*\";\n    cacheCallback = cacheCallback || cacheRequirements;\n\n    if (cacheCallback && typeof cacheCallback !== \"function\") {\n      throw new Error(\"config.cache_requirements must be a function\");\n    }\n\n    window.addEventListener(\"message\", function (e) {\n      if (targetOrigin === \"*\" || e.origin === targetOrigin) {\n        const m = e.data;\n\n        if (m.type === \"cacheRequirements\") {\n          cacheCallback(m.requirements);\n        }\n      }\n    });\n  }\n} //#Source https://bit.ly/2neWfJ2\n\nfunction urlJoin(...args) {\n  return args.join(\"/\").replace(/[\\/]+/g, \"/\").replace(/^(.+):\\//, \"$1://\").replace(/^file:/, \"file:/\").replace(/\\/(\\?|&|#[^!])/g, \"$1\").replace(/\\?/g, \"&\").replace(\"&\", \"?\");\n}\nclass MessageEmitter {\n  constructor(debug) {\n    this._event_handlers = {};\n    this._once_handlers = {};\n    this._debug = debug;\n  }\n\n  emit() {\n    throw new Error(\"emit is not implemented\");\n  }\n\n  on(event, handler) {\n    if (!this._event_handlers[event]) {\n      this._event_handlers[event] = [];\n    }\n\n    this._event_handlers[event].push(handler);\n  }\n\n  once(event, handler) {\n    handler.___event_run_once = true;\n    this.on(event, handler);\n  }\n\n  off(event, handler) {\n    if (!event && !handler) {\n      // remove all events handlers\n      this._event_handlers = {};\n    } else if (event && !handler) {\n      // remove all hanlders for the event\n      if (this._event_handlers[event]) this._event_handlers[event] = [];\n    } else {\n      // remove a specific handler\n      if (this._event_handlers[event]) {\n        const idx = this._event_handlers[event].indexOf(handler);\n\n        if (idx >= 0) {\n          this._event_handlers[event].splice(idx, 1);\n        }\n      }\n    }\n  }\n\n  _fire(event, data) {\n    if (this._event_handlers[event]) {\n      var i = this._event_handlers[event].length;\n\n      while (i--) {\n        const handler = this._event_handlers[event][i];\n\n        try {\n          handler(data);\n        } catch (e) {\n          console.error(e);\n        } finally {\n          if (handler.___event_run_once) {\n            this._event_handlers[event].splice(i, 1);\n          }\n        }\n      }\n    } else {\n      if (this._debug) {\n        console.warn(\"unhandled event\", event, data);\n      }\n    }\n  }\n\n}\n\n/***/ })\n\n/******/ });\n//# sourceMappingURL=plugin.webworker.js.map", null);
 };
 
 /***/ }),
@@ -8692,6 +6559,8 @@ function _htmlToElement(html) {
   return template.content.firstChild;
 }
 
+const _inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+
 async function executeEsModule(content) {
   const dataUri = "data:text/javascript;charset=utf-8," + encodeURIComponent(content);
   await import(
@@ -8715,11 +6584,11 @@ class Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__["MessageEmitter"
       this.broadcastChannel = null;
     }
 
-    if (this.broadcastChannel) this.broadcastChannel.addEventListener("message", this);else window.addEventListener("message", this);
+    if (this.broadcastChannel) this.broadcastChannel.addEventListener("message", this);else globalThis.addEventListener("message", this);
     this.emit({
       type: "initialized",
       config: this.config,
-      origin: window.location.origin,
+      origin: globalThis.location.origin,
       peer_id: this.peer_id
     });
 
@@ -8727,7 +6596,7 @@ class Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__["MessageEmitter"
   }
 
   handleEvent(e) {
-    if (e.type === "message" && (this.broadcastChannel || this.config.target_origin === "*" || e.origin === this.config.target_origin)) {
+    if (e.type === "message" && (this.broadcastChannel || this.config.target_origin === "*" || !e.origin || e.origin === this.config.target_origin)) {
       if (e.data.peer_id === this.peer_id) {
         this._fire(e.data.type, e.data);
       } else if (this.config.debug) {
@@ -8739,20 +6608,19 @@ class Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__["MessageEmitter"
   disconnect() {
     this._fire("beforeDisconnect");
 
-    window.removeEventListener("message", this);
+    globalThis.removeEventListener("message", this);
 
     this._fire("disconnected");
   }
 
   emit(data) {
     let transferables;
-
-    if (data.__transferables__) {
-      transferables = data.__transferables__;
-      delete data.__transferables__;
+    if (this.broadcastChannel) this.broadcastChannel.postMessage(data);else {
+      if (data.__transferables__) {
+        transferables = data.__transferables__;
+        delete data.__transferables__;
+      } else if (_inWebWorker) self.postMessage(data, transferables);else parent.postMessage(data, this.config.target_origin, transferables);
     }
-
-    if (this.broadcastChannel) this.broadcastChannel.postMessage(data);else parent.postMessage(data, this.config.target_origin, transferables);
   }
 
   async execute(code) {
@@ -8816,12 +6684,17 @@ class Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__["MessageEmitter"
         throw "unsupported code type.";
       }
 
-      parent.postMessage({
+      if (_inWebWorker) self.postMessage({
+        type: "executed"
+      });else parent.postMessage({
         type: "executed"
       }, this.config.target_origin);
     } catch (e) {
       console.error("failed to execute scripts: ", code, e);
-      parent.postMessage({
+      if (_inWebWorker) self.postMessage({
+        type: "executed",
+        error: e.stack || String(e)
+      });else parent.postMessage({
         type: "executed",
         error: e.stack || String(e)
       }, this.config.target_origin);
@@ -8983,7 +6856,7 @@ class RPC extends _utils_js__WEBPACK_IMPORTED_MODULE_0__["MessageEmitter"] {
     }
 
     this._local_api = _interface;
-    if (!this._remote_set) this._fire("interfaceAvailable");else this.send_interface();
+    if (!this._remote_set) this._fire("interfaceAvailable");else this.sendInterface();
     return new Promise(resolve => {
       this.once("interfaceSetAsRemote", resolve);
     });
@@ -9451,123 +7324,130 @@ class RPC extends _utils_js__WEBPACK_IMPORTED_MODULE_0__["MessageEmitter"] {
     } // send objects supported by structure clone algorithm
     // https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm
     else if (aObject !== Object(aObject) || aObject instanceof Boolean || aObject instanceof String || aObject instanceof Date || aObject instanceof RegExp || aObject instanceof ImageData || typeof FileList !== "undefined" && aObject instanceof FileList || typeof FileSystemDirectoryHandle !== "undefined" && aObject instanceof FileSystemDirectoryHandle || typeof FileSystemFileHandle !== "undefined" && aObject instanceof FileSystemFileHandle || typeof FileSystemHandle !== "undefined" && aObject instanceof FileSystemHandle || typeof FileSystemWritableFileStream !== "undefined" && aObject instanceof FileSystemWritableFileStream) {
-        bObject = aObject; // TODO: avoid object such as DynamicPlugin instance.
-      } else if (typeof File !== "undefined" && aObject instanceof File) {
-        bObject = {
-          _rtype: "file",
-          _rname: aObject.name,
-          _rmime: aObject.type,
-          _rvalue: aObject,
-          _rpath: aObject._path || aObject.webkitRelativePath
-        };
-      } else if (aObject instanceof Blob) {
-        bObject = {
-          _rtype: "blob",
-          _rvalue: aObject
-        };
-      } else if (aObject instanceof ArrayBufferView) {
-        if (aObject._transfer || _transfer) {
-          transferables.push(aObject.buffer);
-          delete aObject._transfer;
-        }
+      bObject = aObject; // TODO: avoid object such as DynamicPlugin instance.
+    } else if (typeof File !== "undefined" && aObject instanceof File) {
+      bObject = {
+        _rtype: "file",
+        _rname: aObject.name,
+        _rmime: aObject.type,
+        _rvalue: aObject,
+        _rpath: aObject._path || aObject.webkitRelativePath
+      };
+    } else if (aObject instanceof Blob) {
+      bObject = {
+        _rtype: "blob",
+        _rvalue: aObject
+      };
+    } else if (aObject instanceof ArrayBufferView) {
+      if (aObject._transfer || _transfer) {
+        transferables.push(aObject.buffer);
+        delete aObject._transfer;
+      }
 
-        const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__["typedArrayToDtype"])(aObject);
-        bObject = {
-          _rtype: "typedarray",
-          _rvalue: aObject.buffer,
-          _rdtype: dtype
-        };
-      } else if (aObject instanceof DataView) {
-        if (aObject._transfer || _transfer) {
-          transferables.push(aObject.buffer);
-          delete aObject._transfer;
-        }
+      const dtype = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__["typedArrayToDtype"])(aObject);
+      bObject = {
+        _rtype: "typedarray",
+        _rvalue: aObject.buffer,
+        _rdtype: dtype
+      };
+    } else if (aObject instanceof DataView) {
+      if (aObject._transfer || _transfer) {
+        transferables.push(aObject.buffer);
+        delete aObject._transfer;
+      }
 
-        bObject = {
-          _rtype: "memoryview",
-          _rvalue: aObject.buffer
-        };
-      } else if (aObject instanceof Set) {
-        bObject = {
-          _rtype: "set",
-          _rvalue: await this._encode(Array.from(aObject), asInterface)
-        };
-      } else if (aObject instanceof Map) {
-        bObject = {
-          _rtype: "orderedmap",
-          _rvalue: await this._encode(Array.from(aObject), asInterface)
-        };
-      } else if (aObject.constructor instanceof Object || Array.isArray(aObject)) {
-        bObject = isarray ? [] : {};
-        let keys; // an object/array
+      bObject = {
+        _rtype: "memoryview",
+        _rvalue: aObject.buffer
+      };
+    } else if (aObject instanceof Set) {
+      bObject = {
+        _rtype: "set",
+        _rvalue: await this._encode(Array.from(aObject), asInterface)
+      };
+    } else if (aObject instanceof Map) {
+      bObject = {
+        _rtype: "orderedmap",
+        _rvalue: await this._encode(Array.from(aObject), asInterface)
+      };
+    } else if (aObject.constructor instanceof Object || Array.isArray(aObject)) {
+      bObject = isarray ? [] : {};
+      let keys; // an object/array
 
-        if (aObject.constructor === Object || Array.isArray(aObject)) {
-          keys = Object.keys(aObject);
-        } // a class
-        else if (aObject.constructor === Function) {
-            throw new Error("Please instantiate the class before exportting it.");
-          } // instance of a class
-          else if (aObject.constructor.constructor === Function) {
-              keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject)); // TODO: use a proxy object to represent the actual object
-              // always encode class instance as interface
+      if (aObject.constructor === Object || Array.isArray(aObject)) {
+        keys = Object.keys(aObject);
+      } // a class
+      else if (aObject.constructor === Function) {
+        throw new Error("Please instantiate the class before exportting it.");
+      } // instance of a class
+      else if (aObject.constructor.constructor === Function) {
+        keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject)); // TODO: use a proxy object to represent the actual object
+        // always encode class instance as interface
 
-              asInterface = true;
-            } else {
-              throw Error("Unsupported interface type");
-            }
+        asInterface = true;
+      } else {
+        throw Error("Unsupported interface type");
+      }
 
-        let hasFunction = false; // encode interfaces
+      let hasFunction = false; // encode interfaces
 
-        if (aObject._rintf || asInterface) {
-          if (!objectId) {
+      if (aObject._rintf || asInterface) {
+        if (!objectId) {
+          if (typeof aObject._rintf === "string" && aObject._rintf.length > 0) {
+            objectId = aObject._rintf; // enable custom object id
+          } else {
             objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__["randId"])();
-            this._object_store[objectId] = aObject;
-          }
-
-          for (let k of keys) {
-            if (k === "constructor") continue;
-
-            if (k.startsWith("_")) {
-              continue;
-            }
-
-            bObject[k] = await this._encode(aObject[k], typeof asInterface === "string" ? asInterface + "." + k : k, objectId);
-
-            if (typeof aObject[k] === "function") {
-              hasFunction = true;
-            }
-          } // object id for dispose the object remotely
+          } // Note: object with the same id will be overwritten
 
 
-          if (hasFunction) bObject._rintf = objectId; // remove interface when closed
-
-          if (aObject.on && typeof aObject.on === "function") {
-            aObject.on("close", () => {
-              delete this._object_store[objectId];
-            });
-          }
-        } else {
-          for (let k of keys) {
-            if (["hasOwnProperty", "constructor"].includes(k)) continue;
-            bObject[k] = await this._encode(aObject[k]);
-          }
-        } // for example, browserFS object
-
-      } else if (typeof aObject === "object") {
-        const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject));
-        const objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__["randId"])();
+          if (this._object_store[objectId]) console.warn(`Overwritting interface object with the same id: ${objectId}`);
+          this._object_store[objectId] = aObject;
+        }
 
         for (let k of keys) {
-          if (["hasOwnProperty", "constructor"].includes(k)) continue; // encode as interface
+          if (k === "constructor") continue;
 
-          bObject[k] = await this._encode(aObject[k], k, bObject);
-        } // object id, used for dispose the object
+          if (k.startsWith("_")) {
+            continue;
+          }
+
+          bObject[k] = await this._encode(aObject[k], typeof asInterface === "string" ? asInterface + "." + k : k, objectId);
+
+          if (typeof aObject[k] === "function") {
+            hasFunction = true;
+          }
+        } // object id for dispose the object remotely
 
 
-        bObject._rintf = objectId;
+        if (hasFunction) bObject._rintf = objectId; // remove interface when closed
+
+        if (aObject.on && typeof aObject.on === "function") {
+          aObject.on("close", () => {
+            delete this._object_store[objectId];
+          });
+        }
       } else {
-        throw "imjoy-rpc: Unsupported data type:" + aObject;
-      }
+        for (let k of keys) {
+          if (["hasOwnProperty", "constructor"].includes(k)) continue;
+          bObject[k] = await this._encode(aObject[k]);
+        }
+      } // for example, browserFS object
+
+    } else if (typeof aObject === "object") {
+      const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(aObject)).concat(Object.keys(aObject));
+      const objectId = Object(_utils_js__WEBPACK_IMPORTED_MODULE_0__["randId"])();
+
+      for (let k of keys) {
+        if (["hasOwnProperty", "constructor"].includes(k)) continue; // encode as interface
+
+        bObject[k] = await this._encode(aObject[k], k, bObject);
+      } // object id, used for dispose the object
+
+
+      bObject._rintf = objectId;
+    } else {
+      throw "imjoy-rpc: Unsupported data type:" + aObject;
+    }
 
     if (transferables.length > 0) {
       bObject.__transferables__ = transferables;
@@ -9649,9 +7529,9 @@ class RPC extends _utils_js__WEBPACK_IMPORTED_MODULE_0__["MessageEmitter"] {
           });
         }
       } else if (aObject._rtype === "orderedmap") {
-        bObject = new Map((await this._decode(aObject._rvalue, withPromise)));
+        bObject = new Map(await this._decode(aObject._rvalue, withPromise));
       } else if (aObject._rtype === "set") {
-        bObject = new Set((await this._decode(aObject._rvalue, withPromise)));
+        bObject = new Set(await this._decode(aObject._rvalue, withPromise));
       } else {
         // make sure all the interface functions are decoded
         if (aObject._rintf) {
@@ -9985,8 +7865,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./src/utils.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "loadRequirements", function() { return _utils_js__WEBPACK_IMPORTED_MODULE_2__["loadRequirements"]; });
 
-/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/build/index.js");
-/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/build/esm/index.js");
 /* harmony import */ var _main_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./main.js */ "./src/main.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setupRPC", function() { return _main_js__WEBPACK_IMPORTED_MODULE_4__["setupRPC"]; });
 
@@ -10031,12 +7910,18 @@ class Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__["MessageEmitter"
       const basePath = new URL(url).pathname; // Note: extraHeaders only works for polling transport (the default)
       // If we switch to websocket only, the headers won't be respected
 
-      const socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3___default()(url, {
+      const socket = Object(socket_io_client__WEBPACK_IMPORTED_MODULE_3__["default"])(url, {
         withCredentials: true,
         extraHeaders,
         path: (basePath.endsWith("/") ? basePath.slice(0, -1) : basePath) + "/socket.io"
       });
+      let connected = false;
       socket.on("connect", () => {
+        if (connected) {
+          console.warn("Skipping reconnect to the server");
+          return;
+        }
+
         socket.emit("register_plugin", config, result => {
           if (!result.success) {
             console.error(result.detail);
@@ -10044,6 +7929,7 @@ class Connection extends _utils_js__WEBPACK_IMPORTED_MODULE_2__["MessageEmitter"
             return;
           }
 
+          connected = true;
           this.plugin_id = result.plugin_id;
           socket.on("plugin_message", data => {
             if (data.peer_id === this.peer_id) {

@@ -1,6 +1,6 @@
 /*!
  * elFinder - file manager for web
- * Version 2.1.56 (2023-06-30)
+ * Version 2.1.56 (2023-07-01)
  * http://elfinder.org
  * 
  * Copyright 2009-2023, Studio 42
@@ -2496,7 +2496,7 @@ var elFinder = function(elm, opts, bootCallback) {
 							} 
 						}
 				}
-				
+				if (error) { debugger; }
 				self.trigger(cmd + 'done');
 				dfrd.reject({error: error}, xhr, status);
 			},
